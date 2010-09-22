@@ -1,0 +1,40 @@
+# set aliases
+--type-set=txt=.txt
+--type-set=textile=.textile
+--type-set=applescript=.scpt
+--type-set=markdown=.md,.mdml,.mdown,.markdn,.markdown,.mdtext,.text
+--type-set=pdf=.pdf
+
+# always color
+--color
+
+# include txt files in searches
+--text
+
+# Always color, even if piping to a another program
+--color
+
+# unsure what this is doing, stole em from http://al3x.net/2008/12/03/how-i-use-textmate.html
+#--context=1
+
+# follow symlinks
+--follow
+
+# group results
+--group
+
+# comprehensively searches all files
+--all
+
+# search case-insensitive, unless search term explictly has capitalization
+--smart-case
+
+# ignore dirs
+--ignore-dir="/Users/mt/Library/Mail" 
+--ignore-dir="/Users/mt/Library/Logs" 
+
+# no binary files
+--nobinary
+
+# 
+--flush
