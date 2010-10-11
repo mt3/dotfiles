@@ -25,7 +25,7 @@
 
 ;; (vendor-dir 'ack)
 ;; (vendor-dir 'cheat)
-;; (vendor-dir 'magit)
+;; (vendor 'magit)
 ;; (vendor-dir 'gist)
 ;; (vendor-dir 'growl)
 ;; (vendor-dir 'textile-mode)
@@ -175,10 +175,10 @@
 ;;(add-to-list 'load-path "~/emacs/lisp/")    ;my lisp dir
 ;;(autoload 'todo-list-mode "todo-list-mode") ;load when needed
 ;a simple function that opens the file and switches to todo-list-mode.
-;;(defun open-todo-list ()
-;;  (interactive)
-;;  (find-file "~/notes/TODO") ;path to my todo list
-;;  (todo-list-mode)) 
+(defun open-todo-list ()
+ (interactive)
+ (find-file "~/notes/TODO") ;path to my todo list
+ (todo-list-mode)) 
 ;then bind to control-f12 so i can call it with one keystroke
 ;this works well for me because i also bind calendar to f12
 ;;(global-set-key [C-f12] 'open-todo-list)
@@ -198,8 +198,8 @@
 
 
 ;; Browse kill-ring
-;;(require 'browse-kill-ring)
-;;(defadvice yank-pop (around kill-ring-browse-maybe (arg) activate)
+;; (require 'browse-kill-ring)
+;; (defadvice yank-pop (around kill-ring-browse-maybe (arg) activate)
 ;;  "If last action was not a yank, run `browse-kill-ring' instead."
 ;;  (if (not (eq last-command 'yank))
 ;;      (browse-kill-ring)
@@ -209,19 +209,19 @@
 ;; this section updates a file immediately after changes to another one were made
 ;; from http://tsdh.wordpress.com/2009/03/04/integrating-emacs-org-mode-with-the-awesome-window-manager/
 ;; update agenda file after changes to org files
-;; (defun th-org-mode-init ()
-;;   (add-hook 'after-save-hook 'th-org-update-agenda-file t t))
-;; (add-hook 'org-mode-hook 'th-org-mode-init)
-;; ;; that's the export function
-;; (defun th-org-update-agenda-file (&optional force)
-;;   (interactive)
-;;   (save-excursion
-;;     (save-window-excursion
-;;       (let ((file "/tmp/org-agenda.txt"))
-;;         (org-agenda-list)
-;;         (org-write-agenda file)))))
-;; ;; do it once at startup
-;; (th-org-update-agenda-file t)
+(defun th-org-mode-init ()
+  (add-hook 'after-save-hook 'th-org-update-agenda-file t t))
+(add-hook 'org-mode-hook 'th-org-mode-init)
+;; that's the export function
+(defun th-org-update-agenda-file (&optional force)
+  (interactive)
+  (save-excursion
+    (save-window-excursion
+      (let ((file "/tmp/org-agenda.txt"))
+        (org-agenda-list)
+        (org-write-agenda file)))))
+;; do it once at startup
+(th-org-update-agenda-file t)
 
 
 ;; textmate mode
