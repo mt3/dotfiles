@@ -243,4 +243,8 @@
 (th-org-update-agenda-file t)
 
 
-
+;; vi mode
+;; vimpulse automatically loads viper
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/vendor/vimpulse/"))
+(load-file "~/.emacs.d/vendor/vimpulse/vimpulse.el")
+(require 'vimpulse)
