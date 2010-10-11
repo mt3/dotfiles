@@ -104,8 +104,8 @@
 ;; (textmate-mode)
 ;; (setq textmate-find-files-command "git ls-tree --full-tree --name-only -r HEAD")
 
-;; (global-set-key "\C-cg"  'goto-line)
-;; (global-set-key "\C-ca"  'apply-macro-to-region-lines)
+(global-set-key "\C-cg"  'goto-line)
+(global-set-key "\C-ca"  'apply-macro-to-region-lines)
 
 
 ;; use spaces instead of tabs
@@ -120,7 +120,7 @@
 (setq column-number-mode  t)
 
 ;; font
-;; (set-face-font 'default "-apple-inconsolata-medium-r-normal--20-0-72-72-m-0-iso10646-1")
+(set-face-font 'default "-apple-inconsolata-medium-r-normal--20-0-72-72-m-0-iso10646-1")
 
 (require 'ido)
 (ido-mode 1)
@@ -132,7 +132,7 @@
 ;; (require 'gist)
 
 ;; python
-;;(load-file "~/.emacs.d/emacs-for-python/epy-init.el")
+;; (load-file "~/.emacs.d/emacs-for-python/epy-init.el")
 
 ;; emacs-starter-kit
 (load-file "~/.emacs.d/emacs-starter-kit/init.el")
@@ -168,7 +168,7 @@
 ;; 'C-x r j e' to open DotEmacs
 (set-register ?e '(file . "~/.emacs"))
 ;; 'C-x r j i' to open an ideas file
-;; (set-register ?i '(file . "~/org/ideas.org"))
+(set-register ?i '(file . "~/org/ideas.org"))
 
 ;; emacs todo list mode
 ;; http://lamberta.posterous.com/emacs-todo-list-mode
@@ -188,13 +188,13 @@
 ;; need to add a file header to make it “todo-list-mode” aware)
 
 ;; The following lines are always needed.  Choose your own keys.
-;; (add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
-;; (global-set-key "\C-cl" 'org-store-link)
-;; (global-set-key "\C-ca" 'org-agenda)
-;; (global-set-key "\C-cb" 'org-iswitchb)
-;; 
-;; (global-font-lock-mode 1)                     ; for all buffers
-;; (add-hook 'org-mode-hook 'turn-on-font-lock)  ; Org buffers only
+(add-to-list 'auto-mode-alist '("\\.org\\'" . org-mode))
+(global-set-key "\C-cl" 'org-store-link)
+(global-set-key "\C-ca" 'org-agenda)
+(global-set-key "\C-cb" 'org-iswitchb)
+
+(global-font-lock-mode 1)                     ; for all buffers
+(add-hook 'org-mode-hook 'turn-on-font-lock)  ; Org buffers only
 
 
 ;; Browse kill-ring
