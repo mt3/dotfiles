@@ -105,7 +105,6 @@
 ;; (require 'magit)
 ;; (define-key global-map [f6] 'magit-status)
 
-
 ;; emacs
 (define-key emacs-lisp-mode-map (kbd "A-r") 'eval-buffer)
 
@@ -125,7 +124,7 @@
 ;; textmate.el
 ;; (vendor 'textmate)
 ;; (textmate-mode)
-;; (setq textmate-find-files-command "git ls-tree --full-tree --name-only -r HEAD")
+(setq textmate-find-files-command "git ls-tree --full-tree --name-only -r HEAD")
 
 (global-set-key "\C-cg"  'goto-line)
 (global-set-key "\C-ca"  'apply-macro-to-region-lines)
