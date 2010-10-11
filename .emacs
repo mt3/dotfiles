@@ -16,6 +16,29 @@
 
 (push "~/.emacs.d/org-mode/lisp" load-path)
 
+;; emacs-starter-kit
+(load-file "~/.emacs.d/emacs-starter-kit/init.el")
+
+;; textmate mode
+;; thankgod
+;; This minor mode exists to mimick TextMate's awesome features.
+;;    ⌘T - Go to File
+;;  ⇧⌘T - Go to Symbol
+;;    ⌘L - Go to Line
+;;  ⇧⌘L - Select Line (or expand Selection to select lines)
+;;    ⌘/ - Comment Line (or Selection/Region)
+;;    ⌘] - Shift Right (currently indents region)
+;;    ⌘[ - Shift Left  (not yet implemented)
+;;  ⌥⌘] - Align Assignments
+;;  ⌥⌘[ - Indent Line
+;;    ⌥↑ - Column Up
+;;    ⌥↓ - Column Down
+;;  ⌘RET - Insert Newline at Line's End
+;;  ⌥⌘T - Reset File Cache (for Go to File)
+(add-to-list 'load-path "~/.emacs.d/vendor/textmate.el")
+(require 'textmate)
+(textmate-mode)
+
 ;; (load "mt/bindings")
 ;; (load "mt/modes")
 ;; (load "mt/theme")
@@ -134,9 +157,6 @@
 ;; python
 ;; (load-file "~/.emacs.d/emacs-for-python/epy-init.el")
 
-;; emacs-starter-kit
-(load-file "~/.emacs.d/emacs-starter-kit/init.el")
-
 ;; org-mode
 ;; (load-file "~/.emacs.d/org-mode/lisp/org.el")
 
@@ -151,15 +171,15 @@
 ;; stole from http://emacs-fu.blogspot.com/2008/12/highlighting-todo-fixme-and-friends.html
 ;; only handles c code obj-c, c++, etc.
 (add-hook 'c-mode-common-hook
-               (lambda ()
-                (font-lock-add-keywords nil
-                 '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
+          (lambda ()
+            (font-lock-add-keywords nil
+               '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
 
 ;; python version of the above
 (add-hook 'python-mode-hook
-               (lambda ()
-                (font-lock-add-keywords nil
-                 '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
+          (lambda ()
+            (font-lock-add-keywords nil
+               '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
 
 ;; open buffer consisting of TODOs
 ;; (pop-to-buffer "*TODO*")
@@ -181,7 +201,7 @@
  (todo-list-mode)) 
 ;then bind to control-f12 so i can call it with one keystroke
 ;this works well for me because i also bind calendar to f12
-;;(global-set-key [C-f12] 'open-todo-list)
+(global-set-key [C-f12] 'open-todo-list)
 ;; could have opened it this way
 ;; (set-register ?o '(file . "~/notes/TODO"))
 ;; With that, pressing C-x r j o RET would just open your file (you
@@ -224,22 +244,4 @@
 (th-org-update-agenda-file t)
 
 
-;; textmate mode
-;; thankgod
-;; This minor mode exists to mimick TextMate's awesome features.
-;;    ⌘T - Go to File
-;;  ⇧⌘T - Go to Symbol
-;;    ⌘L - Go to Line
-;;  ⇧⌘L - Select Line (or expand Selection to select lines)
-;;    ⌘/ - Comment Line (or Selection/Region)
-;;    ⌘] - Shift Right (currently indents region)
-;;    ⌘[ - Shift Left  (not yet implemented)
-;;  ⌥⌘] - Align Assignments
-;;  ⌥⌘[ - Indent Line
-;;    ⌥↑ - Column Up
-;;    ⌥↓ - Column Down
-;;  ⌘RET - Insert Newline at Line's End
-;;  ⌥⌘T - Reset File Cache (for Go to File)
-(add-to-list 'load-path "~/.emacs.d/vendor/textmate.el")
-(require 'textmate)
-(textmate-mode)
+
