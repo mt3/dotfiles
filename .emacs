@@ -133,9 +133,9 @@
 ;; use spaces instead of tabs
 (setq-default indent-tabs-mode nil)
 
-(defun insert-soft-tab ()
-  (interactive)
-  (insert "    "))
+;; (defun insert-soft-tab ()
+;;   (interactive)
+;;   (insert "    "))
 
 ;; Display line and column numbers
 (setq line-number-mode    t)
@@ -163,8 +163,8 @@
 ;; (load-file "~/.emacs.d/vendor/org-velocity.el")
 
 ;; jekyll-mode
-;;(load-file "~/.emacs.d/vendor/jekyll.el")
-;;(require 'jekyll)
+(load-file "~/.emacs.d/vendor/jekyll.el")
+(require 'jekyll)
 
 ;; highlighting-todo-fixme-and-friends
 ;; stole from http://emacs-fu.blogspot.com/2008/12/highlighting-todo-fixme-and-friends.html
@@ -179,6 +179,18 @@
           (lambda ()
             (font-lock-add-keywords nil
                '(("\\<\\(FIXME\\|TODO\\|BUG\\):" 1 font-lock-warning-face t)))))
+
+
+;; latex stuff
+(setq TeX-auto-save t)
+(setq TeX-parse-self t)
+(setq-default TeX-master nil)
+(add-hook 'LaTeX-mode-hook 'auto-fill-mode)
+(add-hook 'LaTeX-mode-hook 'flyspell-mode)
+(add-hook 'LaTeX-mode-hook 'LaTeX-math-mode)
+(add-hook 'LaTeX-mode-hook 'turn-on-reftex)
+(setq reftex-plug-into-AUCTeX t)
+
 
 ;; open buffer consisting of TODOs
 ;; (pop-to-buffer "*TODO*")
@@ -196,7 +208,7 @@
 ;a simple function that opens the file and switches to todo-list-mode.
 (defun open-todo-list ()
  (interactive)
- (find-file "~/notes/TODO") ;path to my todo list
+ (find-file "~/test.org") ;path to my todo list
  (todo-list-mode)) 
 ;then bind to control-f12 so i can call it with one keystroke
 ;this works well for me because i also bind calendar to f12
@@ -249,4 +261,8 @@
 ;;(load-file "~/.emacs.d/vendor/vimpulse/vimpulse.el")
 ;;(require 'vimpulse)
 
+;; visual window switcher
+;; http://tapoueh.org/projects.html
+(add-to-list 'load-path (expand-file-name "~/.emacs.d/vendor/switch-window/"))
+(require 'switch-window)
 
