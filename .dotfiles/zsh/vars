@@ -19,9 +19,9 @@ done
 
 # PYTHON
 # place python packages on path
-export PATH=$PATH:/usr/local/Cellar/python/2.7/lib/python2.7/site-packages:/Library/Python/2.6/site-packages
+export PATH=$PATH:/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/site-packages:/Library/Python/2.6/site-packages:/Library/Frameworks/Python.framework/Versions/2.6/bin
 
-export PYTHONPATH=/usr/local/Cellar/python/2.7/bin
+export PYTHONPATH=/Library/Frameworks/Python.framework/Versions/2.6/bin
 
 
 # RUBY

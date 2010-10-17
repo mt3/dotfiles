@@ -1,7 +1,9 @@
 # APPLICATIONS
 alias jek="jekyll && echo && echo BROWSE TO: http://0.0.0.0:4000 && echo && jekyll --server"
 alias mate="mate -l1"
+alias aquamacs='open /Applications/Aquamacs\ Emacs.app/'
 alias kill="kill -9"
+alias youtube-dl="/Applications/github_dwlds/youtube-dl/youtube-dl"
 
 # CONVENIENT SHORTCUTS
 alias up="cd .."
@@ -30,6 +32,14 @@ alias cdd='cd -' # goto last dir cd'ed from
 alias md="mkcd"
 alias rsyncp='rsync -avz -e ssh --progress --partial'
 
+# TASK
+alias taskl="task list"
+alias tasks="task list"
+alias taska="task add"
+alias taskd="task done"
+alias taskc="task completed"
+alias taskh="task ghistory"
+
 # cribbed from benhoskings http://github.com/benhoskings/dot-files/blob/master/files/.aliases/commands
 alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -nr | head -n 20"
 
@@ -37,9 +47,10 @@ alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' 
 alias bs="brew search"
 alias bi="brew info"
 alias brewin="brew install"
+alias brewunin="brew uninstall"
 alias bu="brew update"
 alias bo="brew outdated"
-alias brewc="brew cleanup"
+alias brewc="brew cleanup && cd /Users/mt/Library/Caches/Homebrew/ && for item in *; do rm -rf $item; done"
 
 # GIT
 alias gitc="git commit -am"
@@ -63,6 +74,7 @@ alias gemo="gem outdated"
 
 # PYTHON
 alias py="python"
+alias pyv="python -V"
 alias pips="pip search"
 alias pipl="pip freeze"
 alias pipin="pip install"

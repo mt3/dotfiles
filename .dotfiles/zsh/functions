@@ -1,6 +1,13 @@
-# From Chris Wanstrath
+# from Chris Wanstrath
 function pless() { 
     pygmentize $1 | less -r 
+}
+
+
+# search notational velocity notes from command line
+# stoled from http://fidlet.com/post/885514801/one-thing-well-a-poor-mans-notational-velocity
+function ns {
+         ls -c ~/Library/Application\ Support/Notational\ Data | grep -i $1
 }
 
 
@@ -196,3 +203,14 @@ function _pip_completion {
 compctl -K _pip_completion pip
 # pip zsh completion end
 
+
+function dwld-and-archive-webpages() {
+    # unfinished...
+    # better to use wget -i fileOfURLs.txt
+
+    for ((i=0; i<100; i++)); do
+        wget -q -O outf${i}.html $1
+        gzip outf${i}.html
+    done
+   
+}
