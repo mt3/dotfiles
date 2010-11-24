@@ -204,6 +204,7 @@ compctl -K _pip_completion pip
 # pip zsh completion end
 
 
+# dwld and archive a set of web pages
 function dwld-and-archive-webpages() {
     # unfinished...
     # better to use wget -i fileOfURLs.txt
@@ -213,4 +214,19 @@ function dwld-and-archive-webpages() {
         gzip outf${i}.html
     done
    
+}
+
+
+
+# dwld webpages that can be incremented and keep the ones that contain certain info
+# TODO: unfinished
+function dl-webpg-containing-txt(){
+    mkcd ~/Downloads/web-dwld-data
+
+    u="http://duckduckgo.com"
+    
+    for ((nn=0; nn<100; nn++)); do
+        wget -q ${u}${nn}.html
+    done
+
 }
