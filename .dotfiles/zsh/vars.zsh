@@ -1,6 +1,11 @@
 # auto-launch ssh keypairs so i don't have to enter the damned 137.5 character pwd every time
 export SSH_ENV="$HOME/.ssh/environment"
+
 export EDITOR=mate
+export BROWSER="elinks"
+export PAGER="less"
+export SUDO_PROMPT="Your Password:"
+
 #RPROMPT='$(battery_charge)'
 
 # JAVA
@@ -36,7 +41,10 @@ export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 # XCODE
 # place ccache on head of path for faster xcode compiling
-export PATH=/usr/local/Cellar/ccache/2.4/libexec:$PATH
+export PATH=/usr/local/Cellar/ccache/3.1.4/libexec:$PATH
 
 export ZSH=$HOME/.oh-my-zsh
 export ZSH_THEME="clean"
+
+# ADD gsl LIBRARY TO THE PATH
+export PATH=/usr/local/Cellar/gsl/1.14/lib:/usr/local/Cellar/gsl/1.14/include:$PATH
