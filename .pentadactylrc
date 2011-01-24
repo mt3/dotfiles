@@ -1,0 +1,1137 @@
+" TODO: sync bookmarks and pinboard
+" TODO: figure out how pinboard and plugins work with pentadactyl
+" TODO: qmarks?
+" TODO: 
+
+
+
+""  Pentadactyl settings {{{
+""
+""###############################################
+
+    " clear all key mappings to avoid troubles from loading rc file several times
+    mapclear
+    cmapclear
+    imapclear
+
+    " clear all autocmds to avoid troubles from loading rc fle several times
+    autocmd!
+
+    "set noloadplugins
+    set loadplugins=!'js','\.(penta)$'
+
+    "so ~/.pentadactyl/.pentadactylrc-sensitive
+    "so ~/.pentadactyl/plugins/useragent.js
+    "source ~/.vimperatorrc.js
+
+    source ~/.pentadactyl/stylesheets/user.css
+
+    cd ~
+
+    set mapleader=","
+    "let g:mapleader = ","
+
+" }}}
+
+
+" @section Prefs {{{
+" ******************************************************************************
+
+    "set! ui.key.generalAccessKey=0
+
+    " Awesomebar Bookmarklet
+    "set! browser.urlbar.filter.javascript=false
+    
+    au Fullscreen .* -js statusline.statusBar.removeAttribute("moz-collapsed")
+    
+    set fullscreen
+" }}}
+
+
+
+" @section Options {{{ 
+" ******************************************************************************
+
+    set sh='/usr/local/bin/zsh'
+    cd ~/Downloads
+
+    set runtimepath=~/.pentadactyl
+
+    "" kills the beep?
+    set visualbell
+    hi Bell display: none;
+
+    " tab numbers and toolbar so that cmd-L works for my ddg searches
+    set guioptions=TrbCs
+
+    set complete=lbhfs
+
+    set verbose=1
+
+    "set nostrictfocus
+
+    " always show tab bar
+    set showtabline=always
+
+    " don't focus the new opened tab automatically
+    set activate=
+
+    " TODO: map this and :sbclose to some keybd shortcut. have downloads appear in the sidebar menu
+    " :sidebar Downloads
+
+    " prevent focusing of input elements without user intervention
+    set strictfocus
+
+    "" set duckduckgo.com as default search engine
+    set defsearch=duckduckgo
+    "" no suggestion engine
+    set suggestengines=
+
+    set hintkeys='wqe2341dscxza'
+
+    set history=10000
+
+    "" Show pattern matches as you type
+    "set incsearch
+
+    "set hlsearch
+
+    " do not require <CR> when in hints mode
+    set followhints=0
+
+    "" Override ignorecase if pattern has uppercase chars
+    "set smartcase
+    set findcase=smart
+
+    "set editor=/Application/Textmate.app
+    " TODO: or should this be prefaced with :autocmd LocationChange . :set editor="/usr/local/bin/mvim -f"
+    set editor="/usr/local/bin/mvim -f"
+
+    "" ignore case in search
+    "set ic
+
+    " show url links in command line
+    set showstatuslinks='command'
+
+    set titlestring='ffox with pentadactyl'
+
+    " hide close buttons
+    set! browser.tabs.closeButtons=2
+    
+    " set the number of location bar results to be displayed
+    set! browser.urlbar.maxRichResults=15
+
+    " open tab in the background
+    set! browser.tabs.loadDivertedInBackground=true
+
+    " don't show download-manager
+    set! browser.download.manager.showWhenStarting=false
+
+    " scroll height of <C-d> / <C-u> (set at 0 means it's half the window)
+    set scroll=0
+
+    " all type pages are opened in new tab
+    " addons + downloads + help + javascript + prefs
+    set newtab=all
+
+    "" undo limit
+    set! browser.sessionstore.max_tabs_undo=30
+
+    "" was originally 2000
+    set! security.dialog_enable_delay=0
+
+    "javascript liberator.beep = function() { return false; }
+
+    " limit the number of items displayed
+    set maxitems=30
+
+    " lazy alias e echo
+    " lazy alias ri reloadimage
+    " lazy alias vc videocontrol
+
+    " set! browser.urlbar.filter.javascript=false
+    " set! browser.urlbar.maxRichResults=50
+
+    " liberator.log
+    "set! extensions.liberator.loglevel=666
+
+    "set! browser.sessionstore.interval=120000
+
+    "set! browser.cache.memory.capacity=32768
+
+    set! browser.startup.homepage="about:blank"
+
+    "set! extensions.sessionmanager.resume_session="backup.session"
+
+    "set hm=wordstartswith
+    "set newtab=help
+
+    " enable logging for sync issues
+    set! services.sync.log.appender.debugLog.enabled=True
+    set! services.sync.log.logger.engine.bookmarks=Trace
+
+" }}}
+
+
+
+" @section Passkeys {{{
+" ******************************************************************************
+
+    set passkeys=
+
+    " DuckDuckGo
+    "set passkeys+="https://duckduckgo\.com/":jkv
+
+    "" Gmail
+    "set passkeys+="https://mail\.google\.com/":jkg
+    " 
+    "" Twitter
+    "set passkeys+="https://twitter\.com/":jkg/?.ntrm
+
+" }}}
+
+
+
+"" @section Mappings {{{
+"" ******************************************************************************
+
+    " noremap s :<C-u>set<Space>
+    " noremap a :<C-u>addons<Space>
+    " noremap ,p :<C-u>dialog<Space>print<Enter>
+
+    " Disable some Pentadactyl default mappings
+    nmap d <Nop>
+    "nmap a <Nop>
+    "nmap w <Nop>
+
+    "" Add some of our own mappings
+    "nmap <C-g> :pa<CR>
+    "nmap u :emenu Affichage.Code source de la page<CR>
+    "nmap J :jumps<CR>
+    "nmap <M-l> :later<CR>
+    "nmap <M-d> :delicious<CR>
+    "nmap <S-r> O<CR>
+    "nmap <M-S-S> :set um!<CR>
+    "nmap <F9> :sbclose<CR>
+    "nmap <M-S-U> :dia selectionsource<CR>
+    "nmap <M-S-J> :jstoggle<CR>
+
+    "map -modes=n,v l gt
+    "map -modes=n,v h gT
+    "map -modes=n,v gb <C-o>
+
+    " best trick ever
+    nmap ; :
+    "nmap : ;
+
+    "nnoremap <silent> y :<C-u>js util.copyToClipboard(buffer.URL)<CR>
+
+    "nnoremap -urls='^http://www\.tumblr\.com/(dashboard|tumblelog|show)' <Silent> f :xh t //*[@class="quote_source"]//a[not(@class="tumblr_blog")]|//*[@class="caption"]//a[not(@class="tumblr_blog")]<CR>
+
+    "nnoremap -urls '\.(jpg|png|gif)$' zi zI
+    "nnoremap -urls '\.(jpg|png|gif)$' zo zO
+
+    " (t) tumblr
+    "nnoremap <Leader>tr :<C-u>tombloo ReBlog<Space>-<Space>Tumblr
+    "nnoremap <Leader>tt :<C-u>tombloo<Space>
+
+    "nnoremap <Leader>h :<C-u>hsearch<Space>
+    "nnoremap <Leader>H :<C-u>hcopy<Space>
+    "nnoremap <Leader>s :<C-u>viewSBMComments<Space>-format=id,comment<CR>
+    "nnoremap <Leader>g :<C-u>gmail<Space>
+    "nnoremap <Leader>G :<C-u>gtrans<Space>
+    "nnoremap <Leader>a :<C-u>applaunch<Space>
+    "nnoremap <Leader>p :<C-u>pino<Space>
+    "" nnoremap <Leader>w :<C-u>googlesidewiki<CR>
+    "nnoremap <Leader>R :<C-u>js<Space>Readability.enableREADABILITY({target: {id: 'readability-statusbar-icon'}})<CR>
+
+    "nnoremap <A-t> :<C-u>aso ~/vimperator/default/plugin/temp.js<CR>
+
+    "nnoremap <C-k> <Nop>
+
+    "nnoremap s :<C-u>tabopen<Space>google<Space>
+
+    map m :map<Space>
+    map h :help<Space>
+
+    "" we love echo
+    "noremap e :echo<Space>
+
+    "noremap ,y :js util.copyToClipboard(buffer.title)<CR>
+
+    "map c :<Esc>
+
+    " close tabs with w
+    noremap w d
+
+    " zoom with one finger
+    noremap = zi
+    noremap "-" zo
+
+    " give me back my tab navigation goddammit
+    noremap <M-S-Right> gt
+    noremap <M-S-Left> gT
+    " with some bonus stuff
+    map <Left> <C-p>
+    map <Right> <C-n>
+
+    " the way i like things to open in a background tab
+    noremap s F
+    noremap S f
+
+    " flip the page refresh around as well
+    noremap r R
+    noremap R r
+
+    " Go to home page with C-c h
+    "map <C-c>h gh
+
+    " less granular movement
+    noremap j 10j
+    noremap k 10k
+
+    " source the config file
+    map ,s :so<Space> ~/.pentadactylrc<CR>
+
+    " open some search urls
+    map <M-3> -ex open http://scholar.google.ca/scholar?q=
+
+    " use the good search
+    map <M-f> /
+
+    " M-x enters command mode (emacs key-binding)
+    "noremap <A-x> :
+
+    " a toggle for search highlight
+    "map <silent> <leader>i :set hlsearch!<CR>
+
+    " bring back/hide portions of the GUI
+    "noremap <silent> <leader>g :set guioptions+=mBT<CR>
+    "noremap <silent> <leader>G :set guioptions-=mBT<CR>
+    "noremap <silent> <leader>b :toolbartoggle Bookmarks Toolbar<CR>
+    "noremap <silent> <leader>y :set showtabline=2<CR>
+    "noremap <silent> <leader>u :set showtabline=0<CR>
+    "noremap <silent> <leader>s :emenu View.Status Bar<CR>
+    "noremap <silent> <leader>p :emenu Edit.Preferences<CR>
+
+    " Open the delicious plugin new bookmark window
+    "noremap <silent> <leader>d :emenu Delicious.Save a new Bookmark...<CR>
+
+    " use the readability bookmarklet on the current page
+    "noremap <silent> <leader>r :open javascript:(function(){readStyle='style-ebook';readSize='size-medium';readMargin='margin-x-narrow';_readability_script=document.createElement('SCRIPT');_readability_script.type='text/javascript';_readability_script.src='http://lab.arc90.com/experiments/readability/js/readability.js?x='+(Math.random());document.getElementsByTagName('head')[0].appendChild(_readability_script);_readability_css=document.createElement('LINK');_readability_css.rel='stylesheet';_readability_css.href='http://lab.arc90.com/experiments/readability/css/readability.css';_readability_css.type='text/css';_readability_css.media='all';document.getElementsByTagName('head')[0].appendChild(_readability_css);_readability_print_css=document.createElement('LINK');_readability_print_css.rel='stylesheet';_readability_print_css.href='http://lab.arc90.com/experiments/readability/css/readability-print.css';_readability_print_css.media='print';_readability_print_css.type='text/css';document.getElementsByTagName('head')[0].appendChild(_readability_print_css);})();<CR>
+
+    " use the instapaper bookmarklet
+    map <M-6> -ex open javascript:function%20iprl5(){var%20d=document,z=d.createElement('scr'+'ipt'),b=d.body,l=d.location;try{if(!b)throw(0);d.title='(Saving...)%20'+d.title;z.setAttribute('src',l.protocol+'//www.instapaper.com/j/WsSoRZGjTo8a?u='+encodeURIComponent(l.href)+'&t='+(new%20Date().getTime()));b.appendChild(z);}catch(e){alert('Please%20wait%20until%20the%20page%20has%20loaded.');}}iprl5();void(0)
+
+    map <M-1> -ex open javascript:q=location.href;if(document.getSelection){d=document.getSelection();}else{d='';};p=document.title;void(open('http://pinboard.in/add?url='+encodeURIComponent(q)+'&description='+encodeURIComponent(d)+'&title='+encodeURIComponent(p),'Pinboard',%20'toolbar=no,width=700,height=350'))
+
+    " bring back/hide portions of the GUI
+    "noremap <silent> <leader>g :set guioptions+=mBT<CR>
+    "noremap <silent> <leader>G :set guioptions-=mBT<CR>
+    "noremap <silent> <leader>b :toolbartoggle Bookmarks Toolbar<CR>
+    "noremap <silent> <leader>y :set showtabline=2<CR>
+    "noremap <silent> <leader>u :set showtabline=0<CR>
+    "noremap <silent> <leader>s :emenu View.Status Bar<CR>
+    "noremap <silent> <leader>p :emenu Edit.Preferences<CR>
+    
+    " Disable some regular-Firefox old habits
+    "nmap <M-F12> <Nop>
+    "nmap <M-t> <Nop>
+    "nmap <M-e> <Nop>
+    "nmap <M-b> <Nop>
+    "nmap <M-S-h> <Nop>
+    "nmap <M-k> <Nop>
+    "nmap <M-f> <Nop>
+    "nmap <M-g> <Nop>
+    "nmap <M-l> <Nop>
+    "nmap <M-Q> <Nop>
+
+    "au :emenu View.Zoom.Zoom\ Text\ Only
+    
+" }}}
+
+
+" @section Custom commands {{{
+" ******************************************************************************
+
+    " toggle full text zoom so that zooming of text occurs w/ the rest of the site
+    command! toggleFullTextZoom
+             \ -description "Toggles full text zoom, tho needs work as a TODO"
+             \ :zoom<CR> :zoom!<CR>
+
+    " delicious_search.js
+    "autocmd VimperatorEnter ".*" :set complete+=D
+
+    " Don't focus on Reddit frame
+    "autocmd LocationChange 'reddit\.com/tb/' -js buffer.focusElement(buffer.allFrames()[2]);
+
+    "command! jstoggle :js (function() { var p = "javascript.enabled"; prefs.set(p, !prefs.get(p)); dactyl.echo(p+" is now set to "+prefs.get(p)+"\n") })()
+    " 
+    "command! read :open javascript:function%20iptxt(){var%20d=document;try{if(!d.body)throw(0);window.location='http://www.instapaper.com/text?u='+encodeURIComponent(d.location.href);}catch(e){alert('Please%20wait%20until%20the%20page%20has%20loaded.');}}iptxt();void(0)
+    "command! delicious :open javascript:(function(){f='http://www.delicious.com/save?url='+encodeURIComponent(window.location.href)+'&title='+encodeURIComponent(document.title)+'&v=5&';a=function(){if(!window.open(f+'noui=1&jump=doclose','deliciousuiv5','location=yes,links=no,scrollbars=no,toolbar=no,width=550,height=550'))location.href=f+'jump=yes'};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})()
+    "command! valid :open javascript:void(location='http://validator.w3.org/check?uri='+escape(location))
+    "command! firebug :open javascript:(function(F,i,r,e,b,u,g,L,I,T,E){if(F.getElementById(b))return;E=F[i+'NS']&&F.documentElement.namespaceURI;E=E?F[i+'NS'](E,'script'):F[i]('script');E[r]('id',b);E[r]('src',I+g+T);E[r](b,u);(F[e]('head')[0]||F[e]('body')[0]).appendChild(E);E=new%20Image;E[r]('src',I+L);})(document,'createElement','setAttribute','getElementsByTagName','FirebugLite','4','firebug-lite.js','releases/lite/latest/skin/xp/sprite.png','https://getfirebug.com/','#startOpened');
+    "command! ghfinder :open javascript:(function(){var%20a=(new%20RegExp("github.com/(.+)","i")).exec(window.location.href);var%20f=a?a[1].split("/"):[];var%20b=f[0];var%20d=f[1];var%20e=f[3];var%20c="http://sr3d.github.com/GithubFinder/?utm_source=bml"+(a?"&user_id="+b+"&repo="+d+(e?"&branch="+e:""):"");if(!c){alert("Invalid%20Github%20URL");return}window.open(c)})()
+    "command! wirify :open javascript:(function(){wf_bookmarklet='1.1';if(typeof%20wfInit=='undefined'){document.body.appendChild(document.createElement('script')).src=(document.location.protocol=='https:'?'https:':'http:')+'//www.volkside.com/tools/wirify/wirify.min.js?'+parseInt(new%20Date().getTime()/43200000);}else{wfInit();}})();
+    " 
+    "" copy.js
+    "map c :copy<Space>
+    "map ,ct :copy<Space>titleAndTinyURL<CR>
+    "javascript <<EOM
+    " 
+    "liberator.globalVariables.copy_templates = [ { label: '01:titleAndBitlyURL', value: '"%TITLE%" %BitlyURL%', custom: function() { var obj = JSON.parse(util.httpGet('http://api.bit.ly/v3/shorten?longUrl=' + encodeURIComponent(buffer.URL) + '&login=nishikawasasaki&apiKey=R_f98fc7f3de321a2511d0b01fa37a3a38&format=json').responseText);  return '"' + buffer.title + '" ' + obj.data.url} }, 
+    "  { label: 'titleAnd goo.gl', value: 'get goo.gl short url and TITLE',
+    "   custom: function() {
+    "              var ret = "";
+    "              var xhr = util.httpGet(
+    "                "http://ggl-shortener.appspot.com/?url=" + encodeURIComponent(buffer.URL));
+    "                if (xhr && xhr.status === 200) {
+    "                  ret = JSON.parse(xhr.responseText).short_url;
+    "                }
+    "              return '"' + buffer.title + '" ' + ret;
+    "           }
+    "  },
+    "  { label: 'titleAndTinyURL', value: '"%TITLE%" %tinyURL%', custom: function() { return '"' + buffer.title + '" ' + util.httpGet('http://tinyurl.com/api-create.php?url=' + encodeURIComponent(buffer.URL)).responseText;} }, 
+    "  { label: '03:titleAndURL',    value: '"%TITLE%" %URL%' },
+    "  { label: '04:title',          value: '%TITLE%' },
+    "  { label: '02:URL',          value: '%URL%' },
+    "  { label: 'hatena',         value: '[%URL%:title=%TITLE%]' },
+    "  { label: 'hatenacite',     value: '>%URL%:title=%TITLE%>n%SEL%n<<' },
+    "  { label: 'markdown',       value: '[%SEL%](%URL% "%TITLE%")' },
+    "  { label: 'htmlblockquote', value: '<blockquote cite="%URL%" title="%TITLE%">%HTMLSEL%</blockquote>' },
+    "  { label: 'ASIN',   value: 'copy ASIN code from Amazon', custom: function(){return content.document.getElementById('ASIN').value;} },
+    "  { label: 'tinyURL', value:  'Get Tiny URL', custom: function() { return util.httpGet('http://tinyurl.com/api-create.php?url=' + encodeURIComponent(buffer.URL)).responseText; }},
+    "  { label: 'goo.gl', value: 'get goo.gl short url',
+    "     custom: function() {
+    "               var ret = "";
+    "               var xhr = util.httpGet(
+    "               "http://ggl-shortener.appspot.com/?url=" + encodeURIComponent(buffer.URL));
+    "               if (xhr && xhr.status === 200) {
+    "                 ret = JSON.parse(xhr.responseText).short_url;
+    "               }
+    "               return ret;
+    "             }
+    "  }
+    "];
+    "EOM
+
+
+
+    "javascript <<EOM
+    "    liberator.globalVariables.migrate_elements = [
+    "        {
+    "            // star button of awesome bar
+    "            id:    'star-button',
+    "            dest:  'security-button',
+    "            after: true,
+    "        },
+    "        {
+    "            // icon that show the existence of RSS and Atom on current page
+    "            id:    'feed-button',
+    "            dest:  'security-button',
+    "            after: true,
+    "        },
+    "        {
+    "            // favicon of awesome bar
+    "            id:    'page-proxy-stack',
+    "            dest:  'liberator-statusline',
+    "            after: false,
+    "        },
+    "    ];
+    "EOM
+
+
+    "autocmd LocationChange '(duckduckgo.com|rememberthemilk\.com|mail\.google\.com|google.com\/(reader|calendar)|twitter\.com)' -js modes.set(modes.PASS_THROUGH)
+
+    "command! backgroundimage :js let (doc = content.document) let (m = doc.defaultView.getComputedStyle(doc.body, '').backgroundImage.match(/url\s*\(\s*['"](.+)['"]\s*\)/)) m ? liberator.open(m[1], liberator.NEW_TAB) : liberator.echoerr('background image not found')
+    "command! cal :js liberator.echo(<datepicker type="grid" xmlns={XUL}/>)
+    "command! calcpluginauthor echo let c={}; $('//tr/td[3]').evaluate().map($f.textContent()).forEach(function(n){ c[n] ? c[n]+=1 : c[n] = 1 }); c
+    "command! dta js DTA_ContextOverlay.findLinks(false);
+    "command! evernote js evernote_addSelectionToEn3(null);
+    "command! execlip js util.readFromClipboard().split(/\n/).filter(function(v) v.trim().length).forEach(liberator.execute)
+    "command! -nargs=+ sitesearch :exe ":tabopen <args> site:" + content.document.domain
+    "command! -nargs=1 feed subscrfl -rate=<args>
+    "command! ramen -nargs=1 delay -interval=<args>m namakubi できたぞ、くえよ、しぬぞ
+    "command! sopen js [buffer.followLink(a) for (a in util.evaluateXPath("//a")) if (content.window.getSelection().containsNode(a, true))]
+    "command! sum echo let (sum=0) (util.readFromClipboard().match(/\d+/g).map(function(s) parseInt(s)).forEach(function(v) sum+=v),sum)
+    " command! googlesidewiki js document.getElementById('gtbSidewiki').click()
+
+    "" Instapaper plugin (invoke this command using any of the following command names: rl,readlater or instapaper)
+    "let g:instapaper_username = "dreamabyss@hotmail.com"
+    "let g:instapaper_password = "instapaper_password"
+    "noremap <C-i> :rl<CR>
+
+    " command to replace all image links with the actual image (most useful with post-a-picture threads)
+    " based on some snippet from reddit, but adopted for Vimperator; add allFrames and maxHeight handling
+    "command! inlineimages js (function($) {orig$=$; $.each(buffer.allFrames, function(){win=this.wrappedJSObject; $=function(sel){return orig$(sel, win.document)} ; win.document.ondragstart=function(){return false};dst=function(e){return (p=Math.pow)(p(e.clientX-(rc=e.target.getBoundingClientRect()).left,2)+p(e.clientY-rc.top,2),.5)};$("[href~=imgur]").not($(t="[href$=jpeg],[href$=gif],[href$=png],[href$=jpg]")).each(function(){this.href+='.jpg'});void($(t).not(".EGraw").attr({'class':'EGraw',target:'blank'}).each(function(){$(this).append($('<span />').toggle(function(e){$(this).html(' [-]').next().show();return false},function(e){$(this).html(' [+]').next().hide();return false}).click()).append($('<img>').attr({src:this.href,style:'display:block;max-width:500px;max-height:500px',title:'Drag to resize'}).mousedown(function(e){(t=this.wrappedJSObject).iw=t.width;t.d=dst(e);t.dr=false;t.style.maxHeight="none";e.preventDefault();}).mousemove(function(e){if((t=this.wrappedJSObject).d){t.style.maxWidth=t.style.width=((dst(e))*t.iw/t.d)+"px";t.dr=true}}).mouseout(f=function(e){(t=this.wrappedJSObject).d=false;if(t.dr)return false}).click(f))}))})})(content.wrappedJSObject.$ || $);
+
+    " rss-icon in statusbar, via http://code.google.com/p/vimperator-labs/issues/detail?id=237
+    "javascript <<EOF
+    "(function(){
+    "    var feedButton = document.getElementById("feed-button");
+    "    if ( feedButton ) {
+    "    	var feedPanel = document.createElement("statusbarpanel");
+    "    	feedPanel.setAttribute("id", "feed-panel-clone");
+    "    	feedPanel.appendChild(feedButton);
+    "    	feedPanel.firstChild.setAttribute("style", "padding: 0; max-height: 16px;");
+    "    	document.getElementById("status-bar")
+    "    		.insertBefore(feedPanel, document.getElementById("security-button"));
+    "    }
+    "})();
+    "EOF
+
+    "command -nargs=+ calc !echo <q-args>|bc
+    "command -nargs=1 jira o https://jira.chacha.com/jira/browse/<args>
+    "command -nargs=1 DDG open https://duckduckgo.com/?v=n&q=<args>
+    " and immediately map the search for duckduckgo
+    "unmap <M-S-h> 
+    "map <M-S-h> DDG
+
+" }}}
+
+
+
+"" @section  highlight/style {{{
+"" ******************************************************************************
+
+    colorscheme darkness3
+
+    "hi CompResult width: 45%; overflow: hidden; max-width; 60%;
+
+    "style -name blueyedchrome chrome://* <<EOM
+    "	tab.tabbrowser-tab[selected="true"] { font-size:1.2em !important; font-weight:bold !important; color:#000 !important }
+    "EOM
+
+    "style -name statusbar chrome://* <<EOM
+    "  #status-bar statusbarpanel { padding: 0 1px !important; }
+    "  statusbarpanel > * { margin: 0 !important; padding: 0 !important; }
+    "EOM
+    " 
+    "style -name commandline-ime chrome://* #liberator-commandline-command input { ime-mode: inactive; }
+
+    "highlight Hint color:#f0f0f0; background-color:black; highlightHintElem color:black;background-color:gray;
+
+    "hi -append Hint font-size:11px !important;font-weight:bold !important;background:#fff !important;border:1px solid red !important;color:#000 !important;font-family:monospace !important
+
+    "hi Hint font-family:monospace; font-size:15px; font-weight:bold; color:white; background-color:red; border-color:ButtonShadow; border-width:0px; border-style:solid; padding: 0px 1px;
+
+    "hi! -append Hint font-size:11px;font-weight:bold;background:#fff;border:1px solid red;color:#000;font-family:monospace
+
+    "hi Hint font-family:monospace; font-size:15px; font-weight:bold; color:white; background-color:red; border-color:ButtonShadow; border-width:0px; border-style:solid; padding: 0px 1px;
+" }}}
+
+
+" qmarks {{{
+" ======================================================================
+
+    "qmark g https://mail.google.com/
+    "qmark c https://www.google.com/calendar/
+    "qmark p pp
+    "qmark l al
+    "qmark f af
+
+    "silent qmark a http://a.hatena.ne.jp/anekosp/
+    "silent qmark b https://mail.google.com/mail/?shva=1#buzz
+    "silent qmark B http://bit.ly/
+    "silent qmark d http://d.hatena.ne.jp/nokturnalmortum/
+    "silent qmark e http://userscripts.org/scripts/show/22702
+    "silent qmark f http://fastladder.com/reader/
+    "silent qmark g https://mail.google.com/mail/#mbox
+    "silent qmark h http://www.google.co.jp/ig
+    "silent qmark l http://reader.livedoor.com/reader/
+    "silent qmark m http://mixi.jp/home.pl
+    "silent qmark o https://www.ohloh.net/accounts/anekos
+    "silent qmark r http://www.rememberthemilk.com/
+    "silent qmark R http://www.rememberthemilk.com/home/anekosp/#section.tasks
+    "silent qmark t http://www.tumblr.com/dashboard
+    "silent qmark T http://anekos.tumblr.com/
+    "silent qmark w http://twitter.com/home
+    "silent qmark W http://twitter.com/#retweeted_of_mine
+    "silent qmark z http://vimperator.kurinton.net/plugins/
+
+    "silent qmark n blog.fefe.de | reddit.com | planet.ubuntu.com | planet.kde.org | planet.debian.org | heise.de | golem.de | spiegel.de | twitter.com | hahler.de
+    "silent qmark r reddit.com
+    "silent qmark t twitter.com
+
+" }}}
+
+
+
+"
+" ==================== Firefox options ==================== "
+
+"Seems to screw up sessionmanager
+"set! browser.startup.page=1
+" disable accesskey
+"set! ui.key.generalAccessKey=0
+" hide close button
+"set! browser.tabs.closeButtons=2
+" open bookmarks in background
+"set! browser.tabs.loadBookmarksInBackground=true
+" open tabs by javascript in background
+"set! browser.tabs.loadDivertedInBackground=true
+"set! browser.backspace_action=0
+"set! geo.enabled=false
+"set! general.warnOnAboutConfig=false
+""set! network.dns.disableIPv6=true
+"set! network.http.max-connections=48
+"set! network.http.max-connections-per-server=16
+"set! network.http.max-persistent-connections-per-server=4
+"set! network.http.pipelining=true
+"set! network.http.pipelining.maxrequests=10
+"set! network.http.pipelining.ssl=true
+"set! network.http.proxy.pipelining=true
+"set! network.http.request.timeout=300
+"set! nglayout.initialpaint.delay=0
+"set! ui.submenuDelay=0
+"set! browser.urlbar.clickSelectsAll=true
+"set! browser.urlbar.doubleClickSelectsAll=false
+"set! browser.enable_automatic_image_resizing=true
+"set! network.proxy.socks_remote_dns=true
+
+
+
+
+" {{{ Show the Feed and Bookmark buttons on the statusbar
+"javascript <<EOF
+"(function(){
+"    var statusPanel = document.createElement("statusbarpanel");
+"    statusPanel.setAttribute("id", "buttons-panel-clone");
+"    statusPanel.appendChild(document.getElementById("feed-button"));
+"    statusPanel.appendChild(document.getElementById("star-button"));
+"    statusPanel.firstChild.setAttribute("style", "padding: 0; max-height: 16px;");
+"    document.getElementById("status-bar")
+"            .insertBefore(statusPanel, document.getElementById("security-button"));
+"})();
+"EOF
+
+js <<EOF
+    toggle_element = function (name) {
+        document.getElementById(name).collapsed ^= 1;
+    }
+EOF
+" and now use it in mappings (':h key-notation'):
+map <silent> <F8> :js toggle_element('toolbar-menubar')<CR>
+map <silent> <F9> :js toggle_element('nav-bar')<CR>
+
+"RSS Icon
+"javascript <<EOF
+"(function(){
+" var feedPanel = document.createElement("statusbarpanel");
+" feedPanel.setAttribute("id", "feed-panel-clone");
+" feedPanel.appendChild(document.getElementById("feed-button"));
+" feedPanel.firstChild.setAttribute("style", "padding: 0; max-height: 16px;");
+" document.getElementById("status-bar")
+" .insertBefore(feedPanel, document.getElementById("security-button"));
+" })();
+"EOF
+
+
+" Quickmarks
+"delqm!
+"source! ~/.pentadactyl/qmarks
+
+" Bookmarks
+"source! ~/.pentadactyl/bookmarks
+
+
+"Reddit fix
+"autocmd LocationChange .* se ht&
+"autocmd LocationChange reddit.com se ht=//a|//button|//xhtml:button
+
+
+
+
+
+"" @section Old vimperator stuff that i need to process and filter out what i want
+"" ******************************************************************************
+
+" To open current page with reddit toolbar using 'e', add in your ~/.vimperatorrc:
+"nmap e :js events.feedkeys(":o http://reddit.com/" + document.getElementById("urlbar").value + "\<CR\>")<CR>
+" Subreddit surfing using ":o r subreddit":
+" bma -k=r http://reddit.com/r/%s/
+
+" Abbreviations
+":cab wi wikipedia
+
+"" Hints - instead of "f" to focus on links, press ";" then "-" to focus on text boxes only
+"js <<EOF
+"hints.addMode("-", "Focus to textbox",
+"    function(element) element.focus(),
+"    function() "//select | //input[not(@type='hidden')] | //textarea | //xhtml:input[not(@type='hidden')] | //xhtml:textarea"
+");
+"EOF
+
+" Dialog selection with d
+"map d :dialog<SPACE>
+
+"let g:bit_ly_id = "fkfk"
+"let g:bit_ly_api_key = "R_af42d61ae0b76a9b796f6dd0cc01bd80"
+
+" map ,s :mapc<CR>:cmapc<CR>:imapc<CR>:so<Space> ~/.vimperatorrc<CR>
+" map J <A-Left>
+" "<silent> :tabprevious<CR>
+" map K <A-Right>
+" " <silent> :tabnext<CR>
+" map <S-Right> <A-Right>
+" map <S-Left> <A-Left>
+" map <C-h> :tabmove! -1<CR>
+" map <C-l> :tabmove! +1<CR>
+" "map <C-]> <M-r>
+" map v ;b
+
+
+"" plugin
+"map T :twitter<Space>
+"map ,l :copy<Space>titleAndURL<CR>:twitter<Space>みてる:<M-v><CR>
+"map Y :twitter<Space>@yonda4<Space>
+
+" copy.js
+"map c :copy<Space>
+
+"let g:hintsio="i"
+"let g:hintlabeling="a"
+"let g:hintchars="hjklyuiopnm"
+"let g:hintchars="asdfjkluio"
+"let g:hintchars="fgtredws"
+set hinttimeout=500
+
+" feedSomeKeys_2.js
+"autocmd LocationChange .* :fmapc
+" Gmail.
+"autocmd LocationChange mail¥.google¥.com/(mail|a)/ :fmap -d 4 c / j k n p o u e x s r a # [ ] z ? gi gs gt gd ga gc
+"Google Reader
+"autocmd LocationChange www¥.google¥.(co¥.jp|com)/reader :fmap! -v i j k n p m s v A r S N P X O gh ga gs gt gu u / ?
+"Remedie
+"autocmd LocationChange localhost:10010 :fmap! -v i j k n p m s v A r o S N P X O gh ga gs gt gu u / ?
+
+" direct_bookmark.js
+"let g:direct_sbm_use_services_by_tag = "hd"
+"let g:direct_sbm_use_services_by_post = "hd"
+"let g:direct_sbm_is_normalize = "false"
+"let g:direct_sbm_is_use_migemo = "true"
+"map B :bentry<CR>
+"map ,b :sbm<Space>
+"map A :sbm<Space>
+"map ,a :btags<CR>
+
+" :set wildmode=list:longest,list:full – this defines the tab complete functionality for URLs
+" Basically it means that the first tab brings up a list of websites that match your string so that “dr” would list drudgereport.com drmcninja.com and sigmaaldrich.com (that is the list:longest functionality), hitting tab again will cycle through that list entering full URLs (list:full functionality)I forget what the default wildmode is but to check the setting for anything :set {variable} displays it i.e. “:set wildmode”
+
+" command! -nargs=+ lazy autocmd VimperatorEnter .* <args>
+
+" plugins SEE vimperatorrc.js !!!!
+" plugin: direct_bookmark.js
+" move to vimperatorrc.js
+" noremap B :sbm<Space>
+"  
+" " plugin: sbmcommentsviewer.js
+" " move to .vimperatorrc.js
+" "noremap v :viewSBMComments -t hd
+"  
+" " plugin: copy.js
+" noremap C :copy title<CR>
+"  
+" " plugin: blinkelement.js
+" noremap <Leader>b :bl content.document.getElement
+" noremap <Leader>e :bl buffer.evaluateXPath('
+"  
+" " plugin: noscript.js
+" noremap <Leader>s :noscript toggletemp<CR>
+" noremap <Leader>S :noscript toggleperm<CR>
+"  
+" " plugin: ldrize_cooperation.js
+" noremap <Leader>l :toggleldrizecooperation<CR>
+"  
+" " plugin: multi_requester.js
+" noremap E :mr<Space>alc<Space>
+" noremap W :mr<Space>goo<Space>
+" noremap A :mr<Space>answers<Space>
+"  
+" " plugin: direct_bookmark.js
+" " use service: delicious, はてなブックマーク
+" let direct_sbm_use_services_by_post='dh'
+" let direct_sbm_use_services_by_tag='dh'
+
+" plugin: hidecritter.js
+"let hidecritter_mapping='H'
+"let hatena_star_hint_mapping='h'
+
+" define key mappings for video sites
+" defined by .vimperatorrc.js
+"autocmd LocationChange .* :js liberator.plugins.nicomap()
+
+" fmap
+" all clear
+"autocmd LocationChange .* :fmapc
+
+" Remember the Milk
+" add / complete / edit / delete tasks
+"autocmd LocationChange https?://www\\.rememberthemilk\\.com/home/[^/]+/#section\\.tasks :fmap C,t c V,p v,d w,f q,g s Q,u W,l S,y I,r U,z <C-1>,1 <C-2>,2 <C-3>,3 <C-0>,4 <Del>
+" select tasks / tab switch / multiple mode
+"autocmd LocationChange https?://www\\.rememberthemilk\\.com/home/[^/]+/#section\\.tasks :fmap a n k j i h m
+" list switch
+"autocmd LocationChange https?://www\\.rememberthemilk\\.com/home/[^/]+/#section\\.tasks :fmap <C-H>,<C-S-Left> <C-L>,<C-S-Right>
+
+"Map paste operation normally.
+"imap <C-v> <C-v> 
+
+" abbr
+"abbrev jager JagerMonkey
+"abbrev #v #vimperator
+"abbr pen pentadactyl
+"abbr #pen #pentadactyl
+" 
+"cabbrev cr ~/../../project/coderepos/vimp-plugin/
+"cabbrev vr ~/vimperator/default/
+" 
+"abbrev -j .title '"' + buffer.title.replace(/ - Death to.*グループ$/, '') + '"'
+"abbrev -j .url plugins.bitly.jmp(buffer.URL)
+"abbrev -j .tu abbreviations.get(modes.INSERT, '.title').text + ' - ' + plugins.bitly.jmp(buffer.URL)
+" 
+"iabbrev -j .cmdline commandline.command
+" 
+"cabbrev -j .reply let (e=doc.querySelector('.hentry.status'))('@' + e.getAttribute('class').match(/u-(\S+)/)[1] + '#' + e.getAttribute('id').match(/\d+/))
+"cabbrev -j .stid let (e=doc.querySelector('.hentry.status'))(e.getAttribute('id').match(/\d+/))
+"cabbrev -j .rt let (e=doc.querySelector('.hentry.status'))('RT @' + e.getAttribute('class').match(/u-(\S+)/)[1] + '#' + e.getAttribute('id').match(/\d+/) + ': ' + doc.querySelector('.entry-content').textContent.trim())
+" 
+"cabbrev -j .amazon let(asin=content.document.getElementById('ASIN').value,base='http://amazon.jp/',res)['dp/','o/ASIN/','gp/product/'].some(function(it)((content.document.location.pathname.indexOf(it)>1)&&(res=base+it+asin)))&&res;
+" 
+"cabbrev -j .date (new Date).toLocaleFormat("%Y-%m-%d")
+"cabbrev -j .time (new Date).toLocaleFormat("%H:%M:%S")
+
+
+
+
+
+
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"
+" stole from http://bepo.fr/wiki/Utilisateur:Tiot/vimperatorrc
+"
+" just put the following in yr rc file:
+"if (/^[0-9]$/.test(key) && !escapeNumbers)
+"
+" if (/^[",«,»,\(,\),@,\+,\-,\/,\*]$/.test(key) && !escapeNumbers)
+"                    {
+"                        switch (key) 
+"    		{
+"    			case "\"":
+"    				key = "1";
+"    				break;
+"    			case "«":
+"    				key = "2";
+"    				break;
+"    			case "»":
+"    				key = "3";
+"    				break;
+"    			case "(":
+"    				key = "4";
+"    				break;
+"    			case ")":
+"    				key = "5";
+"    				break;
+"    			case "@":
+"    				key = "6";
+"    				break;
+"    			case "+":
+"    				key = "7";
+"    				break;
+"    			case "-":
+"    				key = "8";
+"    				break;
+"    			case "/":
+"    				key = "9";
+"    				break;
+"    			case "*":
+"    				key = "0";
+"    				break;
+"    			default:
+"    				liberator.beep();
+"    				return;
+"    		}
+"    	   }
+
+
+
+" stolen from https://github.com/vimpr/vimperator-rc/blob/master/teramako/_vimperator-sub.js
+"
+" // =============================================
+" // globalVariables
+" // =============================================
+" let (gv = liberator.globalVariables) {
+"   // =============================================
+"   // for copy.js
+"   // =============================================
+"   gv.copy_templates = [
+"     { label: 'hatenaAnchor',
+"       value: '[%URL%:title=%TITLE%]',
+"       custom: function() "[" + buffer.URL + ":title=" +
+"         buffer.title.replace(/[\[\]]/g,function(s) "&#" + s.charCodeAt(0) + ";") + "]",
+"       map: ',ha' },
+"     { label: 'hatenaBookmark', value: '[%URL%:bookmark]', map: ',hb' },
+"     { label: 'hatenaQuote', value: '>%URL%:title=%TITLE%>\n%SEL%\n<<', map: ',hq' },
+"     { label: 'ldwikiAnchor', value: '[[%TITLE%>%URL%]]', map: ',la' },
+"     { label: 'ASIN', value: 'copy ASIN code from Amazon', custom: function() content.document.getElementById('ASIN').value },
+"     { label: 'titleAndURL', value: '%TITLE%\n%URL%' },
+"     { label: 'title', value: '%TITLE%', map: ',y' },
+"     { label: 'anchor', value: '<a href="%URL%">%TITLE%</a>' },
+"     { label: 'selanchor', value: '<a href="%URL%" title="%TITLE%">%SEL%</a>' },
+"     { label: 'htmlblockquote', value: '<blockquote cite="%URL%" title="%TITLE%">%HTMLSEL%</blockquote>' },
+"     { label: 'hateb', value: 'http://b.hatena.ne.jp/entry/%URL%' },
+"   ];
+"   // =============================================
+"   // for twlist
+"   // =============================================
+"   gv.twlist_track_words = ["vimp,vimperator,twittperator,pentadactyl"];
+" };
+
+
+" 
+" stolen from https://github.com/vimpr/vimperator-rc/blob/master/teramako/_vimperator-after.vimp
+"
+" " feedSomeKeys_3.js settings
+" fmaps -u='mail\.google\.com/mail' c / j k n p o u e x s r a # [ ] ? gi gs gt gd ga gc
+" fmaps -u='mail\.google\.com/mail/.*/[0-9a-f]+$' c / j,n k,p n,j p,k o u e x s r a # [ ] ? gi gs gt gd ga gc
+" fmaps -u='www\.google\.co\.jp/reader' -events=vkeypress j k n p m s v A r S N P X O gh ga gs gt gu u / ? J K
+" fmaps -u='(fastladder|livedoor)\.com/reader' j k s a p o v c i,p <Space> <S-Space> z B,b < > q w e,g
+" fmaps -u='https?://www\.rememberthemilk\.com/home/' j k m i c t ? d F,f G,g S,s L,l Y,y H,h M,m <Del> <C-S-Left> <C-S-Right>
+" fmaps -u='http://code.google.com/p/vimperator-labs/issues/list' o j k
+" fmaps -u='http://code.google.com/p/vimperator-labs/issues/detail' u
+" fmaps -u='http://femo.jp/' -events vkeydown c l L J,j K,k p E,e s a T,t
+"  
+" " panorama.js settings
+" js <<EOM
+" (function() {
+"   if (liberator.version.indexOf("3.0") != 0) return;
+"   const cmds = [ "mkgroup", "switchgroup", "stashtogroup", "rmgroup", "pulltab", "settitle" ];
+"   plugins.panorama.subCmds.forEach(function(command) {
+"     if (cmds.indexOf(command.name) >= 0)
+"       commands._addCommand(command, true);
+"   });
+" })();
+" EOM
+
+"
+" stolen from https://github.com/vimpr/vimperator-rc/blob/master/mitsugu/.vimperatorrc
+"
+" js <<EOM
+" liberator.globalVariables.onclickTable={
+"   'github':'//span[@class="toggle"][1]',
+"   'jamendo':'//a[@title="Add to favorites"]',
+"   'pixiv':'//span[@class="trigger"][1]',
+"   'tinamia':'//img[@id="all"]',
+"   'tinamic':'//img[@id="collection_button"]',
+"   'tinamif':'//img[@id="fav"]',
+"   'tinamii':'//img[@id="illust"]',
+"   'tinamim':'//img[@id="manga"]',
+"   'tinamiu':'//img[@id="user_menu"]',
+"   'tpprev':'//span[@class="comment_pagination_prev pagination_item"][1]',
+"   'tpnext':'//span[@class="comment_pagination_next pagination_item"][1]'
+" };
+" userContext.__defineGetter__("doc", function() content.document.wrappedJSObject);
+" EOM
+
+
+
+" the following was cribbed from https://github.com/watanabefg/dotfiles/blob/master/.vimperatorrc
+" -----------------------------------------
+" @plugins 
+"  copy.js
+"  direct_bookmarks.js
+"  lookupDictionary.js
+"  bitly.js
+"  char-hints-mod2.js
+  
+" autocmd LocationChange .* js modes.passAllKeys = false
+" autocmd LocationChange www\\.google\\.(co\\.jp|com)/reader js modes.passAllKeys = true 
+" autocmd LocationChange mail\\.google\\.com js modes.passAllKeys = true
+" autocmd LocationChange www\\.rememberthemilk\\.com  js modes.passAllKeys = true
+
+
+" open new window
+" set popups=2
+
+" -----------------------------------
+"  plugin
+" -----------------------------------
+" let g:direct_sbm_use_services_by_post = 'd'
+" let g:direct_sbm_use_services_by_tag = 'd'
+
+" char-hints-mod2.js
+" let g:hintsio="io"
+" let g:hintchars="hjklasdf"
+
+
+" the below was cribbed from https://github.com/py0n/vimperator-rc/blob/master/.vimperatorrc
+" javascript <<EOM
+" // OS
+" // var isWin32 = liberator.has('Win32');
+" // var isMaxUnix = liberator.has('MacUnix');
+" // var isUnix = liberator.has('Unix');
+"  
+" // OS毎に異なる処理を行ふ。
+" // if (isWin32) {
+" //     let editor_path = 'C:\\\\Program\\ Files\\\\Vim\\\\vim73\\\\gvim.exe -f';
+" //     liberator.modules.options.get('editor').set(editor_path);
+"  
+" //     var rc_local_path = io.expandPath('~/_vimperatorrc.local');
+" //     var rc_js_path = io.expandPath('~/_vimperatorrc.js');
+" // }
+" // else if (isMaxUnix) {
+" // }
+" // else if (isUnix) {
+" //     let editor_path = '/usr/bin/gvim -f';
+" //     liberator.modules.options.get('editor').set(editor_path);
+"  
+" //     var rc_local_path = io.expandPath('~/.vimperatorrc.local');
+" //     var rc_js_path = io.expandPath('~/.vimperatorrc.js');
+" // }
+" // else {
+" //     liberator.echo( "Other");
+" // }
+" EOM
+"  
+" javascript <<EOM
+" // io.source(rc_local_path);
+" // io.source(rc_js_path);
+" EOM
+
+" stole from https://github.com/vimpr/vimperator-rc/blob/master/teramako/_vimperatorrc
+" autocmd VimperatorEnter .* source ~/_vimperator-after.vimp
+"  
+" style -name commandline-ime chrome://* #liberator-commandline-command input {ime-mode: inactive;}
+"  
+" cabbrev -javascript TITLE buffer.title
+" cabbrev -javascript URI buffer.URI
+" cabbrev -javascript bitly userContext.bitly()
+
+
+"  
+" " {{{ Key bindings
+"  
+" " Emacs navigation in command line and insert mode
+" cmap <C-n> <Tab>
+" cmap <C-p> <S-Tab>
+" cmap <C-f> <Right>
+" cmap <C-b> <Left>
+" cmap <C-j> <CR>
+" noremap <C-j> <CR>
+" inoremap <C-j> <CR>
+" inoremap <C-n> <Down>
+" inoremap <C-p> <Up>
+" inoremap <C-f> <Right>
+" inoremap <C-b> <Left>
+"  
+"  
+" " Extended hint mode with M-j
+" "  ; - focus link, a - save, y - copy link, O - :open query, T - for :tabopen ...
+" noremap <A-j> ;
+
+" " Set a mark at the cursor with C-x r m
+" noremap <C-x>rm m
+"  
+" " Jump to the mark in the current buffer with C-x r b
+" noremap <C-x>rb '
+"  
+"  
+" " {{{ Personal key bindings
+" "
+" " Bookmarks search, and search by tag
+" map <C-c>q :bmarks<SPACE>
+" map <C-c>w :bmarks -tags=
+"  
+
+" " {{{ Plugin bindings
+" "
+" " Buftabs
+" map <C-c>b :set invbuftabs<CR>
+"  
+" " Noscript
+" map <C-c>s :noscript toggletemp<CR>
+" map <C-c>S :noscript popup<CR>
+"  
+" " TinyURL
+" map <C-c>t :exe ":tinyurl "+getBrowser().contentWindow.location.href<CR>
+"  
+"  
+" " {{{ Javascript functions
+" "
+" " Show the Feed and Bookmark buttons on the statusbar
+" javascript <<EOF
+" (function(){
+"     var statusPanel = document.createElement("statusbarpanel");
+"     statusPanel.setAttribute("id", "buttons-panel-clone");
+"     statusPanel.appendChild(document.getElementById("feed-button"));
+"     statusPanel.appendChild(document.getElementById("star-button"));
+"     statusPanel.firstChild.setAttribute("style", "padding: 0; max-height: 16px;");
+"     document.getElementById("status-bar")
+"             .insertBefore(statusPanel, document.getElementById("security-button"));
+" })();
+" EOF
+
+"// Vimperator plugin: ‘Ricepaper’
+"//
+"// place in ~/.vimperator/plugin/readlater.js
+"// pushing ,rp will send the url to the ‘readlater’ script
+" 
+"mappings.addUserMap([modes.NORMAL], [",rp"],
+"“Ricepaper”,
+"function () {
+"// var u = escape(document.getElementById(“urlbar”).value);
+"var u = document.getElementById(“urlbar”).value;
+"var r = io.system(“ricepaper.sh ‘” + u + “‘”);
+"liberator.echo(“ricepaper returned ” + r);
+"});
+
+" -----------------------------------------------------------------
+" Plugins
+" -----------------------------------------------------------------
+
+" Turn on delicious completions for :open and :tabopen
+"autocmd Enter ".*" :set complete+=D
+
+" Set the 'direct bookmark' service to delicious
+"let g:direct_sbm_use_services_by_post='d'
+"let g:direct_sbm_use_services_by_tag='d'
+
+" Move buttons from the normal toolbar into the status bar.
+" Currently this just moves the last pass and delicious tag buttons.
+"javascript <<EOF
+"(function() {
+"    // TODO: Make this work with 'feed-panel' too.
+"    var buttons = ['lpt_lastpass-compact-btn', 'del-button-tagPage'] //, 'feed-panel'];
+"    for (var i = 0; i < buttons.length; i++) {
+"        var button_id = buttons[i];
+"        var new_button = document.createElement("new_button");
+"        new_button.setAttribute("id", button_id + "-clone");
+"        new_button.appendChild(document.getElementById(button_id));
+"        document.getElementById("status-bar").insertBefore(new_button, document.getElementById("security-button"));
+"    }
+"})();
+"EOF
+
+" Turn on delicious completions for :open and :tabopen
+"autocmd VimperatorEnter ".*" :set complete+=D
+"
+"" Set the 'direct bookmark' service to delicious
+"let g:direct_sbm_use_services_by_post='d'
+"let g:direct_sbm_use_services_by_tag='d'
+"
+"" Make the RSS feed icon show in the vimperator status bar
+"javascript <<EOF
+"(function(){
+"    var feedPanel = document.createElement("statusbarpanel");
+"    feedPanel.setAttribute("id", "feed-panel-clone");
+"    feedPanel.appendChild(document.getElementById("feed-button"));
+"    feedPanel.firstChild.setAttribute("style", "padding: 0; max-height: 16px;");
+"    document.getElementById("status-bar").insertBefore(feedPanel, document.getElementById("security-button"));
+"})();
+"EOF
+"
+
+
+echo "[pentadactyl initialized]"
+
+" vim: set ft=pentadactyl:
