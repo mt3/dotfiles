@@ -1,19 +1,24 @@
 autoload zmv
 
 # zsh config options
-setopt notify                  # notify of BG job completion immediately
-#setopt printexitvalue          # alert me if something's failed
+setopt append_history       # Append, don't overwrite, the history file
 setopt autocd                  # change to dirs without cd
+setopt BANG_HIST		    # Allow ! for accessing history 
 setopt cdablevars              # avoid the need for an explicit $
-setopt nobeep                  # i hate beeps
-setopt nohup                   # and don't kill BG jobs when shell exits
 setopt extendedglob            # awesome pattern matching (ala Dir.glob() in Ruby)
-setopt promptcr                # ensure a new line before prompt is drawn
-setopt listtypes               # show types in completion
 setopt EXTENDED_HISTORY 	   # add timestamps to history
 setopt HIST_IGNORE_ALL_DUPS    # don't record dupes in history
-setopt BANG_HIST		    # Allow ! for accessing history 
-setopt NOHUP			    # Don't HUP running jobs on logout.
+setopt hist_no_store        # Don't store invocations of `history`
+setopt hist_reduce_blanks   # Remove superfluous blanks before recording
+setopt listtypes               # show types in completion
+setopt nobeep                  # i hate beeps
+setopt nohup                   # and don't kill BG jobs when shell exits
+setopt NOHUP			    # Don't HUP running jobs on logout
+setopt notify                  # notify of BG job completion immediately
+#setopt printexitvalue          # alert me if something's failed
+setopt promptcr                # ensure a new line before prompt is drawn
+
+
 
 
 # Use menu ()
