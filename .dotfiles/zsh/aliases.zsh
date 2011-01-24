@@ -5,7 +5,8 @@ alias aquamacs='open /Applications/Aquamacs\ Emacs.app/'
 alias kill="kill -9"
 alias youtube-dl="/Applications/github_dwlds/youtube-dl/youtube-dl"
 alias gclient="/Applications/github_dwlds/depot_tools/gclient"
-
+alias gvim='/Applications/MacVim.app/Contents/MacOS/Vim -g'
+alias vimdiff='/usr/local/bin/mvim mvimdiff'
 
 # CONVENIENT SHORTCUTS
 alias up="cd .."
@@ -16,13 +17,15 @@ alias ..="cd .."
 alias ...="cd .. && cd .."
 alias ....="cd .. & cd .. & cd .."
 alias l.="ls -d .*"
+alias edit="${EDITOR}"
 alias frameworks="cd /Library/Frameworks/frameworks-under-git"
 alias queen="ssh mta45@queen.fas.sfu.ca"
 alias clr="clear"
-alias e="echo"
+alias e="mvim"
 #alias systail='tail -f -n0 /var/log/system.log'
 alias dotf="ls .[a-zA-Z0-9_]*"
 alias reload="source ~/.zshrc"
+alias so="source ~/.zshrc"
 alias dir_sizes='du -cks * | sort -rn |head -11' # Lists the size of all the folders within current dir (Mb)
 alias folder_sizes=dir_sizes
 alias upd="upd >&1 > ~/.logs/updated-repos-logfiles-`date +%F`-`date +%T`.txt"
@@ -33,7 +36,7 @@ alias ea='mate -w ~/.dotfiles/zsh/aliases && reload' # Edit aliases
 alias cdd='cd -' # goto last dir cd'ed from
 alias md="mkcd"
 alias rsyncp='rsync -avz -e ssh --progress --partial'
-
+alias wh="which" # w was already taken!
 
 # TASK
 alias taskl="task list"
@@ -58,11 +61,13 @@ alias brewc="brew cleanup && cd /Users/mt/Library/Caches/Homebrew/ && for item i
 
 
 # GIT
+alias g="git"
 alias gitc="git commit -am"
-alias gits="git status"
+alias gits="git status -sb"
 alias gitp="git pull"
 alias gitu="git pull"
-alias gitl="git log --oneline --decorate"
+#alias gitl="git log --oneline --decorate"
+alias gitl="git log --pretty=format:\"%ad | %s%d [%an]\" --graph --date=short"
 alias gitd="git diff --word-diff"
 alias gitcl="git clone"
 alias gitsvnc="git svn clone"
@@ -100,4 +105,7 @@ alias npml="npm ls installed"
 alias npmu="npm update"
 alias npmo="npm outdated"
 alias npmunin="npm uninstall"
+
+
+
 
