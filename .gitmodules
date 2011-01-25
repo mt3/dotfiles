@@ -10,3 +10,6 @@
 [submodule ".dotfiles/vim/bundle/git-vim"]
 	path = .dotfiles/vim/bundle/git-vim
 	url = git://github.com/motemen/git-vim.git
+[submodule ".dotfiles/vim/bundle/gundo"]
+	path = .dotfiles/vim/bundle/gundo
+	url = git://github.com/sjl/gundo.vim.git
