@@ -1,3 +1,9 @@
 [submodule ".dotfiles/vim/bundle/fugitive"]
 	path = .dotfiles/vim/bundle/fugitive
 	url = git://github.com/tpope/vim-fugitive.git
+[submodule ".dotfiles/vim/bundle/nerdcommenter"]
+	path = .dotfiles/vim/bundle/nerdcommenter
+	url = git://github.com/scrooloose/nerdcommenter.git
+[submodule ".dotfiles/vim/bundle/nerdtree"]
+	path = .dotfiles/vim/bundle/nerdtree
+	url = git://github.com/scrooloose/nerdtree.git
