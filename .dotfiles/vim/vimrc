@@ -1,0 +1,289 @@
+version 6.0
+if &cp | set nocp | endif
+let s:cpo_save=&cpo
+set cpo&vim
+
+"source ~/.dotfiles/vim
+
+set nocompatible " Necesary for fun
+
+
+
+" MAPPINGS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+imap <D-BS> 
+imap <M-BS> 
+imap <M-Down> }
+inoremap <D-Down> <C-End>
+imap <M-Up> {
+inoremap <D-Up> <C-Home>
+noremap! <M-Right> <C-Right>
+noremap! <D-Right> <End>
+noremap! <M-Left> <C-Left>
+noremap! <D-Left> <Home>
+map! <D-v> *
+nmap gx <Plug>NetrwBrowseX
+map <M-Down> }
+noremap <D-Down> <C-End>
+map <M-Up> {
+noremap <D-Up> <C-Home>
+noremap <M-Right> <C-Right>
+noremap <D-Right> <End>
+noremap <M-Left> <C-Left>
+noremap <D-Left> <Home>
+nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
+vmap <BS> "-d
+vmap <D-x> "*d
+vmap <D-c> "*y
+vmap <D-v> "-d"*P
+nmap <D-v> "*P
+let &cpo=s:cpo_save
+unlet s:cpo_save
+
+" Move cursor together with the screen
+noremap <c-j> j<c-e>
+noremap <c-k> k<c-y>
+
+"Bubble single lines
+nmap <C-Up> ddkP
+nmap <C-Down> ddp
+
+" Better Marks
+nnoremap ' `
+
+" Space will toggle folds
+"nnoremap <space> za
+" Saves time
+"nmap <space> :
+
+" Swap ; and :  Convenient.
+nnoremap ; :
+nnoremap : ;
+
+" Bash like keys for the command line
+"cnoremap <C-A>      <Home>
+"cnoremap <C-E>      <End>
+"cnoremap <C-K>      <C-U>
+
+" Quick alignment of text
+nmap <leader>al :left<CR>
+nmap <leader>ar :right<CR>
+nmap <leader>ac :center<CR>
+
+map <leader>yr :YRShow<cr> " show yankring
+
+map <leader>h :noh<CR> " quickly get rid of highlights
+
+map <leader>li :set list!<CR> " toggle invisibles
+
+" hitting jj or kk will jump out of insert mode
+imap jj <esc>
+imap kk <esc>
+
+
+
+" SETTINGS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+set noerrorbells
+set visualbell
+set t_vb=
+set autoread " watch for file changes
+set backspace=indent,eol,start
+set fileencodings=ucs-bom,utf-8,default,latin1
+set guioptions=egmrLt
+set guitablabel=%M%t
+set helplang=en
+set langmenu=none
+set mouse=a
+set printexpr=system('open\ -a\ Preview\ '.v:fname_in)\ +\ v:shell_error
+set termencoding=utf-8
+set scrolloff=5 " keep at least 5 lines above/below
+set sidescrolloff=5 " keep at least 5 lines left/right
+set autoindent
+set showmode
+set showcmd
+set hidden
+set wildmenu
+set wildmode=list:longest
+set history=200
+
+set nocursorline
+set ruler
+set fullscreen
+set laststatus=1
+set cmdheight=2
+set modeline
+set number
+set undofile " keep a permanent undo file
+set undodir=~/.dotfiles/vim/undo,~/tmp,/tmp
+set undoreload=1000
+set undolevels=1000
+set complete=.,w,b,u,U,t,i,d  " do lots of scanning on tab completion
+
+set ttyfast " we have a fast terminal
+set shell=/usr/local/bin/zsh
+
+let mapleader = ","
+
+set ignorecase
+set smartcase
+set gdefault
+set incsearch
+set showmatch " show matching bracket
+set hlsearch
+
+filetype on
+filetype indent on
+filetype plugin on
+syntax enable
+
+set wrap
+"set formatoptions=qrn1 " what does this do?
+
+set tabstop=4
+set shiftwidth=4
+set softtabstop=4
+set expandtab
+"set nofoldenable "dont fold by default
+set foldmethod=marker " detect triple-{ style fold markers
+set foldlevelstart=0 " start out with everything folded
+
+"set backup
+"set backupdir=~/.vim/backup
+"set directory=~/.vim/tmp
+
+autocmd FileType python runtime! autoload/pythoncomplete.vim
+autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
+autocmd BufNewFile,BufRead */etc/nginx/* setlocal ft=nginx
+
+
+
+" FUNCTIONS
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" source .vimrc
+map <silent> <Leader>s :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo'vimrc reloaded'"<CR>
+
+" Edit vimrc \ev
+nnoremap <silent> <Leader>ev :tabedit ~/.vimrc<CR>
+"map <leader>e :e! ~/.vim_runtime/vimrc<cr>
+" Edit gvimrc \gv
+nnoremap <silent> <Leader>gv :tabnew<CR>:e ~/.gvimrc<CR>
+
+" When vimrc is edited, reload it
+autocmd! bufwritepost vimrc source ~/.vim_runtime/vimrc
+
+" Create Blank Newlines and stay in Normal mode
+nnoremap <silent> zj o<Esc>
+nnoremap <silent> zk O<Esc>
+
+" Configure NERDTree
+"map <leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
+
+" YankRing stuff
+let g:yankring_history_dir = '~/.dotfiles/vim/tmp'
+nmap <leader>r :YRShow<CR>
+
+"Automatically change current directory to that of the file in the buffer
+autocmd BufEnter * cd %:p:h
+
+" Source the vimrc right after saving it
+if has("autocmd")
+ augroup myvimrchooks
+  au!
+  autocmd bufwritepost .vimrc source ~/.vimrc
+ augroup END
+endif
+
+function! SurroundWith(char)
+    return AppendLineOf(a:char) . "yykP"
+endf
+
+"Opens a vertical split and switches over
+nnoremap <leader>v <C-w>v<C-w>l
+
+
+
+" APPEARANCE
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+colorscheme macvim
+set bg=light
+set guifont=Inconsolata:h16
+set t_Co=256 " term has 256 colors
+set lazyredraw " do not redraw while running macros
+set linespace=3
+set splitbelow
+set fuoptions=maxvert,maxhorz
+set fullscreen
+
+
+" PLUGINS SETUP
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"""snipmate setup
+source ~/.dotfiles/vim/snipmate-snippets/support_functions.vim
+"autocmd vimenter * call s:SetupSnippets()
+"function! s:SetupSnippets()
+"    "if we're in a rails env then read in the rails snippets
+"    if filereadable("./config/environment.rb")
+"        call ExtractSnips("~/.vim/snippets/ruby-rails", "ruby")
+"        call ExtractSnips("~/.vim/snippets/eruby-rails", "eruby")
+"    endif
+"
+"    call ExtractSnips("~/.vim/snippets/html", "eruby")
+"    call ExtractSnips("~/.vim/snippets/html", "xhtml")
+"    call ExtractSnips("~/.vim/snippets/html", "php")
+"endfunction
+
+"""Command-T
+"let g:CommandTMaxHeight = 15
+"set wildignore+=*.o,*.obj,.git,*.pyc,*.hg,*.svn,*.swp,*.bak,*.class
+"noremap <leader>j :CommandT<cr>
+"noremap <leader>y :CommandTFlush<cr>
+
+"""NERDTree settings
+" Put focus to the NERD Tree with F3 (tricked by quickly closing it and
+" immediately showing it again, since there is no :NERDTreeFocus command)
+nmap <leader>n :NERDTreeClose<CR>:NERDTreeToggle<CR>
+nmap <leader>m :NERDTreeClose<CR>:NERDTreeFind<CR>
+nmap <leader>N :NERDTreeClose<CR>
+
+" Store the bookmarks file
+let NERDTreeBookmarksFile=expand("~/.dotfiles/vim/NERDTreeBookmarks")
+
+" Show the bookmarks table on startup
+let NERDTreeShowBookmarks=1
+
+" Show hidden files, too
+let NERDTreeShowFiles=1
+let NERDTreeShowHidden=1
+
+" Quit on opening files from the tree
+let NERDTreeQuitOnOpen=1
+
+" Highlight the selected entry in the tree
+let NERDTreeHighlightCursorline=1
+
+" Use a single click to fold/unfold directories and a double click to open files
+let NERDTreeMouseMode=2
+
+" Don't display these kinds of files
+let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$',
+            \ '\.o$', '\.so$', '\.egg$', '^\.git$' ]
+
+"nmap <leader>nt :NERDTreeToggle <CR>
+"
+""Show hidden files in NerdTree
+"let NERDTreeShowHidden=1
+"
+""autopen NERDTree and focus cursor in new document
+"autocmd VimEnter * NERDTree
+"autocmd VimEnter * wincmd p
+
+"""Fugitive
+"set statusline+=\ 
+"set statusline+=%#GitStatusLine#
+"set statusline+=%{fugitive#statusline()}
+"set statusline+=%*
+
+
+
+" vim: set ft=vim :
