@@ -22,3 +22,12 @@
 [submodule ".dotfiles/vim/bundle/ack.vim"]
 	path = .dotfiles/vim/bundle/ack.vim
 	url = git://github.com/mileszs/ack.vim.git
+[submodule ".dotfiles/vim/bundle/snipmate"]
+	path = .dotfiles/vim/bundle/snipmate
+	url = git://github.com/Phrodo00/snipmate.vim.git
+[submodule ".dotfiles/vim/bundle/Rainbow-Parenthsis-Bundle"]
+	path = .dotfiles/vim/bundle/Rainbow-Parenthsis-Bundle
+	url = git://github.com/vim-scripts/Rainbow-Parenthsis-Bundle.git
+[submodule ".dotfiles/vim/bundle/Command-T"]
+	path = .dotfiles/vim/bundle/Command-T
+	url = git://github.com/wincent/Command-T.git
