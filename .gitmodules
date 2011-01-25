@@ -13,3 +13,9 @@
 [submodule ".dotfiles/vim/bundle/gundo"]
 	path = .dotfiles/vim/bundle/gundo
 	url = git://github.com/sjl/gundo.vim.git
+[submodule ".dotfiles/vim/bundle/vim-surround"]
+	path = .dotfiles/vim/bundle/vim-surround
+	url = git://github.com/tpope/vim-surround.git
+[submodule ".dotfiles/vim/bundle/gist-vim"]
+	path = .dotfiles/vim/bundle/gist-vim
+	url = git://github.com/mattn/gist-vim.git
