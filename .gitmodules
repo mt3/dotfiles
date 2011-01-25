@@ -7,3 +7,6 @@
 [submodule ".dotfiles/vim/bundle/nerdtree"]
 	path = .dotfiles/vim/bundle/nerdtree
 	url = git://github.com/scrooloose/nerdtree.git
+[submodule ".dotfiles/vim/bundle/git-vim"]
+	path = .dotfiles/vim/bundle/git-vim
+	url = git://github.com/motemen/git-vim.git
