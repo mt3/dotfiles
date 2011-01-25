@@ -31,3 +31,6 @@
 [submodule ".dotfiles/vim/bundle/Command-T"]
 	path = .dotfiles/vim/bundle/Command-T
 	url = git://github.com/wincent/Command-T.git
+[submodule ".dotfiles/vim/bundle/snipmate-snippets"]
+	path = .dotfiles/vim/bundle/snipmate-snippets
+	url = git://github.com/scrooloose/snipmate-snippets.git
