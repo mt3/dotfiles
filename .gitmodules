@@ -19,3 +19,6 @@
 [submodule ".dotfiles/vim/bundle/gist-vim"]
 	path = .dotfiles/vim/bundle/gist-vim
 	url = git://github.com/mattn/gist-vim.git
+[submodule ".dotfiles/vim/bundle/ack.vim"]
+	path = .dotfiles/vim/bundle/ack.vim
+	url = git://github.com/mileszs/ack.vim.git
