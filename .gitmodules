@@ -34,3 +34,6 @@
 [submodule ".dotfiles/vim/bundle/snipmate-snippets"]
 	path = .dotfiles/vim/bundle/snipmate-snippets
 	url = git://github.com/scrooloose/snipmate-snippets.git
+[submodule ".dotfiles/zsh/zshkit"]
+	path = .dotfiles/zsh/zshkit
+	url = http://github.com/mattfoster/zshkit.git
