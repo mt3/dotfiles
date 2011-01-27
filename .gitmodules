@@ -43,3 +43,6 @@
 [submodule ".dotfiles/vim/delimitMate"]
 	path = .dotfiles/vim/delimitMate
 	url = git://github.com/Raimondi/delimitMate.git
+[submodule ".dotfiles/vim/vim-indexed-search"]
+	path = .dotfiles/vim/vim-indexed-search
+	url = https://github.com/henrik/vim-indexed-search.git
