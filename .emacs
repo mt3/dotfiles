@@ -134,36 +134,41 @@
 ;;(bookmark-save-flag 1)
 
 
+;; showoff presentation mode
+(add-to-list 'load-path "~/.emacs.d/vendor/showoff-mode")
+(require 'showoff-mode)
+(add-to-list 'auto-mode-alist '("\\.md$" . showoff-mode))
+
 
 ;;;_ + direct loads
-;; (mapc #'(lambda (name) (load name t))
-;;       '(;;".gnus"
-;;         ".org"
-;;         ;;"archive-region"
-;;         ;;"bookmark+"
-;;         "browse-kill-ring+"
-;;         ;;"chess-auto"
-;;         "diminish"
-;;         ;;"elscreen"
-;;         "ess-site"
-;;         "flyspell-ext"
-;;         "gist"
-;;         "ldg-new"
-;;         "magit"
-;;         "session"
-;;         "whitespace"
-;;         "yasnippet"
-;;         ))
+(mapc #'(lambda (name) (load name t))
+      '(;;".gnus"
+        ".org"
+        ;;"archive-region"
+        ;;"bookmark+"
+        "browse-kill-ring+"
+        ;;"chess-auto"
+        "diminish"
+        ;;"elscreen"
+        "ess-site"
+        "flyspell-ext"
+        "gist"
+        "ldg-new"
+        "magit"
+        "session"
+        "whitespace"
+        "yasnippet"
+        ))
 
 ;; ;;;_ + auto loads
-;; (mapc #'(lambda (entry) (autoload (cdr entry) (car entry) nil t))
-;;       '(("linum"             . linum-mode)
-;;         ("delim-kill"        . delim-kill)
-;;         ("cycbuf"            . cycbuf-switch-to-next-buffer)
-;;         ("cycbuf"            . cycbuf-switch-to-previous-buffer)
-;;         ("sunrise-commander" . sunrise)
-;;         ("column-marker"     . column-marker-1)
-;;         ))
+(mapc #'(lambda (entry) (autoload (cdr entry) (car entry) nil t))
+      '(("linum"             . linum-mode)
+        ("delim-kill"        . delim-kill)
+        ("cycbuf"            . cycbuf-switch-to-next-buffer)
+        ("cycbuf"            . cycbuf-switch-to-previous-buffer)
+        ("sunrise-commander" . sunrise)
+        ("column-marker"     . column-marker-1)
+        ))
 
 
 
@@ -423,4 +428,12 @@
 (add-to-list 'load-path (expand-file-name "~/.emacs.d/vendor/switch-window/"))
 (require 'switch-window)
 
+(require 'color-theme)
+(load-file "~/.emacs.d/vendor/color-theme-mac-classic/color-theme-mac-classic.el")
+;; 
+;; And then to to activate:
+(color-theme-mac-classic)
+
+;; json data format
+(require 'json)
 
