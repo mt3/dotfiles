@@ -7,3 +7,10 @@
 - http://gemcutter.org
 :update_sources: true
 :verbose: true
+gem: --no-ri --no-rdoc
+gempath:
+- /usr/local/Cellar/ruby/1.9.2-p136/bin/
+- ~/.gem
+- /usr/local/Cellar/ruby/1.9.2-p136/lib/ruby/gems/1.9.1
+- /usr/local/lib/ruby/gems/1.9.1
+
