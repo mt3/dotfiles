@@ -1,16 +1,25 @@
+set nocompatible " Necesary for fun
+
+filetype off
+"all pathogen#runtime_append_all_bundles()
+"call pathogen#helptags()
+filetype plugin indent on
+
 version 6.0
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
 
+:set runtimepath=~/.dotfiles/vim,$VIMRUNTIME
 "source ~/.dotfiles/vim
-
-set nocompatible " Necesary for fun
 
 
 
 " MAPPINGS
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+"remap left/right arrow keys for tab next/previous
+map <Left> gT
+map <Right> gt
 imap <D-BS> 
 imap <M-BS> 
 imap <M-Down> }
@@ -86,6 +95,7 @@ imap kk <esc>
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set noerrorbells
 set visualbell
+set guicursor+=a:blinkon0 "turn off goddamned blinking
 set t_vb=
 set autoread " watch for file changes
 set backspace=indent,eol,start
@@ -114,13 +124,15 @@ set laststatus=1
 set cmdheight=2
 set modeline
 set number
+set relativenumber
 set undofile " keep a permanent undo file
 set undodir=~/.dotfiles/vim/undo,~/tmp,/tmp
 set undoreload=1000
 set undolevels=1000
 set complete=.,w,b,u,U,t,i,d  " do lots of scanning on tab completion
+set splitright " new buffers open to the right
 
-set ttyfast " we have a fast terminal
+set ttyfast " we have a fast car
 set shell=/usr/local/bin/zsh
 
 let mapleader = ","
@@ -170,7 +182,7 @@ nnoremap <silent> <Leader>ev :tabedit ~/.vimrc<CR>
 nnoremap <silent> <Leader>gv :tabnew<CR>:e ~/.gvimrc<CR>
 
 " When vimrc is edited, reload it
-autocmd! bufwritepost vimrc source ~/.vim_runtime/vimrc
+"autocmd! bufwritepost vimrc source ~/.vim_runtime/vimrc
 
 " Create Blank Newlines and stay in Normal mode
 nnoremap <silent> zj o<Esc>
@@ -205,9 +217,9 @@ nnoremap <leader>v <C-w>v<C-w>l
 
 " APPEARANCE
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-colorscheme macvim
+colorscheme my-macvim
 set bg=light
-set guifont=Inconsolata:h16
+set guifont=Inconsolata:h14
 set t_Co=256 " term has 256 colors
 set lazyredraw " do not redraw while running macros
 set linespace=3
@@ -219,7 +231,7 @@ set fullscreen
 " PLUGINS SETUP
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """snipmate setup
-source ~/.dotfiles/vim/snipmate-snippets/support_functions.vim
+"source ~/.dotfiles/vim/snipmate-snippets/support_functions.vim
 "autocmd vimenter * call s:SetupSnippets()
 "function! s:SetupSnippets()
 "    "if we're in a rails env then read in the rails snippets
