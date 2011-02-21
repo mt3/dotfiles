@@ -46,3 +46,9 @@
 [submodule ".dotfiles/vim/vim-indexed-search"]
 	path = .dotfiles/vim/vim-indexed-search
 	url = https://github.com/henrik/vim-indexed-search.git
+[submodule ".dotfiles/vim/bundle/javacomplete"]
+	path = .dotfiles/vim/bundle/javacomplete
+	url = git://github.com/adragomir/javacomplete.git
+[submodule ".dotfiles/vim/bundle/puppet-vim"]
+	path = .dotfiles/vim/bundle/puppet-vim
+	url = git://github.com/ghoneycutt/puppet-vim.git
