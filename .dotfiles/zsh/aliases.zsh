@@ -17,6 +17,7 @@ alias ..="cd .."
 alias ...="cd .. && cd .."
 alias ....="cd .. & cd .. & cd .."
 alias l.="ls -d .*"
+alias ls="ls -lth"
 alias edit="${EDITOR}"
 alias frameworks="cd /Library/Frameworks/frameworks-under-git"
 alias queen="ssh mta45@queen.fas.sfu.ca"
@@ -73,6 +74,7 @@ alias gitcl="git clone"
 alias gitsvnc="git svn clone"
 alias gitsvncl="git svn clone"
 alias git-tm-bund="cd ~/Library/Application\ Support/TextMate/Bundles/ && git clone"
+#alias git="git-achievements"
 
 
 # RUBY GEMS
