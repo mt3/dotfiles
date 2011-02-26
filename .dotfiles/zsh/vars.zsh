@@ -1,7 +1,12 @@
+# set up custom llvm/clang for use with compiling (xcode related mainly)
+#GCC_VERSION = com.apple.compilers.llvm.clang.1_0
+#RUN_CLANG_STATIC_ANALYZER = YES
+#CC = /Volumes/Space/Users/bungi/Source/LLVM/llvm/Release/bin/clang
+
 # auto-launch ssh keypairs so i don't have to enter the damned 137.5 character pwd every time
 export SSH_ENV="$HOME/.ssh/environment"
 
-export EDITOR=mate
+export EDITOR=gvim
 export BROWSER="elinks"
 export PAGER="less"
 export SUDO_PROMPT="Your Password:"
@@ -11,6 +16,8 @@ export SUDO_PROMPT="Your Password:"
 # JAVA
 # export java classpath for lucene
 export CLASSPATH=/usr/local/Cellar/lucene-3.0.2/lucene-core-3.0.2.jar:/usr/local/Cellar/lucene-3.0.2/lucene-demos-3.0.2.jar:/Volumes/Data/incoming/stanford-parser-2010-02-26/
+
+export JAVA_HOME=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
 
 # add Stanford parser to path
 export STANFORD_PATH=/usr/local/Cellar/stanford-parser/1.6.2
@@ -30,8 +37,9 @@ export PYTHONPATH=/Library/Frameworks/Python.framework/Versions/2.6/bin
 
 
 # RUBY
-# place path to ruby gems
-export PATH=/usr/local/Cellar/ruby/1.9.2-p0/bin:$PATH
+# place path to ruby gem binaries
+# TODO: do i need this if i have it in .gemrc?
+export PATH=/usr/local/Cellar/ruby/1.9.2-p136/bin:$PATH
 
 
 # HOMEBREW
@@ -48,3 +56,6 @@ export ZSH_THEME="clean"
 
 # ADD gsl LIBRARY TO THE PATH
 export PATH=/usr/local/Cellar/gsl/1.14/lib:/usr/local/Cellar/gsl/1.14/include:$PATH
+
+# since i failed kindergarten this makes me feel good inside
+#export PATH="$PATH:/Applications/github_dwlds/git-achievements"
