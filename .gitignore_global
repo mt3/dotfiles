@@ -26,6 +26,10 @@
 *.sql
 *.sqlite
 
+# Backupd Crap #
+################
+*.swp
+
 # OS generated files #
 ######################
 .DS_Store?
