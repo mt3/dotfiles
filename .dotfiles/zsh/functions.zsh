@@ -7,8 +7,10 @@ function pless() {
 # search notational velocity notes from command line
 # stoled from http://fidlet.com/post/885514801/one-thing-well-a-poor-mans-notational-velocity
 function ns {
-         ls -c ~/Library/Application\ Support/Notational\ Data | grep -i $1
+    ls -c ~/Library/Application\ Support/Notational\ Data | grep -i $1
 }
+
+
 
 
 function chromium_update {
@@ -120,6 +122,15 @@ fi
 # wrap git with hub
 function git(){
 	hub "$@"
+}
+
+# view git diffs in macvim
+function git_diff() {
+    # --no-ext-diff : to prevent using vimdiff
+    # -w : to ignore whitespace
+    # -R : to start vim in read-only mode
+    # - : to make vim act as a pager
+    git diff --no-ext-diff -w "$@" | mvim -R -
 }
 
 
