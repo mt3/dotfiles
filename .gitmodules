@@ -52,3 +52,6 @@
 [submodule ".dotfiles/vim/bundle/puppet-vim"]
 	path = .dotfiles/vim/bundle/puppet-vim
 	url = git://github.com/ghoneycutt/puppet-vim.git
+[submodule ".dotfiles/vim/bundle/vim-preview"]
+	path = .dotfiles/vim/bundle/vim-preview
+	url = git://github.com/greyblake/vim-preview.git
