@@ -161,9 +161,9 @@ set foldmethod=marker " detect triple-{ style fold markers
 set foldlevelstart=0 " start out with everything folded
 
 " set backup
-set backupdir=/var/tmp/vim-backup-files
+"set backupdir=~/.dotfiles/vim/tmp/vim-backup-files
 " puts swap files in this temp directory rather than all over the fukcing place
-set directory=/var/tmp/vim-swp-files
+"set directory=~/.dotfiles/vim/tmp/vim-swp-files
 
 autocmd FileType python runtime! autoload/pythoncomplete.vim
 autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
