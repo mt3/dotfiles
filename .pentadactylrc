@@ -10,9 +10,9 @@
 ""###############################################
 
     " clear all key mappings to avoid troubles from loading rc file several times
-    mapclear
-    cmapclear
-    imapclear
+    "mapclear
+    "cmapclear
+    "imapclear
 
     " clear all autocmds to avoid troubles from loading rc fle several times
     autocmd!
@@ -143,7 +143,7 @@
     "javascript liberator.beep = function() { return false; }
 
     " limit the number of items displayed
-    set maxitems=30
+    set maxitems=15
 
     " lazy alias e echo
     " lazy alias ri reloadimage
