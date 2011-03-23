@@ -29,6 +29,9 @@ do
 done
 
 
+# NODE
+export NODE_PATH=/usr/local/lib/node
+
 # PYTHON
 # place python packages on path
 export PATH=$PATH:/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/site-packages:/Library/Python/2.6/site-packages:/Library/Frameworks/Python.framework/Versions/2.6/bin
