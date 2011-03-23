@@ -94,6 +94,7 @@ alias pips="pip search"
 alias pipl="pip freeze"
 alias pipin="pip install"
 alias pipup="pip install --upgrade"
+alias pipu="pip install --upgrade"
 
 
 # LUCENE
@@ -101,13 +102,15 @@ alias lucin="java org.apache.lucene.demo.IndexFiles"
 alias lucs="java org.apache.lucene.demo.SearchFiles"
 
 
-# NODE
+# NODE and NPM
 alias npmin="npm install"
 alias npml="npm ls installed"
 alias npmu="npm update"
 alias npmo="npm outdated"
 alias npmunin="npm uninstall"
-
+alias npms="npm search"
+alias npma="npm activate"
+alias npmd="npm deactivate"
 
 
 
