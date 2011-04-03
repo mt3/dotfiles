@@ -67,3 +67,6 @@
 [submodule ".dotfiles/vim/bundle/vim-easymotion"]
 	path = .dotfiles/vim/bundle/vim-easymotion
 	url = https://github.com/Lokaltog/vim-easymotion.git
+[submodule ".dotfiles/vim/bundle/vim-virtualenv"]
+	path = .dotfiles/vim/bundle/vim-virtualenv
+	url = https://github.com/jmcantrell/vim-virtualenv.git
