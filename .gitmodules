@@ -55,3 +55,9 @@
 [submodule ".dotfiles/vim/bundle/vim-preview"]
 	path = .dotfiles/vim/bundle/vim-preview
 	url = git://github.com/greyblake/vim-preview.git
+[submodule ".dotfiles/vim/bundle/vim-taglist-plus"]
+	path = .dotfiles/vim/bundle/vim-taglist-plus
+	url = https://github.com/int3/vim-taglist-plus.git
+[submodule ".dotfiles/vim/bundle/vim-extradite"]
+	path = .dotfiles/vim/bundle/vim-extradite
+	url = https://github.com/int3/vim-extradite.git
