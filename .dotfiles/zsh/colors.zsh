@@ -7,7 +7,7 @@ export color_green='\e[0;32m'
 export color_light_green='\e[1;32m'
 export color_cyan='\e[0;36m'
 export color_light_cyan='\e[1;36m'
-export color_red="\e[0;31m"
+export color_red='\e[0;31m'
 export color_light_red='\e[1;31m'
 export color_purple='\e[0;35m'
 export color_light_purple='\e[1;35m'
@@ -15,3 +15,6 @@ export color_brown='\e[0;33m'
 export color_yellow='\e[1;33m'
 export color_gray='\e[0;90m'
 export color_light_gray='\e[0;37m'
+
+
+echo "\e[1m\e[32mFinished loading colors.zsh\e[0m"

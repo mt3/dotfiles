@@ -47,8 +47,19 @@ alias taskd="task done"
 alias taskc="task completed"
 alias taskh="task ghistory"
 
+
 # cribbed from benhoskings http://github.com/benhoskings/dot-files/blob/master/files/.aliases/commands
 alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -nr | head -n 20"
+
+
+# CABAL (haskell)
+alias cabals="cabal list"
+alias cabali="cabal info"
+alias cabalin="cabal install"
+#alias cabalunin="cabal uninstall" TODO
+alias cabalu="cabal update" #TODO: doesn't update installed packages
+#alias cabalo=" outdated" TODO
+alias cabalc="cabal clean"
 
 
 # HOMEBREW
@@ -56,9 +67,14 @@ alias bs="brew search"
 alias bi="brew info"
 alias brewin="brew install"
 alias brewunin="brew uninstall"
-alias bu="brew update"
+alias bu="brew upgrade"
+alias brewu="brew update"
 alias bo="brew outdated"
 alias brewc="brew cleanup && cd /Users/mt/Library/Caches/Homebrew/ && for item in *; do rm -rf $item; done"
+
+
+# FABRIC
+alias fabl="fab --list-format=nested --list"
 
 
 # GIT
@@ -75,7 +91,12 @@ alias gitsvnc="git svn clone"
 alias gitsvncl="git svn clone"
 alias git-tm-bund="cd ~/Library/Application\ Support/TextMate/Bundles/ && git clone"
 #alias git="git-achievements"
+alias gpush="git push -u origin master"
+alias gcm="g commit -m"
 
+
+# GIT FLOW
+alias gf="git flow"
 
 # RUBY GEMS
 alias gemu="gem update"
@@ -113,4 +134,4 @@ alias npma="npm activate"
 alias npmd="npm deactivate"
 
 
-
+echo "\e[1m\e[32mFinished loading aliases.zsh\e[0m"

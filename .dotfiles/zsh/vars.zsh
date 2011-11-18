@@ -6,7 +6,8 @@
 # auto-launch ssh keypairs so i don't have to enter the damned 137.5 character pwd every time
 export SSH_ENV="$HOME/.ssh/environment"
 
-export EDITOR=gvim
+export EDITOR=mvim
+#export EDITOR=gvim
 export BROWSER="elinks"
 export PAGER="less"
 export SUDO_PROMPT="Your Password:"
@@ -15,7 +16,7 @@ export SUDO_PROMPT="Your Password:"
 
 # JAVA
 # export java classpath for lucene
-export CLASSPATH=/usr/local/Cellar/lucene-3.0.2/lucene-core-3.0.2.jar:/usr/local/Cellar/lucene-3.0.2/lucene-demos-3.0.2.jar:/Volumes/Data/incoming/stanford-parser-2010-02-26/
+export CLASSPATH=/usr/local/Cellar/lucene-3.0.2/lucene-core-3.0.2.jar:/usr/local/Cellar/lucene-3.0.2/lucene-demos-3.0.2.jar:/Volumes/Data/incoming/stanford-parser-2010-02-26/stanford-parser.jar
 
 export JAVA_HOME=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
 
@@ -23,26 +24,37 @@ export JAVA_HOME=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Hom
 export STANFORD_PATH=/usr/local/Cellar/stanford-parser/1.6.2
 export PATH=$PATH:$STANFORD_PATH
 
-for i in web util trees swing stats process parser objectbank movetrees misc math ling io international fsm
-do
-  export PATH=$PATH:$STANFORD_PATH/src/edu/stanford/nlp/$i
-done
+#for i in web util trees swing stats process parser objectbank movetrees misc math ling io international fsm
+#do
+#  export PATH=$PATH:$STANFORD_PATH/src/edu/stanford/nlp/$i
+#done
 
 
 # NODE
 export NODE_PATH=/usr/local/lib/node
 
+
 # PYTHON
 # place python packages on path
 export PATH=$PATH:/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/site-packages:/Library/Python/2.6/site-packages:/Library/Frameworks/Python.framework/Versions/2.6/bin
 
-export PYTHONPATH=/Library/Frameworks/Python.framework/Versions/2.6/bin
+export PYTHONPATH=/Library/Frameworks/Python.framework/Versions/2.6/bin:/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/site-packages:/usr/local/lib/python2.6/site-packages/
+
+# override pyhton default of 64-bit mode
+export VERSIONER_PYTHON_PREFER_32_BIT=yes
+
+# some more customization for lion
+export CC=/Developer/usr/bin/gcc-4.2 #/usr/local/Cellar/ccache/3.1.4/libexec/gcc
+export CFLAGS="-Wall -isysroot /Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
+export LDFLAGS="-arch x86_64 -syslibroot,/Developer/SDKs/MacOSX10.7.sdk"
+export FFLAGS="-arch x86_64 -m64"
+export CXXFLAGS="-Wall -isysroot /Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
 
 
 # RUBY
 # place path to ruby gem binaries
 # TODO: do i need this if i have it in .gemrc?
-export PATH=/usr/local/Cellar/ruby/1.9.2-p136/bin:$PATH
+export PATH=/usr/local/Cellar/ruby/1.9.2-p136/bin:/usr/local/Cellar/ruby/1.9.2-p180/bin:/usr/local/Cellar/ruby/1.9.2-p290/bin/:$PATH
 
 
 # HOMEBREW
@@ -62,3 +74,11 @@ export PATH=/usr/local/Cellar/gsl/1.14/lib:/usr/local/Cellar/gsl/1.14/include:$P
 
 # since i failed kindergarten this makes me feel good inside
 #export PATH="$PATH:/Applications/github_dwlds/git-achievements"
+
+
+# homebrew workaround for lion 10.7
+#export HOMEBREW_USE_GCC=/usr/local/Cellar/ccache/3.1.4/libexec/gcc
+
+export MACOSX_DEPLOYMENT_TARGET=10.7
+
+echo "\e[1m\e[32mFinished loading vars.zsh\e[0m"

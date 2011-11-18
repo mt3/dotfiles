@@ -241,3 +241,6 @@ function dl-webpg-containing-txt(){
     done
 
 }
+
+
+echo "\e[1m\e[32mFinished loading functions.zsh\e[0m"

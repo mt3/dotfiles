@@ -47,3 +47,6 @@ zstyle ':completion:*:dvips:*' files '*.dvi'
 
 # Give long completion options in a list. tab to advance.
 zstyle ':completion:*:default' list-prompt '%S%M matches%s'
+
+
+echo "\e[1m\e[32mFinished loading config.zsh\e[0m"
