@@ -79,7 +79,8 @@ alias fabl="fab --list-format=nested --list"
 
 # GIT
 alias g="git"
-alias gitc="git commit -am"
+alias gitc="git commit -m"
+alias gcm="git commit -m"
 alias gits="git status -sb"
 alias gitp="git pull"
 alias gitu="git pull"
@@ -92,7 +93,7 @@ alias gitsvncl="git svn clone"
 alias git-tm-bund="cd ~/Library/Application\ Support/TextMate/Bundles/ && git clone"
 #alias git="git-achievements"
 alias gpush="git push -u origin master"
-alias gcm="g commit -m"
+alias gitsub="git submodule foreach 'git pull'"
 
 
 # GIT FLOW
