@@ -79,3 +79,51 @@
 [submodule ".dotfiles/vim/bundle/VimBookmarking"]
 	path = .dotfiles/vim/bundle/VimBookmarking
 	url = git://github.com/dterei/VimBookmarking.git
+[submodule ".dotfiles/vim/bundle/csv.vim"]
+	path = .dotfiles/vim/bundle/csv.vim
+	url = git://github.com/vim-scripts/csv.vim.git
+[submodule ".dotfiles/vim/bundle/vim_django"]
+	path = .dotfiles/vim/bundle/vim_django
+	url = git://github.com/vim-scripts/vim_django.git
+[submodule ".dotfiles/vim/bundle/Cabal.vim"]
+	path = .dotfiles/vim/bundle/Cabal.vim
+	url = git://github.com/vim-scripts/Cabal.vim.git
+[submodule ".dotfiles/vim/bundle/Python-Syntax"]
+	path = .dotfiles/vim/bundle/Python-Syntax
+	url = git://github.com/vim-scripts/Python-Syntax.git
+[submodule ".dotfiles/vim/bundle/EasyGrep"]
+	path = .dotfiles/vim/bundle/EasyGrep
+	url = git://github.com/vim-scripts/EasyGrep.git
+[submodule ".dotfiles/vim/bundle/vimshell-ssh"]
+	path = .dotfiles/vim/bundle/vimshell-ssh
+	url = git://github.com/vim-scripts/vimshell-ssh.git
+[submodule ".dotfiles/vim/bundle/vimroom.vim"]
+	path = .dotfiles/vim/bundle/vimroom.vim
+	url = git://github.com/vim-scripts/vimroom.vim.git
+[submodule ".dotfiles/vim/bundle/vim-pep8"]
+	path = .dotfiles/vim/bundle/vim-pep8
+	url = git://github.com/jbking/vim-pep8.git
+[submodule ".dotfiles/vim/bundle/vim-pyref"]
+	path = .dotfiles/vim/bundle/vim-pyref
+	url = git://github.com/xolox/vim-pyref.git
+[submodule ".dotfiles/vim/bundle/vimpy"]
+	path = .dotfiles/vim/bundle/vimpy
+	url = git://github.com/amitdev/vimpy.git
+[submodule ".dotfiles/vim/bundle/pyflakes-vim"]
+	path = .dotfiles/vim/bundle/pyflakes-vim
+	url = git://github.com/kevinw/pyflakes-vim.git
+[submodule ".dotfiles/vim/bundle/toolkit.vim"]
+	path = .dotfiles/vim/bundle/toolkit.vim
+	url = git://github.com/gmarik/toolkit.vim.git
+[submodule ".dotfiles/vim/bundle/github-search.vim"]
+	path = .dotfiles/vim/bundle/github-search.vim
+	url = git://github.com/gmarik/github-search.vim.git
+[submodule ".dotfiles/vim/bundle/vundle"]
+	path = .dotfiles/vim/bundle/vundle
+	url = git://github.com/gmarik/vundle.git
+[submodule ".dotfiles/vim/bundle/tcomment_vim"]
+	path = .dotfiles/vim/bundle/tcomment_vim
+	url = git://github.com/tomtom/tcomment_vim.git
+[submodule ".dotfiles/vim/bundle/vim-abolish"]
+	path = .dotfiles/vim/bundle/vim-abolish
+	url = git://github.com/tpope/vim-abolish.git
