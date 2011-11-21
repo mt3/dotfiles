@@ -62,6 +62,10 @@ export PATH=/usr/local/Cellar/ruby/1.9.2-p136/bin:/usr/local/Cellar/ruby/1.9.2-p
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
 
+# MACVIM
+export VIM_APP_DIR=/Applications/DevApps
+
+
 # XCODE
 # place ccache on head of path for faster xcode compiling
 export PATH=/usr/local/Cellar/ccache/3.1.4/libexec:$PATH

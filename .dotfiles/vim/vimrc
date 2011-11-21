@@ -61,9 +61,9 @@ nmap <C-Down> ddp
 nnoremap ' `
 
 " Space will toggle folds
-"nnoremap <space> za
+"nnoremap <Space> za
 " Saves time
-"nmap <space> :
+"nmap <Space> :
 
 " Swap ; and :  Convenient.
 nnoremap ; :

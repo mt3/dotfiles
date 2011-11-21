@@ -80,7 +80,7 @@
     " :sidebar Downloads
 
     " prevent focusing of input elements without user intervention
-    set strictfocus
+    "set strictfocus=*:moderate
 
     "" set duckduckgo.com as default search engine
     set defsearch=duckduckgo
