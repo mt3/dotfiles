@@ -70,3 +70,12 @@
 [submodule ".dotfiles/vim/bundle/vim-virtualenv"]
 	path = .dotfiles/vim/bundle/vim-virtualenv
 	url = https://github.com/jmcantrell/vim-virtualenv.git
+[submodule ".dotfiles/vim/bundle/taskpaper.vim"]
+	path = .dotfiles/vim/bundle/taskpaper.vim
+	url = git://github.com/davidoc/taskpaper.vim.git
+[submodule ".dotfiles/vim/bundle/vim-github"]
+	path = .dotfiles/vim/bundle/vim-github
+	url = git://github.com/thinca/vim-github.git
+[submodule ".dotfiles/vim/bundle/vim-fugitive"]
+	path = .dotfiles/vim/bundle/vim-fugitive
+	url = git://github.com/tpope/vim-fugitive.git
