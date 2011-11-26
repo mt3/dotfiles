@@ -127,3 +127,6 @@
 [submodule ".dotfiles/vim/bundle/vim-abolish"]
 	path = .dotfiles/vim/bundle/vim-abolish
 	url = git://github.com/tpope/vim-abolish.git
+[submodule ".dotfiles/vim/bundle/vim-GitHubDashBoard"]
+	path = .dotfiles/vim/bundle/vim-GitHubDashBoard
+	url = git://github.com/lukaszkorecki/vim-GitHubDashBoard.git
