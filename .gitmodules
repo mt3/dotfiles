@@ -163,3 +163,6 @@
 [submodule ".dotfiles/vim/bundle/minibufexpl.vim"]
 	path = .dotfiles/vim/bundle/minibufexpl.vim
 	url = https://github.com/fholgado/minibufexpl.vim.git
+[submodule ".dotfiles/vim/bundle/vim-peepopen"]
+	path = .dotfiles/vim/bundle/vim-peepopen
+	url = git://github.com/shemerey/vim-peepopen.git
