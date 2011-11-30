@@ -130,3 +130,18 @@
 [submodule ".dotfiles/vim/bundle/vim-GitHubDashBoard"]
 	path = .dotfiles/vim/bundle/vim-GitHubDashBoard
 	url = git://github.com/lukaszkorecki/vim-GitHubDashBoard.git
+[submodule ".dotfiles/vim/bundle/code_complete"]
+	path = .dotfiles/vim/bundle/code_complete
+	url = git://github.com/vim-scripts/code_complete.git
+[submodule ".dotfiles/vim/bundle/cocoa.vim"]
+	path = .dotfiles/vim/bundle/cocoa.vim
+	url = https://github.com/vim-scripts/cocoa.vim.git
+[submodule ".dotfiles/vim/bundle/a.vim"]
+	path = .dotfiles/vim/bundle/a.vim
+	url = https://github.com/vim-scripts/a.vim.git
+[submodule ".dotfiles/vim/bundle/c.vim"]
+	path = .dotfiles/vim/bundle/c.vim
+	url = https://github.com/vim-scripts/c.vim.git
+[submodule ".dotfiles/vim/bundle/vim-bad-whitespace"]
+	path = .dotfiles/vim/bundle/vim-bad-whitespace
+	url = git://github.com/bitc/vim-bad-whitespace.git
