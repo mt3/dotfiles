@@ -172,3 +172,6 @@
 [submodule ".dotfiles/vim/bundle/vim-pathogen"]
 	path = .dotfiles/vim/bundle/vim-pathogen
 	url = git://github.com/tpope/vim-pathogen.git
+[submodule ".dotfiles/vim/bundle/vim-slime"]
+	path = .dotfiles/vim/bundle/vim-slime
+	url = git://github.com/jpalardy/vim-slime.git
