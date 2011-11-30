@@ -145,3 +145,6 @@
 [submodule ".dotfiles/vim/bundle/vim-bad-whitespace"]
 	path = .dotfiles/vim/bundle/vim-bad-whitespace
 	url = git://github.com/bitc/vim-bad-whitespace.git
+[submodule ".dotfiles/vim/bundle/taglist.vim"]
+	path = .dotfiles/vim/bundle/taglist.vim
+	url = https://github.com/vim-scripts/taglist.vim.git
