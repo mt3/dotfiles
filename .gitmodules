@@ -166,3 +166,9 @@
 [submodule ".dotfiles/vim/bundle/vim-peepopen"]
 	path = .dotfiles/vim/bundle/vim-peepopen
 	url = git://github.com/shemerey/vim-peepopen.git
+[submodule ".dotfiles/vim/bundle/vim-orgmode"]
+	path = .dotfiles/vim/bundle/vim-orgmode
+	url = git://github.com/jceb/vim-orgmode.git
+[submodule ".dotfiles/vim/bundle/vim-pathogen"]
+	path = .dotfiles/vim/bundle/vim-pathogen
+	url = git://github.com/tpope/vim-pathogen.git
