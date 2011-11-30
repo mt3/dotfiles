@@ -157,3 +157,9 @@
 [submodule ".dotfiles/vim/bundle/YankRing.vim"]
 	path = .dotfiles/vim/bundle/YankRing.vim
 	url = https://github.com/vim-scripts/YankRing.vim.git
+[submodule ".dotfiles/vim/bundle/syntastic"]
+	path = .dotfiles/vim/bundle/syntastic
+	url = git://github.com/scrooloose/syntastic.git
+[submodule ".dotfiles/vim/bundle/minibufexpl.vim"]
+	path = .dotfiles/vim/bundle/minibufexpl.vim
+	url = https://github.com/fholgado/minibufexpl.vim.git
