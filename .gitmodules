@@ -148,3 +148,12 @@
 [submodule ".dotfiles/vim/bundle/taglist.vim"]
 	path = .dotfiles/vim/bundle/taglist.vim
 	url = https://github.com/vim-scripts/taglist.vim.git
+[submodule ".dotfiles/vim/bundle/tagbar"]
+	path = .dotfiles/vim/bundle/tagbar
+	url = git://github.com/majutsushi/tagbar.git
+[submodule ".dotfiles/vim/bundle/clang_complete"]
+	path = .dotfiles/vim/bundle/clang_complete
+	url = git://github.com/Rip-Rip/clang_complete.git
+[submodule ".dotfiles/vim/bundle/YankRing.vim"]
+	path = .dotfiles/vim/bundle/YankRing.vim
+	url = https://github.com/vim-scripts/YankRing.vim.git
