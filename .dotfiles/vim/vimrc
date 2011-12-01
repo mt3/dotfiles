@@ -1,11 +1,16 @@
+" MAIN SETTINGS {{{
 set nocompatible " Necesary for fun
 
+runtime ~/.dotfiles/vim/bundle/vim-pathogen/autoload/pathogen.vim
+
 filetype off
-"all pathogen#runtime_append_all_bundles()
-"call pathogen#helptags()
+call pathogen#runtime_append_all_bundles()
+call pathogen#infect('~/.dotfiles/vim/bundle')
+call pathogen#helptags()
+syntax on
 filetype plugin indent on
 
-version 6.0
+version 7.3
 if &cp | set nocp | endif
 let s:cpo_save=&cpo
 set cpo&vim
@@ -13,9 +18,11 @@ set cpo&vim
 :set runtimepath=~/.dotfiles/vim,$VIMRUNTIME
 "source ~/.dotfiles/vim
 
+" }}}
 
 
-" MAPPINGS
+
+" MAPPINGS {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 "remap left/right arrow keys for tab next/previous
 map <Left> gT
@@ -65,7 +72,7 @@ nnoremap ' `
 " Saves time
 "nmap <Space> :
 
-" Swap ; and :  Convenient.
+" Swap ; and :  Convenient. as. fukc.
 nnoremap ; :
 nnoremap : ;
 
@@ -89,12 +96,11 @@ map <leader>li :set list!<CR> " toggle invisibles
 imap jj <esc>
 imap kk <esc>
 
-" build ctags taglist for current working directory
-map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+" }}}
 
 
 
-" SETTINGS
+" SETTINGS {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set noerrorbells
 set visualbell
@@ -110,8 +116,8 @@ set langmenu=none
 set mouse=a
 set printexpr=system('open\ -a\ Preview\ '.v:fname_in)\ +\ v:shell_error
 set termencoding=utf-8
-set scrolloff=5 " keep at least 5 lines above/below
-set sidescrolloff=5 " keep at least 5 lines left/right
+set scrolloff=3 " keep at least 3 lines above/below
+set sidescrolloff=3 " keep at least 3 lines left/right
 set autoindent
 set showmode
 set showcmd
@@ -171,10 +177,13 @@ set foldlevelstart=0 " start out with everything folded
 autocmd FileType python runtime! autoload/pythoncomplete.vim
 autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
 autocmd BufNewFile,BufRead */etc/nginx/* setlocal ft=nginx
+au BufNewFile,BufRead *.pentadactylrc setfiletype vim
+
+" }}}
 
 
 
-" FUNCTIONS
+" FUNCTIONS {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " source .vimrc
 map <silent> <Leader>s :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo'vimrc reloaded'"<CR>
@@ -191,13 +200,6 @@ nnoremap <silent> <Leader>gv :tabnew<CR>:e ~/.gvimrc<CR>
 " Create Blank Newlines and stay in Normal mode
 nnoremap <silent> zj o<Esc>
 nnoremap <silent> zk O<Esc>
-
-" Configure NERDTree
-"map <leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
-
-" YankRing stuff
-let g:yankring_history_dir = '~/.dotfiles/vim/tmp'
-nmap <leader>r :YRShow<CR>
 
 "Automatically change current directory to that of the file in the buffer
 autocmd BufEnter * cd %:p:h
@@ -217,9 +219,14 @@ endf
 "Opens a vertical split and switches over
 nnoremap <leader>v <C-w>v<C-w>l
 
+" build ctags taglist for current working directory
+map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+
+" }}}
 
 
-" APPEARANCE
+
+" APPEARANCE {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 colorscheme my-macvim
 set bg=light
@@ -231,8 +238,11 @@ set splitbelow
 set fuoptions=maxvert,maxhorz
 set fullscreen
 
+" }}}
 
-" PLUGINS SETUP
+
+
+" PLUGINS SETUP {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 """snipmate setup
 "source ~/.dotfiles/vim/snipmate-snippets/support_functions.vim
@@ -261,6 +271,8 @@ set fullscreen
 nmap <leader>n :NERDTreeClose<CR>:NERDTreeToggle<CR>
 nmap <leader>m :NERDTreeClose<CR>:NERDTreeFind<CR>
 nmap <leader>N :NERDTreeClose<CR>
+"map <leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
+
 
 " Store the bookmarks file
 let NERDTreeBookmarksFile=expand("~/.dotfiles/vim/NERDTreeBookmarks")
@@ -294,17 +306,42 @@ let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$',
 "autocmd VimEnter * NERDTree
 "autocmd VimEnter * wincmd p
 
-"""Fugitive
+" Quit peepopen when vim exits
+"let p:peepopen_quit = 1
+
+" NerdCommenter
+"nmap <leader>c<space>:NERDComToggleComment "already built-in...
+
+" OrgMode
+"let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Date', 'Misc']
+"let g:org_todo_keywords = ['TODO', '|', 'DONE']
+"let g:org_debug = 1
+
+" Commentary
+"nmap <leader>c <Plug>CommentaryLine
+"xmap <leader>c <Plug>Commentary
+"au FileType htmldjango setlocal commentstring={#\ %s\ #}
+
+" Fugitive
 "set statusline+=\ 
 "set statusline+=%#GitStatusLine#
 "set statusline+=%{fugitive#statusline()}
 "set statusline+=%*
+
+" Slime
+let g:slime_target = "tmux" "use tmux instead of screen
 
 " Taglist (ctags)
 let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
 let Tlist_WinWidth = 50
 map <F4> :TlistToggle<cr>
 
+" Tagbar
+nmap <F7> :TagbarToggle<CR>
+
+" YankRing stuff
+let g:yankring_history_dir = '~/.dotfiles/vim/tmp'
+nmap <leader>r :YRShow<CR>
 
 " used for iPad's iSSH app. iOS doesn't allow use of esc key, so makes using vim difficult
 " see http://gilesbowkett.blogspot.com/2011/03/how-to-set-up-vim-to-work-well-via-issh.html
@@ -315,6 +352,9 @@ if &term == "xterm-ipad"
    inoremap <Tab> <Esc>`^
    inoremap <Leader><Tab> <Tab>
 endif
+
+" }}}
+
 
 
 " vim: set ft=vim :
