@@ -1,8 +1,8 @@
 " @section TODO {{{
-" TODO: sync bookmarks and pinboard
-" TODO: figure out how pinboard and plugins work with pentadactyl
+" TODO: sync bookmarks and pinboard (what does this mean?)
 " TODO: qmarks?
-" TODO: 
+" TODO: set default font to Helvetica 15
+" TODO: set monospace font to Inconsolata-dz 13
 " }}}
 
 
@@ -296,9 +296,6 @@
     " source the config file
     map ,s :so<Space> ~/.pentadactylrc<CR>
 
-    " open some search urls
-    map <M-3> -ex open http://scholar.google.ca/scholar?q=
-
     " use the good search
     map <M-f> /
 
@@ -324,16 +321,20 @@
     "noremap <silent> <leader>r :open javascript:(function(){readStyle='style-ebook';readSize='size-medium';readMargin='margin-x-narrow';_readability_script=document.createElement('SCRIPT');_readability_script.type='text/javascript';_readability_script.src='http://lab.arc90.com/experiments/readability/js/readability.js?x='+(Math.random());document.getElementsByTagName('head')[0].appendChild(_readability_script);_readability_css=document.createElement('LINK');_readability_css.rel='stylesheet';_readability_css.href='http://lab.arc90.com/experiments/readability/css/readability.css';_readability_css.type='text/css';_readability_css.media='all';document.getElementsByTagName('head')[0].appendChild(_readability_css);_readability_print_css=document.createElement('LINK');_readability_print_css.rel='stylesheet';_readability_print_css.href='http://lab.arc90.com/experiments/readability/css/readability-print.css';_readability_print_css.media='print';_readability_print_css.type='text/css';document.getElementsByTagName('head')[0].appendChild(_readability_print_css);})();<CR>
 
     " KEYBOARD SHORTCUTS
-    " use the pinboard bookmarklet
+    "
+    " pinboard bookmarklet
     map <M-1> -ex open javascript:if(document.getSelection){s=document.getSelection();}else{s='';};document.location='https://pinboard.in/add?next=same&url='+encodeURIComponent(location.href)+'&description='+encodeURIComponent(s)+'&title='+encodeURIComponent(document.title)
     map <M-2> open http://pinboard.in/u:mt3_666
-    "map <M-3> open TODO
+    map <M-3> -ex open http://scholar.google.ca/scholar?q=
     "map <M-4> open TODO
+    " quiet read bookmarklet
     "map <M-5> open TODO
-    " use the instapaper bookmarklet
+    " instapaper bookmarklet
     map <M-6> -ex open javascript:function%20iprl5(){var%20d=document,z=d.createElement('scr'+'ipt'),b=d.body,l=d.location;try{if(!b)throw(0);d.title='(Saving...)%20'+d.title;z.setAttribute('src',l.protocol+'//www.instapaper.com/j/WsSoRZGjTo8a?u='+encodeURIComponent(l.href)+'&t='+(new%20Date().getTime()));b.appendChild(z);}catch(e){alert('Please%20wait%20until%20the%20page%20has%20loaded.');}}iprl5();void(0)
-
     "map <M-7> open TODO
+    "map <M-8> open TODO
+    "map <M-9> open TODO
+    "map <M-0> open TODO
 
     " bring back/hide portions of the GUI
     "noremap <silent> <leader>g :set guioptions+=mBT<CR>
@@ -505,7 +506,8 @@
 " @section highlight/style {{{
 " ******************************************************************************
 
-    colorscheme darkness3
+    "colorscheme darkness3
+    colorscheme myzenburn
 
     "hi CompResult width: 45%; overflow: hidden; max-width; 60%;
 
