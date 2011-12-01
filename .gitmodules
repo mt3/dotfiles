@@ -175,3 +175,9 @@
 [submodule ".dotfiles/vim/bundle/vim-slime"]
 	path = .dotfiles/vim/bundle/vim-slime
 	url = git://github.com/jpalardy/vim-slime.git
+[submodule ".dotfiles/vim/bundle/simplenote.vim"]
+	path = .dotfiles/vim/bundle/simplenote.vim
+	url = https://github.com/mrtazz/simplenote.vim.git
+[submodule ".dotfiles/vim/bundle/vim-pad"]
+	path = .dotfiles/vim/bundle/vim-pad
+	url = git://github.com/fmoralesc/vim-pad.git
