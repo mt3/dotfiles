@@ -13,11 +13,15 @@ let g:colors_name = "my-macvim"
 "Clear the colors for any items that you don't like
 "hi clear StatusLine
 "hi clear StatusLineNC
-highlight clear Comment 
+highlight clear Comment
 highlight clear Todo 
+highlight clear Cursor
+highlight clear CursorLine
 
 "Set up your new & improved colors
 "hi StatusLine guifg=black guibg=white
 "hi StatusLineNC guifg=LightCyan guibg=blue gui=bold
-highlight Comment guifg=Lightgray
-highlight Todo guibg=White guifg=Lightgray
+highlight Comment guifg=Gray
+highlight Todo guifg=Black guibg=LightMagenta
+highlight Cursor guibg=#dcdcdc
+highlight CursorLine guibg=#fafafa
