@@ -1,358 +1,470 @@
+" TODO {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    " * change auto-indent from '==' to something else? textmate shortcut?   nmap <M-.> ==
+    " * when 'source .vimrc' make the highlights clear ':nohl'
+    " * a line with a todo should have darkened background for the rest of the line after the todo
+    " * have vim's help page open in a horizontal split pane (on right), not vertical
+    " * get rid of string highlights in vim files while in the body of a comment such as "this"
+    " * change code-folding message so that '32 lines' is a lighter color than the line number
+    " * .pentadactylrc and .penta files need to be syntax-highlighted using vim (i have an attempt below, but doesn't work)
+    " * when opening a new file with vim already opened, the relative line mubers option isn't on
+    " * use <M-/> for toggling comments on/off a la textmate
+    " * 
+    "
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+
+
+
 " MAIN SETTINGS {{{
-set nocompatible " Necesary for fun
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    set nocompatible " Necesary for fun
+    
+    runtime ~/.dotfiles/vim/bundle/vim-pathogen/autoload/pathogen.vim
+    
+    filetype off
+    call pathogen#runtime_append_all_bundles()
+    call pathogen#infect('~/.dotfiles/vim/bundle')
+    call pathogen#helptags()
+    syntax on
+    filetype on
+    filetype plugin indent on
+    
+    version 7.3
+    if &cp | set nocp | endif
+    let s:cpo_save=&cpo
+    set cpo&vim
+    
+    :set runtimepath=~/.dotfiles/vim,$VIMRUNTIME
+    "source ~/.dotfiles/vim
 
-runtime ~/.dotfiles/vim/bundle/vim-pathogen/autoload/pathogen.vim
-
-filetype off
-call pathogen#runtime_append_all_bundles()
-call pathogen#infect('~/.dotfiles/vim/bundle')
-call pathogen#helptags()
-syntax on
-filetype plugin indent on
-
-version 7.3
-if &cp | set nocp | endif
-let s:cpo_save=&cpo
-set cpo&vim
-
-:set runtimepath=~/.dotfiles/vim,$VIMRUNTIME
-"source ~/.dotfiles/vim
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
 
 
 
 " MAPPINGS {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"remap left/right arrow keys for tab next/previous
-map <Left> gT
-map <Right> gt
-imap <D-BS> 
-imap <M-BS> 
-imap <M-Down> }
-inoremap <D-Down> <C-End>
-imap <M-Up> {
-inoremap <D-Up> <C-Home>
-noremap! <M-Right> <C-Right>
-noremap! <D-Right> <End>
-noremap! <M-Left> <C-Left>
-noremap! <D-Left> <Home>
-map! <D-v> *
-nmap gx <Plug>NetrwBrowseX
-map <M-Down> }
-noremap <D-Down> <C-End>
-map <M-Up> {
-noremap <D-Up> <C-Home>
-noremap <M-Right> <C-Right>
-noremap <D-Right> <End>
-noremap <M-Left> <C-Left>
-noremap <D-Left> <Home>
-nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
-vmap <BS> "-d
-vmap <D-x> "*d
-vmap <D-c> "*y
-vmap <D-v> "-d"*P
-nmap <D-v> "*P
-let &cpo=s:cpo_save
-unlet s:cpo_save
+    "remap left/right arrow keys for tab next/previous
+    map <Left> gT
+    map <Right> gt
+    imap <D-BS> 
+    imap <M-BS> 
+    imap <M-Down> }
+    inoremap <D-Down> <C-End>
+    imap <M-Up> {
+    inoremap <D-Up> <C-Home>
+    noremap! <M-Right> <C-Right>
+    noremap! <D-Right> <End>
+    noremap! <M-Left> <C-Left>
+    noremap! <D-Left> <Home>
+    map! <D-v> *
+    nmap gx <Plug>NetrwBrowseX
+    map <M-Down> }
+    noremap <D-Down> <C-End>
+    map <M-Up> {
+    noremap <D-Up> <C-Home>
+    noremap <M-Right> <C-Right>
+    noremap <D-Right> <End>
+    noremap <M-Left> <C-Left>
+    noremap <D-Left> <Home>
+    nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
+    vmap <BS> "-d
+    vmap <D-x> "*d
+    vmap <D-c> "*y
+    vmap <D-v> "-d"*P
+    nmap <D-v> "*P
+    let &cpo=s:cpo_save
+    unlet s:cpo_save
+    
+    " map Enter key to add a new line below and return to visual mode
+    nmap <CR> o<esc>
+    
+    " Move cursor together with the screen
+    noremap <c-j> j<c-e>
+    noremap <c-k> k<c-y>
+    
+    " Bubble single lines
+    nmap <C-Up> ddkP
+    nmap <C-Down> ddp
+    
+    " Better Marks
+    nnoremap ' `
+    
+    " Swap ; and :  Convenient. as. fukc.
+    nnoremap ; :
+    nnoremap : ;
+    " Saves time
+    nmap <Space> ;
+    
+    " make e go to end of line and get ready to type in insert mode if shift is selected
+    nmap e $
+    nmap E $a<SPACE>
+    
+    " Bash like keys for the command line
+    "cnoremap <C-A>      <Home>
+    "cnoremap <C-E>      <End>
+    "cnoremap <C-K>      <C-U>
+    
+    " Quick alignment of text
+    nmap <leader>al :left<CR>
+    nmap <leader>ar :right<CR>
+    nmap <leader>ac :center<CR>
+    
+    map <leader>yr :YRShow<cr> " show yankring
+    
+    map <leader>h :noh<CR> " quickly get rid of highlights
+    
+    map <leader>li :set list!<CR> " toggle invisibles
+    
+    " hitting jj or kk will jump out of insert mode
+    imap jj <esc>
+    imap kk <esc>
+    
+    " Map function keys
+    "
+    " toggle/untoggle folds TODO zR is open all folds and zM is close all folds
+    :map <f1> zR 
+    :map <f2> zM 
+    " 
+    ":map <f > 
+    "
+    " build ctags taglist for current working directory
+    map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
-" Move cursor together with the screen
-noremap <c-j> j<c-e>
-noremap <c-k> k<c-y>
-
-"Bubble single lines
-nmap <C-Up> ddkP
-nmap <C-Down> ddp
-
-" Better Marks
-nnoremap ' `
-
-" Space will toggle folds
-"nnoremap <Space> za
-" Saves time
-"nmap <Space> :
-
-" Swap ; and :  Convenient. as. fukc.
-nnoremap ; :
-nnoremap : ;
-
-" Bash like keys for the command line
-"cnoremap <C-A>      <Home>
-"cnoremap <C-E>      <End>
-"cnoremap <C-K>      <C-U>
-
-" Quick alignment of text
-nmap <leader>al :left<CR>
-nmap <leader>ar :right<CR>
-nmap <leader>ac :center<CR>
-
-map <leader>yr :YRShow<cr> " show yankring
-
-map <leader>h :noh<CR> " quickly get rid of highlights
-
-map <leader>li :set list!<CR> " toggle invisibles
-
-" hitting jj or kk will jump out of insert mode
-imap jj <esc>
-imap kk <esc>
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
 
 
 
 " SETTINGS {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-set noerrorbells
-set visualbell
-set guicursor+=a:blinkon0 "turn off goddamned blinking
-set t_vb=
-set autoread " watch for file changes
-set backspace=indent,eol,start
-set fileencodings=ucs-bom,utf-8,default,latin1
-set guioptions=egmrLt
-set guitablabel=%M%t
-set helplang=en
-set langmenu=none
-set mouse=a
-set printexpr=system('open\ -a\ Preview\ '.v:fname_in)\ +\ v:shell_error
-set termencoding=utf-8
-set scrolloff=3 " keep at least 3 lines above/below
-set sidescrolloff=3 " keep at least 3 lines left/right
-set autoindent
-set showmode
-set showcmd
-set hidden
-set wildmenu
-set wildmode=list:longest
-set history=200
+    set noerrorbells
+    set visualbell
+    set guicursor+=a:blinkon0 "turn off goddamned blinking
+    set t_vb=
+    set autoread " watch for file changes
+    set backspace=indent,eol,start
+    set fileencodings=ucs-bom,utf-8,default,latin1
+    set guioptions=egmrLt
+    set guitablabel=%M%t
+    set helplang=en
+    set langmenu=none
+    set mouse=a
+    set printexpr=system('open\ -a\ Preview\ '.v:fname_in)\ +\ v:shell_error
+    set termencoding=utf-8
+    set scrolloff=3 " keep at least 3 lines above/below
+    set sidescrolloff=3 " keep at least 3 lines left/right
+    set autoindent
+    set showmode
+    set showcmd
+    set hidden
+    set wildmenu
+    set wildmode=list:longest
+    set history=200
+    
+    set nocursorline
+    set ruler
+    set fullscreen
+    set laststatus=1
+    set cmdheight=2
+    set modeline
+    set number
+    set relativenumber
+    set undofile " keep a permanent undo file
+    set undodir=~/.dotfiles/vim/undo,~/tmp,/tmp
+    set undoreload=1000
+    set undolevels=1000
+    set complete=.,w,b,u,U,t,i,d  " do lots of scanning on tab completion
+    set splitright " new buffers open to the right
+    
+    set ttyfast " we have a fast car
+    set shell=/usr/local/bin/zsh
+    
+    let mapleader = ","
+    
+    set ignorecase
+    set smartcase
+    set gdefault
+    set incsearch
+    set showmatch " show matching bracket
+    set hlsearch
+    
+    filetype on
+    filetype indent on
+    filetype plugin on
+    filetype detect
+    syntax enable
+    
+    set wrap
+    "set formatoptions=qrn1 " what does this do?
+    
+    set tabstop=4
+    set shiftwidth=4
+    set softtabstop=4
+    set expandtab
+    "set nofoldenable "dont fold by default
+    set foldmethod=marker " detect triple-{ style fold markers TODO shouldn't this be indent? marker is just for vim?
+    "set foldmethod=indent
+    set foldlevelstart=0 " start out with everything folded
+    set foldlevel=99 "TODO what does this do?
+    
+    " set backup
+    "set backupdir=~/.dotfiles/vim/tmp/vim-backup-files
+    " puts swap files in this temp directory rather than all over the fukcing place
+    "set directory=~/.dotfiles/vim/tmp/vim-swp-files
+    
+    autocmd FileType python runtime! autoload/pythoncomplete.vim
+    autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
+    autocmd BufNewFile,BufRead */etc/nginx/* setlocal ft=nginx
+    au BufNewFile,BufRead *.pentadactylrc setlocal ft=vim
+    au BufNewFile,BufRead *.penta setfiletype vim
 
-set nocursorline
-set ruler
-set fullscreen
-set laststatus=1
-set cmdheight=2
-set modeline
-set number
-set relativenumber
-set undofile " keep a permanent undo file
-set undodir=~/.dotfiles/vim/undo,~/tmp,/tmp
-set undoreload=1000
-set undolevels=1000
-set complete=.,w,b,u,U,t,i,d  " do lots of scanning on tab completion
-set splitright " new buffers open to the right
-
-set ttyfast " we have a fast car
-set shell=/usr/local/bin/zsh
-
-let mapleader = ","
-
-set ignorecase
-set smartcase
-set gdefault
-set incsearch
-set showmatch " show matching bracket
-set hlsearch
-
-filetype on
-filetype indent on
-filetype plugin on
-syntax enable
-
-set wrap
-"set formatoptions=qrn1 " what does this do?
-
-set tabstop=4
-set shiftwidth=4
-set softtabstop=4
-set expandtab
-"set nofoldenable "dont fold by default
-set foldmethod=marker " detect triple-{ style fold markers
-set foldlevelstart=0 " start out with everything folded
-
-" set backup
-"set backupdir=~/.dotfiles/vim/tmp/vim-backup-files
-" puts swap files in this temp directory rather than all over the fukcing place
-"set directory=~/.dotfiles/vim/tmp/vim-swp-files
-
-autocmd FileType python runtime! autoload/pythoncomplete.vim
-autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
-autocmd BufNewFile,BufRead */etc/nginx/* setlocal ft=nginx
-au BufNewFile,BufRead *.pentadactylrc setfiletype vim
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
 
 
 
 " FUNCTIONS {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" source .vimrc
-map <silent> <Leader>s :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo'vimrc reloaded'"<CR>
+    " source .vimrc
+    "map <silent> <Leader>s :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo'vimrc reloaded'"<CR>
+    map <silent> <leader>s :source ~/.vimrc
+    
+    " Edit vimrc \ev
+    nnoremap <silent> <Leader>ev :tabedit ~/.vimrc<CR>
+    "map <leader>e :e! ~/.vim_runtime/vimrc<cr>
+    " Edit gvimrc \gv
+    nnoremap <silent> <Leader>gv :tabnew<CR>:e ~/.gvimrc<CR>
+    
+    " When vimrc is edited, reload it
+    "autocmd! bufwritepost vimrc source ~/.vim_runtime/vimrc
+    
+    " Create Blank Newlines and stay in Normal mode
+    nnoremap <silent> zj o<Esc>
+    nnoremap <silent> zk O<Esc>
+    
+    "Automatically change current directory to that of the file in the buffer
+    autocmd BufEnter * cd %:p:h
+    
+    " Source the vimrc right after saving it
+    if has("autocmd")
+     augroup myvimrchooks
+      au!
+      autocmd bufwritepost .vimrc source ~/.vimrc
+     augroup END
+    endif
+    
+    function! SurroundWith(char)
+        return AppendLineOf(a:char) . "yykP"
+    endf
+    
+    "Opens a vertical split and switches over
+    nnoremap <leader>v <C-w>v<C-w>l
 
-" Edit vimrc \ev
-nnoremap <silent> <Leader>ev :tabedit ~/.vimrc<CR>
-"map <leader>e :e! ~/.vim_runtime/vimrc<cr>
-" Edit gvimrc \gv
-nnoremap <silent> <Leader>gv :tabnew<CR>:e ~/.gvimrc<CR>
-
-" When vimrc is edited, reload it
-"autocmd! bufwritepost vimrc source ~/.vim_runtime/vimrc
-
-" Create Blank Newlines and stay in Normal mode
-nnoremap <silent> zj o<Esc>
-nnoremap <silent> zk O<Esc>
-
-"Automatically change current directory to that of the file in the buffer
-autocmd BufEnter * cd %:p:h
-
-" Source the vimrc right after saving it
-if has("autocmd")
- augroup myvimrchooks
-  au!
-  autocmd bufwritepost .vimrc source ~/.vimrc
- augroup END
-endif
-
-function! SurroundWith(char)
-    return AppendLineOf(a:char) . "yykP"
-endf
-
-"Opens a vertical split and switches over
-nnoremap <leader>v <C-w>v<C-w>l
-
-" build ctags taglist for current working directory
-map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
 
 
 
 " APPEARANCE {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-colorscheme my-macvim
-set bg=light
-set guifont=Inconsolata:h14
-set t_Co=256 " term has 256 colors
-set lazyredraw " do not redraw while running macros
-set linespace=3
-set splitbelow
-set fuoptions=maxvert,maxhorz
-set fullscreen
+    colorscheme my-macvim
+    set bg=light
+    set guifont=Inconsolata:h14
+    set t_Co=256 " term has 256 colors
+    set lazyredraw " do not redraw while running macros
+    set linespace=3
+    set splitbelow
+    set fuoptions=maxvert,maxhorz
+    set fullscreen
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+
+
+
+" LANGUAGES {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+    " Python Settings {{{
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    au FileType python set omnifunc=pythoncomplete#Complete
+    
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    " }}}
+
+
+    " C Settings {{{
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    " }}}
+    
+    
+    " Objective-C Settings {{{
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    " }}}
+
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
 
 
 
 " PLUGINS SETUP {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-"""snipmate setup
-"source ~/.dotfiles/vim/snipmate-snippets/support_functions.vim
-"autocmd vimenter * call s:SetupSnippets()
-"function! s:SetupSnippets()
-"    "if we're in a rails env then read in the rails snippets
-"    if filereadable("./config/environment.rb")
-"        call ExtractSnips("~/.vim/snippets/ruby-rails", "ruby")
-"        call ExtractSnips("~/.vim/snippets/eruby-rails", "eruby")
-"    endif
-"
-"    call ExtractSnips("~/.vim/snippets/html", "eruby")
-"    call ExtractSnips("~/.vim/snippets/html", "xhtml")
-"    call ExtractSnips("~/.vim/snippets/html", "php")
-"endfunction
+    " Snipmate {{{
+        "source ~/.dotfiles/vim/snipmate-snippets/support_functions.vim
+        "autocmd vimenter * call s:SetupSnippets()
+        "function! s:SetupSnippets()
+        "    "if we're in a rails env then read in the rails snippets
+        "    if filereadable("./config/environment.rb")
+        "        call ExtractSnips("~/.vim/snippets/ruby-rails", "ruby")
+        "        call ExtractSnips("~/.vim/snippets/eruby-rails", "eruby")
+        "    endif
+        "
+        "    call ExtractSnips("~/.vim/snippets/html", "eruby")
+        "    call ExtractSnips("~/.vim/snippets/html", "xhtml")
+        "    call ExtractSnips("~/.vim/snippets/html", "php")
+        "endfunction
+    " }}}
+    
+    " Command-T {{{
+        "let g:CommandTMaxHeight = 15
+        "set wildignore+=*.o,*.obj,.git,*.pyc,*.hg,*.svn,*.swp,*.bak,*.class
+        "noremap <leader>j :CommandT<cr>
+        "noremap <leader>y :CommandTFlush<cr>
+    " }}}
+    
+    " NERDTree settings {{{
+        " Put focus to the NERD Tree with F3 (tricked by quickly closing it and immediately showing it again, since there is no :NERDTreeFocus command)
+        nmap <leader>n :NERDTreeClose<CR>:NERDTreeToggle<CR>
+        nmap <leader>m :NERDTreeClose<CR>:NERDTreeFind<CR>
+        nmap <leader>N :NERDTreeClose<CR>
+        "map <leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
+        
+        " Store the bookmarks file
+        let NERDTreeBookmarksFile=expand("~/.dotfiles/vim/NERDTreeBookmarks")
+        
+        " Show the bookmarks table on startup
+        let NERDTreeShowBookmarks=1
+        
+        " Show hidden files, too
+        let NERDTreeShowFiles=1
+        let NERDTreeShowHidden=1
+        
+        " Quit on opening files from the tree
+        let NERDTreeQuitOnOpen=1
+        
+        " Highlight the selected entry in the tree
+        let NERDTreeHighlightCursorline=1
+        
+        " Use a single click to fold/unfold directories and a double click to open files
+        let NERDTreeMouseMode=2
+        
+        " Don't display these kinds of files
+        let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$']
+        
+        "nmap <leader>nt :NERDTreeToggle <CR>
+        "
+        ""Show hidden files in NerdTree
+        "let NERDTreeShowHidden=1
+        "
+        ""autopen NERDTree and focus cursor in new document
+        "autocmd VimEnter * NERDTree
+        "autocmd VimEnter * wincmd p
+    " }}}
+    
+    " Peepopen {{{
+        " Quit peepopen when vim exits
+        "let p:peepopen_quit = 1
+    " }}}
+    
+    " NerdCommenter {{{
+        "nmap <leader>c<space>:NERDComToggleComment " TODO this already built-in i believe
+    " }}}
+    
+    " OrgMode {{{
+        "let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Date', 'Misc']
+        "let g:org_todo_keywords = ['TODO', '|', 'DONE']
+        "let g:org_debug = 1
+    " }}}
+    
+    " Commentary {{{
+        "nmap <leader>c <Plug>CommentaryLine
+        "xmap <leader>c <Plug>Commentary
+        "au FileType htmldjango setlocal commentstring={#\ %s\ #}
+    " }}}
+    
+    " SuperTab {{{
+        let g:SuperTabDefaultCompletionType = "context"
+        set completeopt=menuone,longest,preview
+    " }}}
+    
+    " Fugitive {{{
+        set statusline+=\ 
+        set statusline+=%#GitStatusLine#
+        set statusline+=%{fugitive#statusline()}
+        set statusline+=%*
+    " }}}
+    
+    " Ack {{{
+        "nmap <leader>a <Esc>:Ack!
+    " }}}
+    
+    " Ropevim {{{
+        map <leader>j :RopeGotoDefinition<CR>
+        map <leader>r :RopeRename<CR>
+    " }}}
+    
+    " Slime {{{
+        let g:slime_target = "tmux" "use tmux instead of screen
+    " }}}
+    
+    " Taglist (Ctags) {{{
+        let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
+        let Tlist_WinWidth = 50
+        map <F4> :TlistToggle<cr>
+        "set tags+=$HOME/.vim/tags/python.ctags
+    " }}}
+    
+    " Tagba {{{r
+        nmap <F7> :TagbarToggle<CR>
+    " }}}
+    
+    " YankRing stuff {{{
+        let g:yankring_history_dir = '~/.dotfiles/vim/tmp'
+        nmap <leader>r :YRShow<CR>
+    " }}}
+    
+    " Tasklist {{{
+        " organizes todos, etc.
+        map <leader>td <Plug>TaskList
+    " }}}
 
-"""Command-T
-"let g:CommandTMaxHeight = 15
-"set wildignore+=*.o,*.obj,.git,*.pyc,*.hg,*.svn,*.swp,*.bak,*.class
-"noremap <leader>j :CommandT<cr>
-"noremap <leader>y :CommandTFlush<cr>
-
-"""NERDTree settings
-" Put focus to the NERD Tree with F3 (tricked by quickly closing it and
-" immediately showing it again, since there is no :NERDTreeFocus command)
-nmap <leader>n :NERDTreeClose<CR>:NERDTreeToggle<CR>
-nmap <leader>m :NERDTreeClose<CR>:NERDTreeFind<CR>
-nmap <leader>N :NERDTreeClose<CR>
-"map <leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
 
 
-" Store the bookmarks file
-let NERDTreeBookmarksFile=expand("~/.dotfiles/vim/NERDTreeBookmarks")
 
-" Show the bookmarks table on startup
-let NERDTreeShowBookmarks=1
-
-" Show hidden files, too
-let NERDTreeShowFiles=1
-let NERDTreeShowHidden=1
-
-" Quit on opening files from the tree
-let NERDTreeQuitOnOpen=1
-
-" Highlight the selected entry in the tree
-let NERDTreeHighlightCursorline=1
-
-" Use a single click to fold/unfold directories and a double click to open files
-let NERDTreeMouseMode=2
-
-" Don't display these kinds of files
-let NERDTreeIgnore=[ '\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$',
-            \ '\.o$', '\.so$', '\.egg$', '^\.git$' ]
-
-"nmap <leader>nt :NERDTreeToggle <CR>
-"
-""Show hidden files in NerdTree
-"let NERDTreeShowHidden=1
-"
-""autopen NERDTree and focus cursor in new document
-"autocmd VimEnter * NERDTree
-"autocmd VimEnter * wincmd p
-
-" Quit peepopen when vim exits
-"let p:peepopen_quit = 1
-
-" NerdCommenter
-"nmap <leader>c<space>:NERDComToggleComment "already built-in...
-
-" OrgMode
-"let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Date', 'Misc']
-"let g:org_todo_keywords = ['TODO', '|', 'DONE']
-"let g:org_debug = 1
-
-" Commentary
-"nmap <leader>c <Plug>CommentaryLine
-"xmap <leader>c <Plug>Commentary
-"au FileType htmldjango setlocal commentstring={#\ %s\ #}
-
-" Fugitive
-"set statusline+=\ 
-"set statusline+=%#GitStatusLine#
-"set statusline+=%{fugitive#statusline()}
-"set statusline+=%*
-
-" Slime
-let g:slime_target = "tmux" "use tmux instead of screen
-
-" Taglist (ctags)
-let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
-let Tlist_WinWidth = 50
-map <F4> :TlistToggle<cr>
-
-" Tagbar
-nmap <F7> :TagbarToggle<CR>
-
-" YankRing stuff
-let g:yankring_history_dir = '~/.dotfiles/vim/tmp'
-nmap <leader>r :YRShow<CR>
-
-" used for iPad's iSSH app. iOS doesn't allow use of esc key, so makes using vim difficult
-" see http://gilesbowkett.blogspot.com/2011/03/how-to-set-up-vim-to-work-well-via-issh.html
-if &term == "xterm-ipad"
-   nnoremap <Tab> <Esc>
-   vnoremap <Tab> <Esc>gV
-   onoremap <Tab> <Esc>
-   inoremap <Tab> <Esc>`^
-   inoremap <Leader><Tab> <Tab>
-endif
-
+" OTHER STUFF {{{
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    " iPad {{{
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+        " used for iPad's iSSH app. iOS doesn't allow use of esc key, so makes using vim difficult
+        " see http://gilesbowkett.blogspot.com/2011/03/how-to-set-up-vim-to-work-well-via-issh.html
+        if &term == "xterm-ipad"
+            nnoremap <Tab> <Esc>
+            vnoremap <Tab> <Esc>gV
+            onoremap <Tab> <Esc>
+            inoremap <Tab> <Esc>`^
+            inoremap <Leader><Tab> <Tab>
+        endif
+    " }}}
+    
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
 
 
