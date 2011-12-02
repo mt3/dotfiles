@@ -1,42 +1,60 @@
-" TODO {{{
+ TODO {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " * change auto-indent from '==' to something else? textmate shortcut?   nmap <M-.> ==
     " * when 'source .vimrc' make the highlights clear ':nohl'
     " * a line with a todo should have darkened background for the rest of the line after the todo
-    " * have vim's help page open in a horizontal split pane (on right), not vertical
+    " * have vim's help page open in a horizontal split pane (on right), not vertical 'splitright' instead of 'splitbelow'?
     " * get rid of string highlights in vim files while in the body of a comment such as "this"
     " * change code-folding message so that '32 lines' is a lighter color than the line number
     " * .pentadactylrc and .penta files need to be syntax-highlighted using vim (i have an attempt below, but doesn't work)
     " * when opening a new file with vim already opened, the relative line mubers option isn't on
     " * use <M-/> for toggling comments on/off a la textmate
-    " * 
+    " * document what many of the non-obvious options do
+    " * always open new panes to the right horizontally
+    " * get rid of the .swp file after ':q' is used to close the pane
+    " * change color of matching brackets in showmatch option
+    " * what is diff between leader and Leader?
+    " * nmap / :h<space>
+    " * turn off spaces at end of lines when it's just a bunch of tabs
+    " * make comments a different font (helvetica? italicized?)
+    " * after i do a 'save', automatically change to visual mode
+    " *
     "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
 
 
 
-" MAIN SETTINGS {{{
+" MAIN STARTUP & LOADING {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     set nocompatible " Necesary for fun
     
-    runtime ~/.dotfiles/vim/bundle/vim-pathogen/autoload/pathogen.vim
+    " setup vim plugins using pathogen
+    filetype off " need to turn off filetype for pathogen
+    " To disable a plugin, add it's bundle name to the following list
+    let g:pathogen_disabled = []
+    call add(g:pathogen_disabled, 'vimpy')
+    call add(g:pathogen_disabled, 'simplenote')
+    call add(g:pathogen_disabled, 'tasklist')
+    call add(g:pathogen_disabled, 'vim-django')
     
-    filetype off
-    call pathogen#runtime_append_all_bundles()
-    call pathogen#infect('~/.dotfiles/vim/bundle')
-    call pathogen#helptags()
+    "source ~/.dotfiles/vim/bundle/vim-pathogen/autoload/pathogen.vim
+    "set runtimepath=~/.dotfiles/vim,$VIMRUNTIME
+    
+    "call pathogen#runtime_append_all_bundles()
+    "call pathogen#infect('~/.dotfiles/vim/bundle')
+    "call pathogen#helptags()
     syntax on
     filetype on
     filetype plugin indent on
     
     version 7.3
     if &cp | set nocp | endif
-    let s:cpo_save=&cpo
+    let s:cpo_save=&cpo " 's:' means variable 'cpo_save' has scope defined locally only within this script
     set cpo&vim
     
-    :set runtimepath=~/.dotfiles/vim,$VIMRUNTIME
-    "source ~/.dotfiles/vim
+    set runtimepath=~/.dotfiles/vim,$VIMRUNTIME
+    ":set runtimepath=~/.dotfiles/vim,$VIMRUNTIME " TODO is this even being used? looks like a magic typo
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
@@ -59,7 +77,7 @@
     noremap! <M-Left> <C-Left>
     noremap! <D-Left> <Home>
     map! <D-v> *
-    nmap gx <Plug>NetrwBrowseX
+    "nmap gx <Plug>NetrwBrowseX
     map <M-Down> }
     noremap <D-Down> <C-End>
     map <M-Up> {
@@ -68,7 +86,7 @@
     noremap <D-Right> <End>
     noremap <M-Left> <C-Left>
     noremap <D-Left> <Home>
-    nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
+    "nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
     vmap <BS> "-d
     vmap <D-x> "*d
     vmap <D-c> "*y
@@ -101,6 +119,10 @@
     nmap e $
     nmap E $a<SPACE>
     
+    "TODO trying for indentation shortcut
+    "vnoremap <M-<> <gV
+    "vnoremap <M->> >gV
+    
     " Bash like keys for the command line
     "cnoremap <C-A>      <Home>
     "cnoremap <C-E>      <End>
@@ -123,12 +145,10 @@
     
     " Map function keys
     "
-    " toggle/untoggle folds TODO zR is open all folds and zM is close all folds
-    :map <f1> zR 
-    :map <f2> zM 
-    " 
-    ":map <f > 
-    "
+    " toggle/untoggle folds TODO zR is open all folds and zM is close all folds (combine in one keystroke)
+    map <f1> zR<esc>
+    map <f2> zM<esc>
+    "map <f >
     " build ctags taglist for current working directory
     map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
@@ -137,7 +157,7 @@
 
 
 
-" SETTINGS {{{
+" OPTIONS, CONFIGURATION, AND SETTINGS {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     set noerrorbells
     set visualbell
@@ -150,7 +170,7 @@
     set guitablabel=%M%t
     set helplang=en
     set langmenu=none
-    set mouse=a
+    set mouse=a " enable mouse in all modes
     set printexpr=system('open\ -a\ Preview\ '.v:fname_in)\ +\ v:shell_error
     set termencoding=utf-8
     set scrolloff=3 " keep at least 3 lines above/below
@@ -163,11 +183,12 @@
     set wildmode=list:longest
     set history=200
     
-    set nocursorline
+    set cursorline
+    set nocursorcolumn " turn off highlighting the column which the cursor is in
     set ruler
     set fullscreen
-    set laststatus=1
-    set cmdheight=2
+    set laststatus=1 " TODO
+    set cmdheight=2 "TODO
     set modeline
     set number
     set relativenumber
@@ -176,10 +197,20 @@
     set undoreload=1000
     set undolevels=1000
     set complete=.,w,b,u,U,t,i,d  " do lots of scanning on tab completion
-    set splitright " new buffers open to the right
+
+    " set backup
+    "set backupdir=~/.dotfiles/vim/tmp/vim-backup-files
+    " puts swap files in this temp directory rather than all over the fukcing place
+    "set directory=~/.dotfiles/vim/tmp/vim-swp-files
     
     set ttyfast " we have a fast car
+    set ttimeoutlen=50 " make Esc work faster
     set shell=/usr/local/bin/zsh
+
+    " TODO describe
+    "if v:version >= 700
+    "    set viminfo=!,'20,<50,s10,h
+    "endif
     
     let mapleader = ","
     
@@ -204,21 +235,20 @@
     set softtabstop=4
     set expandtab
     "set nofoldenable "dont fold by default
-    set foldmethod=marker " detect triple-{ style fold markers TODO shouldn't this be indent? marker is just for vim?
-    "set foldmethod=indent
+    "set foldmethod=marker " detect triple-{ style fold markers
+    set foldmethod=indent " perform code folding based on indentation levels
     set foldlevelstart=0 " start out with everything folded
-    set foldlevel=99 "TODO what does this do?
-    
-    " set backup
-    "set backupdir=~/.dotfiles/vim/tmp/vim-backup-files
-    " puts swap files in this temp directory rather than all over the fukcing place
-    "set directory=~/.dotfiles/vim/tmp/vim-swp-files
+    set foldcolumn=0 " don't have a fold column displayed beside line numbers
+    "set foldlevel=99 "TODO what does this do?
+    "set t_ce=^V^[[K	" (CTRL-V, <Esc>, [, K) to clear to end of line
     
     autocmd FileType python runtime! autoload/pythoncomplete.vim
     autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
     autocmd BufNewFile,BufRead */etc/nginx/* setlocal ft=nginx
     au BufNewFile,BufRead *.pentadactylrc setlocal ft=vim
     au BufNewFile,BufRead *.penta setfiletype vim
+
+    "let g:is_zsh = 1 " TODO what is this used for? stolen from tpope's .vimrc
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
@@ -248,12 +278,12 @@
     autocmd BufEnter * cd %:p:h
     
     " Source the vimrc right after saving it
-    if has("autocmd")
-     augroup myvimrchooks
-      au!
-      autocmd bufwritepost .vimrc source ~/.vimrc
-     augroup END
-    endif
+    "if has("autocmd")
+    " augroup myvimrchooks
+    "  au!
+    "  autocmd bufwritepost .vimrc source ~/.vimrc
+    " augroup END
+    "endif
     
     function! SurroundWith(char)
         return AppendLineOf(a:char) . "yykP"
@@ -261,6 +291,23 @@
     
     "Opens a vertical split and switches over
     nnoremap <leader>v <C-w>v<C-w>l
+
+    " Open URL under cursor in browser (kidnapped from tpope's .vimrc)
+    function! OpenURL(url)
+        if has("win32")
+            exe "!start cmd /cstart /b ".a:url.""
+        elseif $DISPLAY !~ '^\w'
+            exe "silent !sensible-browser \"".a:url."\""
+        else
+            exe "silent !sensible-browser -T \"".a:url."\""
+        endif
+        redraw!
+    endfunction
+    command! -nargs=1 OpenURL :call OpenURL(<q-args>)
+    nnoremap gb :OpenURL <cfile><CR>
+    nnoremap gA :OpenURL http://www.answers.com/<cword><CR>
+    nnoremap gG :OpenURL https://www.duckduckgo.com/search?q=<cword><CR>
+    nnoremap gW :OpenURL http://en.wikipedia.org/wiki/Special:Search?search=<cword><CR>
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
@@ -275,7 +322,7 @@
     set t_Co=256 " term has 256 colors
     set lazyredraw " do not redraw while running macros
     set linespace=3
-    set splitbelow
+    set splitright " new buffers open to the right
     set fuoptions=maxvert,maxhorz
     set fullscreen
 
@@ -290,6 +337,18 @@
     " Python Settings {{{
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     au FileType python set omnifunc=pythoncomplete#Complete
+    
+    " Add the virtualenv's site-packages to vim path
+    "py << EOF
+    "import os.path
+    "import sys
+    "import vim
+    "if 'VIRTUAL_ENV' in os.environ:
+    "    project_base_dir = os.environ['VIRTUAL_ENV']
+    "    sys.path.insert(0, project_base_dir)
+    "    activate_this = os.path.join(project_base_dir, 'bin/activate_this.py')
+    "    execfile(activate_this, dict(__file__=activate_this))
+    "EOF
     
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " }}}
@@ -336,36 +395,42 @@
         "set wildignore+=*.o,*.obj,.git,*.pyc,*.hg,*.svn,*.swp,*.bak,*.class
         "noremap <leader>j :CommandT<cr>
         "noremap <leader>y :CommandTFlush<cr>
+        "let g:CommandTMaxFiles=20000
+
+        "if has("gui_macvim")
+        "   macmenu &File.New\ Tab key=<nop>
+        "   map <D-t> :CommandT<CR>
+        "endif
     " }}}
     
     " NERDTree settings {{{
         " Put focus to the NERD Tree with F3 (tricked by quickly closing it and immediately showing it again, since there is no :NERDTreeFocus command)
-        nmap <leader>n :NERDTreeClose<CR>:NERDTreeToggle<CR>
-        nmap <leader>m :NERDTreeClose<CR>:NERDTreeFind<CR>
-        nmap <leader>N :NERDTreeClose<CR>
+        "nmap <leader>n :NERDTreeClose<CR>:NERDTreeToggle<CR>
+        "nmap <leader>m :NERDTreeClose<CR>:NERDTreeFind<CR>
+        "nmap <leader>N :NERDTreeClose<CR>
         "map <leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
         
         " Store the bookmarks file
-        let NERDTreeBookmarksFile=expand("~/.dotfiles/vim/NERDTreeBookmarks")
+        "let NERDTreeBookmarksFile=expand("~/.dotfiles/vim/NERDTreeBookmarks")
         
         " Show the bookmarks table on startup
-        let NERDTreeShowBookmarks=1
+        "let NERDTreeShowBookmarks=1
         
         " Show hidden files, too
-        let NERDTreeShowFiles=1
-        let NERDTreeShowHidden=1
+        "let NERDTreeShowFiles=1
+        "let NERDTreeShowHidden=1
         
         " Quit on opening files from the tree
-        let NERDTreeQuitOnOpen=1
+        "let NERDTreeQuitOnOpen=1
         
         " Highlight the selected entry in the tree
-        let NERDTreeHighlightCursorline=1
+        "let NERDTreeHighlightCursorline=1
         
         " Use a single click to fold/unfold directories and a double click to open files
-        let NERDTreeMouseMode=2
+        "let NERDTreeMouseMode=2
         
         " Don't display these kinds of files
-        let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$']
+        "let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$']
         
         "nmap <leader>nt :NERDTreeToggle <CR>
         "
@@ -399,51 +464,61 @@
     " }}}
     
     " SuperTab {{{
-        let g:SuperTabDefaultCompletionType = "context"
-        set completeopt=menuone,longest,preview
+        "let g:SuperTabDefaultCompletionType = "context"
+        "set completeopt=menuone,longest,preview
     " }}}
     
     " Fugitive {{{
-        set statusline+=\ 
-        set statusline+=%#GitStatusLine#
-        set statusline+=%{fugitive#statusline()}
-        set statusline+=%*
+        "set statusline+=\ 
+        "set statusline+=%#GitStatusLine#
+        "set statusline+=%{fugitive#statusline()}
+        "set statusline+=%*
     " }}}
     
     " Ack {{{
         "nmap <leader>a <Esc>:Ack!
     " }}}
     
+    " DO NOT USE: replaced with python-mode
     " Ropevim {{{
-        map <leader>j :RopeGotoDefinition<CR>
-        map <leader>r :RopeRename<CR>
+        "map <leader>j :RopeGotoDefinition<CR>
+        "map <leader>r :RopeRename<CR>
     " }}}
     
     " Slime {{{
-        let g:slime_target = "tmux" "use tmux instead of screen
+        "let g:slime_target = "tmux" "use tmux instead of screen
+    " }}}
+    
+    " Surround {{{
+        "let g:surround_{char2nr('-')} = "<% \r %>"
+        "let g:surround_{char2nr('=')} = "<%= \r %>"
+        "let g:surround_{char2nr('8')} = "/* \r */"
+        "let g:surround_{char2nr('s')} = " \r"
+        "let g:surround_{char2nr('^')} = "/^\r$/"
+        "let g:surround_indent = 1
     " }}}
     
     " Taglist (Ctags) {{{
-        let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
-        let Tlist_WinWidth = 50
-        map <F4> :TlistToggle<cr>
+        "let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
+        "let Tlist_WinWidth = 50
+        "map <F4> :TlistToggle<cr>
         "set tags+=$HOME/.vim/tags/python.ctags
     " }}}
     
     " Tagba {{{r
-        nmap <F7> :TagbarToggle<CR>
-    " }}}
-    
-    " YankRing stuff {{{
-        let g:yankring_history_dir = '~/.dotfiles/vim/tmp'
-        nmap <leader>r :YRShow<CR>
+        "nmap <F7> :TagbarToggle<CR>
     " }}}
     
     " Tasklist {{{
         " organizes todos, etc.
-        map <leader>td <Plug>TaskList
+        "map <leader>td <Plug>TaskList
     " }}}
 
+    " YankRing stuff {{{
+        "let g:yankring_history_dir = '~/.dotfiles/vim/tmp'
+        "nmap <leader>r :YRShow<CR>
+    " }}}
+    
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
 
@@ -455,13 +530,13 @@
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
         " used for iPad's iSSH app. iOS doesn't allow use of esc key, so makes using vim difficult
         " see http://gilesbowkett.blogspot.com/2011/03/how-to-set-up-vim-to-work-well-via-issh.html
-        if &term == "xterm-ipad"
-            nnoremap <Tab> <Esc>
-            vnoremap <Tab> <Esc>gV
-            onoremap <Tab> <Esc>
-            inoremap <Tab> <Esc>`^
-            inoremap <Leader><Tab> <Tab>
-        endif
+        "if &term == "xterm-ipad"
+        "    nnoremap <Tab> <Esc>
+        "    vnoremap <Tab> <Esc>gV
+        "    onoremap <Tab> <Esc>
+        "    inoremap <Tab> <Esc>`^
+        "    inoremap <Leader><Tab> <Tab>
+        "endif
     " }}}
     
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -470,3 +545,4 @@
 
 
 " vim: set ft=vim :
+
