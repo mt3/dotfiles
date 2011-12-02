@@ -181,3 +181,6 @@
 [submodule ".dotfiles/vim/bundle/vim-pad"]
 	path = .dotfiles/vim/bundle/vim-pad
 	url = git://github.com/fmoralesc/vim-pad.git
+[submodule ".dotfiles/vim/bundle/TaskList.vim"]
+	path = .dotfiles/vim/bundle/TaskList.vim
+	url = https://github.com/vim-scripts/TaskList.vim.git
