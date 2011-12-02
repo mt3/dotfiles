@@ -190,3 +190,6 @@
 [submodule ".dotfiles/vim/bundle/python-mode"]
 	path = .dotfiles/vim/bundle/python-mode
 	url = git://github.com/klen/python-mode.git
+[submodule ".dotfiles/vim/bundle/VimLite"]
+	path = .dotfiles/vim/bundle/VimLite
+	url = git://github.com/vim-scripts/VimLite.git
