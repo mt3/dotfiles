@@ -1,25 +1,30 @@
- TODO {{{
+" TODO {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    " * change auto-indent from '==' to something else? textmate shortcut?   nmap <M-.> ==
-    " * when 'source .vimrc' make the highlights clear ':nohl'
-    " * a line with a todo should have darkened background for the rest of the line after the todo
-    " * have vim's help page open in a horizontal split pane (on right), not vertical 'splitright' instead of 'splitbelow'?
-    " * get rid of string highlights in vim files while in the body of a comment such as "this"
-    " * change code-folding message so that '32 lines' is a lighter color than the line number
-    " * .pentadactylrc and .penta files need to be syntax-highlighted using vim (i have an attempt below, but doesn't work)
-    " * when opening a new file with vim already opened, the relative line mubers option isn't on
-    " * use <M-/> for toggling comments on/off a la textmate
-    " * document what many of the non-obvious options do
-    " * always open new panes to the right horizontally
-    " * get rid of the .swp file after ':q' is used to close the pane
-    " * change color of matching brackets in showmatch option
-    " * what is diff between leader and Leader?
-    " * nmap / :h<space>
-    " * turn off spaces at end of lines when it's just a bunch of tabs
-    " * make comments a different font (helvetica? italicized?)
-    " * after i do a 'save', automatically change to visual mode
-    " *
-    "
+    " when 'source .vimrc' make the highlights clear ':nohl'
+    " always open macvim with split pane with the vim help file or whatever info pane (2/3 file, 1/3 help)
+    " a line with a todo should have darkened background for the rest of the line after the todo
+    " have vim's help page open in a horizontal split pane (on right), not vertical 'splitright' instead of 'splitbelow'?
+    " get rid of string highlights in vim files while in the body of a comment such as "this" (check ':set comments?' for what this ftype is using)
+    " change code-folding message so that '32 lines' is a lighter color than the line number
+    " .pentadactylrc and .penta files need to be syntax-highlighted using vim (i have an attempt below, but doesn't work)
+    " use <M-/> for toggling comments on/off a la textmate
+    " document what many of the non-obvious options do
+    " always open new panes to the right horizontally
+    " get rid of the .swp file after ':q' is used to close the pane
+    " change color of matching brackets in showmatch option
+    " nmap / :h<space>
+    " turn off spaces at end of lines when it's just a bunch of tabs
+    " make comments a different font (helvetica? italicized?)
+    " after i do a 'save', automatically change to visual mode
+    " with autoindent, when <CR> is typed to get new indented line, <Esc> somehow removes the indent
+    " stop infinite scroll at bottom of buffer, go 10 max
+    " in split panes, unfocused buffers should be dimmed
+    " list all keybindings
+    " delete LOAD PLUGINS once i get pathogen back up and running
+    " fugitive isn't updating statusline
+    " have code pasted into vim automatically be indented and formatted properly as per context
+    " 
+    " 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
 
@@ -36,12 +41,13 @@
     call add(g:pathogen_disabled, 'vimpy')
     call add(g:pathogen_disabled, 'simplenote')
     call add(g:pathogen_disabled, 'tasklist')
+    call add(g:pathogen_disabled, 'minibufexplorer')
     call add(g:pathogen_disabled, 'vim-django')
     
     "source ~/.dotfiles/vim/bundle/vim-pathogen/autoload/pathogen.vim
     "set runtimepath=~/.dotfiles/vim,$VIMRUNTIME
     
-    "call pathogen#runtime_append_all_bundles()
+    ""call pathogen#runtime_append_all_bundles() "TODO not used anymore? use infect()?
     "call pathogen#infect('~/.dotfiles/vim/bundle')
     "call pathogen#helptags()
     syntax on
@@ -54,8 +60,31 @@
     set cpo&vim
     
     set runtimepath=~/.dotfiles/vim,$VIMRUNTIME
-    ":set runtimepath=~/.dotfiles/vim,$VIMRUNTIME " TODO is this even being used? looks like a magic typo
 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" }}}
+
+
+
+"TODO: delete this section after pathogen has been fixed
+" LOAD PLUGINS {{{ 
+""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    source ~/.dotfiles/vim/bundle/ack.vim/plugin/ack.vim
+    helptags ~/.dotfiles/vim/bundle/ack.vim/doc
+    set rtp+=~/.dotfiles/vim/bundle/ack.vim
+    
+    source ~/.dotfiles/vim/bundle/vim-fugitive/plugin/fugitive.vim
+    helptags ~/.dotfiles/vim/bundle/vim-fugitive/doc
+    set rtp+=~/.dotfiles/vim/bundle/vim-fugitive
+    
+    "source ~/.dotfiles/vim/bundle/
+    "helptags ~/.dotfiles/vim/bundle/
+    "set rtp+=~/.dotfiles/vim/bundle/
+    
+    "source ~/.dotfiles/vim/bundle/
+    "helptags ~/.dotfiles/vim/bundle/
+    "set rtp+=~/.dotfiles/vim/bundle/
+    
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
 
@@ -92,9 +121,20 @@
     vmap <D-c> "*y
     vmap <D-v> "-d"*P
     nmap <D-v> "*P
+    nnoremap Y  y$
+
     let &cpo=s:cpo_save
     unlet s:cpo_save
     
+    " Tab or Shift-Tab indents/unidents selected line(s)
+    vnoremap <S-Tab> <gv
+    vnoremap <Tab>	 >gv
+    nnoremap <S-Tab> <<
+    nnoremap <Tab>	 >>
+
+    " TODO save file, then goto visual mode
+    map <M-s> <esc>:w<CR>
+
     " map Enter key to add a new line below and return to visual mode
     nmap <CR> o<esc>
     
@@ -133,11 +173,16 @@
     nmap <leader>ar :right<CR>
     nmap <leader>ac :center<CR>
     
-    map <leader>yr :YRShow<cr> " show yankring
+    " show yankring
+    "map <leader>yr :YRShow<cr> 
     
-    map <leader>h :noh<CR> " quickly get rid of highlights
+    " quickly get rid of highlights
+    "nnoremap <S-F3> :set hlsearch!<CR>
+    "map <leader>h :noh<CR> 
+    map <leader>h :set hlsearch!<CR>
     
-    map <leader>li :set list!<CR> " toggle invisibles
+    " toggle invisibles (whitespace, etc.)
+    map <leader>li :set list!<CR> 
     
     " hitting jj or kk will jump out of insert mode
     imap jj <esc>
@@ -148,6 +193,7 @@
     " toggle/untoggle folds TODO zR is open all folds and zM is close all folds (combine in one keystroke)
     map <f1> zR<esc>
     map <f2> zM<esc>
+    map <f3> :exe ":echo 'yesy'"<CR>
     "map <f >
     " build ctags taglist for current working directory
     map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
@@ -166,7 +212,7 @@
     set autoread " watch for file changes
     set backspace=indent,eol,start
     set fileencodings=ucs-bom,utf-8,default,latin1
-    set guioptions=egmrLt
+    set guioptions=egmT
     set guitablabel=%M%t
     set helplang=en
     set langmenu=none
@@ -176,21 +222,22 @@
     set scrolloff=3 " keep at least 3 lines above/below
     set sidescrolloff=3 " keep at least 3 lines left/right
     set autoindent
+    set cpoptions+=I " TODO maintain indent on a new line after <Esc> is pressed or 'save' file
     set showmode
-    set showcmd
+    set showcmd " <leader> key appears in right hand corner of vim (to the left of the cursor location) and it disappears when the timeout happens
     set hidden
+    set report=0 " Always report changes
     set wildmenu
     set wildmode=list:longest
     set history=200
     
     set cursorline
     set nocursorcolumn " turn off highlighting the column which the cursor is in
-    set ruler
+    set ruler " show line and column of cursor position
     set fullscreen
-    set laststatus=1 " TODO
-    set cmdheight=2 "TODO
+    set laststatus=0 " never a statusline even in split-pane mode
+    set cmdheight=2 " # of screen lines to use for display of cmd line
     set modeline
-    set number
     set relativenumber
     set undofile " keep a permanent undo file
     set undodir=~/.dotfiles/vim/undo,~/tmp,/tmp
@@ -198,6 +245,9 @@
     set undolevels=1000
     set complete=.,w,b,u,U,t,i,d  " do lots of scanning on tab completion
 
+    " Turn backup off since futurefolks use hg/git/etc.
+    set nobackup
+    set nowb
     " set backup
     "set backupdir=~/.dotfiles/vim/tmp/vim-backup-files
     " puts swap files in this temp directory rather than all over the fukcing place
@@ -205,6 +255,7 @@
     
     set ttyfast " we have a fast car
     set ttimeoutlen=50 " make Esc work faster
+    set timeoutlen=1000 " time to press next key after <Leader> has been pressed before it clears
     set shell=/usr/local/bin/zsh
 
     " TODO describe
@@ -215,7 +266,7 @@
     let mapleader = ","
     
     set ignorecase
-    set smartcase
+    set smartcase " Case insensitive searches become sensitive with capitals
     set gdefault
     set incsearch
     set showmatch " show matching bracket
@@ -228,7 +279,7 @@
     syntax enable
     
     set wrap
-    "set formatoptions=qrn1 " what does this do?
+    "set formatoptions=qrn1 " TODO
     
     set tabstop=4
     set shiftwidth=4
@@ -240,15 +291,16 @@
     set foldlevelstart=0 " start out with everything folded
     set foldcolumn=0 " don't have a fold column displayed beside line numbers
     "set foldlevel=99 "TODO what does this do?
-    "set t_ce=^V^[[K	" (CTRL-V, <Esc>, [, K) to clear to end of line
     
     autocmd FileType python runtime! autoload/pythoncomplete.vim
     autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2
     autocmd BufNewFile,BufRead */etc/nginx/* setlocal ft=nginx
-    au BufNewFile,BufRead *.pentadactylrc setlocal ft=vim
-    au BufNewFile,BufRead *.penta setfiletype vim
+    au BufNewFile,BufRead *.pentadactylrc set ft=vim
+    au BufNewFile,BufRead *.penta set ft=vim
 
     "let g:is_zsh = 1 " TODO what is this used for? stolen from tpope's .vimrc
+    
+    "set t_ce=^V^[[K	" (CTRL-V, <Esc>, [, K) to clear to end of line
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
@@ -259,7 +311,7 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " source .vimrc
     "map <silent> <Leader>s :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo'vimrc reloaded'"<CR>
-    map <silent> <leader>s :source ~/.vimrc
+    map <silent> <leader>s :source ~/.vimrc<CR>
     
     " Edit vimrc \ev
     nnoremap <silent> <Leader>ev :tabedit ~/.vimrc<CR>
@@ -274,6 +326,23 @@
     nnoremap <silent> zj o<Esc>
     nnoremap <silent> zk O<Esc>
     
+    " Merge consecutive empty lines and clean up trailing whitespace
+    map <Leader>fm :g/^\s*$/,/\S/-j<Bar>%s/\s\+$//<CR>
+    
+    " Standard 'go to manual' command
+    nmap gm :exe OpenURL('http://google.com/search?q=' . expand("<cword>"))<cr>
+
+    " https://github.com/bjeanes/dot-files/blob/master/vim/vimrc
+    " For when you forget to sudo.. Really Write the file.
+    "command! W call s:SudoWrite()
+    "function! s:SudoWrite()
+    "  write !sudo tee % >/dev/null
+    "  e!
+    "endfunction
+
+    " Run firefox
+    cmap ff :!start "/Applications/BrowerApps/Nightly" "%"<CR>
+
     "Automatically change current directory to that of the file in the buffer
     autocmd BufEnter * cd %:p:h
     
@@ -288,7 +357,14 @@
     function! SurroundWith(char)
         return AppendLineOf(a:char) . "yykP"
     endf
-    
+
+    " Retab and Strip trailing whitespace 
+    function! RetabAndStripTrailingWhitespace()
+    	:retab!
+    	:%s/\s\+$//e
+    endfunction
+    nnoremap <Leader>cu	:call RetabAndStripTrailingWhitespace()<CR>  
+
     "Opens a vertical split and switches over
     nnoremap <leader>v <C-w>v<C-w>l
 
@@ -322,6 +398,7 @@
     set t_Co=256 " term has 256 colors
     set lazyredraw " do not redraw while running macros
     set linespace=3
+    set nosplitbelow
     set splitright " new buffers open to the right
     set fuoptions=maxvert,maxhorz
     set fullscreen
@@ -469,14 +546,14 @@
     " }}}
     
     " Fugitive {{{
-        "set statusline+=\ 
-        "set statusline+=%#GitStatusLine#
-        "set statusline+=%{fugitive#statusline()}
-        "set statusline+=%*
+        set statusline+=\ 
+        set statusline+=%#GitStatusLine#
+        set statusline+=%{fugitive#statusline()}
+        set statusline+=%*
     " }}}
     
     " Ack {{{
-        "nmap <leader>a <Esc>:Ack!
+        nmap <leader>a <Esc>:Ack!
     " }}}
     
     " DO NOT USE: replaced with python-mode
@@ -545,4 +622,5 @@
 
 
 " vim: set ft=vim :
+
 
