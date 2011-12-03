@@ -1,14 +1,22 @@
 " @section TODO {{{
-" TODO: sync bookmarks and pinboard (what does this mean?)
-" TODO: qmarks?
-" TODO: set default font to Helvetica 15
-" TODO: set monospace font to Inconsolata-dz 13
+    " * sync bookmarks and pinboard (what does this mean?)
+    " * change 'open add-ons' cmd-shift-a shortcut to extensions shortcut cmd-e
+    " * hide add-on bar on start
+    " * hide status bar on start
+    " * qmarks?
+    " * set default font to Times 14
+    " * set monospace font to Inconsolata-dz 13
+    " * hide tabs at top of page. or just shrink them down
+    " * disable pentadactyl on cloud9ide.com
+    " * fix indentation and style
+    " * use instapaper stylesheet for ALL webpages in browser by default
+    " *
+    " *
 " }}}
 
 
 
 " @section Pentadactyl settings {{{
-"
 "###############################################
 
     " clear all key mappings to avoid troubles from loading rc file several times
@@ -179,11 +187,14 @@
 
 " @section Passkeys {{{
 " ******************************************************************************
-
+"this disables pentadactyls keybindings from working on various sites
     set passkeys=
 
     " DuckDuckGo
-    "set passkeys+="https://duckduckgo\.com/":jkv
+    set passkeys+="https://duckduckgo\.com/":jkv
+
+    " cloud9ide.com
+    set passkeys+="https://cloud9ide\.com/":jkv
 
     "" Gmail
     "set passkeys+="https://mail\.google\.com/":jkg
@@ -503,11 +514,24 @@
 
 
 
-" @section highlight/style {{{
+" @section Highlight/Style {{{
 " ******************************************************************************
 
     "colorscheme darkness3
     colorscheme myzenburn
+
+    highlight StatusLine font-size: 11px; font-family:"Inconsolata-dz", monospace; font-weight: normal; color: #222; background: #FFF;
+    highlight CmdLine font-size: 11px; font-weight: normal; font-family:"Inconsolata-dz", monospace; padding: 0 0; color: #222; background: #FFF;
+    highlight Hint background-color: #FFF;
+    highlight StatusLineBroken color: #222; background: #FFF;
+    highlight StatusLineSecure color: #222; background: #FFF;
+    highlight CompTitle background: #FFF;
+    highlight Title background: #FFF;
+    highlight ErrorMsg background-color: #FFF;
+    "highlight CompItem[selected] background-color: #FFF; " background color of highlighted selection
+    "highlight CompGroup color: #FFF;
+    "highlight CompDesc color: #FFF;
+    highlight HintElem background-color: #FFF;
 
     "hi CompResult width: 45%; overflow: hidden; max-width; 60%;
 
@@ -535,7 +559,7 @@
 
 
 
-" @section qmarks {{{
+" @section Qmarks {{{
 " ======================================================================
 
     "qmark g https://mail.google.com/
