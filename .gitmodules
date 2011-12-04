@@ -193,3 +193,6 @@
 [submodule ".dotfiles/vim/bundle/VimLite"]
 	path = .dotfiles/vim/bundle/VimLite
 	url = git://github.com/vim-scripts/VimLite.git
+[submodule ".dotfiles/vim/bundle/vim-autoclose"]
+	path = .dotfiles/vim/bundle/vim-autoclose
+	url = git://github.com/Townk/vim-autoclose.git
