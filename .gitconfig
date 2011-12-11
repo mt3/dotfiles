@@ -3,83 +3,86 @@
 	email = na@na.na
 
 [core]
-  editor = mvim -f
-	excludesfile = /Users/mt/.gitignore_global
-  # set pager = "" don't use 'more' or 'less' pagers since i am restricting the number of committs displayed anyway
-  # plus this eliminates the "press any key" prompt at the end of each output
-  pager = ""
-  filemode = true
-  logallrefupdates = true
-  whitespace = space-before-tab, trailing-space
-	quotepath = false
+    editor = mvim -f
+    excludesfile = /Users/mt/.gitignore_global
+    # set pager = "" don't use 'more' or 'less' pagers since i am restricting the number of commits displayed anyway
+    # plus this eliminates the "press any key" prompt at the end of each output
+    pager = ""
+    filemode = true
+    logallrefupdates = true
+    whitespace = space-before-tab, trailing-space
+    quotepath = false
+    # proxy settings TODO
+    # gitProxy="ssh" for "kernel.org"
+    # gitProxy=default-proxy ; for the rest
 
 [alias]
-  a = add
-  ai = add --interactive
-  ls = ls-files
-  list = ls-files
-  st = status -sb
-  s = status -sb
-  c = commit --verbose -m
-  br = branch -a
-  b = branch -a
-  co = checkout
-  cv = commit --verbose
-  d = diff --word-diff
-  dc = diff --cached
-  l = log --pretty=format:\"%Cgreen%ad%Creset | %s%d [%Cblue%an%Creset]\" --ignore-all-space --ignore-space-change --graph --date=relative --graph --max-count=10 --since=\"1 month ago\" --stat
-  lg = log --oneline --decorate --ignore-all-space --ignore-space-change --date=relative --graph --max-count=10 --since=\"1 month ago\" --stat
-  lol = log --graph --decorate --pretty=oneline --abbrev-commit --date=relative --graph --max-count=50 --since=\"1 month ago\"
-  lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-  llg = log --summary -n10
-  p = pull
-  pu = push
-  unstage = reset HEAD
-  # type "git vimdiff" to view a diff in macvim
-  vimdiff = difftool -y -t mvimdiff
-  browse = !hub browse
-  w = !hub browse
-  compare = !hub compare
-  # sh = !git-sh
-  # grab = !git-grab
-  # thanks = !git-thanks
-  # cv = !git-cv
-  # track = !git-track
-  ll = log --pretty=oneline --abbrev-commit --max-count=15
-  review = log -p --max-count=1
-  r = remote -v
-  rv = remote -v
-  ra = remote add
-  # wip = !git add -u && git commit -m ...
-  # wipc = !date >> WIP && git add WIP && git commit -m ...
-  # fp = format-patch --stdout
+    a = add
+    ai = add --interactive
+    ls = ls-files
+    list = ls-files
+    st = status -sb
+    s = status -sb
+    c = commit --verbose -m
+    br = branch -a
+    b = branch -a
+    co = checkout
+    cv = commit --verbose
+    d = diff --word-diff
+    dc = diff --cached
+    l = log --pretty=format:\"%Cgreen%ad%Creset | %s%d [%Cblue%an%Creset]\" --ignore-all-space --ignore-space-change --graph --date=relative --graph --max-count=10 --since=\"1 month ago\" --stat
+    lg = log --oneline --decorate --ignore-all-space --ignore-space-change --date=relative --graph --max-count=10 --since=\"1 month ago\" --stat
+    lol = log --graph --decorate --pretty=oneline --abbrev-commit --date=relative --graph --max-count=50 --since=\"1 month ago\"
+    lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    llg = log --summary -n10
+    p = pull
+    pu = push
+    unstage = reset HEAD
+    # type "git vimdiff" to view a diff in macvim
+    vimdiff = difftool -y -t mvimdiff
+    browse = !hub browse
+    w = !hub browse
+    compare = !hub compare
+    # sh = !git-sh
+    # grab = !git-grab
+    # thanks = !git-thanks
+    # cv = !git-cv
+    # track = !git-track
+    ll = log --pretty=oneline --abbrev-commit --max-count=15
+    review = log -p --max-count=1
+    r = remote -v
+    rv = remote -v
+    ra = remote add
+    # wip = !git add -u && git commit -m ...
+    # wipc = !date >> WIP && git add WIP && git commit -m ...
+    # fp = format-patch --stdout
 
 [branch]
-  autosetupmerge = true
+    autosetupmerge = true
 
 [color]
-  branch = auto
-  diff = auto
-  status = auto
-  ui = auto
-  interactive = auto
-  pager = true
+    branch = auto
+    diff = auto
+    status = auto
+    ui = auto
+    interactive = auto
+    pager = true
 
 [color "branch"]
-  current = green bold
-  local = blue
-  remote = magenta
+    current = green bold
+    local = blue
+    remote = magenta
 
 [color "diff"]
-  meta = cyan bold
-  frag = magenta bold
-  old = red bold
-  new = green bold
+    meta = cyan bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
 
 [color "status"]
-  added = yellow
-  changed = green
-  untracked = cyan
+    added = yellow
+    changed = green
+    untracked = cyan
 
 #[diff]
 #  external = extDiff
@@ -91,12 +94,12 @@
   # prompt = false
 
 [github]
-  user = mt3
-  token = 3e7442a15a49aa2f525e393e67b688d2
+    user = mt3
+    token = 3e7442a15a49aa2f525e393e67b688d2
 
 [help]
-  format = web # view all "git help cmd" within a browser
-  autocorrect = 0 # default beahaviour
+    format = web # view all "git help cmd" within a browser
+    autocorrect = 0 # default beahaviour
 
 #[merge]
 #  tool = mvimdiff
@@ -110,13 +113,15 @@
   # diff =
 
 [push]
-  default = tracking # prevent accidental pushes to branches u ain't ready 2 push to yet
+    default = tracking # prevent accidental pushes to branches u ain't ready 2 push to yet
 
 [achievement]
 	upload = true
+
 [difftool "sourcetree"]
 	cmd = " "
 	path = 
+
 [mergetool "sourcetree"]
 	cmd = " "
 	trustExitCode = true
