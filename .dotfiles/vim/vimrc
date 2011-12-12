@@ -317,6 +317,7 @@
     "set backupdir=~/.dotfiles/vim/tmp/vim-backup-files
     " puts swap files in this temp directory rather than all over the fukcing place
     "set directory=~/.dotfiles/vim/tmp/vim-swp-files
+    set swapfile
     
     set ttyfast " we have a fast car
     set ttimeoutlen=50 " make Esc work faster

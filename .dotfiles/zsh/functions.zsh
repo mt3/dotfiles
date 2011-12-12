@@ -4,6 +4,7 @@ function pless() {
 }
 
 
+
 # search notational velocity notes from command line
 # stoled from http://fidlet.com/post/885514801/one-thing-well-a-poor-mans-notational-velocity
 function ns {
@@ -73,10 +74,47 @@ function chromium_update {
 }
 
 
+
 # lists all occurences of a command in PATH (eliminates duplicates)
 function mywhich() {
 	which -a $1 | uniq
 }
+
+
+
+# all the redundant latex steps wrapped in one function
+function texify() {
+    if [ -f $1.tex ] ; then
+        echo "latexifying and pdfing '$1'.tex"
+	    latex $1.tex && color green "\n\n" \
+            && bibtex $1.aux && color green "\nDONE BIBTEX\n" \
+            && latex $1.tex && color green "\nDONE LATEX\n" \
+            && pdflatex $1.tex && color green "\nDONE pdfLATEX\n" 
+    else
+        color red "'$1' is not a valid file."
+        echo "These are in the cwd:"
+        valid_files=`ls (*.tex|*.bib)*`
+        color green $valid_files
+    fi
+}
+
+
+
+function color() {
+# TODO: finish for all the other colors
+    if [ "$#" = "2" ] ; then
+        case $1 in
+            "red")   echo '\e[1m\e[31m'$2'\e[0m' ;;
+            "green")    echo '\e[1m\e[32m'$2'\e[0m' ;;
+            "gold")    echo '\e[1m\e[33m'$2'\e[0m' ;;
+            "blue")   echo '\e[1m\e[34m'$2'\e[0m' ;;
+            *)           echo "'$1' is not a valid color" ;;
+        esac
+    else
+        echo "Not enough args for >color<"
+    fi
+}
+
 
 
 function start_agent {
@@ -89,21 +127,24 @@ function start_agent {
 }
 
 
+
 # create battery status indicator in right prompt of terminal
 function battery_charge {
     echo `$BAT_CHARGE` 2>/dev/null
 }
 
 
+
 # open current directory (or argument in pathfinder)
 pfopen () {
-  if [ "$#" = "0" ]
-  then
-    open -a 'Path Finder' `pwd`
-  else
-    open -a 'Path Finder' $1
-  fi
+    if [ "$#" = "0" ]
+    then
+        open -a 'Path Finder' `pwd`
+    else
+        open -a 'Path Finder' $1
+    fi
 }
+
 
 
 # Source SSH settings, if applicable
@@ -119,10 +160,13 @@ fi
 # end auto-launch ssh keypairs
 
 
+
 # wrap git with hub
 function git(){
 	hub "$@"
 }
+
+
 
 # view git diffs in macvim
 function git_diff() {
@@ -134,10 +178,12 @@ function git_diff() {
 }
 
 
+
 # Open a manpage in Preview, which can be saved to PDF (stolened from adamv)
 pman() {
    man -t "${1}" | open -f -a /Applications/Preview.app
 }
+
 
 
 # mkdir, cd into it
@@ -147,11 +193,13 @@ function mkcd {
 }
 
 
+
 function prompt_char {
     git branch >/dev/null 2>/dev/null && echo '±' && return
     hg root >/dev/null 2>/dev/null && echo '☿' && return
     echo '○'
 }
+
 
 
 # good stuff
@@ -178,11 +226,13 @@ function extract() {
 }
 
 
+
 #from adamv yet again
 function pgrep {
   local exclude="\.svn|\.git|\.swp|\.coverage|\.pyc|_build"
   find . -maxdepth 1 -mindepth 1 | egrep -v "$exclude" | xargs egrep -lir "$1" | egrep -v "$exclude" | xargs egrep -Hin --color "$1"
 }
+
 
 
 function osinfo() { 
@@ -191,7 +241,16 @@ function osinfo() {
    x3="$(/usr/bin/sw_vers -buildVersion)"
    x4="$(/usr/bin/arch)"
    echo "${x1} - ${x2} - (Build:${x3}) - ${x4}"
+
+   #TODO: finish this for all apps
+   installs_to_check = ("/usr/bin/python", "/usr/bin/ruby")
+   for x in $installs_to_check; do
+       if [[ -e "/usr/bin/python" ]] ; then
+            echo `python -V`
+        fi
+    done
 }
+
 
 
 function hd_space {
@@ -213,6 +272,7 @@ function _pip_completion {
 }
 compctl -K _pip_completion pip
 # pip zsh completion end
+
 
 
 # dwld and archive a set of web pages
@@ -241,6 +301,7 @@ function dl-webpg-containing-txt(){
     done
 
 }
+
 
 
 echo "\e[1m\e[32mFinished loading functions.zsh\e[0m"
