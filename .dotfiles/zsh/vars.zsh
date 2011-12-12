@@ -12,6 +12,10 @@ export BROWSER="elinks"
 export PAGER="less"
 export SUDO_PROMPT="Your Password:"
 
+# Tell ls to be colourful
+export CLICOLOR=1
+export LSCOLORS=Exfxcxdxbxegedabagacad
+
 #RPROMPT='$(battery_charge)'
 
 
@@ -33,7 +37,11 @@ export PATH=$PATH:$STANFORD_PATH
 
 
 # NODE
-export NODE_PATH=/usr/local/lib/node
+export NODE_PATH=/usr/local/lib/node:/usr/local/lib/node_modules
+
+
+# LATEX, BIBTEX
+export PATH=$PATH:/usr/texbin
 
 
 # PYTHON
