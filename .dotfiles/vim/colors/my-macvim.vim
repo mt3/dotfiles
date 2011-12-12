@@ -26,36 +26,50 @@
     hi clear iCursor
     hi clear CursorLine
     hi clear Search
-
+    hi clear StatusLine
 
 " Set up your new & improved colors
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "
-    "hi StatusLine guifg=black guibg=white
-    "hi StatusLineNC guifg=LightCyan guibg=blue gui=bold
-    hi VertSplit guifg=#f0f0f0
-    
     hi Cursor guibg=White gui=reverse
     hi iCursor guifg=White guibg=Blue
     hi Insert guifg=White guibg=Blue
-    hi CursorLine guibg=#fafafa
+    hi CursorLine guibg=#ffffff term=reverse
     hi CursorColumn guibg=#333333 guifg=NONE
     hi LineNr ctermbg=White ctermfg=Gray guibg=#f6f6f6 guifg=DarkGray
-    hi NonText guifg=#404040 ctermfg=8
+    hi StatusLine guifg=#000000 guibg=#dddddd
+    " status lines of not-currently focused windows
+    hi StatusLineNC guifg=#aaaaaa guibg=#dddddd
+    hi VertSplit guifg=#f0f0f0
 
-    "hi Comment guifg=LightBlue term=bold gui=italic
-    hi Comment guifg=Gray
-    hi Todo guifg=DarkGray guibg=LightMagenta
-    hi Search NONE gui=underline term=underline guifg=Black guibg=Yellow
-    hi IncSearch NONE gui=underline term=underline guifg=Black guibg=LightYellow
+    " hi Search NONE gui=underline term=underline guifg=Black guibg=Yellow
+    hi Search NONE term=underline guifg=Black guibg=Yellow
+    hi IncSearch NONE term=underline guifg=Black guibg=LightYellow
 
-    hi Folded ctermfg=Red ctermbg=LightGrey guifg=LightBlue guibg=#f6f6f6
+    hi Folded ctermfg=Red ctermbg=LightGrey guifg=LightBlue guibg=#ffffff
     hi FoldColumn ctermfg=DarkBlue ctermbg=LightGrey guifg=Blue guibg=#f6f6f6
     "hi link FoldColumn Folded
 
     " Pmenu is for pop-up menus
     hi PmenuSel ctermfg=Black ctermbg=LightCyan
     hi MatchParen term=reverse ctermbg=LightCyan guibg=LightCyan
+
+
+" Syntax & Keywords
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    "
+    " set the main window bg and fg colors
+    hi Normal guifg=Black guibg=White
+    hi NonText guifg=#404040 ctermfg=8
+    hi Constant guifg=Blue
+    hi String guifg=DarkGray
+    " hi Identifier guifg=LightGreen
+    hi Statement guifg=DarkGreen
+    " hi PreProc guifg=Blue
+    hi Type guifg=DarkCyan
+    hi Comment guifg=LightBlue
+    " hi Todo guifg=DarkRed guibg=LightCyan
+    hi Todo guifg=Red
 
 
 " Error Messages
@@ -70,3 +84,27 @@
     " TODO
     hi SpellLocal guibg=DarkCyan
 
+
+" Cterm Colors
+"""""""""""""""""""""""""""""""
+"Black
+"DarkBlue
+"DarkGreen
+"DarkCyan
+"DarkRed
+"DarkMagenta
+"Brown, DarkYellow
+"LightGray, LightGrey, Gray, Grey
+"DarkGray, DarkGrey
+"Blue, LightBlue
+"Green, LightGreen
+"Cyan, LightCyan
+"Red, LightRed
+"Magenta, LightMagenta
+"Yellow, LightYellow
+"White
+
+
+" Xterm Colors
+"""""""""""""""""""""""""""""""
+"
