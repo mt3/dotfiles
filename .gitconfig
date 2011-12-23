@@ -1,10 +1,11 @@
 [user]
 	name = n am
 	email = na@na.na
+    # set email per machine in $GIT_AUTHOR_EMAIL or per repo
 
 [core]
     editor = mvim -f
-    excludesfile = /Users/mt/.gitignore_global
+    excludesfile = ~/.gitignore_global
     # set pager = "" don't use 'more' or 'less' pagers since i am restricting the number of commits displayed anyway
     # plus this eliminates the "press any key" prompt at the end of each output
     pager = ""
@@ -19,43 +20,54 @@
 [alias]
     a = add
     ai = add --interactive
-    ls = ls-files
-    list = ls-files
-    st = status -sb
-    s = status -sb
+    browse = !hub browse
     c = commit --verbose -m
-    br = branch -a
     b = branch -a
+    # br = branch -a
+    br = branch -avv
     co = checkout
+    compare = !hub compare
+	current-branch = "!r=$(git symbolic-ref HEAD);echo ${r##refs/heads/}"
     cv = commit --verbose
+    # cvv = !git-cv
     d = diff --word-diff
     dc = diff --cached
+    # fp = format-patch --stdout
+    # grab = !git-grab
+    greplog = log -U1 -G
+	in = "!b=$(git current-branch);git ll $b..origin/$b"
     l = log --pretty=format:\"%Cgreen%ad%Creset | %s%d [%Cblue%an%Creset]\" --ignore-all-space --ignore-space-change --graph --date=relative --graph --max-count=10 --since=\"1 month ago\" --stat
+	la = !git ll --all
     lg = log --oneline --decorate --ignore-all-space --ignore-space-change --date=relative --graph --max-count=10 --since=\"1 month ago\" --stat
+    list = ls-files
+    ll = log --pretty=oneline --abbrev-commit --max-count=15
+    lll = log --graph --decorate --pretty=format:'%C(magenta)%h%C(reset)%C(bold yellow)%d%C(reset) %s %C(green)%an %C(bold black)%cr%C(reset)' --abbrev-commit --date=relative
+    llg = log --summary -n10
     lol = log --graph --decorate --pretty=oneline --abbrev-commit --date=relative --graph --max-count=50 --since=\"1 month ago\"
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
-    llg = log --summary -n10
+    ls = ls-files
+    out = "!b=$(git current-branch);git ll origin/$b..$b"
     p = pull
     pu = push
-    unstage = reset HEAD
-    # type "git vimdiff" to view a diff in macvim
-    vimdiff = difftool -y -t mvimdiff
-    browse = !hub browse
-    w = !hub browse
-    compare = !hub compare
-    # sh = !git-sh
-    # grab = !git-grab
-    # thanks = !git-thanks
-    # cv = !git-cv
-    # track = !git-track
-    ll = log --pretty=oneline --abbrev-commit --max-count=15
     review = log -p --max-count=1
     r = remote -v
     rv = remote -v
     ra = remote add
+    s = status -sb
+    serve = daemon --reuseaddr --base-path=. --export-all --verbose
+    # sh = !git-sh
+    st = status -sb
+    sub = submodule
+    subup = submodule foreach 'git pull'
+    # thanks = !git-thanks
+    # track = !git-track
+    unstage = reset HEAD
+    # type "git vimdiff" to view a diff in macvim
+    vimdiff = difftool -y -t mvimdiff
+    w = !hub browse
+    wc = whatchanged
     # wip = !git add -u && git commit -m ...
     # wipc = !date >> WIP && git add WIP && git commit -m ...
-    # fp = format-patch --stdout
 
 [branch]
     autosetupmerge = true
@@ -67,6 +79,7 @@
     ui = auto
     interactive = auto
     pager = true
+    wtf = true
 
 [color "branch"]
     current = green bold
@@ -95,7 +108,7 @@
 
 [github]
     user = mt3
-    token = 3e7442a15a49aa2f525e393e67b688d2
+    token = 
 
 [help]
     format = web # view all "git help cmd" within a browser
@@ -103,6 +116,7 @@
 
 #[merge]
 #  tool = mvimdiff
+#  summary = true
 # 
 #[mergetool "mvimdiff"]
 #  cmd = extMerge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
@@ -112,16 +126,27 @@
   # this is needed for viewing diffs in macvim
   # diff =
 
+# [rerere]
+# 	enabled = true
+# 	autoupdate = true
+
 [push]
     default = tracking # prevent accidental pushes to branches u ain't ready 2 push to yet
 
 [achievement]
 	upload = true
 
-[difftool "sourcetree"]
-	cmd = " "
-	path = 
+[wtf]
+	all = true
+	long = true
 
-[mergetool "sourcetree"]
-	cmd = " "
-	trustExitCode = true
+[wtf "show"]
+	relations = true
+
+# [difftool "sourcetree"]
+# 	cmd = " "
+# 	path = 
+# 
+# [mergetool "sourcetree"]
+# 	cmd = " "
+# 	trustExitCode = true
