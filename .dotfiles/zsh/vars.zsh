@@ -8,7 +8,7 @@ export SSH_ENV="$HOME/.ssh/environment"
 
 export EDITOR=mvim
 #export EDITOR=gvim
-export BROWSER="elinks"
+# export BROWSER="elinks"
 export PAGER="less"
 export SUDO_PROMPT="Your Password:"
 
@@ -56,17 +56,23 @@ export VERSIONER_PYTHON_PREFER_32_BIT=yes
 
 # some more customization for Lion
 # TODO: is this needed anymore?...
-export CC=/Developer/usr/bin/gcc #/usr/local/Cellar/ccache/3.1.4/libexec/gcc
-export CFLAGS="-Wall -isysroot /Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
-export LDFLAGS="-arch x86_64 -syslibroot,/Developer/SDKs/MacOSX10.7.sdk"
+# export CC=/Developer/usr/bin/gcc #/usr/local/Cellar/ccache/3.1.4/libexec/gcc
+export CFLAGS="-Wall -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
+# export LDFLAGS="-arch x86_64 -syslibroot,/Developer/SDKs/MacOSX10.7.sdk"
+export LDFLAGS="-arch x86_64 -syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk"
 export FFLAGS="-arch x86_64 -m64"
-export CXXFLAGS="-Wall -isysroot /Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
+# export CXXFLAGS="-Wall -isysroot /Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
+export CXXFLAGS="-Wall -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
 
 
 # RUBY
 # place path to ruby gem binaries
 # TODO: do i need this if i have it in .gemrc?
 export PATH=/usr/local/Cellar/ruby/1.9.2-p136/bin:/usr/local/Cellar/ruby/1.9.2-p180/bin:/usr/local/Cellar/ruby/1.9.2-p290/bin/:/usr/local/lib/ruby/gems/1.9.1/cache:$PATH
+
+
+# Xcode is now stand-alone, link to their packaged binaries since they are most up-to-date
+export PATH=/Applications/Xcode.app/Contents/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/sbin:$PATH
 
 
 # HOMEBREW
@@ -101,6 +107,8 @@ export PATH=/usr/local/Cellar/gsl/1.14/lib:/usr/local/Cellar/gsl/1.14/include:$P
 
 # TODO: is this needed anymore?...
 export MACOSX_DEPLOYMENT_TARGET=10.7
+
+
 
 
 # STAGE env variables

@@ -12,41 +12,52 @@ alias firefox='/Applications/BrowserApps/Nightly.app/Contents/MacOS/firefox'
 # use my dev version of showoff
 alias showoff='/Applications/github_dwlds/showoff/bin/showoff'
 alias skim='/Applications/PDFApps/Skim.app/Contents/MacOS/Skim'
+# for tmux integration with iterm2
+alias tmux='tmux -C'
 alias cloud9='/Applications/github_dwlds/cloud9/bin/cloud9.sh'
 #############################################################
 
 
 # CONVENIENT SHORTCUTS
 #############################################################
-alias up="cd .."
-alias down="cd ~/Downloads"
-alias apps="cd /Applications"
-alias appsg="cd /Applications/github_dwlds"
 alias ..="cd .."
 alias ...="cd .. && cd .."
 alias ....="cd .. & cd .. & cd .."
-alias l.="ls -d .*"
-alias ls="ls -lth"
-alias edit="${EDITOR}"
-alias frameworks="cd /Library/Frameworks/frameworks-under-git"
-alias queen="ssh mta45@queen.fas.sfu.ca"
+alias apps="cd /Applications"
+alias appsg="cd /Applications/github_dwlds"
+alias cdd='cd -' # goto last dir cd'ed from
 alias clr="clear"
-alias e="mvim"
-#alias systail='tail -f -n0 /var/log/system.log'
-alias dotf="ls .[a-zA-Z0-9_]*"
-alias reload="source ~/.zshrc"
-alias so="source ~/.zshrc"
 alias dir_sizes='du -cks * | sort -rn |head -11' # Lists the size of all the folders within current dir (Mb)
+alias dotf="ls .[a-zA-Z0-9_]*"
+alias down="cd ~/Downloads"
+alias du='du -h -d 2'
+alias e="mvim"
+alias ea='mate -w ~/.dotfiles/zsh/aliases && reload' # Edit aliases
+alias edit="${EDITOR}"
 alias folder_sizes=dir_sizes
-alias upd="upd >&1 > ~/.logs/updated-repos-logfiles-`date +%F`-`date +%T`.txt"
+alias frameworks="cd /Library/Frameworks/frameworks-under-git"
 alias help="cheat" # uses ruby gem `cheat`
 alias h="cheat" # uses ruby gem `cheat`
-alias zshrc='mate ~/.zshrc && source ~/.zshrc' # opens zshrc file in textmate, then reloads it immediately (thieved from http://ozmm.org/posts/git_bash_aliases.html)
-alias ea='mate -w ~/.dotfiles/zsh/aliases && reload' # Edit aliases
-alias cdd='cd -' # goto last dir cd'ed from
+alias k9='kill -9'
+alias ka9='killall -9'
+alias l.="ls -d .*"
+alias ll='ls -alGh'
+alias ls="ls -Gh"
+# alias ls="ls -lth"
 alias md="mkcd"
+alias ps='ps aux'
+alias psg="ps aux | grep "
+alias queen="ssh mta45@queen.fas.sfu.ca"
+alias reload="source ~/.zshrc"
 alias rsyncp='rsync -avz -e ssh --progress --partial'
+alias so="source ~/.zshrc"
+# This trick makes sudo understand all my aliases
+alias sudo='sudo '
+#alias systail='tail -f -n0 /var/log/system.log'
+alias up="cd .."
+alias upd="upd >&1 > ~/.logs/updated-repos-logfiles-`date +%F`-`date +%T`.txt"
 alias wh="which" # w was already taken!
+alias zshrc='mate ~/.zshrc && source ~/.zshrc' # opens zshrc file in textmate, then reloads it immediately (thieved from http://ozmm.org/posts/git_bash_aliases.html)
 #############################################################
 
 

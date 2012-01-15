@@ -13,6 +13,29 @@ function ns {
 
 
 
+# remove duplicates from my overzealous $PATH
+# shows the number of times the path appears first
+# TODO remove the occurence count
+function mywhere {
+    where $1 | uniq -c
+}
+
+
+
+# Speed up git completion  http://talkings.org/post/5236392664/zsh-and-slow-git-completion
+__git_files () { 
+    _wanted files expl 'local files' _files 
+}
+
+
+
+# (f)ind by (n)ame: to find all files containing 'foo' in the name
+# usage: fn foo 
+function fn() {
+    ls **/*$1*
+}
+
+
 
 function chromium_update {
 	if [ -d ~/chromium-dwld ]; then
@@ -73,6 +96,98 @@ function chromium_update {
 	growlnotify -m "downloaded and patched chromium" "please move to applications folder."
 }
 
+
+function githist() {
+    # use spark to draw commits histogram for the day by an author
+    # cribbed from @vrish88
+    git log --pretty=format:'%an: %at' --author="n am" |
+        awk '{system("date -r "$NF" '+%H'")}' |
+        sort |
+        uniq -c |
+        ruby -e 'puts STDIN.readlines.inject(Hash[Array("00".."23").map{|x| [x,0]}]) {|h, x| h.merge(Hash[*x.split(" ").reverse])}.sort.map(&:last)' |
+        spark
+}
+
+
+function letthistory() {
+    # Letter frequencies in a text file (stolen from @daveycrockett)
+    # $1 is the filename
+    cat $1 | 
+        awk -vFS="" '{for(i=1;i<=NF;i++){ if($i~/[a-zA-Z]/) { w[tolower($i)]++} } }END{for(i in w) print i,w[i]}' | 
+        sort |
+        cut -c 3- |
+        spark
+}
+
+
+function githist2wks() {
+    # commits for last 2 weeks
+    for day in $(seq 14 -1 0); do
+        git log --before="${day} days" --after="$[${day}+1] days" --format=oneline |
+        wc -l
+    done | spark
+}
+
+
+function filesizeviz() {
+    # Visualize filesize inside a directory(@lemen)
+    du -BM * | 
+        cut -dM -f1 | 
+        spark
+}
+
+
+function wifiqualityviz() {
+    # WiFi link quality (@cryptix)
+    if [ $(ifconfig wlan0 | grep UP | wc -l) -eq 1 ]
+    then
+     _linkQual="`iwconfig wlan0 | grep Quality | cut -d'=' -f2 | cut -d' ' -f1 | cut -d'/' -f1`"
+
+     if [ $_linkQual -gt 52 ] # >75% link qual
+     then
+       _linkSparked=$(spark 1 2 3 4)
+     elif [ $_linkQual -gt 35 ] # >50% link qual
+     then
+       _linkSparked=$(spark 1 2 3 0)
+     elif [ $_linkQual -gt 17 ] # 25% link qual
+     then
+       _linkSparked=$(spark 1 2 0 0)
+     elif [ $_linkQual -gt 7 ] # 25% link qual
+     then
+       _linkSparked=$(spark 1 0 0 0)
+     else # < 25%
+       _linkSparked=$(spark 0 0 0 0)
+     fi
+
+     echo $_linkSparked
+    fi
+}
+
+
+function cpuloadviz() {
+    # Load average (@tsujigiri)
+    echo "$(cat /proc/loadavg | cut -d ' ' -f 1-3) $(egrep -c '^processor' /proc/cpuinfo)00" | sed 's///g' | spark | cut -c -9
+}
+
+
+function parse_git_branch {
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
+}
+
+
+function parse_git_branch_and_add_brackets {
+    git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\ \[\1\]/'
+}
+
+
+function git-track {
+    CURRENT_BRANCH=$(parse_git_branch)
+    git-config branch.$CURRENT_BRANCH.remote $1
+    git-config branch.$CURRENT_BRANCH.merge refs/heads/$CURRENT_BRANCH
+}
+
+
+# PS1="\h:\W \u\[\033[0;32m\]\$(parse_git_branch_and_add_brackets) \[\033[0m\]\$ "
 
 
 # lists all occurences of a command in PATH (eliminates duplicates)
