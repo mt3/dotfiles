@@ -14,7 +14,8 @@ ln -s ~/.dotfiles/fossil ~/.fossil
 
 ln -s ~/.dotfiles/emacs ~/.emacs
 
-ln -s ~/.dotfiles/zshrc ~/.zshrc
+# TODO i thought this was in a private repo?
+# ln -s ~/.dotfiles/zshrc ~/.zshrc
 
 ln -s ~/.dotfiles/screenrc ~/.screenrc
 
@@ -27,4 +28,8 @@ ln -s ~/.dotfiles/gemrc ~/.gemrc
 ln -s ~/.dotfiles/conkerorrc ~/.conkerorrc
 
 ln -s ~/.dotfiles/ackrc ~/.ackrc
+
+# TODO first dwld the private zshrc repo before running the next two commands
+ln ~/zshrc/secrets.zsh  ~/.secrets.zsh
+ln ~/zshrc/.zshrc  ~/.zshrc
 
