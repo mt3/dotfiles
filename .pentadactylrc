@@ -1,17 +1,14 @@
 " @section TODO {{{
-    " * sync bookmarks and pinboard (what does this mean?)
-    " * change 'open add-ons' cmd-shift-a shortcut to extensions shortcut cmd-e
-    " * hide add-on bar on start
-    " * hide status bar on start
-    " * qmarks?
-    " * set default font to Times 14
-    " * set monospace font to Inconsolata-dz 13
-    " * hide tabs at top of page. or just shrink them down
-    " * disable pentadactyl on cloud9ide.com
-    " * fix indentation and style
-    " * use instapaper stylesheet for ALL webpages in browser by default
-    " *
-    " *
+    " sync bookmarks and pinboard (what does this mean?)
+    " change 'open add-ons' cmd-shift-a shortcut to extensions shortcut cmd-e
+    " qmarks?
+    " set default webpage font to Times 14
+    " hide tabs at top of page. or just shrink them down
+    " disable pentadactyl on cloud9ide.com
+    " fix indentation and style
+    " use instapaper stylesheet for ALL webpages in browser by default
+    " 
+    " 
 " }}}
 
 
@@ -54,7 +51,6 @@
     "set! browser.urlbar.filter.javascript=false
     
     au Fullscreen .* -js statusline.statusBar.removeAttribute("moz-collapsed")
-    
     set fullscreen
 " }}}
 
@@ -63,27 +59,22 @@
 " @section Options {{{ 
 " ******************************************************************************
 
-    set sh='/usr/local/bin/zsh'
+    set shell='/usr/local/bin/zsh'
     cd ~/Downloads
 
     set runtimepath=~/.pentadactyl
 
-    "" kills the beep?
+    " kill the beep
     set visualbell
     hi Bell display: none;
 
     " tab numbers and toolbar so that cmd-L works for my ddg searches
-    set guioptions=TrbCs
-
+    set guioptions=C
     set complete=lbhfs
-
     set verbose=1
-
     "set nostrictfocus
-
     " always show tab bar
     set showtabline=always
-
     " don't focus the new opened tab automatically
     set activate=
 
@@ -99,56 +90,45 @@
     set suggestengines=
 
     set hintkeys='wqe2341dscxza'
-
     set history=10000
 
     "" Show pattern matches as you type
     "set incsearch
-
     "set hlsearch
 
     " do not require <CR> when in hints mode
     set followhints=0
 
-    "" Override ignorecase if pattern has uppercase chars
+    " Override ignorecase if pattern has uppercase chars
     "set smartcase
     set findcase=smart
+    "set ic " ignore case in search
 
-    "set editor=/Application/Textmate.app
     " TODO: or should this be prefaced with :autocmd LocationChange . :set editor="/usr/local/bin/mvim -f"
     set editor="/usr/local/bin/mvim -f"
 
-    "" ignore case in search
-    "set ic
-
     " show url links in command line
     set showstatuslinks='command'
-
     set titlestring='ffox with pentadactyl'
-
     " hide close buttons
-    set! browser.tabs.closeButtons=2
-    
+    set! browser.tabs.closeButtons=2 
     " set the number of location bar results to be displayed
-    set! browser.urlbar.maxRichResults=15
-
+    set! browser.urlbar.maxRichResults=15 
     " open tab in the background
-    set! browser.tabs.loadDivertedInBackground=true
-
+    set! browser.tabs.loadDivertedInBackground=true 
     " don't show download-manager
-    set! browser.download.manager.showWhenStarting=false
+    set! browser.download.manager.showWhenStarting=false 
 
     " scroll height of <C-d> / <C-u> (set at 0 means it's half the window)
     set scroll=0
 
-    " all type pages are opened in new tab
-    " addons + downloads + help + javascript + prefs
+    " all type pages are opened in new tab (addons + downloads + help + javascript + prefs)
     set newtab=all
 
-    "" undo limit
+    " undo limit
     set! browser.sessionstore.max_tabs_undo=30
 
-    "" was originally 2000
+    " was originally 2000
     set! security.dialog_enable_delay=0
 
     "javascript liberator.beep = function() { return false; }
@@ -167,13 +147,9 @@
     "set! extensions.liberator.loglevel=666
 
     "set! browser.sessionstore.interval=120000
-
     "set! browser.cache.memory.capacity=32768
-
     set! browser.startup.homepage="about:blank"
-
     "set! extensions.sessionmanager.resume_session="backup.session"
-
     "set hm=wordstartswith
     "set newtab=help
 
@@ -187,7 +163,7 @@
 
 " @section Passkeys {{{
 " ******************************************************************************
-"this disables pentadactyls keybindings from working on various sites
+    "this disables pentadactyls keybindings from working on various sites
     set passkeys=
 
     " DuckDuckGo
@@ -279,8 +255,8 @@
     noremap w d
 
     " zoom with one finger
-    noremap = zi
-    noremap "-" zo
+    " noremap = zi
+    " noremap "-" zo
 
     " give me back my tab navigation goddammit
     noremap <M-S-Right> gt
@@ -332,10 +308,11 @@
     "noremap <silent> <leader>r :open javascript:(function(){readStyle='style-ebook';readSize='size-medium';readMargin='margin-x-narrow';_readability_script=document.createElement('SCRIPT');_readability_script.type='text/javascript';_readability_script.src='http://lab.arc90.com/experiments/readability/js/readability.js?x='+(Math.random());document.getElementsByTagName('head')[0].appendChild(_readability_script);_readability_css=document.createElement('LINK');_readability_css.rel='stylesheet';_readability_css.href='http://lab.arc90.com/experiments/readability/css/readability.css';_readability_css.type='text/css';_readability_css.media='all';document.getElementsByTagName('head')[0].appendChild(_readability_css);_readability_print_css=document.createElement('LINK');_readability_print_css.rel='stylesheet';_readability_print_css.href='http://lab.arc90.com/experiments/readability/css/readability-print.css';_readability_print_css.media='print';_readability_print_css.type='text/css';document.getElementsByTagName('head')[0].appendChild(_readability_print_css);})();<CR>
 
     " KEYBOARD SHORTCUTS
-    "
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " pinboard bookmarklet
     map <M-1> -ex open javascript:if(document.getSelection){s=document.getSelection();}else{s='';};document.location='https://pinboard.in/add?next=same&url='+encodeURIComponent(location.href)+'&description='+encodeURIComponent(s)+'&title='+encodeURIComponent(document.title)
-    map <M-2> open http://pinboard.in/u:mt3_666
+    " map <M-1> -ex open javascript:if(document.getSelection){d=document.getSelection();}else{d='';};p=document.title;void(open('https://pinboard.in/add?url='+encodeURIComponent(q)+'&description='+encodeURIComponent(d)+'&title='+encodeURIComponent(p),'Pinboard','toolbar=no,width=700,height=350'))
+    map <M-2> -ex open http://pinboard.in/u:mt3_666
     map <M-3> -ex open http://scholar.google.ca/scholar?q=
     "map <M-4> open TODO
     " quiet read bookmarklet
@@ -346,6 +323,10 @@
     "map <M-8> open TODO
     "map <M-9> open TODO
     "map <M-0> open TODO
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+
+    " <Cmd-e> for bringing up extensions/add-ons
+    map <M-e> :tabopen about:addons<CR>
 
     " bring back/hide portions of the GUI
     "noremap <silent> <leader>g :set guioptions+=mBT<CR>
@@ -374,13 +355,13 @@
 
 
 
-" @section Custom commands {{{
+" @section Custom Commands {{{
 " ******************************************************************************
 
     " toggle full text zoom so that zooming of text occurs w/ the rest of the site
     command! toggleFullTextZoom
              \ -description "Toggles full text zoom, tho needs work as a TODO"
-             \ :zoom<CR> :zoom!<CR>
+             \ :zoom!<CR> :zoom<CR>
 
     " delicious_search.js
     "autocmd VimperatorEnter ".*" :set complete+=D
@@ -522,13 +503,13 @@
 
     highlight StatusLine font-size: 11px; font-family:"Inconsolata-dz", monospace; font-weight: normal; color: #222; background: #FFF;
     highlight CmdLine font-size: 11px; font-weight: normal; font-family:"Inconsolata-dz", monospace; padding: 0 0; color: #222; background: #FFF;
-    highlight Hint background-color: #FFF;
-    highlight StatusLineBroken color: #222; background: #FFF;
-    highlight StatusLineSecure color: #222; background: #FFF;
+    highlight Hint foreground-color: #FFF; background-color: #DDD;
+    highlight StatusLineBroken color: #888; background: #FFF;
+    highlight StatusLineSecure color: #888; background: #FFF;
     highlight CompTitle background: #FFF;
     highlight Title background: #FFF;
     highlight ErrorMsg background-color: #FFF;
-    "highlight CompItem[selected] background-color: #FFF; " background color of highlighted selection
+    highlight CompItem[selected] background-color: #FFF; " background color of highlighted selection
     "highlight CompGroup color: #FFF;
     "highlight CompDesc color: #FFF;
     highlight HintElem background-color: #FFF;
@@ -595,7 +576,7 @@
 
 
 
-" @section Firefox options {{{
+" @section Unsorted Firefox Options {{{
 
 "Seems to screw up sessionmanager
 "set! browser.startup.page=1
