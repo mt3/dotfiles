@@ -289,7 +289,7 @@
     set visualbell
     set guicursor+=a:blinkon0 "turn off goddamned blinking
     set t_vb=
-    set autoread " watch for file changes
+    set autoread " watch for file changes from external programs
     set backspace=indent,eol,start
     set fileencodings=ucs-bom,utf-8,default,latin1
     set guioptions=egmT
@@ -302,11 +302,12 @@
     set fcs=vert:\ ,fold:\  " characters to use for the status line, folds and filler lines (i'm using <space>)
     set scrolloff=3 " keep at least 3 lines above/below
     set sidescrolloff=3 " keep at least 3 lines left/right
+    set sidescroll=1
     set autoindent
     set cpoptions+=I " TODO maintain indent on a new line after <Esc> is pressed or 'save' file
     set showmode
     set showcmd " <leader> key appears in right hand corner of vim (to the left of the cursor location) and it disappears when the timeout happens
-    set hidden
+    set hidden " buffers can be hidden (vim acts like all other editors)
     set report=0 " Always report changes
     set wildmenu
     set wildmode=list:longest
@@ -322,7 +323,7 @@
     "set backupdir=~/.dotfiles/vim/tmp/vim-backup-files
     " puts swap files in this temp directory rather than all over the fukcing place
     "set directory=~/.dotfiles/vim/tmp/vim-swp-files
-    set noswapfile
+    set swapfile
     
     "Persistent undo
     " TODO
@@ -346,6 +347,8 @@
     "if v:version >= 700
     "    set viminfo=!,'20,<50,s10,h
     "endif
+    " set viminfo=!,'20,<50,s10,h
+    set viminfo='100,f1  " save up to 100 marks, enable capital marks
     
     let mapleader = ","
     let g:mapleader = ","
@@ -366,7 +369,8 @@
     syntax enable
     
     " My preferred line and pasting formatting options 
-    set wrap
+    set nowrap
+    set linebreak    "Wrap lines at convenient points
     set formatoptions=qrn1 " TODO
     set textwidth=100
     set tabstop=4
@@ -617,7 +621,7 @@
     set cursorline
     set nocursorcolumn " turn off highlighting the column which the cursor is in
     " set ruler " show line and column of cursor position
-    set laststatus=2 " 0 means never a statusline even in split-pane mode, 2 displays one always
+    set laststatus=2 " 0 means never a statusline even in split-pane mode, 2 always displays one
     set cmdheight=1 " # of screen lines to use for display of cmd line
     set modeline
     set relativenumber
@@ -1046,6 +1050,14 @@
     
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
+
+
+" added by oh-my-vim
+" let g:ohmyvim="/Library/Frameworks/Python.framework/Versions/2.6/bin/oh-my-vim"
+" Use :OhMyVim profiles to list all available profiles
+" let profiles = ['defaults']
+" load oh-my-vim
+" source /Users/mt/.vim/ohmyvim/ohmyvim.vim
 
 
 
