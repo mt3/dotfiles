@@ -95,6 +95,7 @@
     # track = !git-track
     unstage = reset HEAD  # remove files from index (tracking)
     uncommit = reset --soft HEAD^   # go back before last commit, with files in uncommitted state
+    up = pull --rebase
     vimdiff = difftool -y -t mvimdiff # type "git vimdiff" to view a diff in macvim
     w = !hub browse
     wc = whatchanged
@@ -184,3 +185,9 @@
 
 [wtf "show"]
 	relations = true
+[difftool "sourcetree"]
+	cmd = " "
+	path = 
+[mergetool "sourcetree"]
+	cmd = " "
+	trustExitCode = true
