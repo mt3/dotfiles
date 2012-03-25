@@ -4,6 +4,7 @@ alias jek="jekyll && echo && echo BROWSE TO: http://0.0.0.0:4000 && echo && jeky
 #alias mate="mate -l1"
 alias kill="kill -9"
 alias youtube-dl="/Applications/github_dwlds/youtube-dl/youtube-dl"
+alias eco="echo"
 alias gclient="/Applications/github_dwlds/depot_tools/gclient"
 alias gvim='/Applications/DevApps/MacVim.app/Contents/MacOS/Vim -g'
 alias vimdiff='/usr/local/bin/mvim mvimdiff'
@@ -12,8 +13,6 @@ alias firefox='/Applications/BrowserApps/Nightly.app/Contents/MacOS/firefox'
 # use my dev version of showoff
 alias showoff='/Applications/github_dwlds/showoff/bin/showoff'
 alias skim='/Applications/PDFApps/Skim.app/Contents/MacOS/Skim'
-# for tmux integration with iterm2
-alias tmux='tmux -C'
 alias cloud9='/Applications/github_dwlds/cloud9/bin/cloud9.sh'
 #############################################################
 
@@ -27,6 +26,7 @@ alias apps="cd /Applications"
 alias appsg="cd /Applications/github_dwlds"
 alias cdd='cd -' # goto last dir cd'ed from
 alias clr="clear"
+alias curl="curl -O"
 alias dir_sizes='du -cks * | sort -rn |head -11' # Lists the size of all the folders within current dir (Mb)
 alias dotf="ls .[a-zA-Z0-9_]*"
 alias down="cd ~/Downloads"
@@ -51,13 +51,30 @@ alias queen="ssh mta45@queen.fas.sfu.ca"
 alias reload="source ~/.zshrc"
 alias rsyncp='rsync -avz -e ssh --progress --partial'
 alias so="source ~/.zshrc"
+alias ssh="ssh -c arcfour,blowfish-cbc -C"
 # This trick makes sudo understand all my aliases
 alias sudo='sudo '
 #alias systail='tail -f -n0 /var/log/system.log'
+alias trash="rm -rf"
 alias up="cd .."
 alias upd="upd >&1 > ~/.logs/updated-repos-logfiles-`date +%F`-`date +%T`.txt"
-alias wh="which" # w was already taken!
 alias zshrc='mate ~/.zshrc && source ~/.zshrc' # opens zshrc file in textmate, then reloads it immediately (thieved from http://ozmm.org/posts/git_bash_aliases.html)
+#############################################################
+
+
+# SOLR
+#############################################################
+alias solrstart="sh /Applications/LucidImagination/LucidWorksEnterprise/app/bin/start.sh"
+alias solrstop="sh /Applications/LucidImagination/LucidWorksEnterprise/app/bin/stop.sh"
+#############################################################
+
+
+# TMUX
+#############################################################
+alias tmxls="tmux ls"
+alias tmuxls="tmux ls"
+# for tmux integration with iterm2
+alias tmux='tmux -C'
 #############################################################
 
 
@@ -79,13 +96,15 @@ alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' 
 
 # CABAL (haskell)
 #############################################################
-alias cabals="cabal list"
-alias cabali="cabal info"
-alias cabalin="cabal install"
-#alias cabalunin="cabal uninstall" TODO
-alias cabalu="cabal update" #TODO: doesn't update installed packages
-#alias cabalo=" outdated" TODO
-alias cabalc="cabal clean"
+alias cabs="cabal list"
+alias cabl="cabal list --installed && echo \"\n\nNOTE: You can also type \n\tcabal list --installed --simple-output\nfor a briefer message\""
+alias cabi="cabal info"
+alias cabin="cabal install"
+alias cabu="cabal install"
+#alias cabunin="cabal uninstall" TODO
+#alias cabalu="cabal update" #TODO: doesn't update installed packages
+#alias cabo=" outdated" TODO
+#alias cabc="cabal clean" TODO
 #############################################################
 
 
@@ -155,6 +174,9 @@ alias pipin="pip install"
 alias pipup="pip install --upgrade"
 alias pipu="pip install -U"
 
+# yolk extends pip
+alias pipo="yolk -U"
+
 # stallion allows viewing of installed pip packages in yr browser
 alias stallion="python -m stallion.main"
 #############################################################
@@ -169,15 +191,18 @@ alias lucs="java org.apache.lucene.demo.SearchFiles"
 
 # NODE and NPM
 #############################################################
-alias npmin="npm install -g"
+alias npmin="npm install"
 alias npml="npm ls installed"
+alias npmla="npm la"
 alias npmu="npm update"
+alias npmup="npm update npm"
 alias npmo="npm outdated"
 alias npmunin="npm uninstall"
 alias npms="npm search"
 alias npma="npm activate"
 alias npmd="npm deactivate"
 alias npmc="npm cache clean"
+alias npmcl="npm cache clean"
 alias npmi="npm view"
 #############################################################
 

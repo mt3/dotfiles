@@ -44,5 +44,10 @@ fi
 ###-end-npm-completion-###
 
 
+### scm_breeze completion ###
+[ -s "~/.scm_breeze/scm_breeze.sh" ] && . "~/.scm_breeze/scm_breeze.sh"
+### end scm_breeze completion ###
 
-echo "\e[1m\e[32mFinished loading aliases.zsh\e[0m"
+
+
+echo "\e[1m\e[32mFinished loading completions.zsh\e[0m"

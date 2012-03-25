@@ -22,10 +22,37 @@ function mywhere {
 
 
 
+# combine which and where command all at once
+function wh() {
+    color blue "Location of executable:"
+    color green "   `which $1`"
+    color blue "All locations:"
+    mywhere $1
+}
+
+
 # Speed up git completion  http://talkings.org/post/5236392664/zsh-and-slow-git-completion
 __git_files () { 
     _wanted files expl 'local files' _files 
 }
+
+
+
+# backup installed packages
+# TODO have more verbose output as to what's being backed up (some pkg managers might not be installed)
+backup_packages() {
+    color blue "Starting to backup a listing of installed packages...."
+    DATE="`date +%F`"
+
+    cabal list --installed --simple-output > cabal-installed-$DATE.txt
+    npml > npm-installed-$DATE.txt
+    pipl > pip-installed-$DATE.txt
+    geml > gems-installed-$DATE.txt
+    brew ls > homebrew-installed-$DATE.txt
+
+    color green "Finished backing up"
+}
+
 
 
 
@@ -198,8 +225,11 @@ function mywhich() {
 
 
 # all the redundant latex steps wrapped in one function
+# usage: texify latexfile
+# TODO this requires you to write latexfile.tex without extension. change it.
 function texify() {
-    if [ -f $1.tex ] ; then
+    #tmp=`echo $1|cut -d "." -f2`
+    if [[ -f $1.tex ]] ; then
         echo "latexifying and pdfing '$1'.tex"
 	    latex $1.tex && color green "\n\n" \
             && bibtex $1.aux && color green "\nDONE BIBTEX\n" \
@@ -215,6 +245,8 @@ function texify() {
 
 
 
+# Usage: color blue "hello"
+# color $1 $2
 function color() {
 # TODO: finish for all the other colors
     if [ "$#" = "2" ] ; then
@@ -223,6 +255,8 @@ function color() {
             "green")    echo '\e[1m\e[32m'$2'\e[0m' ;;
             "gold")    echo '\e[1m\e[33m'$2'\e[0m' ;;
             "blue")   echo '\e[1m\e[34m'$2'\e[0m' ;;
+            "light_gray")   echo $color_light_gray$2'\e[0m' ;;
+            "black")  echo $color_black$2'\e[0m' ;;
             *)           echo "'$1' is not a valid color" ;;
         esac
     else

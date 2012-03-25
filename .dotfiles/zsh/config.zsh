@@ -17,6 +17,11 @@ setopt NOHUP			    # Don't HUP running jobs on logout
 setopt notify                  # notify of BG job completion immediately
 #setopt printexitvalue          # alert me if something's failed
 setopt promptcr                # ensure a new line before prompt is drawn
+autoload -U promptinit         # allows the use of the prompt command for changing prompts
+promptinit
+autoload -U colors
+colors
+setopt PROMPT_SUBST             # Allow for functions in the prompt
 
 
 

@@ -1,7 +1,27 @@
+# cribbed from http://github.com/matflores/dotfiles/blob/master/bashrc
+# don't put duplicate lines in the history. See bash(1) for more options
+# don't overwrite GNU Midnight Commander's setting of `ignorespace'.
+HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
+# ... or force ignoredups and ignorespace
+HISTCONTROL=ignoreboth
+#HISTFILE=~/.history
+HISTSIZE=10500
+SAVEHIST=10000
+#setopt SHARE_HISTORY
+setopt EXTENDED_HISTORY
+setopt HIST_VERIFY 
+setopt HIST_APPEND
+setopt HIST_IGNORE_DUPS
+#setopt HIST_IGNORE_ALL_DUPS #i'm bypassing this since it messes with recent history/chronology (doesn't retain recent occurences)
+setopt HIST_REDUCE_BLANKS
+setopt HIST_IGNORE_SPACE
+
+
 # set up custom llvm/clang for use with compiling (xcode related mainly)
 #GCC_VERSION = com.apple.compilers.llvm.clang.1_0
 #RUN_CLANG_STATIC_ANALYZER = YES
 #CC = /Volumes/Space/Users/bungi/Source/LLVM/llvm/Release/bin/clang
+
 
 # auto-launch ssh keypairs so i don't have to enter the damned 137.5 character pwd every time
 export SSH_ENV="$HOME/.ssh/environment"
@@ -22,7 +42,6 @@ export LSCOLORS=Exfxcxdxbxegedabagacad
 # JAVA
 # export java classpath for lucene
 export CLASSPATH=/usr/local/Cellar/lucene-3.0.2/lucene-core-3.0.2.jar:/usr/local/Cellar/lucene-3.0.2/lucene-demos-3.0.2.jar:/Volumes/Data/incoming/stanford-parser-2010-02-26/stanford-parser.jar
-
 export JAVA_HOME=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
 
 
@@ -46,9 +65,11 @@ export PATH=$PATH:/usr/texbin
 
 # PYTHON
 # place python packages on path
-export PATH=$PATH:/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/site-packages:/Library/Python/2.6/site-packages:/Library/Frameworks/Python.framework/Versions/2.6/bin
+#export PATH=$PATH:/usr/local/share/python:/usr/local/python/site-packages:/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/site-packages:/Library/Python/2.6/site-packages:/Library/Frameworks/Python.framework/Versions/2.6/bin
+export PATH=$PATH:/usr/local/share/python:/usr/local/python/site-packages
 
-export PYTHONPATH=/Library/Frameworks/Python.framework/Versions/2.6/bin:/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/site-packages:/usr/local/lib/python2.6/site-packages/
+#export PYTHONPATH=/usr/local/share/python:/usr/local/python/site-packages:/Library/Frameworks/Python.framework/Versions/2.6/bin:/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/site-packages:/usr/local/lib/python2.6/site-packages/
+export PYTHONPATH=/usr/local/share/python:/usr/local/python/site-packages:/usr/local/lib/python2.7/site-packages:/usr/local/Cellar/python/2.7.2/lib/python2.7
 
 # override python default of 64-bit mode
 export VERSIONER_PYTHON_PREFER_32_BIT=yes
@@ -56,13 +77,35 @@ export VERSIONER_PYTHON_PREFER_32_BIT=yes
 
 # some more customization for Lion
 # TODO: is this needed anymore?...
-# export CC=/Developer/usr/bin/gcc #/usr/local/Cellar/ccache/3.1.4/libexec/gcc
-export CFLAGS="-Wall -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
+#export CC=/Developer/usr/bin/gcc
+
+#export CC=/usr/llvm-gcc-4.2/bin/llvm-gcc-4.2
+#export CC=/usr/local/Cellar/ccache/3.1.4/libexec/gcc
+#export CC=/Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+#export CPP=/Developer/usr/bin/g++
+
+#export CPP=/usr/bin/gcc
+#export CPP=/usr/llvm-gcc-4.2/bin/llvm-g++-4.2
+
+#export CXXCPP=/usr/llvm-gcc-4.2/bin/llvm-gcc-4.2
+
+#export CXX=/usr/llvm-gcc-4.2/bin/llvm-g++-4.2
+#export CXX=/usr/bin/g++
+
+#export CFLAGS="-Wall -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
+#export CFLAGS="-Wall -isysroot /Developers/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
 # export LDFLAGS="-arch x86_64 -syslibroot,/Developer/SDKs/MacOSX10.7.sdk"
-export LDFLAGS="-arch x86_64 -syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk"
-export FFLAGS="-arch x86_64 -m64"
+
+#export LDFLAGS="-arch x86_64 -syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk"
+#export LDFLAGS="-arch x86_64 -syslibroot,/Developers/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk"
+
+#export FFLAGS="-arch x86_64 -m64"
 # export CXXFLAGS="-Wall -isysroot /Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
-export CXXFLAGS="-Wall -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
+
+#export CXXFLAGS="-Wall -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
+#export CXXFLAGS="-Wall -isysroot /Developer/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
+
+#export CPPFLAGS="-Wall -isysroot /Developer/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
 
 
 # RUBY
@@ -72,7 +115,7 @@ export PATH=/usr/local/Cellar/ruby/1.9.2-p136/bin:/usr/local/Cellar/ruby/1.9.2-p
 
 
 # Xcode is now stand-alone, link to their packaged binaries since they are most up-to-date
-export PATH=/Applications/Xcode.app/Contents/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/sbin:$PATH
+#export PATH=/Applications/Xcode.app/Contents/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/sbin:$PATH
 
 
 # HOMEBREW
@@ -86,7 +129,7 @@ export VIM_APP_DIR=/Applications/DevApps
 
 # XCODE
 # place ccache on head of path for faster xcode compiling
-export PATH=/usr/local/Cellar/ccache/3.1.4/libexec:$PATH
+#export PATH=/usr/local/Cellar/ccache/3.1.4/libexec:$PATH
 
 
 export ZSH=$HOME/.oh-my-zsh
@@ -109,6 +152,8 @@ export PATH=/usr/local/Cellar/gsl/1.14/lib:/usr/local/Cellar/gsl/1.14/include:$P
 export MACOSX_DEPLOYMENT_TARGET=10.7
 
 
+# For cydia/jailbreak apps
+export THEOS=/Applications/github_dwlds/theos
 
 
 # STAGE env variables
