@@ -369,19 +369,19 @@
     syntax enable
     
     " My preferred line and pasting formatting options 
-    set nowrap
+    set wrap
     set linebreak    "Wrap lines at convenient points
     set formatoptions=qrn1 " TODO
     set textwidth=100
     set tabstop=4
     set shiftwidth=4
     set softtabstop=4
-    "set preserveindent " TODO
+    set preserveindent " TODO
     set expandtab
     " when nopaste is set, it allows for abbreviations, cmaps, etc.
     set nopaste
 
-    "set nofoldenable "dont fold by default
+    set nofoldenable "dont fold by default
     "set foldmethod=marker " detect triple-{ style fold markers
     set foldmethod=indent " perform code folding based on indentation levels
     set foldlevelstart=-1 " 0 is start out with everything folded, -1 is no folding
