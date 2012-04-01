@@ -199,3 +199,5 @@
 [mergetool "sourcetree"]
 	cmd = " "
 	trustExitCode = true
+[mergetool]
+	keepBackup = true
