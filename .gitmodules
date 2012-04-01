@@ -199,3 +199,6 @@
 [submodule ".dotfiles/vim/bundle/CSApprox"]
 	path = .dotfiles/vim/bundle/CSApprox
 	url = git://github.com/vim-scripts/CSApprox.git
+[submodule "/Users/mt/.dotfiles/vim/bundle/GitHubDashBoard"]
+	path = /Users/mt/.dotfiles/vim/bundle/GitHubDashBoard
+	url = https://github.com/lukaszkorecki/vim-GitHubDashBoard.git
