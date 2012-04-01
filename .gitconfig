@@ -99,6 +99,14 @@
     vimdiff = difftool -y -t mvimdiff # type "git vimdiff" to view a diff in macvim
     w = !hub browse
     wc = whatchanged
+	switch = !legit switch \"$@\"
+	branches = !legit branches
+	sprout = !legit sprout \"$@\"
+	unpublish = !legit unpublish \"$@\"
+	harvest = !legit harvest \"$@\"
+	sync = !legit sync \"$@\"
+	publish = !legit publish \"$@\"
+	graft = !legit graft \"$@\"
     # wip = !git add -u && git commit -m ...
     # wipc = !date >> WIP && git add WIP && git commit -m ...
 
