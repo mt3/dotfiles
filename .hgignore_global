@@ -1,0 +1,11 @@
+syntax: glob
+
+*~
+*.orig
+*.rej
+*.swp
+.#*
+*.obj
+*.o
+.DS_Store
+contextual-search-code/meta-search/dwlded-webpages

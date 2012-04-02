@@ -1,0 +1,69 @@
+[ui]
+username=n am <na@na.na>
+editor = mvim
+merge = mvimdiff
+ignore=/Users/mt/.hgignore_global
+
+[email]
+method = /usr/sbin/sendmail
+#from = mt3 <na@na.na>
+
+[defaults]
+addremove = --similarity 100
+
+[pager]
+pager = LESS='FSRX' less
+
+[extensions]
+color =
+pager =
+hgext.fetch=
+mq = 
+
+[trusted]
+users = root
+groups = root
+
+[extensions]
+hgext.patchbomb =
+#bookmarks =
+#fetch =
+#mq =
+#graphlog = 
+#extdiff =
+#color =
+#rebase =
+#purge =
+#churn =
+#hggit =
+# 
+#[merge-tools]
+#vimdiff.executable = vim
+#vimdiff.args = -d $base $local $output $other +close +close
+
+#[extdiff]
+#cmd.vdiff = vimdiff
+# 
+#[diff]
+#git = 1
+# 
+#[tortoisehg]
+#hgtkfork = True
+# 
+#[auth]
+#bb.prefix = https://bitbucket.org
+#bb.username = 
+[merge-tools]
+sourcetreemerge.gui=False
+sourcetreemerge.premerge=True
+sourcetreemerge.executable=
+sourcetreemerge.args=
+sourcetreemerge.checkconflicts=True
+sourcetreemerge.binary=False
+sourcetreebulkmerge.executable=/Applications/DevApps/SourceTree.app/Contents/Resources/hg-merge.sh
+sourcetreebulkmerge.gui=False
+sourcetreebulkmerge.premerge=False
+sourcetreebulkmerge.binary=True
+[extdiff]
+opts.sourcetreediff=
+cmd.sourcetreediff=
