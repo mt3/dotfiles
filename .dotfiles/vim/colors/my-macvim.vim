@@ -31,11 +31,10 @@
 " Set up your new & improved colors
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "
-    hi Cursor guifg=NONE guibg=#EDEDED gui=reverse ctermbg=241
-    "hi iCursor guifg=White guibg=Blue
-    hi iCursor guifg=Gray guibg=Blue
-    hi Insert guifg=Black guibg=Blue
-    hi CursorLine guibg=#dddddd term=reverse
+    hi Cursor       guifg=NONE      guibg=#dddddd gui=reverse ctermbg=241
+    hi iCursor      guifg=Gray guibg=Blue
+    hi Insert       guifg=Black guibg=Blue
+    hi CursorLine   guibg=#e0e0e0 term=reverse
     hi CursorColumn guibg=#333333 guifg=NONE
     hi NonText 		guifg=#808080 guibg=#303030 gui=none ctermfg=244 ctermbg=235
     hi LineNr 		guifg=#b0b0b0 guibg=#000000 gui=none ctermfg=244 ctermbg=232
@@ -46,8 +45,7 @@
     "hi StatusLine guifg=White guibg=Black  gui=italic ctermfg=253 ctermbg=238 cterm=italic
     hi StatusLine 	guifg=#e3e3e5 guibg=#444444 gui=italic ctermfg=253 ctermbg=238 cterm=italic
     " status lines of not-currently focused windows
-    "hi StatusLineNC guifg=#aaaaaa guibg=#dddddd
-    hi StatusLineNC guifg=#838385 guibg=#444444 gui=none ctermfg=246 ctermbg=238
+    hi StatusLineNC guifg=Black guibg=#444444 gui=none ctermfg=246 ctermbg=238
 
     " hi Search NONE gui=underline term=underline guifg=Black guibg=Yellow
     hi Search NONE term=underline guifg=Black guibg=Yellow
@@ -56,10 +54,10 @@
     "hi Folded ctermfg=Red ctermbg=LightGrey guifg=LightBlue guibg=#ffffff
     hi FoldColumn ctermfg=DarkBlue ctermbg=LightGrey guifg=Blue guibg=#f6f6f6
     "hi link FoldColumn Folded
-    hi Folded 		guibg=#384048 guifg=#a0a8b0 gui=none ctermbg=4 ctermfg=248
+    hi Folded 		guibg=#384048 guifg=White gui=none ctermbg=4 ctermfg=248
 
     hi Title		guifg=#f6f3e8 guibg=NONE	gui=bold ctermfg=254 cterm=bold
-    hi Visual		guifg=#faf4c6 guibg=#3c414c gui=none ctermfg=254 ctermbg=4
+    hi Visual		guifg=Black guibg=LightBlue gui=none ctermfg=254 ctermbg=4
     hi SpecialKey	guifg=#808080 guibg=#343434 gui=none ctermfg=244 ctermbg=236
 
     " Pmenu is for pop-up menus
@@ -75,24 +73,16 @@
     " set the main window bg and fg colors
     hi Normal       guifg=Black         guibg=#efefea gui=none ctermfg=253 ctermbg=234
     hi NonText      guifg=#404040       ctermfg=8
-    "hi Constant    guifg=DarkGreen
-    hi Constant 	guifg=#8186b1 gui=italic ctermfg=148
+    hi Constant 	guifg=#8186b1       gui=italic ctermfg=148
     "hi Constant 	guifg=#7e8aa2       gui=none ctermfg=103
-    "hi String      guifg=Blue
     hi String       guifg=#7e8aa2       gui=none ctermfg=103
     hi Keyword		guifg=Blue          gui=none ctermfg=103
-    hi Statement 	guifg=DarkBlue   gui=none ctermfg=103
-    "hi Identifier 	guifg=#7e8aa2       gui=none ctermfg=103
+    hi Statement 	guifg=DarkBlue      gui=none ctermfg=103
     hi Identifier   guifg=DarkCyan
-    hi PreProc      guifg=#7e8aa2
+    hi PreProc      guifg=SlateBlue
     hi Type         guifg=DarkMagenta
-    "hi Type        guifg=DarkCyan
-    "hi Comment     guifg=LightBlue
-    hi Comment      guifg=#b0b0b0       gui=italic ctermfg=244
-    " hi Todo       guifg=DarkRed       guibg=LightCyan
-    hi Todo         guifg=Red           guibg=#ffffff gui=italic
-    "hi Todo        guifg=Brown         guibg=#efef7f gui=italic
-    "hi Todo        guifg=#000000       guibg=#e6ea50 gui=italic
+    hi Comment      guifg=#c2c2c2       gui=italic ctermfg=244
+    hi Todo         guifg=White         guibg=#c80000 gui=italic
 
 
 " Error Messages
@@ -117,6 +107,7 @@
 "DarkRed
 "DarkMagenta
 "Brown, DarkYellow
+"SeaGreen, SlateBlue, Violet, Purple
 "LightGray, LightGrey, Gray, Grey
 "DarkGray, DarkGrey
 "Blue, LightBlue
