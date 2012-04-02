@@ -34,10 +34,10 @@
     hi Cursor       guifg=NONE      guibg=#dddddd   gui=reverse ctermbg=241
     hi iCursor      guifg=Gray      guibg=Blue
     hi Insert       guifg=Black     guibg=Blue
-    hi CursorLine   guibg=#e0e0e0   term=reverse
+    hi CursorLine   guibg=#eaeaea   term=reverse
     hi CursorColumn guibg=#333333   guifg=NONE
     hi NonText 		guifg=#808080   guibg=#303030   gui=none ctermfg=244 ctermbg=235
-    hi LineNr 		guifg=Gray      guibg=#000000   gui=none ctermfg=244 ctermbg=232
+    hi LineNr 		guifg=#dadada   guibg=#000000   gui=none ctermfg=244 ctermbg=232
     hi VertSplit    guifg=#a0a0a0
 
     " statuslines for windows not in current focus
@@ -64,17 +64,19 @@
 " Syntax & Keywords
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "
-    hi Normal       guifg=Black         guibg=#f4f4f4   gui=none        ctermfg=253 ctermbg=234
-    hi NonText      guifg=#404040       ctermfg=8
-    hi Constant 	guifg=#8186b1       gui=italic      ctermfg=148
+    hi Normal       guifg=Black         guibg=#f6f6f6   gui=none        ctermfg=253 ctermbg=234
     hi String       guifg=#7e8aa2       gui=none        ctermfg=103
-    hi Keyword		guifg=Blue          gui=none        ctermfg=103
+    hi NonText      guifg=#404040       ctermfg=8
+    hi Comment      guifg=#b9b9b9       gui=italic      ctermfg=244
+
+    hi Constant 	guifg=#8186b1       gui=italic      ctermfg=148
+    hi Keyword		guifg=SlateBlue     gui=none        ctermfg=103
     hi Statement 	guifg=DarkBlue      gui=none        ctermfg=103
     hi Identifier   guifg=DarkCyan
-    hi PreProc      guifg=SlateBlue
+    hi PreProc      guifg=#0080df
     hi Type         guifg=DarkMagenta
-    hi Comment      guifg=#c2c2c2       gui=italic      ctermfg=244
-    hi Todo         guifg=White         guibg=#c80000   gui=italic
+
+    hi Todo         guifg=White         guibg=#c90000   gui=italic
 
 
 " Error Messages
@@ -121,4 +123,5 @@
 "coloring format is #rrggbb
 "lightblueish=#00dfdf
 "darkblueish=#204fdf
+"lightred=#c80000
 "
