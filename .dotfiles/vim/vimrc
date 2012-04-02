@@ -94,9 +94,17 @@
     helptags ~/.dotfiles/vim/bundle/tcomment_vim/doc
     set rtp+=~/.dotfiles/vim/bundle/tcomment_vim
     
-    "source ~/.dotfiles/vim/bundle/
-    "helptags ~/.dotfiles/vim/bundle/
-    "set rtp+=~/.dotfiles/vim/bundle/
+    source ~/.dotfiles/vim/bundle/nerdtree/plugin/NERD_tree.vim
+    helptags ~/.dotfiles/vim/bundle/nerdtree/doc
+    set rtp+=~/.dotfiles/vim/bundle/nerdtree
+    
+    source ~/.dotfiles/vim/bundle/tagbar/plugin/tagbar.vim
+    helptags ~/.dotfiles/vim/bundle/tagbar/doc
+    set rtp+=~/.dotfiles/vim/bundle/tagbar
+    
+    source ~/.dotfiles/vim/bundle/syntastic/plugin/syntastic.vim
+    helptags ~/.dotfiles/vim/bundle/syntastic/doc
+    set rtp+=~/.dotfiles/vim/bundle/syntastic
     
     "source ~/.dotfiles/vim/bundle/
     "helptags ~/.dotfiles/vim/bundle/
@@ -179,7 +187,7 @@
 
     " TODO the below isn't working
     macm File.New\ Tab key=<nop>
-    nmap <D-t> :echo "heelo " &shell<CR>
+    nmap <D-t> :echo "hello " &shell<CR>
 
     " map Enter key to add new line above/below and return to visual mode
     nmap <CR> o<ESC>0
@@ -656,7 +664,8 @@
         colorscheme my-macvim
         " colorscheme github
         " colorscheme cleanroom
-        set guifont=Inconsolata-dz:h12
+        set guifont=Droid\ Sans\ Mono:h13
+        "set guifont=Inconsolata-dz:h12
         set t_Co=256 " term has 256 colors
         set linespace=2
         set fuoptions=maxvert,maxhorz
@@ -871,49 +880,51 @@
     
     " NERDTree settings {{{
         " Put focus to the NERD Tree with F3 (tricked by quickly closing it and immediately showing it again, since there is no :NERDTreeFocus command)
-        "nmap <leader>n :NERDTreeClose<CR>:NERDTreeToggle<CR>
-        "nmap <leader>m :NERDTreeClose<CR>:NERDTreeFind<CR>
-        "nmap <leader>N :NERDTreeClose<CR>
-        "map <leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
+        nmap <leader>n :NERDTreeClose<CR>:NERDTreeToggle<CR>
+        nmap <leader>m :NERDTreeClose<CR>:NERDTreeFind<CR>
+        nmap <leader>N :NERDTreeClose<CR>
+        map <leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
+        nmap <leader>nt :NERDTreeToggle <CR>
         
         " Store the bookmarks file
-        "let NERDTreeBookmarksFile=expand("~/.dotfiles/vim/NERDTreeBookmarks")
+        let NERDTreeBookmarksFile=expand("~/.dotfiles/vim/NERDTreeBookmarks")
         
         " Show the bookmarks table on startup
-        "let NERDTreeShowBookmarks=1
-        
+        let NERDTreeShowBookmarks=1
         " Show hidden files, too
-        "let NERDTreeShowFiles=1
-        "let NERDTreeShowHidden=1
+        let NERDTreeShowFiles=1
+        let NERDTreeShowHidden=1
+        " Don't display these kinds of files
+        let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$']
+
+        " open a NERDTree automatically when vim starts even if no files were specified at launch
+        autocmd vimenter * if !argc() | NERDTree | endif
+        " close vim if nerdtree is last window open
+        autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
         
         " Quit on opening files from the tree
         "let NERDTreeQuitOnOpen=1
         
         " Highlight the selected entry in the tree
-        "let NERDTreeHighlightCursorline=1
-        
+        let NERDTreeHighlightCursorline=1
         " Use a single click to fold/unfold directories and a double click to open files
-        "let NERDTreeMouseMode=2
+        let NERDTreeMouseMode=2
         
-        " Don't display these kinds of files
-        "let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$']
-        
-        "nmap <leader>nt :NERDTreeToggle <CR>
-        "
-        ""Show hidden files in NerdTree
-        "let NERDTreeShowHidden=1
-        "
-        ""autopen NERDTree and focus cursor in new document
-        "autocmd VimEnter * NERDTree
-        "autocmd VimEnter * wincmd p
+        " Focus cursor in new document
+        autocmd VimEnter * wincmd p
     " }}}
     
+    " NERDtree-Tabs-Toggle {{{
+        map <Leader>n <plug>NERDTreeTabsToggle<CR>
+    " }}}
+
     " Peepopen {{{
         " Quit peepopen when vim exits
         "let p:peepopen_quit = 1
     " }}}
     
     " NerdCommenter {{{
+        " TODO: see T-comment if this is a duplicate
         "nmap <leader>c<space>:NERDComToggleComment " TODO this already built-in i believe
     " }}}
     
@@ -943,7 +954,6 @@
     
     " Ack {{{
         nmap <leader>a <Esc>:Ack!
-
     " }}}
     
     " DO NOT USE: replaced with python-mode
@@ -954,7 +964,6 @@
     
     " Slime {{{
         "let g:slime_target = "tmux" "use tmux instead of screen
-        "
     " }}}
     
     " Surround {{{
@@ -966,6 +975,10 @@
         "let g:surround_indent = 1
     " }}}
     
+    " Syntastic {{{
+        " TODO: i don't think there's any config for this plugin   
+    " }}}
+    
     " Taglist (Ctags) {{{
         "let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
         "let Tlist_WinWidth = 50
@@ -974,8 +987,7 @@
     " }}}
     
     " Tagbar {{{
-        "nmap <F7> :TagbarToggle<CR>
-         
+        nmap <F7> :TagbarToggle<CR>
     " }}}
     
     " Tasklist {{{
@@ -984,11 +996,11 @@
     " }}}
 
     " Tcomment {{{
+        " TODO: i don't think there's any config for this plugin   
         " toggles comments on/off
         " 'gcc' toggles comments for the current line 
         " 'gC{motion}' comments a visually selected region (choose region first)
         " 'gCc' comment the current line even if it has a comment
-
     " }}}
 
     " YankRing {{{
