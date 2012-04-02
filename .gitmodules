@@ -205,3 +205,6 @@
 [submodule ".dotfiles/vim/bundle/vim-nerdtree-tabs"]
 	path = .dotfiles/vim/bundle/vim-nerdtree-tabs
 	url = git://github.com/jistr/vim-nerdtree-tabs.git
+[submodule ".dotfiles/vim/bundle/GitHubDashBoard"]
+	path = .dotfiles/vim/bundle/GitHubDashBoard
+	url = https://github.com/lukaszkorecki/vim-GitHubDashBoard.git
