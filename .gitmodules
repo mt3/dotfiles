@@ -211,3 +211,6 @@
 [submodule ".dotfiles/vim/bundle/vim-powerline"]
 	path = .dotfiles/vim/bundle/vim-powerline
 	url = git://github.com/Lokaltog/vim-powerline.git
+[submodule ".dotfiles/vim/bundle/Align"]
+	path = .dotfiles/vim/bundle/Align
+	url = git://github.com/vim-scripts/Align.git
