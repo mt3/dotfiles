@@ -208,3 +208,6 @@
 [submodule ".dotfiles/vim/bundle/GitHubDashBoard"]
 	path = .dotfiles/vim/bundle/GitHubDashBoard
 	url = https://github.com/lukaszkorecki/vim-GitHubDashBoard.git
+[submodule ".dotfiles/vim/bundle/vim-powerline"]
+	path = .dotfiles/vim/bundle/vim-powerline
+	url = git://github.com/Lokaltog/vim-powerline.git
