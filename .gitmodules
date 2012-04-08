@@ -214,3 +214,6 @@
 [submodule ".dotfiles/vim/bundle/Align"]
 	path = .dotfiles/vim/bundle/Align
 	url = git://github.com/vim-scripts/Align.git
+[submodule ".dotfiles/vim/bundle/clam.vim"]
+	path = .dotfiles/vim/bundle/clam.vim
+	url = git://github.com/sjl/clam.vim.git
