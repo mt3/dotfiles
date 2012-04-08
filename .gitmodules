@@ -217,3 +217,6 @@
 [submodule ".dotfiles/vim/bundle/clam.vim"]
 	path = .dotfiles/vim/bundle/clam.vim
 	url = git://github.com/sjl/clam.vim.git
+[submodule ".dotfiles/vim/bundle/tslime.vim"]
+	path = .dotfiles/vim/bundle/tslime.vim
+	url = git://github.com/sjl/tslime.vim.git
