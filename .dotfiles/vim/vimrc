@@ -65,6 +65,7 @@
     syntax on
     filetype on
     filetype plugin indent on
+    let g:is_posix = 1 " vim's default is archaic bourne shell, bring it to the 90s
     
     version 7.3
     if &cp | set nocp | endif
@@ -86,30 +87,105 @@
     helptags ~/.dotfiles/vim/bundle/ack.vim/doc
     set rtp+=~/.dotfiles/vim/bundle/ack.vim
     
+    source ~/.dotfiles/vim/bundle/Align/plugin/AlignPlugin.vim
+    helptags ~/.dotfiles/vim/bundle/Align/doc
+    set rtp+=~/.dotfiles/vim/bundle/Align
+    
     source ~/.dotfiles/vim/bundle/vim-fugitive/plugin/fugitive.vim
     helptags ~/.dotfiles/vim/bundle/vim-fugitive/doc
     set rtp+=~/.dotfiles/vim/bundle/vim-fugitive
     
-    source ~/.dotfiles/vim/bundle/tcomment_vim/plugin/tcomment.vim
-    helptags ~/.dotfiles/vim/bundle/tcomment_vim/doc
-    set rtp+=~/.dotfiles/vim/bundle/tcomment_vim
+    source ~/.dotfiles/vim/bundle/gitv/plugin/gitv.vim
+    helptags ~/.dotfiles/vim/bundle/gitv/doc
+    set rtp+=~/.dotfiles/vim/bundle/gitv
     
     source ~/.dotfiles/vim/bundle/nerdtree/plugin/NERD_tree.vim
     helptags ~/.dotfiles/vim/bundle/nerdtree/doc
     set rtp+=~/.dotfiles/vim/bundle/nerdtree
     
-    source ~/.dotfiles/vim/bundle/tagbar/plugin/tagbar.vim
-    helptags ~/.dotfiles/vim/bundle/tagbar/doc
-    set rtp+=~/.dotfiles/vim/bundle/tagbar
+    source ~/.dotfiles/vim/bundle/vim-powerline/plugin/powerline.vim
+    helptags ~/.dotfiles/vim/bundle/vim-powerline/doc
+    set rtp+=~/.dotfiles/vim/bundle/vim-powerline
+
+    " source simplenote username/pwd (used by simplenote.vim)
+    source ~/.simplenoterc
+    source ~/.dotfiles/vim/bundle/simplenote.vim/plugin/simplenote.vim
+    " helptags ~/.dotfiles/vim/bundle/simplenote.vim/doc
+    set rtp+=~/.dotfiles/vim/bundle/simplenote.vim
     
     source ~/.dotfiles/vim/bundle/syntastic/plugin/syntastic.vim
     helptags ~/.dotfiles/vim/bundle/syntastic/doc
     set rtp+=~/.dotfiles/vim/bundle/syntastic
     
+    source ~/.dotfiles/vim/bundle/tagbar/plugin/tagbar.vim
+    helptags ~/.dotfiles/vim/bundle/tagbar/doc
+    set rtp+=~/.dotfiles/vim/bundle/tagbar
+    
+    source ~/.dotfiles/vim/bundle/tcomment_vim/plugin/tcomment.vim
+    helptags ~/.dotfiles/vim/bundle/tcomment_vim/doc
+    set rtp+=~/.dotfiles/vim/bundle/tcomment_vim
+    
+    source ~/.dotfiles/vim/bundle/taglist.vim/plugin/taglist.vim
+    helptags ~/.dotfiles/vim/bundle/taglist.vim/doc
+    set rtp+=~/.dotfiles/vim/bundle/taglist.vim
+    
     "source ~/.dotfiles/vim/bundle/
     "helptags ~/.dotfiles/vim/bundle/
     "set rtp+=~/.dotfiles/vim/bundle/
     
+
+    "TODO: plugins and vundle (instead of pathogen). looks like a good way to combine the plugin's settings nearby its load cmd
+    " LOAD PLUGINS VIA VUNDLE {{{ 
+        " filetype off
+
+        " " Vundle 
+        " set rtp+=~/.vim/bundle/vundle/
+        " call vundle#rc()
+
+        " Bundle 'gmarik/vundle'
+
+        " " General {{{
+        " Bundle 'mileszs/ack.vim'
+        " Bundle 'tsaleh/vim-align'
+        " Bundle 'tpope/vim-endwise'
+        " Bundle 'tpope/vim-fugitive'
+        " Bundle 'tpope/vim-haml'
+        " Bundle 'tpope/vim-rails'
+        " Bundle 'tpope/vim-repeat'
+        " Bundle 'tpope/vim-speeddating'
+        " Bundle 'tpope/vim-surround'
+        " Bundle 'tpope/vim-unimpaired'
+        " Bundle 'scrooloose/nerdcommenter'
+        " Bundle 'scrooloose/nerdtree'
+        " Bundle 'scrooloose/vim-space'
+        " Bundle 'scrooloose/syntastic'
+        " "Bundle 'msanders/snipmate.vim'
+        " Bundle 'sjl/threesome.vim'
+        " Bundle 'nelstrom/vim-textobj-rubyblock'
+        " Bundle 'kana/vim-textobj-user'
+        " Bundle 'chrismetcalf/vim-yankring'
+        " Bundle 'michaeljsmith/vim-indent-object'
+        " Bundle 'mirell/vim-matchit'
+        " Bundle 'matthias-guenther/hammer.vim'
+        " Bundle 'ecomba/vim-ruby-refactoring'
+        " Bundle 'kchmck/vim-coffee-script'
+        " Bundle 'Lokaltog/vim-powerline'
+        " Bundle 'kien/ctrlp.vim'
+        
+        " Bundle 'Lokaltog/vim-easymotion'
+        " let g:EasyMotion_leader_key='<LocalLeader>'
+        " " }}}
+
+        " " Haskell {{{
+        " Bundle 'Twinside/vim-syntax-haskell-cabal'
+        " Bundle 'lukerandall/haskellmode-vim'
+        " " }}}
+
+        " " Colors {{{
+        " Bundle 'sjl/badwolf'
+        " Bundle 'altercation/vim-colors-solarized'
+        " Bundle 'tomasr/molokai'
+    " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
 
@@ -149,7 +225,9 @@
     " backspace in Visual mode deletes selection
     "vnoremap <BS> d    
     nmap <D-v> "*P
-    nnoremap Y  y$
+    " quickly yank to end of line
+    nnoremap Y  y$ 
+    "TODO: another version has nmap Y  y$ 
 
     nmap <BS> dd<ESC>O
 
@@ -199,6 +277,10 @@
     " Opens a vertical split and switches over
     nnoremap <leader>v <C-w>v<C-w>l
 
+    " Remap j and k to act as expected when used on long, wrapped, lines
+    " TODO: relativenumber in column becomes useless then
+    nnoremap j gj
+    nnoremap k gk
     " Move cursor together with the screen
     noremap <D-k> j<c-e>
     noremap <D-j> k<c-y>
@@ -271,7 +353,7 @@
     map <f3> <Nop>
     map! <f3> <Nop>
     unmap <f4>
-    "unmap <f5>
+    unmap <f5>
     "unmap <f6>
     "unmap <f7>
     "unmap <f8>
@@ -283,7 +365,31 @@
     map <f3> :exe 'echo "yesy"'<CR>
     "map <f3> :exe "echomsg 'yesy'"<CR>
     map <f4> :echo "yesy"<CR>
+    " Map F5 to clear the highlighting search
+    map <f5> :set hls!<bar>set hls?<CR>    
     "map <f >
+
+    " Creating underline/overline headings for markup languages
+    " Inspired by http://sphinx.pocoo.org/rest.html#sections
+    nnoremap <leader>1 yyPVr=jyypVr=
+    nnoremap <leader>2 yyPVr*jyypVr*
+    nnoremap <leader>3 yypVr=
+    nnoremap <leader>4 yypVr-
+    nnoremap <leader>5 yypVr^
+    nnoremap <leader>6 yypVr"
+
+    " Quick editing (pinched from steve losh's .vimrc) {{{
+    " nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+    " nnoremap <leader>es :vsplit ~/.vim/snippets/<cr>
+    " nnoremap <leader>ed :vsplit ~/.vim/custom-dictionary.utf-8.add<cr>
+    " nnoremap <leader>eo :vsplit ~/Dropbox/Org<cr>4j
+    " nnoremap <leader>eh :vsplit ~/.hgrc<cr>
+    " nnoremap <leader>ep :vsplit ~/.pentadactylrc<cr>
+    " nnoremap <leader>em :vsplit ~/.mutt/muttrc<cr>
+    " nnoremap <leader>ez :vsplit ~/lib/dotfiles/zsh<cr>4j
+    " nnoremap <leader>ek :vsplit ~/lib/dotfiles/keymando/keymandorc.rb<cr>
+    " nnoremap <leader>et :vsplit ~/.tmux.conf<cr>
+    " }}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
@@ -307,11 +413,13 @@
     set mouse=a " enable mouse in all modes
     set printexpr=system('open\ -a\ Preview\ '.v:fname_in)\ +\ v:shell_error
     set termencoding=utf-8
+    set encoding=utf-8
     set fcs=vert:\ ,fold:\  " characters to use for the status line, folds and filler lines (i'm using <space>)
     set scrolloff=3 " keep at least 3 lines above/below
     set sidescrolloff=3 " keep at least 3 lines left/right
     set sidescroll=1
     set autoindent
+    set copyindent " preserves existing indentation on a new copy
     set cpoptions+=I " TODO maintain indent on a new line after <Esc> is pressed or 'save' file
     set showmode
     set showcmd " <leader> key appears in right hand corner of vim (to the left of the cursor location) and it disappears when the timeout happens
@@ -324,14 +432,12 @@
     set undoreload=1000
     set undolevels=1000
     set complete=.,w,b,u,U,t,i,d  " do lots of scanning on tab completion
-    " Turn backup off since futurefolks use hg/git/etc.
-    set nobackup
+    set nobackup " Turn backup off since futurefolks use hg/git/etc.
     set nowb
-    " set backup
     "set backupdir=~/.dotfiles/vim/tmp/vim-backup-files
+    set noswapfile " this is actually more trouble than it's worth if you keep a swapfile
     " puts swap files in this temp directory rather than all over the fukcing place
     "set directory=~/.dotfiles/vim/tmp/vim-swp-files
-    set swapfile
     
     "Persistent undo
     " TODO
@@ -350,6 +456,7 @@
     set timeoutlen=1000 " time to press next key after <Leader> has been pressed before it clears
     set shell=/usr/local/bin/zsh
     set ffs=unix,dos,mac " Default file types
+    "set listchars=tab:▸\ ,trail:·,extends:#,nbsp:· "TODO
 
     " TODO
     "if v:version >= 700
@@ -378,6 +485,7 @@
     
     " My preferred line and pasting formatting options 
     set wrap
+    "set shiftround "TODO: use multiple of shiftwidth when indenting with '<' and '>'
     set linebreak    "Wrap lines at convenient points
     set formatoptions=qrn1 " TODO
     set textwidth=100
@@ -386,23 +494,31 @@
     set softtabstop=4
     set preserveindent " TODO
     set expandtab
-    " when nopaste is set, it allows for abbreviations, cmaps, etc.
-    set nopaste
+    set smarttab " insert tabs on the start of a line according to shiftwidth, not tabstop
+    set nopaste " when nopaste is set, it allows for abbreviations, cmaps, etc.
 
-    set nofoldenable "dont fold by default
+    " TODO: what do these do?
+    " set cinoptions=:s,ps,ts,cs
+    " set cinwords=if,else,while,do
+    " set cinwords+=for,switch,case
+
+    " set nofoldenable "dont fold by default
+    set foldenable "dont fold by default
     "set foldmethod=marker " detect triple-{ style fold markers
     set foldmethod=indent " perform code folding based on indentation levels
-    set foldlevelstart=-1 " 0 is start out with everything folded, -1 is no folding
+    set foldlevelstart=0 " 0 is start out with everything folded, -1 is no folding
     set foldcolumn=0 " don't have a fold column displayed beside line numbers
-    set foldlevel=3 " nested levels above this number are auto-folded
+    set foldlevel=4 " nested levels above this number are auto-folded
+    set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo " which commands trigger auto-unfold
     
     "let g:is_zsh = 1 " TODO what is this used for? stolen from tpope's .vimrc
     
     "set t_ce=^V^[[K	" (CTRL-V, <Esc>, [, K) to clear to end of line
 
     " Smart mappings on the command line
+    " TODO: describe
     cno $h e ~/
-    cno $d e ~/Desktop/
+    cno $d e ~/Downloads/
     cno $j e ./
     cno $c e <C-\>eCurrentFileDir("e")<cr>
 
@@ -448,9 +564,9 @@
     
     "Delete trailing white space, useful for Python ;)
     func! DeleteTrailingWS()
-      exe "normal mz"
-      %s/\s\+$//ge
-      exe "normal `z"
+        exe "normal mz"
+        %s/\s\+$//ge
+        exe "normal `z"
     endfunc
     autocmd BufWrite *.py :call DeleteTrailingWS()
 
@@ -505,7 +621,7 @@
     " endfunc
 
     func! CurrentFileDir(cmd)
-      return a:cmd . " " . expand("%:p:h") . "/"
+        return a:cmd . " " . expand("%:p:h") . "/"
     endfunc
 
     command! Bclose call <SID>BufcloseCloseIt()
@@ -530,8 +646,8 @@
 
     " Specify the behavior when switching between buffers 
     try
-      set switchbuf=usetab
-      set stal=2
+        set switchbuf=usetab
+        set stal=2
     catch
     endtry
 
@@ -623,7 +739,7 @@
     "endif
 
     set bg=light
-    set lazyredraw " do not redraw while running macros
+    set lazyredraw " do not redraw display while running macros
     set nosplitbelow
     set splitright " new buffers open to the right
     set cursorline
@@ -690,14 +806,21 @@
 " FILETYPES & LANGUAGES {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "
+
     autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2 " TODO
 
     autocmd BufNewFile,BufRead */etc/nginx/* setlocal ft=nginx " TODO
 
     " Python {{{
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-        autocmd FileType python runtime! autoload/pythoncomplete.vim
+        au FileType python runtime! autoload/pythoncomplete.vim
         au FileType python set omnifunc=pythoncomplete#Complete
+        au FileType python highlight Cursor guifg=#cfcfcf
+        au FileType python setlocal foldmethod=indent foldminlines=15
+        au filetype python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+        au filetype python setlocal textwidth=100
+        " display error message if we go beyond 80 chars wide
+        autocmd filetype python match ErrorMsg '\%>100v.\+'
 
         " Add the virtualenv's site-packages to vim path
         "py << EOF
@@ -712,10 +835,10 @@
         "EOF
 
         let python_highlight_all = 1
-        "au FileType python syn keyword pythonDecorator True None False self
+        au FileType python syn keyword pythonDecorator True None False self
 
-        "au BufNewFile,BufRead *.jinja set syntax=htmljinja
-        "au BufNewFile,BufRead *.mako set ft=mako
+        au BufNewFile,BufRead *.jinja set syntax=htmljinja
+        au BufNewFile,BufRead *.mako set ft=mako
 
         "au FileType python inoremap <buffer> $r return 
         "au FileType python inoremap <buffer> $i import 
@@ -725,6 +848,9 @@
         "au FileType python map <buffer> <leader>2 /def 
         "au FileType python map <buffer> <leader>C ?class 
         "au FileType python map <buffer> <leader>D ?def
+        
+        " Run a quick static syntax check every time we save a Python file
+        "autocmd BufWritePost *.py call Flake8()
         
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " }}}
@@ -769,6 +895,10 @@
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " }}}
 
+    " Git {{{
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 
     " C {{{
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -834,7 +964,8 @@
         " Show line number by default for followed filetype
         autocmd FileType html			setlocal number
         autocmd FileType xhtml			setlocal number
-        autocmd FileType css			setlocal number
+        autocmd FileType css,less		setlocal number
+        autocmd filetype css,less       setlocal foldmethod=marker foldmarker={,}
         autocmd FileType javascript		setlocal number
         autocmd FileType php			setlocal number
 
@@ -849,22 +980,16 @@
 " PLUGINS SETUP {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "
-    " Snipmate {{{
-        "source ~/.dotfiles/vim/snipmate-snippets/support_functions.vim
-        "autocmd vimenter * call s:SetupSnippets()
-        "function! s:SetupSnippets()
-        "    "if we're in a rails env then read in the rails snippets
-        "    if filereadable("./config/environment.rb")
-        "        call ExtractSnips("~/.vim/snippets/ruby-rails", "ruby")
-        "        call ExtractSnips("~/.vim/snippets/eruby-rails", "eruby")
-        "    endif
-        "
-        "    call ExtractSnips("~/.vim/snippets/html", "eruby")
-        "    call ExtractSnips("~/.vim/snippets/html", "xhtml")
-        "    call ExtractSnips("~/.vim/snippets/html", "php")
-        "endfunction
+    
+    " Ack {{{
+        nmap <leader>a <Esc>:Ack!
     " }}}
     
+    " Clam {{{
+        " nnoremap ! :Clam<space>
+        " let g:clam_autoreturn = 1
+    " }}}
+
     " Command-T {{{
         "let g:CommandTMaxHeight = 15
         "set wildignore+=*.o,*.obj,.git,*.pyc,*.hg,*.svn,*.swp,*.bak,*.class
@@ -876,6 +1001,24 @@
         "   macmenu &File.New\ Tab key=<nop>
         "   map <D-t> :CommandT<CR>
         "endif
+    " }}}
+
+    " Commentary {{{
+        "nmap <leader>c <Plug>CommentaryLine
+        "xmap <leader>c <Plug>Commentary
+        "au FileType htmldjango setlocal commentstring={#\ %s\ #}
+    " }}}
+
+    " MinibufExplorer {{{
+        "let g:miniBufExplModSelTarget = 1
+        "let g:miniBufExplorerMoreThanOne = 0
+        "let g:miniBufExplModSelTarget = 0
+        "let g:miniBufExplUseSingleClick = 1
+        "let g:miniBufExplMapWindowNavVim = 1
+        "let g:miniBufExplVSplit = 25
+        "let g:miniBufExplSplitBelow=1
+
+        "map <c-w><c-t> :WMToggle<cr>
     " }}}
     
     " NERDTree settings {{{
@@ -912,6 +1055,14 @@
         
         " Focus cursor in new document
         autocmd VimEnter * wincmd p
+
+        " let g:NERDTreeCaseSensitiveSort = 1
+        " let g:NERDTreeDirArrows = 1
+        " let g:NERDTreeMinimalUI = 1
+        " let g:NERDTreeQuitOnOpen = 1
+        " let g:NERDTreeShowBookmarks = 1
+        " let g:NERDTreeWinPos = 'right'
+        " let g:NERDTreeWinSize = 50
     " }}}
     
     " NERDtree-Tabs-Toggle {{{
@@ -934,15 +1085,32 @@
         "let g:org_debug = 1
     " }}}
     
-    " Commentary {{{
-        "nmap <leader>c <Plug>CommentaryLine
-        "xmap <leader>c <Plug>Commentary
-        "au FileType htmldjango setlocal commentstring={#\ %s\ #}
+    " Powerline {{{
+        let g:Powerline_symbols = 'fancy'
+        let g:Powerline_cache_enabled = 1
+        let g:Powerline_theme = 'default'
+        let g:Powerline_colorscheme = 'default'
+        let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
+        let g:Powerline_stl_path_style = 'relative'
     " }}}
     
+    " Python-mode {{{
+        " let g:pymode_run = 0
+        " let g:pymode_lint = 0
+        " let g:pymode_breakpoint = 0
+        " let g:pymode_utils = 0
+        " let g:pymode_utils_whitespaces = 0
+        " let g:pymode_syntax = 0
+        " let g:pymode_options_indent = 0
+        " let g:pymode_options_fold = 0
+        " let g:pymode_options_other = 0
+    " }}}
+
     " SuperTab {{{
         "let g:SuperTabDefaultCompletionType = "context"
+        " let g:SuperTabContextDefaultCompletionType = '<c-n>'
         "set completeopt=menuone,longest,preview
+        " let g:SuperTabLongestEnhanced = 1
     " }}}
     
     " Fugitive {{{
@@ -950,10 +1118,6 @@
         set statusline+=%#GitStatusLine#
         set statusline+=%{fugitive#statusline()}
         set statusline+=%*
-    " }}}
-    
-    " Ack {{{
-        nmap <leader>a <Esc>:Ack!
     " }}}
     
     " DO NOT USE: replaced with python-mode
@@ -964,6 +1128,22 @@
     
     " Slime {{{
         "let g:slime_target = "tmux" "use tmux instead of screen
+    " }}}
+
+    " Snipmate {{{
+        "source ~/.dotfiles/vim/snipmate-snippets/support_functions.vim
+        "autocmd vimenter * call s:SetupSnippets()
+        "function! s:SetupSnippets()
+        "    "if we're in a rails env then read in the rails snippets
+        "    if filereadable("./config/environment.rb")
+        "        call ExtractSnips("~/.vim/snippets/ruby-rails", "ruby")
+        "        call ExtractSnips("~/.vim/snippets/eruby-rails", "eruby")
+        "    endif
+        "
+        "    call ExtractSnips("~/.vim/snippets/html", "eruby")
+        "    call ExtractSnips("~/.vim/snippets/html", "xhtml")
+        "    call ExtractSnips("~/.vim/snippets/html", "php")
+        "endfunction
     " }}}
     
     " Surround {{{
@@ -980,10 +1160,22 @@
     " }}}
     
     " Taglist (Ctags) {{{
-        "let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
-        "let Tlist_WinWidth = 50
         "map <F4> :TlistToggle<cr>
         "set tags+=$HOME/.vim/tags/python.ctags
+        let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
+        let Tlist_WinWidth = 50
+        " show TagList window on the right
+        let Tlist_Use_Right_Window=1
+        let Tlist_Exit_OnlyWindow=1         " quit when TagList is the last open window
+        let Tlist_GainFocus_On_ToggleOpen=1 " put focus on the TagList window when it opens
+        "let Tlist_Process_File_Always=1     " process files in the background, even when the TagList window isn't open
+        "let Tlist_Show_One_File=1           " only show tags from the current buffer, not all open buffers
+        " let Tlist_Inc_Winwidth=1            " increase window by 1 when growing
+        " TagList Plugin Configuration
+        let Tlist_GainFocus_On_ToggleOpen = 1
+        "let Tlist_Close_On_Select = 1
+        "let Tlist_File_Fold_Auto_Close = 1
+        "map <F7> :TlistToggle<CR>
     " }}}
     
     " Tagbar {{{
@@ -1001,6 +1193,13 @@
         " 'gcc' toggles comments for the current line 
         " 'gC{motion}' comments a visually selected region (choose region first)
         " 'gCc' comment the current line even if it has a comment
+    " }}}
+
+    " tslime {{{
+        let g:tslime_ensure_trailing_newlines = 1
+        let g:tslime_normal_mapping = '<localleader>t'
+        let g:tslime_visual_mapping = '<localleader>t'
+        let g:tslime_vars_mapping = '<localleader>T'
     " }}}
 
     " YankRing {{{
@@ -1025,6 +1224,7 @@
 " OTHER ASSORTEDS {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "
+
     " iPad {{{
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
         " used for iPad's iSSH app. iOS doesn't allow use of esc key, so makes using vim difficult
