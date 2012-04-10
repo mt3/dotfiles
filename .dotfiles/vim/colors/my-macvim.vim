@@ -31,10 +31,14 @@
 " Set up your new & improved colors
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "
-    hi Cursor       guifg=NONE      guibg=#dddddd   gui=reverse ctermbg=241
+    " hi Cursor       guifg=Black     guibg=#e4e4e4   gui=none    ctermbg=241
+    " hi Cursor     guibg=#afdfff   guifg=White     gui=none    ctermbg=241
+    hi Cursor       guibg=Black     guifg=White     gui=none    ctermbg=241
     hi iCursor      guifg=Gray      guibg=Blue
     hi Insert       guifg=Black     guibg=Blue
-    hi CursorLine   guibg=#eaeaea   term=reverse
+    hi CursorLine   guibg=White     gui=none    term=reverse
+    " hi CursorLine   guifg=#0080ff     guibg=White     gui=none    term=reverse
+    "hi CursorLine  guifg=#2a2a2a   guibg=#eaeaea   gui=none    term=reverse
     hi CursorColumn guibg=#333333   guifg=NONE
     hi NonText 		guifg=#808080   guibg=#303030   gui=none ctermfg=244 ctermbg=235
     hi LineNr 		guifg=#dadada   guibg=#000000   gui=none ctermfg=244 ctermbg=232
@@ -52,19 +56,19 @@
     "hi link FoldColumn Folded
 
     hi Title		guifg=#f6f3e8   guibg=NONE	    gui=bold ctermfg=254 cterm=bold
-    hi Visual		guifg=Black     guibg=LightBlue gui=none ctermfg=254 ctermbg=4
+    hi Visual		guifg=Black     guibg=White     gui=none ctermfg=254 ctermbg=4
     hi SpecialKey	guifg=#808080   guibg=#343434   gui=none ctermfg=244 ctermbg=236
 
     " Pmenu is for pop-up menus
     hi Pmenu 		guifg=#ffffff   guibg=#444444   ctermfg=255 ctermbg=238
     hi PmenuSel     ctermfg=Black   ctermbg=LightCyan
-    hi MatchParen   term=reverse    ctermbg=LightCyan guibg=LightCyan gui=bold
+    hi MatchParen   term=reverse    guifg=White     guibg=#cfdfff gui=bold ctermbg=LightCyan
 
 
 " Syntax & Keywords
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "
-    hi Normal       guifg=Black         guibg=#f6f6f6   gui=none        ctermfg=253 ctermbg=234
+    hi Normal       guifg=Black         guibg=#f4f4f4   gui=none        ctermfg=253 ctermbg=234
     hi String       guifg=#7e8aa2       gui=none        ctermfg=103
     hi NonText      guifg=#404040       ctermfg=8
     hi Comment      guifg=#b9b9b9       gui=italic      ctermfg=244
@@ -72,11 +76,11 @@
     hi Constant 	guifg=#8186b1       gui=italic      ctermfg=148
     hi Keyword		guifg=SlateBlue     gui=none        ctermfg=103
     hi Statement 	guifg=DarkBlue      gui=none        ctermfg=103
-    hi Identifier   guifg=DarkCyan
-    hi PreProc      guifg=#0080df
+    hi Identifier   guifg=#0080df
+    hi PreProc      guifg=DarkCyan
     hi Type         guifg=DarkMagenta
 
-    hi Todo         guifg=White         guibg=#c90000   gui=italic
+    hi Todo         guifg=Black         guibg=#e02020   gui=italic
 
 
 " Error Messages
@@ -85,7 +89,8 @@
     hi SpellErrors guifg=Red gui=underline
 
     " commandline error messages
-    hi ErrorMsg guifg=Red guibg=NONE
+    hi ErrorMsg guifg=#c00000 guibg=NONE
+    " hi ErrorMsg guifg=Red guibg=NONE
     " TODO
     hi WarningMsg guifg=Red
     " TODO
@@ -121,7 +126,7 @@
 " Color Values
 """""""""""""""""""""""""""""""
 "coloring format is #rrggbb
-"lightblueish=#00dfdf
+"lightblueish=#bfffff
 "darkblueish=#204fdf
 "lightred=#c80000
 "
