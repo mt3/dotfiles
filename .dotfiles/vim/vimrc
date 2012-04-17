@@ -90,6 +90,10 @@
     source ~/.dotfiles/vim/bundle/Align/plugin/AlignPlugin.vim
     helptags ~/.dotfiles/vim/bundle/Align/doc
     set rtp+=~/.dotfiles/vim/bundle/Align
+
+    source ~/.dotfiles/vim/bundle/coveragepy/ftplugin/python/coveragepy.vim
+    helptags ~/.dotfiles/vim/bundle/coveragepy/doc
+    set rtp+=~/.dotfiles/vim/bundle/coveragepy
     
     source ~/.dotfiles/vim/bundle/vim-fugitive/plugin/fugitive.vim
     helptags ~/.dotfiles/vim/bundle/vim-fugitive/doc
@@ -98,6 +102,10 @@
     source ~/.dotfiles/vim/bundle/gitv/plugin/gitv.vim
     helptags ~/.dotfiles/vim/bundle/gitv/doc
     set rtp+=~/.dotfiles/vim/bundle/gitv
+    
+    source ~/.dotfiles/vim/bundle/jacinto.vim/plugin/jacinto.vim
+    " helptags ~/.dotfiles/vim/bundle/jacinto/doc
+    set rtp+=~/.dotfiles/vim/bundle/jacinto.vim
     
     source ~/.dotfiles/vim/bundle/nerdtree/plugin/NERD_tree.vim
     helptags ~/.dotfiles/vim/bundle/nerdtree/doc
@@ -129,6 +137,11 @@
     helptags ~/.dotfiles/vim/bundle/taglist.vim/doc
     set rtp+=~/.dotfiles/vim/bundle/taglist.vim
     
+    
+    "source ~/.dotfiles/vim/bundle/
+    "helptags ~/.dotfiles/vim/bundle/
+    "set rtp+=~/.dotfiles/vim/bundle/
+
     "source ~/.dotfiles/vim/bundle/
     "helptags ~/.dotfiles/vim/bundle/
     "set rtp+=~/.dotfiles/vim/bundle/
