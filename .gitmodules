@@ -232,3 +232,6 @@
 [submodule ".dotfiles/vim/bundle/coveragepy.vim"]
 	path = .dotfiles/vim/bundle/coveragepy.vim
 	url = https://github.com/alfredodeza/coveragepy.vim.git
+[submodule ".dotfiles/vim/bundle/jacinto.vim"]
+	path = .dotfiles/vim/bundle/jacinto.vim
+	url = https://github.com/alfredodeza/jacinto.vim.git
