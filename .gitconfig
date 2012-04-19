@@ -64,6 +64,10 @@
     lll = log --graph --decorate --pretty=format:'%C(magenta)%h%C(reset)%C(bold yellow)%d%C(reset) %s %C(green)%an %C(bold black)%cr%C(reset)' --abbrev-commit --date=relative
     lol = log --graph --decorate --pretty=oneline --abbrev-commit --date=relative --graph --max-count=50 --since=\"1 month ago\"
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    lolal = log --graph --decorate --pretty=oneline --abbrev-commit --all
+    lolalnp = !git --no-pager lolal
+    loll = log --graph --decorate --pretty=oneline --abbrev-commit
+    lolnp = !git --no-pager loll
     ls = ls-files
     oneline = log --oneline
     out = "!b=$(git current-branch);git ll origin/$b..$b"
