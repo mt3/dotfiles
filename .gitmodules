@@ -235,3 +235,6 @@
 [submodule ".dotfiles/vim/bundle/jacinto.vim"]
 	path = .dotfiles/vim/bundle/jacinto.vim
 	url = https://github.com/alfredodeza/jacinto.vim.git
+[submodule ".dotfiles/vim/bundle/textile"]
+	path = .dotfiles/vim/bundle/textile
+	url = https://github.com/timcharper/textile.vim.git
