@@ -1,22 +1,30 @@
 " TODO {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "
+    " convert everything to use Vundle. see Vundle section in https://github.com/gmarik/vimfiles/blob/master/vimrc
+    " when using 'gcc' to comment code, don't add a space between comment symbol and actual code
+    " map <D-w> :q!<CR>
     " always open macvim with split pane with the vim help file or whatever info pane (2/3 file, 1/3 help) <C-w> T moves current pane to its own tab. <C-w> 20 < shrinks width of the pane by 20.
     " display errors to logfile or logbuffer, mostly whenever we reload/source .vimrc
     " a line with a todo should have darkened background for the rest of the line after the todo
     " have vim's help page open in a horizontal split pane (on right), not vertical 'splitright' instead of 'splitbelow'?
-    " get rid of string highlights in vim files while in the body of a comment such as "this" (check ':set comments?' for what this ftype is using). ':set comments' for c++ file is 'comments=sO:* -,mO:*  ,exO:*/,s1:/*,mb:*,ex:*/,://'. for vim files it is 'comments=sO:" -,mO:"  ,eO:"",:"'. thus should be written as ':set comments=sO:" -,mO:"  ,eO:"",:"'
+    " get rid of string highlights in vim files while in the body of a comment such as "this"
+        " (check ':set comments?' for what this ftype is using)
+        " ':set comments' for c++ file is 'comments=sO:* -,mO:*  ,exO:*/,s1:/*,mb:*,ex:*/,://'. for vim files it is 'comments=sO:" -,mO:"  ,eO:"",:"'
+        " thus should be written as ':set comments=sO:" -,mO:"  ,eO:"",:"'
     " change code-folding message so that '32 lines' is a lighter color than the line number
     " .pentadactylrc and .penta files need to be syntax-highlighted using vim (i have an attempt below, but doesn't work)
-    " use <M-/> for toggling comments on/off a la textmate, use '!' to toggle i.e. ':set wrap!' toggles wrapping
+    " use <M-/> for toggling comments on/off a la textmate, use '!' to toggle
+        " i.e. 'map <leader>wr :set wrap!<CR>' toggles wrapping
+        " currently using 'gcc' or 'gc' (in visual mode) to toggle comments
     " document what many of the non-obvious options do
     " always open new split-panes to the right horizontally, not below/above
-    " get rid of the .swp file after ':q' is used to close the pane, the correct comd is ':q!'
     " change color of matching brackets in showmatch option
-    " nmap / :h<space>
-    " turn off red error-messages regarding spaces at end of lines when the line is just a bunch of tabs
-    " make comments a different font (helvetica? italicized?)
+    " nmap / :h<space> (but why???)
+    " turn off red error-messages regarding spaces at end of lines when the line is just a bunch of tabs (i.e., python)
+    " make comments a different (non-fixed width) font (helvetica? italicized?)
     " after i do a 'save', automatically change to visual mode
+        " map <D-s> :w<CR><ESC>
     " with autoindent, when <CR> is typed to get new indented line, <Esc> somehow removes the indent
     " stop infinite scroll at bottom of buffer, go 10 max
     " in split panes, unfocused buffers should be dimmed
@@ -28,7 +36,7 @@
     " install textile syntax highlighter
     " 'map <leader>uw lowercase' or 'map gu lowercase'
     " map <leader>Uw uppercase or 'map gU lowercase'
-    " save a workspace/layout, along with tmux settings
+    " save a workspace/layout, along with tmux settings (see wemux, or vim-mux, etc.)
     "
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
@@ -137,7 +145,6 @@
     helptags ~/.dotfiles/vim/bundle/taglist.vim/doc
     set rtp+=~/.dotfiles/vim/bundle/taglist.vim
     
-    
     "source ~/.dotfiles/vim/bundle/
     "helptags ~/.dotfiles/vim/bundle/
     "set rtp+=~/.dotfiles/vim/bundle/
@@ -145,9 +152,8 @@
     "source ~/.dotfiles/vim/bundle/
     "helptags ~/.dotfiles/vim/bundle/
     "set rtp+=~/.dotfiles/vim/bundle/
-    
 
-    "TODO: plugins and vundle (instead of pathogen). looks like a good way to combine the plugin's settings nearby its load cmd
+    "TODO: use plugins with vundle instead of pathogen. looks like a good way to combine the plugin's settings nearby its load cmd
     " LOAD PLUGINS VIA VUNDLE {{{ 
         " filetype off
 
@@ -158,46 +164,50 @@
         " Bundle 'gmarik/vundle'
 
         " " General {{{
-        " Bundle 'mileszs/ack.vim'
-        " Bundle 'tsaleh/vim-align'
-        " Bundle 'tpope/vim-endwise'
-        " Bundle 'tpope/vim-fugitive'
-        " Bundle 'tpope/vim-haml'
-        " Bundle 'tpope/vim-rails'
-        " Bundle 'tpope/vim-repeat'
-        " Bundle 'tpope/vim-speeddating'
-        " Bundle 'tpope/vim-surround'
-        " Bundle 'tpope/vim-unimpaired'
-        " Bundle 'scrooloose/nerdcommenter'
-        " Bundle 'scrooloose/nerdtree'
-        " Bundle 'scrooloose/vim-space'
-        " Bundle 'scrooloose/syntastic'
-        " "Bundle 'msanders/snipmate.vim'
-        " Bundle 'sjl/threesome.vim'
-        " Bundle 'nelstrom/vim-textobj-rubyblock'
-        " Bundle 'kana/vim-textobj-user'
-        " Bundle 'chrismetcalf/vim-yankring'
-        " Bundle 'michaeljsmith/vim-indent-object'
-        " Bundle 'mirell/vim-matchit'
-        " Bundle 'matthias-guenther/hammer.vim'
-        " Bundle 'ecomba/vim-ruby-refactoring'
-        " Bundle 'kchmck/vim-coffee-script'
-        " Bundle 'Lokaltog/vim-powerline'
-        " Bundle 'kien/ctrlp.vim'
-        
-        " Bundle 'Lokaltog/vim-easymotion'
-        " let g:EasyMotion_leader_key='<LocalLeader>'
+            " Bundle 'mileszs/ack.vim'
+            " Bundle 'tsaleh/vim-align'
+            " Bundle 'tpope/vim-endwise'
+            " Bundle 'tpope/vim-fugitive'
+            " Bundle 'tpope/vim-haml'
+            " Bundle 'tpope/vim-rails'
+            " Bundle 'tpope/vim-repeat'
+            " Bundle 'tpope/vim-speeddating'
+            " Bundle 'tpope/vim-surround'
+            " Bundle 'tpope/vim-unimpaired'
+            " Bundle 'scrooloose/nerdcommenter'
+            " Bundle 'scrooloose/nerdtree'
+            " Bundle 'scrooloose/vim-space'
+            " Bundle 'scrooloose/syntastic'
+            " "Bundle 'msanders/snipmate.vim'
+            " Bundle 'sjl/threesome.vim'
+            " Bundle 'nelstrom/vim-textobj-rubyblock'
+            " Bundle 'kana/vim-textobj-user'
+            " Bundle 'chrismetcalf/vim-yankring'
+            " Bundle 'michaeljsmith/vim-indent-object'
+            " Bundle 'mirell/vim-matchit'
+            " Bundle 'matthias-guenther/hammer.vim'
+            " Bundle 'ecomba/vim-ruby-refactoring'
+            " Bundle 'kchmck/vim-coffee-script'
+            " Bundle 'Lokaltog/vim-powerline'
+            " Bundle 'kien/ctrlp.vim'
+            " Bundle 'rstacruz/sparkup.git', {'rtp': 'vim/'}
+            " Bundle 'gh:thinca/vim-poslist.git'
+            " Bundle 'github:mattn/gist-vim.git'
+            
+            " Bundle 'Lokaltog/vim-easymotion'
+            " let g:EasyMotion_leader_key='<LocalLeader>'
         " " }}}
 
         " " Haskell {{{
-        " Bundle 'Twinside/vim-syntax-haskell-cabal'
-        " Bundle 'lukerandall/haskellmode-vim'
+            " Bundle 'Twinside/vim-syntax-haskell-cabal'
+            " Bundle 'lukerandall/haskellmode-vim'
         " " }}}
 
         " " Colors {{{
-        " Bundle 'sjl/badwolf'
-        " Bundle 'altercation/vim-colors-solarized'
-        " Bundle 'tomasr/molokai'
+            " Bundle 'sjl/badwolf'
+            " Bundle 'altercation/vim-colors-solarized'
+            " Bundle 'tomasr/molokai'
+        " }}}
     " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
@@ -206,6 +216,8 @@
 
 " MAPPINGS {{{
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    "
+    " Navigation
     "
     "remap left/right arrow keys for tab next/previous
     map <Left> gT
@@ -230,7 +242,22 @@
     noremap <D-Right> <End>
     noremap <M-Left> <C-Left>
     noremap <D-Left> <Home>
+    " Easy buffer/split pane navigation
+    noremap <C-h>  <C-w>h
+    noremap <C-j>  <C-w>j
+    noremap <C-k>  <C-w>k
+    noremap <C-l>  <C-w>l
+    " vertical window split
+    noremap <leader>v <C-w>v
+    " Begining & End of line in Normal mode 
+    noremap H ^
+    noremap L g_
+    " Use ,z to "focus" the current fold.
+    nnoremap <leader>z zMzvzz
+    
     "nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
+
+    " Mac-style cut and paste
     vmap <BS> "-d
     vmap <D-x> "*d
     vmap <D-c> "*y
@@ -266,7 +293,7 @@
     nnoremap <D-<> <<
     nnoremap <D->> >>
 
-    " TODO save file, then goto normal mode
+    " save file, then goto normal mode TODO: does not work
     " :an 10.290 File.Save <Nop>
 	" macm File.Save key=<nop>
     " noremap <D-s> :w<CR>
@@ -275,6 +302,8 @@
     "iunmap <D-s>
     "noremap <D-s> :update<CR>
     "inoremap <D-s> :update<CR><Esc>
+    iunmap <D-s>
+    imap <D-s> :w<CR><Esc>
 
     " TODO the below isn't working
     macm File.New\ Tab key=<nop>
@@ -305,7 +334,7 @@
     " Better Marks
     nnoremap ' `
 
-    " Use Q for formatting instead of Ex mode
+    " Use Q for formatting instead of Ex mode TODO: explain
     map Q gq
     
     " Swap ; and :  Convenient. as. fukc.
@@ -331,6 +360,10 @@
     "cnoremap <C-E>      <End>
     "cnoremap <C-K>      <C-U>
     
+    " ,t to show tags window
+    " let Tlist_Show_Menu=1
+    " nmap <leader>t :TlistToggle<CR>
+
     " Quick alignment of text
     nmap <leader>al :left<CR>
     nmap <leader>ar :right<CR>
@@ -339,47 +372,67 @@
     " show yankring
     "map <leader>yr :YRShow<cr> 
     
-    " TODO quickly get rid of highlights
+    " quickly get rid of highlights
     "nnoremap <S-F3> :set hlsearch!<CR>
+    noremap <silent><Leader>h :nohls<CR>
     "map <leader>h :noh<CR> 
-    map <leader>h :set hlsearch!<CR>
+    " map <leader>h :set hlsearch!<CR>
     
     " toggle invisibles (whitespace, etc.)
-    map <leader>li :set list!<CR> 
+    map <Leader>li :set list!<CR> 
     
     " Close the current buffer
     map <leader>bd :Bclose<cr>
 
     " hitting jj or kk will jump out of insert mode
-    imap jj <esc>
-    imap kk <esc>
+    imap jj <Esc>
+    " imap kk <Esc>
 
     " Create Blank Newlines and stay in Normal mode
     nnoremap <silent> zj o<Esc>
     nnoremap <silent> zk O<Esc>
     
+    "nmap <silent> <leader>h :set invhlsearch<CR>
+    "nmap <silent> <leader>l :set invlist<CR>
+    "nmap <silent> <leader>n :set invnumber<CR>
+    "nmap <silent> <leader>p :set invpaste<CR>
+    "nmap <silent> <leader>i :set invrelativenumber<CR>
+    
+    " sane regexes
+    "nnoremap / /\v
+    "vnoremap / /\v
+
+    " Keep search matches in the middle of the window.
+    nnoremap n nzzzv
+    nnoremap N Nzzzv
+    " Same when jumping around
+    nnoremap g; g;zz
+    nnoremap g, g,zz
+
     " Map function keys
     """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    unmap <f1>
-    unmap <f2>
-    unmap <f3>
+    " commented out the unmap commands since they raised errors due to no map assigned
+    " unmap <f1>
+    " unmap <f2>
+    " unmap <f3>
     map <f3> <Nop>
     map! <f3> <Nop>
-    unmap <f4>
-    unmap <f5>
+    " unmap <f4>
+    " unmap <f5>
     "unmap <f6>
     "unmap <f7>
     "unmap <f8>
     "unmap <f9>
     "unmap <f0>
     " toggle/untoggle folds TODO zR is open all folds and zM is close all folds (combine in one keystroke)
-    map <f1> zR<esc>
-    map <f2> zM<esc>
-    map <f3> :exe 'echo "yesy"'<CR>
+    map <f1> zR<Esc>
+    map <f2> zM<Esc>
+    map <F3> :exe 'echo "yesy"'<CR>
     "map <f3> :exe "echomsg 'yesy'"<CR>
     map <f4> :echo "yesy"<CR>
     " Map F5 to clear the highlighting search
-    map <f5> :set hls!<bar>set hls?<CR>    
+    map <f5> :set hls!<bar>set hls?<CR>
+    map <F9> :source $MYVIMRC<CR>:echoe "Vimrc Reloaded!!!"<CR>
     "map <f >
 
     " Creating underline/overline headings for markup languages
@@ -392,16 +445,16 @@
     nnoremap <leader>6 yypVr"
 
     " Quick editing (pinched from steve losh's .vimrc) {{{
-    " nnoremap <leader>ev :vsplit $MYVIMRC<cr>
-    " nnoremap <leader>es :vsplit ~/.vim/snippets/<cr>
-    " nnoremap <leader>ed :vsplit ~/.vim/custom-dictionary.utf-8.add<cr>
-    " nnoremap <leader>eo :vsplit ~/Dropbox/Org<cr>4j
-    " nnoremap <leader>eh :vsplit ~/.hgrc<cr>
-    " nnoremap <leader>ep :vsplit ~/.pentadactylrc<cr>
-    " nnoremap <leader>em :vsplit ~/.mutt/muttrc<cr>
-    " nnoremap <leader>ez :vsplit ~/lib/dotfiles/zsh<cr>4j
-    " nnoremap <leader>ek :vsplit ~/lib/dotfiles/keymando/keymandorc.rb<cr>
-    " nnoremap <leader>et :vsplit ~/.tmux.conf<cr>
+        " nnoremap <leader>ev :vsplit $MYVIMRC<cr>
+        " nnoremap <leader>es :vsplit ~/.vim/snippets/<cr>
+        " nnoremap <leader>ed :vsplit ~/.vim/custom-dictionary.utf-8.add<cr>
+        " nnoremap <leader>eo :vsplit ~/Dropbox/Org<cr>4j
+        " nnoremap <leader>eh :vsplit ~/.hgrc<cr>
+        " nnoremap <leader>ep :vsplit ~/.pentadactylrc<cr>
+        " nnoremap <leader>em :vsplit ~/.mutt/muttrc<cr>
+        " nnoremap <leader>ez :vsplit ~/lib/dotfiles/zsh<cr>4j
+        " nnoremap <leader>ek :vsplit ~/lib/dotfiles/keymando/keymandorc.rb<cr>
+        " nnoremap <leader>et :vsplit ~/.tmux.conf<cr>
     " }}}
 
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -470,6 +523,9 @@
     set shell=/usr/local/bin/zsh
     set ffs=unix,dos,mac " Default file types
     "set listchars=tab:▸\ ,trail:·,extends:#,nbsp:· "TODO
+    " set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
+    " set showbreak=↪
+    
 
     " TODO
     "if v:version >= 700
@@ -510,24 +566,27 @@
     set smarttab " insert tabs on the start of a line according to shiftwidth, not tabstop
     set nopaste " when nopaste is set, it allows for abbreviations, cmaps, etc.
 
-    " TODO: what do these do?
+    " TODO: what do these do? they represent c formatting and indent options i.e., for non-indent sensitive languages (e.g., python)
     " set cinoptions=:s,ps,ts,cs
     " set cinwords=if,else,while,do
     " set cinwords+=for,switch,case
 
     " set nofoldenable "dont fold by default
-    set foldenable "dont fold by default
+    set foldenable "fold by default
     "set foldmethod=marker " detect triple-{ style fold markers
     set foldmethod=indent " perform code folding based on indentation levels
     set foldlevelstart=0 " 0 is start out with everything folded, -1 is no folding
     set foldcolumn=0 " don't have a fold column displayed beside line numbers
-    set foldlevel=4 " nested levels above this number are auto-folded
+    set foldlevel=3 " nested levels above this number are auto-folded
     set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo " which commands trigger auto-unfold
     
     "let g:is_zsh = 1 " TODO what is this used for? stolen from tpope's .vimrc
     
     "set t_ce=^V^[[K	" (CTRL-V, <Esc>, [, K) to clear to end of line
 
+    " help settings
+    set helpheight=20 " default
+    
     " Smart mappings on the command line
     " TODO: describe
     cno $h e ~/
@@ -722,7 +781,8 @@
     endfunction
 
     " build ctags taglist for current working directory
-    unmap <F8>
+    " commented out unmap since errors occured due to no map assignment
+    " unmap <F8>
     map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
 
     " builds and then runs stage app
@@ -753,8 +813,8 @@
 
     set bg=light
     set lazyredraw " do not redraw display while running macros
-    set nosplitbelow
     set splitright " new buffers open to the right
+    set nosplitbelow
     set cursorline
     set nocursorcolumn " turn off highlighting the column which the cursor is in
     " set ruler " show line and column of cursor position
@@ -794,6 +854,8 @@
         " colorscheme github
         " colorscheme cleanroom
         set guifont=Droid\ Sans\ Mono:h13
+        let s:terminal_italic=1
+        " set font=Fanwood:h13
         "set guifont=Inconsolata-dz:h12
         set t_Co=256 " term has 256 colors
         set linespace=2
@@ -828,12 +890,13 @@
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
         au FileType python runtime! autoload/pythoncomplete.vim
         au FileType python set omnifunc=pythoncomplete#Complete
+        " au FileType python set guifont=Helvetica:h15:i
         au FileType python highlight Cursor guifg=#cfcfcf
-        au FileType python setlocal foldmethod=indent foldminlines=15
-        au filetype python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
+        au FileType python setlocal foldmethod=indent foldminlines=0 " TODO: foldminlines?
+        au filetype python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 " TODO: expandtab?
         au filetype python setlocal textwidth=100
-        " display error message if we go beyond 80 chars wide
-        autocmd filetype python match ErrorMsg '\%>100v.\+'
+        " display error message if we go beyond 100 chars wide
+        au filetype python match ErrorMsg '\%>100v.\+'
 
         " Add the virtualenv's site-packages to vim path
         "py << EOF
@@ -894,9 +957,11 @@
     " Vim {{{
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
         au BufNewFile,BufRead *.vimrc setfiletype vim
-        au BufNewFile,BufRead *.vim setfiletype vim
+        au BufNewFile,BufRead *.vim setfiletype vim foldmethod=marker
         au BufNewFile,BufRead *.vimrc set foldmethod=marker
         au FileType vim set foldmethod=marker
+        " au FileType vim set guifont=Helvetica:h15:i
+        " au filetype vim match ErrorMsg '\%>100v.\+'
         
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " }}}
@@ -910,8 +975,9 @@
 
     " Git {{{
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
+        autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    " }}}
 
     " C {{{
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1022,6 +1088,22 @@
         "au FileType htmldjango setlocal commentstring={#\ %s\ #}
     " }}}
 
+    " Fugitive {{{
+        set statusline+=\ 
+        set statusline+=%#GitStatusLine#
+        set statusline+=%{fugitive#statusline()}
+        set statusline+=%*
+
+        " ,g for Ggrep
+        nmap <leader>g :Ggrep
+    " }}}
+    
+    " Gist {{{
+        " Send visual selection to gist.github.com as a private, filetyped Gist
+        " Requires the gist command line too (brew install gist)
+        " vnoremap <leader>G :w !gist -p -t %:e \| pbcopy<cr>
+    " }}}
+
     " MinibufExplorer {{{
         "let g:miniBufExplModSelTarget = 1
         "let g:miniBufExplorerMoreThanOne = 0
@@ -1041,6 +1123,7 @@
         nmap <leader>N :NERDTreeClose<CR>
         map <leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
         nmap <leader>nt :NERDTreeToggle <CR>
+        nmap <C-u> :NERDTreeToggle<CR>
         
         " Store the bookmarks file
         let NERDTreeBookmarksFile=expand("~/.dotfiles/vim/NERDTreeBookmarks")
@@ -1090,6 +1173,8 @@
     " NerdCommenter {{{
         " TODO: see T-comment if this is a duplicate
         "nmap <leader>c<space>:NERDComToggleComment " TODO this already built-in i believe
+        nmap <leader>/ :call NERDComment(0, "invert")<cr>
+        vmap <leader>/ :call NERDComment(0, "invert")<cr>
     " }}}
     
     " OrgMode {{{
@@ -1103,7 +1188,7 @@
         let g:Powerline_cache_enabled = 1
         let g:Powerline_theme = 'default'
         let g:Powerline_colorscheme = 'default'
-        let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
+        let g:Powerline_dividers_override = ['>>', '>', '<<', '<'] " TODO: not working?
         let g:Powerline_stl_path_style = 'relative'
     " }}}
     
@@ -1126,14 +1211,7 @@
         " let g:SuperTabLongestEnhanced = 1
     " }}}
     
-    " Fugitive {{{
-        set statusline+=\ 
-        set statusline+=%#GitStatusLine#
-        set statusline+=%{fugitive#statusline()}
-        set statusline+=%*
-    " }}}
-    
-    " DO NOT USE: replaced with python-mode
+    " DO NOT USE: replaced Ropevim with python-mode
     " Ropevim {{{
         "map <leader>j :RopeGotoDefinition<CR>
         "map <leader>r :RopeRename<CR>
@@ -1206,6 +1284,8 @@
         " 'gcc' toggles comments for the current line 
         " 'gC{motion}' comments a visually selected region (choose region first)
         " 'gCc' comment the current line even if it has a comment
+        " nunmap gcc
+        " nmap gc :TCommentMaybeInline<CR>
     " }}}
 
     " tslime {{{
@@ -1286,4 +1366,4 @@
 
 
 
-" vim: set ft=vim :
+" vim: set ft=vim:
