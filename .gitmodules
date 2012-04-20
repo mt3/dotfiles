@@ -241,3 +241,6 @@
 [submodule ".dotfiles/vim/bundle/vim-pasta"]
 	path = .dotfiles/vim/bundle/vim-pasta
 	url = git://github.com/sickill/vim-pasta.git
+[submodule ".dotfiles/vim/bundle/utl.vim"]
+	path = .dotfiles/vim/bundle/utl.vim
+	url = https://github.com/vim-scripts/utl.vim.git
