@@ -1,6 +1,17 @@
+# Tab Completions for zsh #
+#                         #
+###########################
 
 
-###-begin-npm-completion-###
+
+### homebrew zsh completion
+source `brew --prefix`/Library/Contributions/brew_zsh_completion.zsh
+echo "\e[1m\e[35mFinished loading homebrew completions\e[0m"
+### end homebrew zsh completion
+
+
+
+### begin-npm-completion ###
 #
 # npm command completion script
 #
@@ -41,13 +52,34 @@ elif compctl &>/dev/null; then
   }
   compctl -K _npm_completion npm
 fi
+echo "\e[1m\e[35mFinished loading npm completions\e[0m"
 ###-end-npm-completion-###
+
 
 
 ### scm_breeze completion ###
 [ -s "~/.scm_breeze/scm_breeze.sh" ] && . "~/.scm_breeze/scm_breeze.sh"
+echo "\e[1m\e[35mFinished loading scm_breeze completions\e[0m"
 ### end scm_breeze completion ###
 
+
+
+### Completion on Mac to be /Applications/ aware ###
+#TODO: not exactly bloody working
+# pinched from http://www.iterm2.com/#/section/documentation/escape_codes
+# if [ "`uname`" = "Darwin" ]; then
+#     compctl -f -x 'p[2]' -s "`/bin/ls -d1 /Applications/*/*.app
+#     /Applications/*.app | sed 's|^.*/\([^/]*\)\.app.*|\\1|;s/ /\\\\ /g'`"
+#     -- open
+#     alias run='open -a'
+# fi
+### end Completion on Mac to be /Applications/ aware ###
+
+
+
+### rvm completion ###
+[[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
+### end rvm completion ###
 
 
 echo "\e[1m\e[32mFinished loading completions.zsh\e[0m"
