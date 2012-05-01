@@ -1,3 +1,5 @@
+# ZSH
+#
 # cribbed from http://github.com/matflores/dotfiles/blob/master/bashrc
 # don't put duplicate lines in the history. See bash(1) for more options
 # don't overwrite GNU Midnight Commander's setting of `ignorespace'.
@@ -16,27 +18,31 @@ setopt HIST_IGNORE_DUPS
 setopt HIST_REDUCE_BLANKS
 setopt HIST_IGNORE_SPACE
 
+# red dots to be displayed while waiting for completion
+COMPLETION_WAITING_DOTS="true"
 
-# set up custom llvm/clang for use with compiling (xcode related mainly)
-#GCC_VERSION = com.apple.compilers.llvm.clang.1_0
-#RUN_CLANG_STATIC_ANALYZER = YES
-#CC = /Volumes/Space/Users/bungi/Source/LLVM/llvm/Release/bin/clang
+# M-b and M-f (backward-word and forward-word) doesn't jump over an entire /path/location, but moves to each word separated by a '/'
+export WORDCHARS=''
+# by default: export WORDCHARS='*?_-.[]~=/&;!#$%^(){}<>'
+# we take out the slash, period, angle brackets, dash here.
+# export WORDCHARS='*?_[]~=&;!#$%^(){}'
+
 
 
 # auto-launch ssh keypairs so i don't have to enter the damned 137.5 character pwd every time
 export SSH_ENV="$HOME/.ssh/environment"
-
 export EDITOR=mvim
-#export EDITOR=gvim
+# if [[ "$TERM_PROGRAM" =~ iTerm|Apple_Terminal ]] && [[ -x "`which mvim`" ]]; then
+#   export BUNDLER_EDITOR='mvim'
+#   export GEM_EDITOR='mvim'
+# fi
 # export BROWSER="elinks"
-export PAGER="less"
-export SUDO_PROMPT="Your Password:"
-
+export PAGER='less -SFXi'
+export SUDO_PROMPT="Your P-to-the-Word:"
 # Tell ls to be colourful
 export CLICOLOR=1
 export LSCOLORS=Exfxcxdxbxegedabagacad
 
-#RPROMPT='$(battery_charge)'
 
 
 # JAVA
@@ -55,12 +61,15 @@ export PATH=$PATH:$STANFORD_PATH
 #done
 
 
+
 # NODE
 export NODE_PATH=/usr/local/lib/node:/usr/local/lib/node_modules
 
 
-# LATEX, BIBTEX
+
+# LATEX & BIBTEX
 export PATH=$PATH:/usr/texbin
+
 
 
 # PYTHON
@@ -73,6 +82,7 @@ export PYTHONPATH=/usr/local/share/python:/usr/local/python/site-packages:/usr/l
 
 # override python default of 64-bit mode
 export VERSIONER_PYTHON_PREFER_32_BIT=yes
+
 
 
 # some more customization for Lion
@@ -132,7 +142,7 @@ export VIM_APP_DIR=/Applications/DevApps
 #export PATH=/usr/local/Cellar/ccache/3.1.4/libexec:$PATH
 
 
-export ZSH=$HOME/.oh-my-zsh
+export ZSH=$HOME/.dotfiles/zsh/oh-my-zsh
 export ZSH_THEME="clean"
 
 
