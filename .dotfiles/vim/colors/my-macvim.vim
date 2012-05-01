@@ -1,4 +1,4 @@
-" These lines are suggested to be at the top of every colorscheme
+" These lines are suggested to be at the top of every colorscheme {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "
     set background=light
@@ -8,14 +8,15 @@
         syntax reset
     endif
 
-    "Load the 'macvim' colorscheme
+    "Load the 'macvim' colorscheme TODO: remove this dependency
     runtime macvim.vim
 
     " Override the name of the base colorscheme with the name of this custom one
     let g:colors_name = "my-macvim"
+" }}}
 
 
-" Clear the colors for any items that you don't like
+" Clear the colors for any items that you don't like {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "
     hi clear StatusLine
@@ -27,8 +28,10 @@
     hi clear CursorLine
     hi clear Search
     hi clear StatusLine
+" }}}
 
-" Set up your new & improved colors
+
+" Set up your new & improved colors {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "
     " hi Cursor       guifg=Black     guibg=#e4e4e4   gui=none    ctermbg=241
@@ -63,15 +66,18 @@
     hi Pmenu 		guifg=#ffffff   guibg=#444444   ctermfg=255 ctermbg=238
     hi PmenuSel     ctermfg=Black   ctermbg=LightCyan
     hi MatchParen   term=reverse    guifg=White     guibg=#cfdfff gui=bold ctermbg=LightCyan
+" }}}
 
 
-" Syntax & Keywords
+" Syntax & Keywords {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "
     hi Normal       guifg=Black         guibg=#f4f4f4   gui=none        ctermfg=253 ctermbg=234
     hi String       guifg=#7e8aa2       gui=none        ctermfg=103
     hi NonText      guifg=#404040       ctermfg=8
-    hi Comment      guifg=#b9b9b9       gui=italic      ctermfg=244
+    hi Comment      guifg=#b9b9b9       gui=italic      ctermfg=244     font=Fanwood:h13
+    hi vimCommentString                 guifg=#b9b9b9   ctermfg=244     font=Fanwood:h13
+    
 
     hi Constant 	guifg=#8186b1       gui=italic      ctermfg=148
     hi Keyword		guifg=SlateBlue     gui=none        ctermfg=103
@@ -80,10 +86,11 @@
     hi PreProc      guifg=DarkCyan
     hi Type         guifg=DarkMagenta
 
-    hi Todo         guifg=Black         guibg=#e02020   gui=italic
+    hi Todo         guifg=Black         guibg=#e02020   gui=italic,bold
+" }}}
 
 
-" Error Messages
+" Error Messages {{{
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "
     hi SpellErrors guifg=Red gui=underline
@@ -95,9 +102,10 @@
     hi WarningMsg guifg=Red
     " TODO
     hi SpellLocal guibg=DarkCyan
+" }}}
 
 
-" Cterm Colors
+" Cterm Colors {{{
 """""""""""""""""""""""""""""""
 "Black
 "DarkBlue
@@ -116,17 +124,22 @@
 "Magenta, LightMagenta
 "Yellow, LightYellow
 "White
+" }}}
 
 
-" Xterm Colors
+" Xterm Colors {{{
 """""""""""""""""""""""""""""""
 "
+" }}}
 
 
-" Color Values
+" Color Values {{{
 """""""""""""""""""""""""""""""
 "coloring format is #rrggbb
 "lightblueish=#bfffff
 "darkblueish=#204fdf
 "lightred=#c80000
-"
+" }}}
+
+
+" vim: set ft=vim:foldmethod=marker:
