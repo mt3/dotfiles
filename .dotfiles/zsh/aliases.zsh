@@ -37,6 +37,7 @@ alias dir_sizes='du -cks * | sort -rn |head -11' # Lists the size of all the fol
 alias dotf="ls .[a-zA-Z0-9_]*"
 alias down="cd ~/Downloads"
 alias du='du -h -d 2'
+alias du1='du -hs *(/)' # du with depth 1
 alias e="mvim"
 alias ea='mvim ~/.dotfiles/zsh/aliases.zsh && reload' # Edit aliases
 alias edit="${EDITOR}"
@@ -58,6 +59,8 @@ alias lf='ls -CF'
 alias ll="ls -lth"
 alias lls="ls -Gh"
 alias ls='ls -alGh'
+alias lsd='ls -ld *(-/DN)' # list only dirs
+alias lss='ls --color=auto --human-readable --group-directories-first --classify'
 alias md="mkcd"
 alias notes="ack 'TODO|FIXME|XXX|HACK'"
 alias ps='ps aux'
