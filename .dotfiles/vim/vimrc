@@ -3,7 +3,9 @@
     "
     " convert everything to use Vundle. see Vundle section in https://github.com/gmarik/vimfiles/blob/master/vimrc
     " when using 'gcc' to comment code, don't add a space between comment symbol and actual code
+    " rename my-macvim.colorscheme to black-and-white-and-grey.colorscheme
     " map <D-w> :q!<CR>
+    " smartly fold only on def, class, for loops, etc and not just on indentations
     " always open macvim with split pane with the vim help file or whatever info pane (2/3 file, 1/3 help) <C-w> T moves current pane to its own tab. <C-w> 20 < shrinks width of the pane by 20.
     " display errors to logfile or logbuffer, mostly whenever we reload/source .vimrc
     " a line with a todo should have darkened background for the rest of the line after the todo
@@ -154,14 +156,26 @@
     "set rtp+=~/.dotfiles/vim/bundle/
 
     "TODO: use plugins with vundle instead of pathogen. looks like a good way to combine the plugin's settings nearby its load cmd
+    "
     " LOAD PLUGINS VIA VUNDLE {{{ 
+        "
         " filetype off
 
         " " Vundle 
-        " set rtp+=~/.vim/bundle/vundle/
+        " set rtp+=~/.dotfiles/vim/bundle/vundle/
         " call vundle#rc()
 
         " Bundle 'gmarik/vundle'
+
+        " Colorscheme
+        " Bundle 'molokai'
+        " Bundle 'nelstrom/vim-mac-classic-theme'
+        " Bundle 'altercation/vim-colors-solarized'
+        " Bundle 'gmarik/ingretu'
+
+        " if has("gui_running")
+        "   colorscheme ingretu
+        " endif
 
         " " General {{{
             " Bundle 'mileszs/ack.vim'
@@ -193,10 +207,116 @@
             " Bundle 'rstacruz/sparkup.git', {'rtp': 'vim/'}
             " Bundle 'gh:thinca/vim-poslist.git'
             " Bundle 'github:mattn/gist-vim.git'
+            " Bundle 'kana/vim-textobj-user'
+            " Bundle 'nelstrom/vim-textobj-rubyblock'
+            " Bundle 'gmarik/github-search.vim'
+            " Bundle 'gmarik/ide-popup.vim'
+            " Bundle 'gmarik/sudo-gui.vim'
+            " Bundle 'mbadran/headlights'
             
             " Bundle 'Lokaltog/vim-easymotion'
             " let g:EasyMotion_leader_key='<LocalLeader>'
         " " }}}
+
+        " " Git integration
+        " Bundle 'tpope/vim-git'
+        " Bundle 'tpope/vim-fugitive'
+        " nnoremap <leader>W :Gwrite<CR>
+        " nnoremap <leader>C :Gcommit -v<CR>
+        " nnoremap <leader>S :Gstatus \| 7<CR>
+        " inoremap <leader>W <Esc><leader>W
+        " inoremap <leader>C <Esc><leader>C
+        " inoremap <leader>S <Esc><leader>S
+
+        " Bundle 'mkitt/browser-refresh.vim'
+        " com! ONRRB :au! BufWritePost <buffer> :RRB
+        " com! NORRB :au! BufWritePost <buffer>
+
+        " Bundle 'unimpaired.vim'
+        " " bubble current line
+        " nmap <M-j> ]e
+        " nmap <M-k> [e
+        " " bubble visual selection lines
+        " vmap <M-j> ]egv
+        " vmap <M-k> [egv
+
+        " Bundle 'repeat.vim'
+        " Bundle 'surround.vim'
+
+        " " Bundle 'SuperTab'
+        " Bundle 'file-line'
+        " Bundle 'Align'
+        " Bundle 'lastpos.vim'
+
+        " Bundle 'Lokaltog/vim-easymotion'
+        " let g:EasyMotion_leader_key='<LocalLeader>'
+
+        " Bundle 'Indent-Guides'
+        " let g:indent_guides_guide_size = 1
+
+        " Bundle 'tlib'
+        " Bundle 'tComment'
+        " nnoremap // :TComment<CR>
+        " vnoremap // :TComment<CR>
+
+        " Bundle 'gmarik/hlmatch.vim'
+        " nnoremap # :<C-u>HlmCword<CR>
+        " nnoremap <leader># :<C-u>HlmGrepCword<CR>
+        " vnoremap # :<C-u>HlmVSel<CR>
+        " vnoremap <leader># :<C-u>HlmGrepVSel<CR>
+
+        " nnoremap ## :<C-u>HlmPartCword<CR>
+        " nnoremap <leader>## :<C-u>HlmPartGrepCword<CR>
+        " vnoremap ## :<C-u>HlmPartVSel<CR>
+        " vnoremap <leader>## :<C-u>HlmPartGrepVSel<CR>
+
+        " " FuzzyFinder
+        " Bundle 'L9'
+        " Bundle 'FuzzyFinder'
+        " " FuF customisations "{{{
+        " let g:fuf_modesDisable = []
+        " nnoremap <leader>h :FufHelp<CR>
+        " nnoremap <leader>2  :FufFileWithCurrentBufferDir<CR>
+        " nnoremap <leader>@  :FufFile<CR>
+        " nnoremap <leader>3  :FufBuffer<CR>
+        " nnoremap <leader>4  :FufDirWithCurrentBufferDir<CR>
+        " nnoremap <leader>$  :FufDir<CR>
+        " nnoremap <leader>5  :FufChangeList<CR>
+        " nnoremap <leader>6  :FufMruFile<CR>
+        " nnoremap <leader>7  :FufLine<CR>
+        " nnoremap <leader>9  :FufTaggedFile<CR>
+        " nnoremap <leader>p :FufDir ~/src/<CR>
+        " nnoremap <leader>ge :FufDir ~/.rvm/gems/<CR>
+        " nnoremap <leader>gn :vnew \| :FufFile ~/src/notes/<CR>
+        " }}}
+
+        " Bundle 'int3/vim-extradite'
+        " Bundle 'Lokaltog/vim-powerline'
+        " Bundle 'gregsexton/gitv'
+        " Bundle 'thinca/vim-quickrun.git'
+        " Bundle 'gh:thinca/vim-poslist.git'
+        " Bundle 'github:mattn/gist-vim.git'
+        " Bundle 'rstacruz/sparkup.git', {'rtp': 'vim/'}
+
+        " non github repos
+        "Bundle 'git://git.wincent.com/command-t.git'
+
+        " Snippets
+        " Bundle 'gmarik/snipmate.vim'
+        " Bundle 'honza/snipmate-snippets'
+
+        " Command-T
+        " Bundle 'wincent/Command-T.git'
+        " let g:CommandTMatchWindowAtTop=1 " show window at top
+        " "burke's
+        " nnoremap <leader>tv :CommandTFlush<cr>\|:CommandT app/views<cr>
+        " nnoremap <leader>tc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
+        " nnoremap <leader>tm :CommandTFlush<cr>\|:CommandT app/models<cr>
+        " nnoremap <leader>tl :CommandTFlush<cr>\|:CommandT lib<cr>
+        " nnoremap <leader>ta :CommandTFlush<cr>\|:CommandT app/assets<cr>
+        " nnoremap <leader>tp :CommandTFlush<cr>\|:CommandT public<cr>
+        " nnoremap <leader>tr :topleft :vsplit config/routes.rb<cr>
+        " nnoremap <leader>tg :topleft :vsplit Gemfile<cr>
 
         " " Haskell {{{
             " Bundle 'Twinside/vim-syntax-haskell-cabal'
@@ -208,6 +328,9 @@
             " Bundle 'altercation/vim-colors-solarized'
             " Bundle 'tomasr/molokai'
         " }}}
+
+        " filetype plugin indent on
+        
     " }}}
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
@@ -323,6 +446,9 @@
     " TODO: relativenumber in column becomes useless then
     nnoremap j gj
     nnoremap k gk
+    " Map the arrow keys to be based on display lines, not physical lines
+    map <Down> gj
+    map <Up> gk
     " Move cursor together with the screen
     noremap <D-k> j<c-e>
     noremap <D-j> k<c-y>
@@ -372,9 +498,11 @@
     " show yankring
     "map <leader>yr :YRShow<cr> 
     
-    " quickly get rid of highlights
+    " clear highlights
     "nnoremap <S-F3> :set hlsearch!<CR>
     noremap <silent><Leader>h :nohls<CR>
+    " Clear the search buffer when hitting return
+    "nnoremap <CR> :nohlsearch<CR>
     "map <leader>h :noh<CR> 
     " map <leader>h :set hlsearch!<CR>
     
@@ -435,6 +563,16 @@
     map <F9> :source $MYVIMRC<CR>:echoe "Vimrc Reloaded!!!"<CR>
     "map <f >
 
+    "py.test mappings
+    " Execute the tests
+    nmap <silent><Leader>tf <Esc>:Pytest file<CR>
+    nmap <silent><Leader>tc <Esc>:Pytest class<CR>
+    nmap <silent><Leader>tm <Esc>:Pytest method<CR>
+    " cycle through test errors
+    nmap <silent><Leader>tn <Esc>:Pytest next<CR>
+    nmap <silent><Leader>tp <Esc>:Pytest previous<CR>
+    nmap <silent><Leader>te <Esc>:Pytest error<CR>
+    
     " Creating underline/overline headings for markup languages
     " Inspired by http://sphinx.pocoo.org/rest.html#sections
     nnoremap <leader>1 yyPVr=jyypVr=
@@ -577,7 +715,7 @@
     set foldmethod=indent " perform code folding based on indentation levels
     set foldlevelstart=0 " 0 is start out with everything folded, -1 is no folding
     set foldcolumn=0 " don't have a fold column displayed beside line numbers
-    set foldlevel=3 " nested levels above this number are auto-folded
+    set foldlevel=99 " nested levels above this number are auto-folded
     set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo " which commands trigger auto-unfold
     
     "let g:is_zsh = 1 " TODO what is this used for? stolen from tpope's .vimrc
@@ -793,6 +931,43 @@
     " unmap <D-b>
     noremap <D-b> :call BuildAndRunStage()<CR>
 
+    " custom vim folding
+    " (cribbed from http://www.gregsexton.org/2011/03/improving-the-text-displayed-in-a-fold/)
+    fu! CustomFoldText()
+        "get first non-blank line
+        let fs = v:foldstart
+        while getline(fs) =~ '^\s*$' | let fs = nextnonblank(fs + 1)
+        endwhile
+        if fs > v:foldend
+            let line = getline(v:foldstart)
+        else
+            let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
+        endif
+
+        let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
+        let foldSize = 1 + v:foldend - v:foldstart
+        let foldSizeStr = " " . foldSize . " lines "
+        let foldLevelStr = repeat("+--", v:foldlevel)
+        let lineCount = line("$")
+        let foldPercentage = printf("[%.1f", (foldSize*1.0)/lineCount*100) . "%] "
+        let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
+        return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
+    endf
+
+    " fold a java/c block to include the function prototype
+    " function FoldBrace()
+    "   if getline(v:lnum+1)[0] == '{'
+    "     return 1
+    "   endif
+    "   if getline(v:lnum) =~ '{'
+    "     return 1
+    "   endif
+    "   if getline(v:lnum)[0] =~ '}'
+    "     return '<1'
+    "   endif
+    "   return -1
+    " endfunction
+
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " }}}
 
@@ -856,7 +1031,7 @@
         set guifont=Droid\ Sans\ Mono:h13
         let s:terminal_italic=1
         " set font=Fanwood:h13
-        "set guifont=Inconsolata-dz:h12
+        " set guifont=Inconsolata-dz:h12
         set t_Co=256 " term has 256 colors
         set linespace=2
         set fuoptions=maxvert,maxhorz
@@ -882,9 +1057,12 @@
 """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     "
 
-    autocmd FileType yaml setlocal tabstop=2 shiftwidth=2 softtabstop=2 " TODO
-
-    autocmd BufNewFile,BufRead */etc/nginx/* setlocal ft=nginx " TODO
+    " nginx {{{
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+        autocmd BufNewFile,BufRead */etc/nginx/* setlocal ft=nginx 
+        
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    " }}}
 
     " Python {{{
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -892,8 +1070,10 @@
         au FileType python set omnifunc=pythoncomplete#Complete
         " au FileType python set guifont=Helvetica:h15:i
         au FileType python highlight Cursor guifg=#cfcfcf
-        au FileType python setlocal foldmethod=indent foldminlines=0 " TODO: foldminlines?
+        au FileType python setlocal foldmethod=indent foldlevel=99 foldenable
+        au FileType python setlocal foldminlines=10 " TODO: foldminlines?
         au filetype python setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 " TODO: expandtab?
+        " au filetype python setlocal foldtext=substitute(getline(v:foldstart),'\\t','\ \ \ \ ','g')        
         au filetype python setlocal textwidth=100
         " display error message if we go beyond 100 chars wide
         au filetype python match ErrorMsg '\%>100v.\+'
@@ -931,7 +1111,6 @@
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " }}}
     
-    
     " Help File Settings {{{
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
         autocmd FileType help setlocal nonumber	" no line numbers when viewing help
@@ -940,26 +1119,28 @@
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " }}}
     
-    
     " Pentadactyl {{{
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-        au BufNewFile,BufRead *.pentadactylrc setfiletype vim
+        au BufNewFile,BufRead *.pentadactylrc,pentadactylrc setfiletype vim
         au BufNewFile,BufRead *.pentadactylrc set ft=vim
         au BufNewFile,BufRead *.penta setfiletype vim
         au BufNewFile,BufRead *.penta set ft=vim
         au BufNewFile,BufRead *.pentadactylrc set foldmethod=marker
+        au BufNewFile,BufRead *.pentadactylrc  set syntax=vim
         au FileType vim set foldmethod=marker
         
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " }}}
 
-
     " Vim {{{
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-        au BufNewFile,BufRead *.vimrc setfiletype vim
+        au BufNewFile,BufRead *.vimrc,vimrc setfiletype vim
         au BufNewFile,BufRead *.vim setfiletype vim foldmethod=marker
-        au BufNewFile,BufRead *.vimrc set foldmethod=marker
-        au FileType vim set foldmethod=marker
+        " au BufNewFile,BufRead *.vim setlocal foldmethod=marker
+        au BufNewFile,BufRead *.vimrc setlocal foldmethod=marker
+        " Strip whitespace on save
+        autocmd BufWritePre *.vimrc :%s/\s\+$//e
+        au FileType vim setlocal foldmethod=marker
         " au FileType vim set guifont=Helvetica:h15:i
         " au filetype vim match ErrorMsg '\%>100v.\+'
         
@@ -976,6 +1157,7 @@
     " Git {{{
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
         autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
+
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " }}}
 
@@ -986,7 +1168,6 @@
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " }}}
     
-    
     " Objective-C {{{
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
         
@@ -994,6 +1175,13 @@
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " }}}
      
+    " PBS {{{
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+        " qsub and pbs cluster scripts
+        au BufNewFile,BufRead *.pbs setfiletype zsh
+        
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    " }}}
 
     " Actionscript {{{
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1003,7 +1191,6 @@
         
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " }}}
-
 
     " Javascript {{{
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -1031,10 +1218,30 @@
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
     " }}}
     
+    " Text {{{
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+        " autocmd BufRead,BufNewFile {*.txt,*.text} set wrap linebreak spell
+        autocmd BufRead,BufNewFile {*.txt,*.text} set wrap linebreak 
+
+        " identify txt files with no extensions
+        autocmd BufRead README,INSTALL setlocal filetype=txt
+
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    " }}}
+
+    " YAML {{{
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+        autocmd FileType yaml setlocal tabstop=4 shiftwidth=4 softtabstop=4
+
+    """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+    " }}}
 
 
     " Various other settings/configs {{{
     """"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+        " Treat JSON files like JavaScript
+        au BufNewFile,BufRead *.json set ft=javascript
+         
         " Customisations based on house-style (arbitrary)
         "autocmd FileType html setlocal ts=2 sts=2 sw=2 expandtab
         "autocmd FileType css setlocal ts=2 sts=2 sw=2 expandtab
@@ -1205,10 +1412,11 @@
     " }}}
 
     " SuperTab {{{
-        "let g:SuperTabDefaultCompletionType = "context"
-        " let g:SuperTabContextDefaultCompletionType = '<c-n>'
-        "set completeopt=menuone,longest,preview
-        " let g:SuperTabLongestEnhanced = 1
+        let g:SuperTabContextDefaultCompletionType = '<c-n>'
+        let g:SuperTabLongestEnhanced = 1
+        au FileType python set omnifunc=pythoncomplete#Complete
+        let g:SuperTabDefaultCompletionType = "context"
+        set completeopt=menuone,longest,preview
     " }}}
     
     " DO NOT USE: replaced Ropevim with python-mode
@@ -1263,10 +1471,9 @@
         "let Tlist_Show_One_File=1           " only show tags from the current buffer, not all open buffers
         " let Tlist_Inc_Winwidth=1            " increase window by 1 when growing
         " TagList Plugin Configuration
-        let Tlist_GainFocus_On_ToggleOpen = 1
         "let Tlist_Close_On_Select = 1
         "let Tlist_File_Fold_Auto_Close = 1
-        "map <F7> :TlistToggle<CR>
+        nmap <leader>t :TlistToggle<CR>
     " }}}
     
     " Tagbar {{{
@@ -1366,4 +1573,4 @@
 
 
 
-" vim: set ft=vim:
+" vim: set ft=vim:foldmethod=marker:
