@@ -24,7 +24,10 @@
 [alias]
     a = add
     ai = add --interactive
+    # add files to repo
+    au = !git ls-files --other --exclude-standard -z | xargs -0 git add -Nv
     both = diff HEAD
+	branches = !legit branches
     browse = !hub browse
     c = commit --verbose -m
     b = branch -a
@@ -51,13 +54,18 @@
     # fetch from all remotes and reset to origin/master
     fresh = !git fetch --all && git reset --hard origin/master -
     # grab = !git-grab
+	graft = !legit graft \"$@\"
     graph = log --oneline --graph
+    gl = !git lg $(git show-ref | cut -d " " -f 2 | grep -v stash$)
     greplog = log -U1 -G
+	harvest = !legit harvest \"$@\"
 	in = "!b=$(git current-branch);git ll $b..origin/$b"
     l = log --pretty=format:\"%Cgreen%ad%Creset | %s%d [%Cblue%an%Creset]\" --ignore-all-space --ignore-space-change --graph --date=relative --graph --max-count=10 --since=\"1 month ago\" --stat
 	la = !git ll --all
+	lal = log --graph --abbrev-commit --date=relative --all
     last = log -1
     lg = log --oneline --decorate --ignore-all-space --ignore-space-change --date=relative --graph --max-count=10 --since=\"1 month ago\" --stat
+    lgg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
     list = ls-files
     ll = log --pretty=oneline --abbrev-commit --max-count=15
     llg = log --summary -n10
@@ -69,11 +77,15 @@
     loll = log --graph --decorate --pretty=oneline --abbrev-commit
     lolnp = !git --no-pager loll
     ls = ls-files
+    mergef = merge --ff-only
+    mf = merge --ff-only
     oneline = log --oneline
     out = "!b=$(git current-branch);git ll origin/$b..$b"
     p = pull
+    pp = !git pull --rebase && git push
     praise = blame
     pu = push
+	publish = !legit publish \"$@\"
     r = remote -v
     ra = remote add
     rc = rebase --continue
@@ -86,6 +98,7 @@
     serve = daemon --reuseaddr --base-path=. --export-all --verbose
     # sh = !git-sh
     shviz = !git shortlog -s | cut -f1 | spark
+	sprout = !legit sprout \"$@\"
     st = status -sb
     staged = diff --cached
     stsh = stash
@@ -94,25 +107,21 @@
     stshls = stash list
     sub = submodule
     subup = submodule foreach 'git pull'
+	switch = !legit switch \"$@\"
+	sync = !legit sync \"$@\"
     t = tag -n
     # thanks = !git-thanks
     # track = !git-track
-    unstage = reset HEAD  # remove files from index (tracking)
+	unpublish = !legit unpublish \"$@\"
     uncommit = reset --soft HEAD^   # go back before last commit, with files in uncommitted state
+    unstage = reset HEAD  # remove files from index (tracking)
     up = pull --rebase
     vimdiff = difftool -y -t mvimdiff # type "git vimdiff" to view a diff in macvim
     w = !hub browse
     wc = whatchanged
-	switch = !legit switch \"$@\"
-	branches = !legit branches
-	sprout = !legit sprout \"$@\"
-	unpublish = !legit unpublish \"$@\"
-	harvest = !legit harvest \"$@\"
-	sync = !legit sync \"$@\"
-	publish = !legit publish \"$@\"
-	graft = !legit graft \"$@\"
     # wip = !git add -u && git commit -m ...
     # wipc = !date >> WIP && git add WIP && git commit -m ...
+    wp = whatchanged -p
 
 [apply]
     # automagically fix whitespace
@@ -197,11 +206,13 @@
 
 [wtf "show"]
 	relations = true
+
 [difftool "sourcetree"]
 	cmd = " "
 	path = 
 [mergetool "sourcetree"]
 	cmd = " "
 	trustExitCode = true
+
 [mergetool]
 	keepBackup = true
