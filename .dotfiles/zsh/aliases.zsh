@@ -17,11 +17,17 @@ alias cloud9='/Applications/github_dwlds/cloud9/bin/cloud9.sh'
 #############################################################
 
 
-# CONVENIENT SHORTCUTS
+# GENERAL TERMINAL SHORTCUTS
 #############################################################
+alias .='pwd'
 alias ..="cd .."
 alias ...="cd .. && cd .."
 alias ....="cd .. & cd .. & cd .."
+#TODO: toggle those wanted
+# alias -g L='|less'
+alias -g G='|grep'
+# alias -g W='|wc'
+# alias -g C='|colordiff'
 alias apps="cd /Applications"
 alias appsg="cd /Applications/github_dwlds"
 alias cdd='cd -' # goto last dir cd'ed from
@@ -32,19 +38,28 @@ alias dotf="ls .[a-zA-Z0-9_]*"
 alias down="cd ~/Downloads"
 alias du='du -h -d 2'
 alias e="mvim"
-alias ea='mate -w ~/.dotfiles/zsh/aliases && reload' # Edit aliases
+alias ea='mvim ~/.dotfiles/zsh/aliases.zsh && reload' # Edit aliases
 alias edit="${EDITOR}"
+alias ez='mvim ~/.zshrc && source ~/.zshrc' # opens zshrc file in textmate, then reloads it immediately (thieved from http://ozmm.org/posts/git_bash_aliases.html)
 alias folder_sizes=dir_sizes
 alias frameworks="cd /Library/Frameworks/frameworks-under-git"
+# add a poor facsimile for Linux's `free` if we're on Mac OS
+if ! type free > /dev/null 2>&1 && [[ "$(uname -s)" == 'Darwin' ]]
+then
+  alias free="top -s 0 -l 1 -pid 0 -stats pid | grep '^PhysMem: ' | cut -d : -f 2- | tr ',' '\n'"
+fi
 alias help="cheat" # uses ruby gem `cheat`
 alias h="cheat" # uses ruby gem `cheat`
 alias k9='kill -9'
 alias ka9='killall -9'
 alias l.="ls -d .*"
-alias ll='ls -alGh'
-alias ls="ls -Gh"
-# alias ls="ls -lth"
+alias less='less -i'
+alias lf='ls -CF'
+alias ll="ls -lth"
+alias lls="ls -Gh"
+alias ls='ls -alGh'
 alias md="mkcd"
+alias notes="ack 'TODO|FIXME|XXX|HACK'"
 alias ps='ps aux'
 alias psg="ps aux | grep "
 alias queen="ssh mta45@queen.fas.sfu.ca"
@@ -55,10 +70,11 @@ alias ssh="ssh -c arcfour,blowfish-cbc -C"
 # This trick makes sudo understand all my aliases
 alias sudo='sudo '
 #alias systail='tail -f -n0 /var/log/system.log'
+alias TODOs="ack 'TODO|FIXME|XXX|HACK'"
 alias trash="rm -rf"
 alias up="cd .."
 alias upd="upd >&1 > ~/.logs/updated-repos-logfiles-`date +%F`-`date +%T`.txt"
-alias zshrc='mate ~/.zshrc && source ~/.zshrc' # opens zshrc file in textmate, then reloads it immediately (thieved from http://ozmm.org/posts/git_bash_aliases.html)
+alias zshrc='mvim ~/.zshrc && source ~/.zshrc' # opens zshrc file in textmate, then reloads it immediately (thieved from http://ozmm.org/posts/git_bash_aliases.html)
 #############################################################
 
 
@@ -171,11 +187,15 @@ alias pyv="python -V"
 alias pips="pip search"
 alias pipl="pip freeze"
 alias pipin="pip install"
-alias pipup="pip install --upgrade"
+# alias pipup="pip install --upgrade"
+# update all outdated packages
+alias pipup="pip freeze --local | cut -d = -f 1  | xargs pip install -U"
 alias pipu="pip install -U"
 
 # yolk extends pip
 alias pipo="yolk -U"
+# show latest releases from past 12 hours
+alias piprecent="yolk -L 12"
 
 # stallion allows viewing of installed pip packages in yr browser
 alias stallion="python -m stallion.main"
