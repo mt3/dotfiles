@@ -247,3 +247,6 @@
 [submodule ".dotfiles/vim/bundle/vimux"]
 	path = .dotfiles/vim/bundle/vimux
 	url = https://github.com/benmills/vimux.git
+[submodule ".dotfiles/vim/bundle/vim-session"]
+	path = .dotfiles/vim/bundle/vim-session
+	url = git://github.com/xolox/vim-session.git
