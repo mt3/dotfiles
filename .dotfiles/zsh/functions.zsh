@@ -55,11 +55,27 @@ backup_packages() {
 
 
 
-
 # (f)ind by (n)ame: to find all files containing 'foo' in the name
 # usage: fn foo 
 function fn() {
     ls **/*$1*
+}
+
+
+
+# git log file
+# https://github.com/jasoncodes/dotfiles/blob/master/profile
+function glf() {
+  git log --format=%H --follow -- "$@" | xargs --no-run-if-empty git show --stat
+}
+
+
+
+# checkout a GitHub pull request as a local branch
+# https://github.com/jasoncodes/dotfiles/blob/master/profile
+function gpr() {
+  local NUM="${1?Specify pull request number}"
+  git fetch origin "pull/$NUM/head:pull/$NUM" && git checkout "pull/$NUM"
 }
 
 
