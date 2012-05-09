@@ -1,11 +1,14 @@
 " @section TODO {{{
-    " sync bookmarks and pinboard (what does this mean?)
+    " sync bookmarks and pinboard (what does this mean? i think it means sync qmarks and bookmaks...)
     " change 'open add-ons' cmd-shift-a shortcut to extensions shortcut cmd-e
     " qmarks?
+        "silent qmark n blog.fefe.de | reddit.com | planet.ubuntu.com | planet.kde.org | planet.debian.org | heise.de | golem.de | spiegel.de | twitter.com | hahler.de
+        "silent qmark r reddit.com
+        "silent qmark t twitter.com
     " set default webpage font to Times 14
     " hide tabs at top of page. or just shrink them down
     " disable pentadactyl on cloud9ide.com
-    " fix indentation and style
+    " fix indentation and style of this file
     " use instapaper stylesheet for ALL webpages in browser by default
     " 
     " 
@@ -35,7 +38,8 @@
 
     cd ~
 
-    set mapleader=","
+    "set mapleader=","
+    set leader=","
     "let g:mapleader = ","
 
 " }}}
@@ -1152,6 +1156,6 @@ set hinttimeout=500
 
 
 
-echo "[pentadactyl initialized]"
+"echo "[pentadactyl initialized]"
 
-" vim: set ft=pentadactyl:
+" vim: set ft=vim:
