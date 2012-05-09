@@ -1,12 +1,14 @@
 #TODO: 'autoload zmv' needs to be first?
 autoload zmv
 
-# zsh config options
-# Set options with setopt, unset with unsetopt
+#########################
+# ZSH Config
 #
+# Set options with setopt
+# unset with unsetopt
 #
-####################
-#
+#########################
+
 # autoload -U age
 setopt always_to_end          # move cursor to end after completion
 setopt append_history       # Append, don't overwrite, the history file
@@ -14,11 +16,10 @@ setopt autocd                  # change to dirs without cd
 setopt auto_list            # list choice on ambiguous command
 setopt auto_menu            # show menu for completion
 # setopt AUTO_PUSHD         # automatically append dirs to the push/pop list
-setopt AUTO_REMOVE_SLASH   # remove trailing directory slash
+setopt AUTO_REMOVE_SLASH    # remove trailing directory slash
 setopt BANG_HIST		    # Allow ! for accessing history 
 setopt cdablevars              # avoid the need for an explicit $. try to expand the expression as if it were preceded by ~
-#TODO: what does this do?
-#cdpath=(~ ~/Projects)
+#cdpath=(~ ~/Projects)          #TODO: what does this do?
 autoload -U colors && colors
 autoload -Uz compinit && compinit # Load new completion system
 unsetopt COMPLETE_IN_WORD         # completion works inside words
@@ -31,7 +32,7 @@ setopt glob_complete            # matches are generated as if a `*' was added to
 # setopt HASH_CMDS              # store cmd location for speed. Note the location of each command the first time it is executed. Subsequent invocations of the same command will use the saved location, avoiding a path search
 # setopt HASH_DIRS              # store all cmd locations for speed
 setopt HIST_IGNORE_ALL_DUPS    # don't record dupes in history
-setopt hist_no_store        # Don't store invocations of `history`
+setopt hist_no_store            # Don't store invocations of `history`
 setopt hist_reduce_blanks       # Remove multiple/superfluous blanks before recording to history
 # setopt INC_APPEND_HISTORY       # Save history line by line
 # setopt INTERACTIVE              # shell is interactive
@@ -43,8 +44,7 @@ setopt MENU_COMPLETE            # cycle thru completions
 setopt nobeep                  # i hate beeps
 # setopt NO_BG_NICE
 # setopt no_clobber         # prevent > redirection from truncating the given file if it already exists
-# setopt nohup                   # and don't kill BG jobs when shell exits
-setopt NOHUP			    # Don't HUP running jobs on logout
+setopt NOHUP			    # Don't HUP running jobs on logout and don't kill BG jobs when shell exits
 setopt notify                  # notify of BG job completion immediately
 # unsetopt OVERSTRIKE           # Start line editor in overstrike mode
 #setopt printexitvalue          # alert me if something's failed. show a message with the exit code when a command returns with a non-zero exit code
@@ -52,12 +52,12 @@ setopt promptcr                # ensure a new line before prompt is drawn
 autoload -U promptinit && promptinit    # allows the use of the prompt command for changing prompts
 setopt PUSHD_IGNORE_DUPS        # Don’t push multiple directories on stack
 setopt PROMPT_SUBST             # Allow for functions in the prompt. Turns on command substitution in the prompt (and parameter expansion and arithmetic expansion)
-setopt REC_EXACT                # exact completions are good even if ambiguous
+# setopt REC_EXACT                # exact completions are good even if ambiguous
 # setopt RM_STAR_SILENT         # Don’t warn on rm *
 #setopt vi                      # use vi bindkeys. same as 'bindkey -v'
-# autoload -U zargs             # zargs, as an alternative to find -exec and xargs
+# autoload -U zargs             # an alternative to find, -exec, and xargs
 # setopt ZLE                    # Use zsh line editor. Set by default in interactive shells connected to a terminal
-# autoload -U zmv               # zmv -  a command for renaming files by means of shell patterns
+# autoload -U zmv               # a command for renaming files by means of shell patterns (like 'mv'cmd)
 
 
 
@@ -76,16 +76,20 @@ typeset -U path cdpath manpath fpath
 # complete minimal
 #zstyle ':completion:*' completer _complete _ignored
 
+# matches case insensitive for lowercase
+# zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
+# pasting with tabs doesn't perform completion
+# zstyle ':completion:*' insert-tab pending
+
 # Fuzzy matching of completions for when you mistype them
 zstyle ':completion:*' matcher-list 'm:{a-z}={A-Z}'
 zstyle ':completion:*' completer _expand _complete _ignored _approximate
+#zstyle ':completion:*' completer _expand _complete
+# zstyle ':completion:*' menu select
 zstyle ':completion:*:match:*' original only
 # allow 1 error
 zstyle ':completion:*:approximate:*' max-errors 1 numeric
-# how many completions switch on menu selection
-# use 'long' to start menu compl. if list is bigger than screen
-# or some number to start menu compl. if list has that number
-# of completions (or more).
+# how many completions switch on menu selection use 'long' to start menu compl. if list is bigger than screen or some number to start menu compl. if list has that number of completions (or more).
 # zstyle ':completion:*' menu select=long
 zstyle ':completion:*' menu select=2
 zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'
@@ -105,24 +109,18 @@ zstyle ':completion:*' list-colors ${(s.:.)LS_COLORS}
 # on processes completion complete all user processes
 zstyle ':completion:*:processes' command 'ps -au$USER'
 
-# Use menu ()
-# zstyle ':completion:*' menu select
-#zstyle ':completion:*' completer _expand _complete
-
 # Completing process IDs with menu selection:
 zstyle ':completion:*:*:kill:*' menu yes select
 zstyle ':completion:*:kill:*'   force-list always
 
-# determine in which order the names (files) should be
-# listed and completed when using menu completion.
+# determine in which order the names (files) should be listed and completed when using menu completion
 # `size' to sort them by the size of the file
 # `links' to sort them by the number of links to the file
 # `modification' or `time' or `date' to sort them by the last modification time
 # `access' to sort them by the last access time
 # `inode' or `change' to sort them by the last inode change time
 # `reverse' to sort in decreasing order
-# If the style is set to any other value, or is unset, files will be
-# sorted alphabetically by name.
+# If the style is set to any other value, or is unset, files will be sorted alphabetically by name
 zstyle ':completion:*' file-sort name
 
 # Remove the trailing slash (usefull in ln)
@@ -145,7 +143,6 @@ zstyle ':completion:*:(git add):*' ignore-line yes
 
 # only java files for javac
 zstyle ':completion:*:javac:*' files '*.java'
-
 # no binary files for vi or textmate
 zstyle ':completion:*:vi:*' ignored-patterns '*.(o|a|so|aux|dvi|log|swp|fig|bbl|blg|bst|idx|ind|out|toc|class|pdf|ps|pyc)'
 zstyle ':completion:*:mate:*' ignored-patterns '*.(o|a|so|aux|dvi|log|swp|fig|bbl|blg|bst|idx|ind|out|toc|class|pdf|ps|pyc)'
@@ -158,8 +155,7 @@ zstyle ':completion:*:zless:*' ignored-patterns '*.(o|a|so|dvi|fig|out|class|pdf
 zstyle ':completion:*:xpdf:*' files '*.pdf'
 # tar files
 zstyle ':completion:*:tar:*' files '*.tar|*.tgz|*.tz|*.tar.Z|*.tar.bz2|*.tZ|*.tar.gz'
-# latex to the fullest
-# for printing
+# latex to the fullest for printing
 zstyle ':completion:*:xdvi:*' files '*.dvi'
 zstyle ':completion:*:dvips:*' files '*.dvi'
 
