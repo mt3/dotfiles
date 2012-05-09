@@ -1,3 +1,23 @@
 h2. .dotfiles for going to the club and getting drank on with them women
 
 too many kompooters, have decided to sync
+
+
+
+h1. install
+
+ln -s ~/code_and_projects/dotfiles/.ackrc ~/.ackrc
+ln -s ~/code_and_projects/dotfiles/.emacs ~/.emacs
+ln -s ~/code_and_projects/dotfiles/.gemrc ~/.gemrc
+ln -s ~/code_and_projects/dotfiles/.git.scmbrc ~/.git.scmbrc
+ln -s ~/code_and_projects/dotfiles/.gitconfig ~/.gitconfig
+ln -s ~/code_and_projects/dotfiles/.gitignore ~/.gitignore
+ln -s ~/code_and_projects/dotfiles/.gitignore_global ~/.gitignore_global
+ln -s ~/code_and_projects/dotfiles/.gitmodules ~/.gitmodules
+ln -s ~/code_and_projects/dotfiles/.hgignore_global ~/.hgignore_global
+ln -s ~/code_and_projects/dotfiles/.hgrc ~/.hgrc
+ln -s ~/code_and_projects/dotfiles/.pentadactylrc ~/.pentadactylrc
+ln -s ~/code_and_projects/dotfiles/.tmux.conf ~/.tmux.conf
+
+ln -s ~/code_and_projects/dotfiles/.dotfiles/vim/vimrc ~/.vimrc
+
