@@ -1,36 +1,38 @@
-# APPLICATIONS
+# ZSH Aliases
+#############
+
+# APPLICATIONS {{{1
 #############################################################
+alias cloud9='/Applications/github_dwlds/cloud9/bin/cloud9.sh'
 alias jek="jekyll && echo && echo BROWSE TO: http://0.0.0.0:4000 && echo && jekyll --server"
 #alias mate="mate -l1"
-alias kill="kill -9"
-alias youtube-dl="/Applications/github_dwlds/youtube-dl/youtube-dl"
-alias eco="echo"
-alias gclient="/Applications/github_dwlds/depot_tools/gclient"
-alias gvim='/Applications/DevApps/MacVim.app/Contents/MacOS/Vim -g'
-alias vimdiff='/usr/local/bin/mvim mvimdiff'
-alias nightly='/Applications/BrowserApps/Nightly.app/Contents/MacOS/firefox'
 alias firefox='/Applications/BrowserApps/Nightly.app/Contents/MacOS/firefox'
+alias gclient="/Applications/github_dwlds/depot_tools/gclient"
+alias nightly='/Applications/BrowserApps/Nightly.app/Contents/MacOS/firefox'
 # use my dev version of showoff
 alias showoff='/Applications/github_dwlds/showoff/bin/showoff'
 alias skim='/Applications/PDFApps/Skim.app/Contents/MacOS/Skim'
-alias cloud9='/Applications/github_dwlds/cloud9/bin/cloud9.sh'
+alias spotoff="sudo mdutil -a -i off" # Disable Spotlight
+alias spoton="sudo mdutil -a -i on" # Enable Spotlight
+alias youtube-dl="/Applications/github_dwlds/youtube-dl/youtube-dl"
 #############################################################
 
 
-# GENERAL TERMINAL SHORTCUTS
+# GENERAL TERMINAL SHORTCUTS {{{1
 #############################################################
 alias .='pwd'
 alias ..="cd .."
 alias ...="cd .. && cd .."
 alias ....="cd .. & cd .. & cd .."
-#TODO: toggle those wanted
-# alias -g L='|less'
 alias -g G='|grep'
+#TODO: toggle those suffix options that are wanted
+# alias -g L='|less'
 # alias -g W='|wc'
 # alias -g C='|colordiff'
 alias apps="cd /Applications"
 alias appsg="cd /Applications/github_dwlds"
 alias cdd='cd -' # goto last dir cd'ed from
+alias ciao='sudo shutdown -h now'
 alias clr="clear"
 alias curl="curl -O"
 alias dir_sizes='du -cks * | sort -rn |head -11' # Lists the size of all the folders within current dir (Mb)
@@ -40,19 +42,21 @@ alias du='du -h -d 2'
 alias du1='du -hs *(/)' # du with depth 1
 alias e="mvim"
 alias ea='mvim ~/.dotfiles/zsh/aliases.zsh && reload' # Edit aliases
+alias eco="echo"
 alias edit="${EDITOR}"
 alias ez='mvim ~/.zshrc && source ~/.zshrc' # opens zshrc file in textmate, then reloads it immediately (thieved from http://ozmm.org/posts/git_bash_aliases.html)
 alias folder_sizes=dir_sizes
 alias frameworks="cd /Library/Frameworks/frameworks-under-git"
 # add a poor facsimile for Linux's `free` if we're on Mac OS
-if ! type free > /dev/null 2>&1 && [[ "$(uname -s)" == 'Darwin' ]]
-then
-  alias free="top -s 0 -l 1 -pid 0 -stats pid | grep '^PhysMem: ' | cut -d : -f 2- | tr ',' '\n'"
+if ! type free > /dev/null 2>&1 && [[ "$(uname -s)" == 'Darwin' ]] then
+    alias free="top -s 0 -l 1 -pid 0 -stats pid | grep '^PhysMem: ' | cut -d : -f 2- | tr ',' '\n'"
 fi
+alias gr="GREP_COLOR='1;4;34' grep --color=always --exclude='*~' --exclude='*.svn*' --exclude='*.tmp' --exclude=entries -r"
 alias help="cheat" # uses ruby gem `cheat`
 alias h="cheat" # uses ruby gem `cheat`
 alias k9='kill -9'
 alias ka9='killall -9'
+alias kill="kill -9"
 alias l.="ls -d .*"
 alias less='less -i'
 alias lf='ls -CF'
@@ -60,14 +64,20 @@ alias ll="ls -lth"
 alias lls="ls -Gh"
 alias ls='ls -alGh'
 alias lsd='ls -ld *(-/DN)' # list only dirs
+# alias lsd='ls -l | grep "^d"' # List only directories
 alias lss='ls --color=auto --human-readable --group-directories-first --classify'
 alias md="mkcd"
 alias notes="ack 'TODO|FIXME|XXX|HACK'"
+# cribbed from benhoskings  http://github.com/benhoskings/dot-files/blob/master/files/.aliases/commands
+alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -nr | head -n 20"
 alias ps='ps aux'
-alias psg="ps aux | grep "
+alias psg='ps aux | grep'
+alias psgrep='ps aux|grep'
 alias queen="ssh mta45@queen.fas.sfu.ca"
-alias reload="source ~/.zshrc"
+# alias reload="source ~/.zshrc"
+alias reload!='. ~/.zshrc'
 alias rsyncp='rsync -avz -e ssh --progress --partial'
+alias s='pkglookup'
 alias so="source ~/.zshrc"
 alias ssh="ssh -c arcfour,blowfish-cbc -C"
 # This trick makes sudo understand all my aliases
@@ -81,14 +91,22 @@ alias zshrc='mvim ~/.zshrc && source ~/.zshrc' # opens zshrc file in textmate, t
 #############################################################
 
 
-# SOLR
+# VIM {{{1
+#############################################################
+alias gvim='/Applications/DevApps/MacVim.app/Contents/MacOS/Vim -g'
+alias vim='//Applications/DevApps/MacVim.app/Contents/MacOS/Vim'
+alias vimdiff='/usr/local/bin/mvim mvimdiff'
+#############################################################
+
+
+# SOLR {{{1
 #############################################################
 alias solrstart="sh /Applications/LucidImagination/LucidWorksEnterprise/app/bin/start.sh"
 alias solrstop="sh /Applications/LucidImagination/LucidWorksEnterprise/app/bin/stop.sh"
 #############################################################
 
 
-# TMUX
+# TMUX {{{1
 #############################################################
 alias tmxls="tmux ls"
 alias tmuxls="tmux ls"
@@ -97,7 +115,7 @@ alias tmux='tmux -C'
 #############################################################
 
 
-# TASK
+# TASK {{{1
 #############################################################
 alias taskl="task list"
 alias tasks="task list"
@@ -108,12 +126,7 @@ alias taskh="task ghistory"
 #############################################################
 
 
-# cribbed from benhoskings
-# http://github.com/benhoskings/dot-files/blob/master/files/.aliases/commands
-alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -nr | head -n 20"
-
-
-# CABAL (haskell)
+# CABAL (haskell) {{{1
 #############################################################
 alias cabs="cabal list"
 alias cabl="cabal list --installed && echo \"\n\nNOTE: You can also type \n\tcabal list --installed --simple-output\nfor a briefer message\""
@@ -127,26 +140,13 @@ alias cabu="cabal install"
 #############################################################
 
 
-# HOMEBREW
-#############################################################
-alias bs="brew search"
-alias bi="brew info"
-alias brewin="brew install"
-alias brewunin="brew uninstall"
-alias bu="brew upgrade"
-alias brewu="brew update"
-alias bo="brew outdated"
-alias brewc="brew cleanup && cd /Users/mt/Library/Caches/Homebrew/ && for item in *; do rm -rf $item; done"
-#############################################################
-
-
-# FABRIC
+# FABRIC {{{1
 #############################################################
 alias fabl="fab --list-format=nested --list"
 #############################################################
 
 
-# GIT
+# GIT {{{1
 #############################################################
 alias g="git"
 alias gitc="git commit -m"
@@ -165,12 +165,25 @@ alias git-tm-bund="cd ~/Library/Application\ Support/TextMate/Bundles/ && git cl
 alias gpush="git push -u origin master"
 alias gitsub="git submodule foreach 'git pull'"
 
-# GIT FLOW
+# GIT FLOW {{{2
 alias gf="git flow"
 #############################################################
 
 
-# RUBY GEMS
+# HOMEBREW {{{1
+#############################################################
+alias bs="brew search"
+alias bi="brew info"
+alias brewin="brew install"
+alias brewunin="brew uninstall"
+alias bu="brew upgrade"
+alias brewu="brew update"
+alias bo="brew outdated"
+alias brewc="brew cleanup && cd /Users/mt/Library/Caches/Homebrew/ && for item in *; do rm -rf $item; done"
+#############################################################
+
+
+# RUBY GEMS {{{1
 #############################################################
 alias gemu="gem update"
 alias gemus="gem update --system"
@@ -182,7 +195,7 @@ alias gemo="gem outdated"
 #############################################################
 
 
-# PYTHON
+# PYTHON {{{1
 #############################################################
 alias py="python"
 alias pyv="python -V"
@@ -205,14 +218,14 @@ alias stallion="python -m stallion.main"
 #############################################################
 
 
-# LUCENE
+# LUCENE {{{1
 #############################################################
 alias lucin="java org.apache.lucene.demo.IndexFiles"
 alias lucs="java org.apache.lucene.demo.SearchFiles"
 #############################################################
 
 
-# NODE and NPM
+# NODE and NPM {{{1
 #############################################################
 alias npmin="npm install"
 alias npml="npm ls installed"
@@ -230,7 +243,7 @@ alias npmi="npm view"
 #############################################################
 
 
-# Suffix Aliases
+# Suffix Aliases {{{1
 #############################################################
 # open all tex files with vim
 alias -s tex=mvim
@@ -239,5 +252,6 @@ alias -s pdf=skim
 #############################################################
 
 
-
 echo "\e[1m\e[32mFinished loading aliases.zsh\e[0m"
+
+# vim: set filetype=zsh:
