@@ -22,6 +22,11 @@ function colours() {
     done
 }
 
+function duk() {
+    #TODO: finish...
+    # search duckduckgo.com from cli
+}
+
 function digga() {
     # All the dig info
 	dig +nocmd "$1" any +multiline +noall +answer
@@ -82,9 +87,8 @@ __git_files () {
     _wanted files expl 'local files' _files
 }
 
-
-#TODO have more verbose output as to what's being backed up (some pkg managers might not be installed)
 backup_packages() {
+    #TODO have more verbose output as to what's being backed up (some pkg managers might not be installed)
     # backup installed packages
     color blue "Starting to backup a listing of installed packages...."
     DATE="`date +%F`"
@@ -262,8 +266,8 @@ function mywhich() {
 	which -a $1 | uniq
 }
 
-# TODO this requires you to write latexfile.tex without extension. change it.
 function texify() {
+    # TODO this requires you to write latexfile.tex without extension. change it.
     # all the redundant latex steps wrapped in one function
     # usage: texify latexfile
 
@@ -282,8 +286,8 @@ function texify() {
     fi
 }
 
-# TODO: finish for all the other colors
 function color() {
+    # TODO: finish for all the other colors
     # Usage: color blue "hello"
     # color $1 $2
     if [ "$#" = "2" ] ; then
@@ -318,13 +322,13 @@ function spectrum_ls() {
     done
 }
 
-# create battery status indicator in right prompt of terminal
 function battery_charge {
+    # create battery status indicator in right prompt of terminal
     echo `$BAT_CHARGE` 2>/dev/null
 }
 
-# open current directory (or argument in pathfinder)
-pfopen () {
+function pfopen () {
+    # open current directory (or argument in pathfinder)
     if [ "$#" = "0" ]
     then
         open -a 'Path Finder' `pwd`
@@ -346,17 +350,13 @@ pfopen () {
 # fi
 # end auto-launch ssh keypairs
 
-
-
-# wrap git with hub
 function git(){
+    # wrap git with hub
 	hub "$@"
 }
 
-
-
-# view git diffs in macvim
 function git_diff() {
+    # view git diffs in macvim
     # --no-ext-diff : to prevent using vimdiff
     # -w : to ignore whitespace
     # -R : to start vim in read-only mode
@@ -403,7 +403,7 @@ function extract() {
     fi
 }
 
-extract_archive () {
+function extract_archive() {
     # from http://zshwiki.org/home/examples/functions
     local old_dirs current_dirs lower
     lower=${(L)1}
@@ -480,9 +480,8 @@ function hd_space {
 	}
 }
 
-# dwld and archive a set of web pages
-function dwld-and-archive-webpages() {
-    # unfinished...
+function dwld-and-archive-webpages() { # TODO: unfinished
+    # dwld and archive a set of web pages
     # better to use wget -i fileOfURLs.txt
 
     for ((i=0; i<100; i++)); do
@@ -518,12 +517,22 @@ function updation() {
     #       cabin
 
     # pip
+    if [[ -x `which pip` ]]; then
+        # OUTDATED=(pip outdated) #TODO: no such cmd
+    fi
 
     # gems
+    if [[ -x `which gem` ]]; then
+        OUTDATED=(gem outdated)
+    fi
 
     # cabal
 
     # npm
+
+    # notification for outdated modules
+    growlnotify -m "$OUTDATED" \
+                -t "Outdated Modules"
 }
 
 echo "\e[1m\e[32mFinished loading functions.zsh\e[0m"
