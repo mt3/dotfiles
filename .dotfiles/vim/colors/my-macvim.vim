@@ -1,6 +1,4 @@
 " These lines are suggested to be at the top of every colorscheme {{{
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    "
     set background=light
     highlight clear
 
@@ -17,12 +15,10 @@
 
 
 " Clear the colors for any items that you don't like {{{
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    "
     hi clear StatusLine
     hi clear StatusLineNC
     hi clear Comment
-    hi clear Todo 
+    hi clear Todo
     hi clear Cursor
     hi clear iCursor
     hi clear CursorLine
@@ -32,8 +28,6 @@
 
 
 " Set up your new & improved colors {{{
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    "
     " hi Cursor       guifg=Black     guibg=#e4e4e4   gui=none    ctermbg=241
     " hi Cursor     guibg=#afdfff   guifg=White     gui=none    ctermbg=241
     hi Cursor       guibg=Black     guifg=White     gui=none    ctermbg=241
@@ -55,7 +49,7 @@
     hi IncSearch    NONE term=underline guifg=Black guibg=LightYellow
 
     hi Folded 		guibg=#384048   guifg=White     gui=none ctermbg=4 ctermfg=248
-    hi FoldColumn   guifg=Blue      guibg=#f6f6f6   ctermfg=DarkBlue ctermbg=LightGrey 
+    hi FoldColumn   guifg=Blue      guibg=#f6f6f6   ctermfg=DarkBlue ctermbg=LightGrey
     "hi link FoldColumn Folded
 
     hi Title		guifg=#f6f3e8   guibg=NONE	    gui=bold ctermfg=254 cterm=bold
@@ -70,14 +64,12 @@
 
 
 " Syntax & Keywords {{{
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    "
     hi Normal       guifg=Black         guibg=#f4f4f4   gui=none        ctermfg=253 ctermbg=234
     hi String       guifg=#7e8aa2       gui=none        ctermfg=103
     hi NonText      guifg=#404040       ctermfg=8
     hi Comment      guifg=#b9b9b9       gui=italic      ctermfg=244     font=Fanwood:h13
     hi vimCommentString                 guifg=#b9b9b9   ctermfg=244     font=Fanwood:h13
-    
+
 
     hi Constant 	guifg=#8186b1       gui=italic      ctermfg=148
     hi Keyword		guifg=SlateBlue     gui=none        ctermfg=103
@@ -91,8 +83,6 @@
 
 
 " Error Messages {{{
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-    "
     hi SpellErrors guifg=Red gui=underline
 
     " commandline error messages
@@ -106,39 +96,36 @@
 
 
 " Cterm Colors {{{
-"""""""""""""""""""""""""""""""
-"Black
-"DarkBlue
-"DarkGreen
-"DarkCyan
-"DarkRed
-"DarkMagenta
-"Brown, DarkYellow
-"SeaGreen, SlateBlue, Violet, Purple
-"LightGray, LightGrey, Gray, Grey
-"DarkGray, DarkGrey
-"Blue, LightBlue
-"Green, LightGreen
-"Cyan, LightCyan
-"Red, LightRed
-"Magenta, LightMagenta
-"Yellow, LightYellow
-"White
+    "Black
+    "DarkBlue
+    "DarkGreen
+    "DarkCyan
+    "DarkRed
+    "DarkMagenta
+    "Brown, DarkYellow
+    "SeaGreen, SlateBlue, Violet, Purple
+    "LightGray, LightGrey, Gray, Grey
+    "DarkGray, DarkGrey
+    "Blue, LightBlue
+    "Green, LightGreen
+    "Cyan, LightCyan
+    "Red, LightRed
+    "Magenta, LightMagenta
+    "Yellow, LightYellow
+    "White
 " }}}
 
 
 " Xterm Colors {{{
-"""""""""""""""""""""""""""""""
-"
+    "
 " }}}
 
 
 " Color Values {{{
-"""""""""""""""""""""""""""""""
-"coloring format is #rrggbb
-"lightblueish=#bfffff
-"darkblueish=#204fdf
-"lightred=#c80000
+    "coloring format is #rrggbb
+    "lightblueish=#bfffff
+    "darkblueish=#204fdf
+    "lightred=#c80000
 " }}}
 
 
