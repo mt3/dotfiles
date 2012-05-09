@@ -1,8 +1,9 @@
-# ZSH
-#
-# cribbed from http://github.com/matflores/dotfiles/blob/master/bashrc
-# don't put duplicate lines in the history. See bash(1) for more options
-# don't overwrite GNU Midnight Commander's setting of `ignorespace'.
+# ZSH Variables
+###############
+
+# don't put duplicate lines in history
+# & don't overwrite Midnight Commander's `ignorespace' setting
+# http://github.com/matflores/dotfiles/blob/master/bashrc
 HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 # ... or force ignoredups and ignorespace
 HISTCONTROL=ignoreboth
@@ -42,6 +43,8 @@ export SUDO_PROMPT="Your P-to-the-Word:"
 # Tell ls to be colourful
 export CLICOLOR=1
 export LSCOLORS=Exfxcxdxbxegedabagacad
+# Don’t clear the screen after quitting a manual page
+export MANPAGER='less -X'
 
 
 
