@@ -60,11 +60,11 @@
     call add(g:pathogen_disabled, 'minibufexplorer')
     call add(g:pathogen_disabled, 'vim-django')
 
-    "source ~/.dotfiles/vim/bundle/vim-pathogen/autoload/pathogen.vim
-    "set runtimepath=~/.dotfiles/vim,$VIMRUNTIME
+    "source /code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/vim/bundle/vim-pathogen/autoload/pathogen.vim
+    "set runtimepath=/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/vim,$VIMRUNTIME
 
     ""call pathogen#runtime_append_all_bundles() "TODO not used anymore? use infect()?
-    "call pathogen#infect('~/.dotfiles/vim/bundle')
+    "call pathogen#infect('/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/vim/bundle')
     "call pathogen#helptags()
     syntax on
     filetype on
@@ -79,85 +79,81 @@
     au BufWinLeave * silent! mkview  "make vim save view (state) (folds, cursor, etc)
 	au BufWinEnter * silent! loadview "make vim load view (state) (folds, cursor, etc)
 
-    set runtimepath=~/.dotfiles/vim,$VIMRUNTIME
+    set runtimepath=~/code_and_projects/dotfiles/.dotfiles/vim,$VIMRUNTIME
     set statusline=
 " }}}
 
 
 " LOAD PLUGINS {{{
     "
-    source ~/.dotfiles/vim/bundle/ack.vim/plugin/ack.vim
-    helptags ~/.dotfiles/vim/bundle/ack.vim/doc
-    set rtp+=~/.dotfiles/vim/bundle/ack.vim
+    source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/ack.vim/plugin/ack.vim
+    helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/ack.vim/doc
+    set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/ack.vim
 
-    source ~/.dotfiles/vim/bundle/Align/plugin/AlignPlugin.vim
-    helptags ~/.dotfiles/vim/bundle/Align/doc
-    set rtp+=~/.dotfiles/vim/bundle/Align
+    source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/Align/plugin/AlignPlugin.vim
+    helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/Align/doc
+    set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/Align
 
-    source ~/.dotfiles/vim/bundle/coveragepy/ftplugin/python/coveragepy.vim
-    helptags ~/.dotfiles/vim/bundle/coveragepy/doc
-    set rtp+=~/.dotfiles/vim/bundle/coveragepy
+    source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/coveragepy/ftplugin/python/coveragepy.vim
+    helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/coveragepy/doc
+    set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/coveragepy
 
-    " source ~/.dotfiles/vim/bundle/vim-easymotion/plugin/EasyMotion.vim
-    " helptags ~/.dotfiles/vim/bundle/vim-easymotion/doc
-    " set rtp+=~/.dotfiles/vim/bundle/vim-easymotion
+    " source /code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/vim/bundle/vim-easymotion/plugin/EasyMotion.vim
+    " helptags /code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/vim/bundle/vim-easymotion/doc
+    " set rtp+=/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/vim/bundle/vim-easymotion
 
-    source ~/.dotfiles/vim/bundle/vim-fugitive/plugin/fugitive.vim
-    helptags ~/.dotfiles/vim/bundle/vim-fugitive/doc
-    set rtp+=~/.dotfiles/vim/bundle/vim-fugitive
+    source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/vim-fugitive/plugin/fugitive.vim
+    helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/vim-fugitive/doc
+    set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/vim-fugitive
 
-    source ~/.dotfiles/vim/bundle/gitv/plugin/gitv.vim
-    helptags ~/.dotfiles/vim/bundle/gitv/doc
-    set rtp+=~/.dotfiles/vim/bundle/gitv
+    source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/gitv/plugin/gitv.vim
+    helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/gitv/doc
+    set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/gitv
 
-    source ~/.dotfiles/vim/bundle/jacinto.vim/plugin/jacinto.vim
-    " helptags ~/.dotfiles/vim/bundle/jacinto/doc
-    set rtp+=~/.dotfiles/vim/bundle/jacinto.vim
+    source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/jacinto.vim/plugin/jacinto.vim
+    " helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/jacinto/doc
+    set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/jacinto.vim
 
-    source ~/.dotfiles/vim/bundle/nerdtree/plugin/NERD_tree.vim
-    helptags ~/.dotfiles/vim/bundle/nerdtree/doc
-    set rtp+=~/.dotfiles/vim/bundle/nerdtree
+    source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/nerdtree/plugin/NERD_tree.vim
+    helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/nerdtree/doc
+    set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/nerdtree
 
-    source ~/.dotfiles/vim/bundle/vim-powerline/plugin/powerline.vim
-    helptags ~/.dotfiles/vim/bundle/vim-powerline/doc
-    set rtp+=~/.dotfiles/vim/bundle/vim-powerline
+    source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/vim-powerline/plugin/powerline.vim
+    helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/vim-powerline/doc
+    set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/vim-powerline
 
     " source simplenote username/pwd (used by simplenote.vim)
     source ~/.simplenoterc
-    source ~/.dotfiles/vim/bundle/simplenote.vim/plugin/simplenote.vim
-    " helptags ~/.dotfiles/vim/bundle/simplenote.vim/doc
-    set rtp+=~/.dotfiles/vim/bundle/simplenote.vim
+    source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/simplenote.vim/plugin/simplenote.vim
+    " helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/simplenote.vim/doc
+    set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/simplenote.vim
 
-    source ~/.dotfiles/vim/bundle/syntastic/plugin/syntastic.vim
-    helptags ~/.dotfiles/vim/bundle/syntastic/doc
-    set rtp+=~/.dotfiles/vim/bundle/syntastic
+    source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/syntastic/plugin/syntastic.vim
+    helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/syntastic/doc
+    set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/syntastic
 
-    source ~/.dotfiles/vim/bundle/tagbar/plugin/tagbar.vim
-    helptags ~/.dotfiles/vim/bundle/tagbar/doc
-    set rtp+=~/.dotfiles/vim/bundle/tagbar
+    source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/tagbar/plugin/tagbar.vim
+    helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/tagbar/doc
+    set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/tagbar
 
-    source ~/.dotfiles/vim/bundle/tcomment_vim/plugin/tcomment.vim
-    helptags ~/.dotfiles/vim/bundle/tcomment_vim/doc
-    set rtp+=~/.dotfiles/vim/bundle/tcomment_vim
+    source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/tcomment_vim/plugin/tcomment.vim
+    helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/tcomment_vim/doc
+    set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/tcomment_vim
 
-    source ~/.dotfiles/vim/bundle/taglist.vim/plugin/taglist.vim
-    helptags ~/.dotfiles/vim/bundle/taglist.vim/doc
-    set rtp+=~/.dotfiles/vim/bundle/taglist.vim
-
-    "source ~/.dotfiles/vim/bundle/
-    "helptags ~/.dotfiles/vim/bundle/
-    "set rtp+=~/.dotfiles/vim/bundle/
+    source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/taglist.vim/plugin/taglist.vim
+    helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/taglist.vim/doc
+    set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/taglist.vim
 
     "TODO: use plugins with vundle instead of pathogen. looks like a good way to combine the plugin's settings nearby its load cmd
     " LOAD PLUGINS VIA VUNDLE {{{
         "
-        " filetype off
+        filetype off
 
         " " Vundle
-        " set rtp+=~/.dotfiles/vim/bundle/vundle/
-        " call vundle#rc()
+        set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/vundle/
+        call vundle#rc()
 
-        " Bundle 'gmarik/vundle'
+        Bundle 'gmarik/vundle'
 
         " Colorscheme
         " Bundle 'molokai'
@@ -645,10 +641,10 @@
     set complete=.,w,b,u,U,t,i,d  " do lots of scanning on tab completion
     set nobackup " Turn backup off since futurefolks use hg/git/etc.
     set nowb " TODO: document
-    "set backupdir=~/.dotfiles/vim/tmp/vim-backup-files
+    "set backupdir=/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/vim/tmp/vim-backup-files
     set noswapfile " this is actually more trouble than it's worth if you keep a swapfile
     " puts swap files in this temp directory rather than all over the fukcing place
-    "set directory=~/.dotfiles/vim/tmp/vim-swp-files
+    "set directory=/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/vim/tmp/vim-swp-files
 
     "Persistent undo
     " TODO
@@ -656,7 +652,7 @@
     "     if MySys() == "windows"
     "         set undodir=C:\Windows\Temp
     "     else
-    "         set undodir=~/.dotfiles/vim/undo,~/tmp,/tmp
+    "         set undodir=/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/vim/undo,~/tmp,/tmp
     "     endif
     "     set undofile " keep a permanent undo file
     " catch
@@ -1330,7 +1326,7 @@
         nmap <C-u> :NERDTreeToggle<CR>
 
         " Store the bookmarks file
-        let NERDTreeBookmarksFile=expand("~/.dotfiles/vim/NERDTreeBookmarks")
+        let NERDTreeBookmarksFile=expand("/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/vim/NERDTreeBookmarks")
 
         " Show the bookmarks table on startup
         let NERDTreeShowBookmarks=1
@@ -1451,7 +1447,7 @@
     " }}}
 
     " Snipmate {{{
-        "source ~/.dotfiles/vim/snipmate-snippets/support_functions.vim
+        "source /code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/vim/snipmate-snippets/support_functions.vim
         "autocmd vimenter * call s:SetupSnippets()
         "function! s:SetupSnippets()
         "    "if we're in a rails env then read in the rails snippets
@@ -1555,7 +1551,7 @@
     " }}}
 
     " YankRing {{{
-        "let g:yankring_history_dir = '~/.dotfiles/vim/tmp'
+        "let g:yankring_history_dir = '/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/vim/tmp'
         "nnoremap <Leader>y :YRShow<CR>
         "nmap <leader>r :YRShow<CR>
     " }}}
