@@ -59,6 +59,7 @@
     gl = !git lg $(git show-ref | cut -d " " -f 2 | grep -v stash$)
     greplog = log -U1 -G
 	harvest = !legit harvest \"$@\"
+	ignored = status --ignored
 	in = "!b=$(git current-branch);git ll $b..origin/$b"
     l = log --pretty=format:\"%Cgreen%ad%Creset | %s%d [%Cblue%an%Creset]\" --ignore-all-space --ignore-space-change --graph --date=relative --graph --max-count=10 --since=\"1 month ago\" --stat
 	la = !git ll --all
@@ -101,10 +102,11 @@
 	sprout = !legit sprout \"$@\"
     st = status -sb
     staged = diff --cached
-    stsh = stash
-    stsha = stash apply
-    stshl = stash list
-    stshls = stash list
+    stash = stash
+    stasha = stash apply
+    stashl = stash list
+    stashls = stash list
+    statusuntracked = status -sb -u no
     sub = submodule
     subup = submodule foreach 'git pull'
 	switch = !legit switch \"$@\"
@@ -115,6 +117,7 @@
 	unpublish = !legit unpublish \"$@\"
     uncommit = reset --soft HEAD^   # go back before last commit, with files in uncommitted state
     unstage = reset HEAD  # remove files from index (tracking)
+    untracked = status -u
     up = pull --rebase
     vimdiff = difftool -y -t mvimdiff # type "git vimdiff" to view a diff in macvim
     w = !hub browse
@@ -154,6 +157,9 @@
     added = yellow
     changed = green
     untracked = cyan
+    showUntrackedFiles = no
+    relativePaths = true
+    submodulesummary = 0
 
 #[diff]
 #  external = extDiff
@@ -166,8 +172,8 @@
 
 # [difftool "sourcetree"]
 # 	cmd = " "
-# 	path = 
- 
+# 	path =
+
 [github]
     user = mt3
     token = $GITHUB_TOKEN
@@ -179,7 +185,7 @@
 #[merge]
 #  tool = mvimdiff
 #  summary = true
-# 
+#
 #[mergetool "mvimdiff"]
 #  cmd = extMerge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
 #  trustExitCode = false
@@ -209,7 +215,7 @@
 
 [difftool "sourcetree"]
 	cmd = " "
-	path = 
+	path =
 [mergetool "sourcetree"]
 	cmd = " "
 	trustExitCode = true
