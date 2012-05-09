@@ -1,46 +1,91 @@
-# from Chris Wanstrath
-function pless() { 
-    pygmentize $1 | less -r 
+# ZSH Functions
+###########################
+
+function cl () { #TODO: document
+    cd $1;
+    shift;
+    ls $a
 }
 
+function clean {
+    echo "Cleaning homebrew..."
+    brewc
+    echo "Cleaning gem..."
+    gemc
+    echo "Cleaning npm..."
+    npmc
+}
 
+function colours() {
+    for i in {0..255} ; do
+        printf "\x1b[38;5;${i}mcolour${i}\n"
+    done
+}
 
-# search notational velocity notes from command line
-# stoled from http://fidlet.com/post/885514801/one-thing-well-a-poor-mans-notational-velocity
+function digga() {
+    # All the dig info
+	dig +nocmd "$1" any +multiline +noall +answer
+}
+
+function hist () {
+	history 0 | grep $1
+}
+
+function pip_up { # TODO: doesn't work...
+    # update all pip packages
+    for x in $(pip freeze); {
+        y=`echo "$x" | cut -f 1 -d '='`
+        echo "\n \e[1m\e[34m upgrading $y...\e[0m"
+        sudo pip install --upgrade $y
+    }
+}
+
+function pip_outdated { # TODO: doesn't work...
+    # list all pip packages requiring updating
+    for x in $(pip freeze); {
+        w=`echo "$x" | cut -f 1 -d '='`
+        y=`echo "pip search $w" | cut -f 1 -d ' '`
+        # TODO: unfinished
+        z=`echo "$x" | cut -f 1 -d '='`
+        echo "\n \e[1m\e[34m upgrading $y...\e[0m"
+    }
+}
+
+function pless() {
+    # from Chris Wanstrath
+    pygmentize $1 | less -r
+}
+
 function ns {
+    # search notational velocity notes from command line
+    # http://fidlet.com/post/885514801/one-thing-well-a-poor-mans-notational-velocity
     ls -c ~/Library/Application\ Support/Notational\ Data | grep -i $1
 }
 
-
-
 # remove duplicates from my overzealous $PATH
 # shows the number of times the path appears first
-# TODO remove the occurence count
+#TODO remove the occurence count
 function mywhere {
     where $1 | uniq -c
 }
 
-
-
-# combine which and where command all at once
 function wh() {
+    # combine which and where command all at once
     color blue "Location of executable:"
     color green "   `which $1`"
     color blue "All locations:"
     mywhere $1
 }
 
-
-# Speed up git completion  http://talkings.org/post/5236392664/zsh-and-slow-git-completion
-__git_files () { 
-    _wanted files expl 'local files' _files 
+__git_files () {
+    # Speed up git completion  http://talkings.org/post/5236392664/zsh-and-slow-git-completion
+    _wanted files expl 'local files' _files
 }
 
 
-
-# backup installed packages
-# TODO have more verbose output as to what's being backed up (some pkg managers might not be installed)
+#TODO have more verbose output as to what's being backed up (some pkg managers might not be installed)
 backup_packages() {
+    # backup installed packages
     color blue "Starting to backup a listing of installed packages...."
     DATE="`date +%F`"
 
@@ -53,32 +98,24 @@ backup_packages() {
     color green "Finished backing up"
 }
 
-
-
 # (f)ind by (n)ame: to find all files containing 'foo' in the name
-# usage: fn foo 
+# usage: fn foo
 function fn() {
     ls **/*$1*
 }
 
-
-
-# git log file
-# https://github.com/jasoncodes/dotfiles/blob/master/profile
 function glf() {
-  git log --format=%H --follow -- "$@" | xargs --no-run-if-empty git show --stat
+    # git log file
+    # https://github.com/jasoncodes/dotfiles/blob/master/profile
+    git log --format=%H --follow -- "$@" | xargs --no-run-if-empty git show --stat
 }
 
-
-
-# checkout a GitHub pull request as a local branch
-# https://github.com/jasoncodes/dotfiles/blob/master/profile
 function gpr() {
-  local NUM="${1?Specify pull request number}"
-  git fetch origin "pull/$NUM/head:pull/$NUM" && git checkout "pull/$NUM"
+    # checkout a GitHub pull request as a local branch
+    # https://github.com/jasoncodes/dotfiles/blob/master/profile
+    local NUM="${1?Specify pull request number}"
+    git fetch origin "pull/$NUM/head:pull/$NUM" && git checkout "pull/$NUM"
 }
-
-
 
 function chromium_update {
 	if [ -d ~/chromium-dwld ]; then
@@ -86,7 +123,7 @@ function chromium_update {
 		rm -R ~/chromium-dwld
 	fi
 	echo "creating chromium-dwld folder..."
-	
+
 	# dwld chromium and chrome
 	echo "dwlding chromium and chrome...\n"
 	mkcd ~/chromium-dwld
@@ -95,26 +132,26 @@ function chromium_update {
 	wait $chrmiumdwldPID && wait $chrmdwldPID # wait for both dwld processes to finish before continuing
 	growlnotify -m "finished downloading chromium and chrome"
 	echo
-	
+
 	unzip ./chrome-mac.zip >/dev/null 2>&1 &
-	
+
 	# mount Chrome
 	open GoogleChrome.dmg & chrpid=$!
 	wait $chrpid # wait for mount to finish before continuing
 	sleep 10 #HACKED, NEED TO FIX WAIT
-	
+
 	# extract the mp3 file necessary for Chromium from Chrome
 	echo "\nextracting mp3 plugin"
 	chrome_path=/Volumes/Google\ Chrome/Google\ Chrome.app/Contents/Versions
 	chrome_version=$(ls $chrome_path)
 	cp $chrome_path/$chrome_version/Google\ Chrome\ Framework.framework/Libraries/libffmpegsumo.dylib ~/chromium-dwld/
-	
+
 	# extract the pdf file necessary for Chromium from Chrome
 	echo "\nextracting pdf plugin"
 	#chrome_path=/Volumes/Google\ Chrome/Google\ Chrome.app/Contents/Versions
 	#chrome_version=$(ls $chrome_path)
 	#cp -R $chrome_path/$chrome_version/Google\ Chrome\ Framework.framework/Internet\ Plug-Ins/PDF.plugin ~/chromium-dwld/
-	
+
 	# install the mp3 file necessary for Chromium
 	echo "\napplying mp3 and pdf plugins to chromium"
 	chromium_path=/Users/mt/chromium-dwld/chrome-mac/Chromium.app/Contents/Versions
@@ -123,7 +160,7 @@ function chromium_update {
 	mv ~/chromium-dwld/libffmpegsumo.dylib $chromium_path/$chromium_version/Chromium\ Framework.framework/Libraries/
 	#mv ~/chromium-dwld/PDF.plugin $chromium_path/$chromium_version/Chromium\ Framework.framework/Internet\ Plug-Ins/
 	mv /Users/mt/chromium-dwld/chrome-mac/Chromium.app /Users/mt/chromium-dwld/
-	
+
 	# eject mounted Chrome dmg
 	echo "\nunmounting and cleaning up..."
 	hdiutil detach /Volumes/Google\ Chrome & chrpid=$!
@@ -133,12 +170,11 @@ function chromium_update {
 	rm GoogleChrome.dmg
 	rm -R /Users/mt/chromium-dwld/chrome-mac
 	cd ~
-	
+
 	#TODO: check if chromium is not running, then auto-replace it in Applications folder
-	
+
 	growlnotify -m "downloaded and patched chromium" "please move to applications folder."
 }
-
 
 function githist() {
     # use spark to draw commits histogram for the day by an author
@@ -151,17 +187,15 @@ function githist() {
         spark
 }
 
-
 function letthistory() {
     # Letter frequencies in a text file (stolen from @daveycrockett)
     # $1 is the filename
-    cat $1 | 
-        awk -vFS="" '{for(i=1;i<=NF;i++){ if($i~/[a-zA-Z]/) { w[tolower($i)]++} } }END{for(i in w) print i,w[i]}' | 
+    cat $1 |
+        awk -vFS="" '{for(i=1;i<=NF;i++){ if($i~/[a-zA-Z]/) { w[tolower($i)]++} } }END{for(i in w) print i,w[i]}' |
         sort |
         cut -c 3- |
         spark
 }
-
 
 function githist2wks() {
     # commits for last 2 weeks
@@ -171,14 +205,12 @@ function githist2wks() {
     done | spark
 }
 
-
 function filesizeviz() {
     # Visualize filesize inside a directory(@lemen)
-    du -BM * | 
-        cut -dM -f1 | 
+    du -BM * |
+        cut -dM -f1 |
         spark
 }
-
 
 function wifiqualityviz() {
     # WiFi link quality (@cryptix)
@@ -206,22 +238,18 @@ function wifiqualityviz() {
     fi
 }
 
-
 function cpuloadviz() {
     # Load average (@tsujigiri)
     echo "$(cat /proc/loadavg | cut -d ' ' -f 1-3) $(egrep -c '^processor' /proc/cpuinfo)00" | sed 's///g' | spark | cut -c -9
 }
 
-
 function parse_git_branch {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/'
 }
 
-
 function parse_git_branch_and_add_brackets {
     git branch --no-color 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\ \[\1\]/'
 }
-
 
 function git-track {
     CURRENT_BRANCH=$(parse_git_branch)
@@ -229,28 +257,23 @@ function git-track {
     git-config branch.$CURRENT_BRANCH.merge refs/heads/$CURRENT_BRANCH
 }
 
-
-# PS1="\h:\W \u\[\033[0;32m\]\$(parse_git_branch_and_add_brackets) \[\033[0m\]\$ "
-
-
-# lists all occurences of a command in PATH (eliminates duplicates)
 function mywhich() {
+    # lists all occurences of a command in PATH (eliminates duplicates)
 	which -a $1 | uniq
 }
 
-
-
-# all the redundant latex steps wrapped in one function
-# usage: texify latexfile
 # TODO this requires you to write latexfile.tex without extension. change it.
 function texify() {
+    # all the redundant latex steps wrapped in one function
+    # usage: texify latexfile
+
     #tmp=`echo $1|cut -d "." -f2`
     if [[ -f $1.tex ]] ; then
         echo "latexifying and pdfing '$1'.tex"
 	    latex $1.tex && color green "\n\n" \
             && bibtex $1.aux && color green "\nDONE BIBTEX\n" \
             && latex $1.tex && color green "\nDONE LATEX\n" \
-            && pdflatex $1.tex && color green "\nDONE pdfLATEX\n" 
+            && pdflatex $1.tex && color green "\nDONE pdfLATEX\n"
     else
         color red "'$1' is not a valid file."
         echo "These are in the cwd:"
@@ -259,12 +282,10 @@ function texify() {
     fi
 }
 
-
-
-# Usage: color blue "hello"
-# color $1 $2
-function color() {
 # TODO: finish for all the other colors
+function color() {
+    # Usage: color blue "hello"
+    # color $1 $2
     if [ "$#" = "2" ] ; then
         case $1 in
             "red")   echo '\e[1m\e[31m'$2'\e[0m' ;;
@@ -280,25 +301,27 @@ function color() {
     fi
 }
 
-
-
 function start_agent {
-  echo "Initializing new SSH agent..."
-  /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
-  echo succeeded
-  chmod 600 "${SSH_ENV}"
-  . "${SSH_ENV}" > /dev/null
-  /usr/bin/ssh-add;
+    echo "Initializing new SSH agent..."
+    /usr/bin/ssh-agent | sed 's/^echo/#echo/' > "${SSH_ENV}"
+    echo succeeded
+    chmod 600 "${SSH_ENV}"
+    . "${SSH_ENV}" > /dev/null
+    /usr/bin/ssh-add;
 }
 
-
+function spectrum_ls() {
+    # Show all 256 colors with color number
+    # https://github.com/hukl/dotfiles/blob/master/.zsh/lib/colors.zsh
+    for code in {000..255}; do
+        print -P -- "$code: %F{$code}Test%f"
+    done
+}
 
 # create battery status indicator in right prompt of terminal
 function battery_charge {
     echo `$BAT_CHARGE` 2>/dev/null
 }
-
-
 
 # open current directory (or argument in pathfinder)
 pfopen () {
@@ -310,18 +333,17 @@ pfopen () {
     fi
 }
 
-
-
 # Source SSH settings, if applicable
-if [ -f "${SSH_ENV}" ]; then
-  . "${SSH_ENV}" > /dev/null
-  #ps ${SSH_AGENT_PID} doesn't work under cywgin
-  ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
-    start_agent;
-  }
-else
-  start_agent;
-fi
+#TODO: bypassed this due to errors needing to be fixed
+# if [ -f "${SSH_ENV}" ]; then
+#   . "${SSH_ENV}" > /dev/null
+#   #ps ${SSH_AGENT_PID} doesn't work under cywgin
+#   ps -ef | grep ${SSH_AGENT_PID} | grep ssh-agent$ > /dev/null || {
+#     start_agent;
+#   }
+# else
+#   start_agent;
+# fi
 # end auto-launch ssh keypairs
 
 
@@ -342,22 +364,16 @@ function git_diff() {
     git diff --no-ext-diff -w "$@" | mvim -R -
 }
 
-
-
-# Open a manpage in Preview, which can be saved to PDF (stolened from adamv)
 pman() {
-   man -t "${1}" | open -f -a /Applications/Preview.app
+    # Open a manpage in Preview, which can be saved to PDF (stolened from adamv)
+    man -t "${1}" | open -f -a /Applications/Preview.app
 }
 
-
-
-# mkdir, cd into it
 function mkcd {
+    # mkdir, cd into it
     mkdir $1
     cd $1
 }
-
-
 
 function prompt_char {
     git branch >/dev/null 2>/dev/null && echo '±' && return
@@ -365,11 +381,8 @@ function prompt_char {
     echo '○'
 }
 
-
-
-# good stuff
-# pinched from http://github.com/bjeanes/dot-files/blob/master/shell/functions.sh
 function extract() {
+    # http://github.com/bjeanes/dot-files/blob/master/shell/functions.sh
     if [ -f $1 ] ; then
         case $1 in
             *.tar.bz2)   tar xvjf $1        ;;
@@ -390,55 +403,82 @@ function extract() {
     fi
 }
 
-
-
-#from adamv yet again
-function pgrep {
-  local exclude="\.svn|\.git|\.swp|\.coverage|\.pyc|_build"
-  find . -maxdepth 1 -mindepth 1 | egrep -v "$exclude" | xargs egrep -lir "$1" | egrep -v "$exclude" | xargs egrep -Hin --color "$1"
-}
-
-
-
-function osinfo() { 
-   x1="$(/usr/bin/sw_vers -productName)"
-   x2="$(/usr/bin/sw_vers -productVersion)"
-   x3="$(/usr/bin/sw_vers -buildVersion)"
-   x4="$(/usr/bin/arch)"
-   echo "${x1} - ${x2} - (Build:${x3}) - ${x4}"
-
-   #TODO: finish this for all apps
-   installs_to_check = ("/usr/bin/python", "/usr/bin/ruby")
-   for x in $installs_to_check; do
-       if [[ -e "/usr/bin/python" ]] ; then
-            echo `python -V`
+extract_archive () {
+    # from http://zshwiki.org/home/examples/functions
+    local old_dirs current_dirs lower
+    lower=${(L)1}
+    old_dirs=( *(N/) )
+    if [[ $lower == *.tar.gz || $lower == *.tgz ]]; then
+        tar zxfv $1
+    elif [[ $lower == *.gz ]]; then
+        gunzip $1
+    elif [[ $lower == *.tar.bz2 || $lower == *.tbz ]]; then
+        bunzip2 -c $1 | tar xfv -
+    elif [[ $lower == *.bz2 ]]; then
+        bunzip2 $1
+    elif [[ $lower == *.zip ]]; then
+        unzip $1
+    elif [[ $lower == *.rar ]]; then
+        unrar e $1
+    elif [[ $lower == *.tar ]]; then
+        tar xfv $1
+    elif [[ $lower == *.lha ]]; then
+        lha e $1
+    else
+        print "Unknown archive type: $1"
+        return 1
+    fi
+    # Change in to the newly created directory, and
+    # list the directory contents, if there is one.
+    current_dirs=( *(N/) )
+    for i in {1..${#current_dirs}}; do
+        if [[ $current_dirs[$i] != $old_dirs[$i] ]]; then
+            cd $current_dirs[$i]
+            ls
+            break
         fi
     done
 }
+# alias ex=extract_archive
+# compdef '_files -g "*.gz *.tgz *.bz2 *.tbz *.zip *.rar *.tar *.lha"' extract_archive
 
 
+function pgrep {
+    #from adamv yet again
+    local exclude="\.svn|\.git|\.swp|\.coverage|\.pyc|_build"
+    find . -maxdepth 1 -mindepth 1 | egrep -v "$exclude" | xargs egrep -lir "$1" | egrep -v "$exclude" | xargs egrep -Hin --color "$1"
+}
+
+function osinfo() {
+    x1="$(/usr/bin/sw_vers -productName)"
+    x2="$(/usr/bin/sw_vers -productVersion)"
+    x3="$(/usr/bin/sw_vers -buildVersion)"
+    x4="$(/usr/bin/arch)"
+    echo "${x1} - ${x2} - (Build:${x3}) - ${x4}"
+}
+
+function sysinfo() { #TODO: finish
+    osinfo
+    echo 'ZSH_VERSION:' $ZSH_VERSION
+    echo 'homebrew version:' `brew --version`
+
+   #TODO: finish this for all apps
+   installs_to_check = ('python', 'ruby', 'npm')
+   for x in $installs_to_check; do
+       if [[ -x `which $x` ]] ; then
+            echo `$x -V`
+       fi
+   done
+}
+alias system_info='sysinfo'
+alias systeminfo='sysinfo'
+alias sys_info='sysinfo'
 
 function hd_space {
-	for x in $(ls ~);
-	{
+	for x in $(ls ~); {
 		du -sh $x;
 	}
 }
-
-
-# pip zsh command completion
-function _pip_completion {
-  local words cword
-  read -Ac words
-  read -cn cword
-  reply=( $( COMP_WORDS="$words[*]" \
-             COMP_CWORD=$(( cword-1 )) \
-             PIP_AUTO_COMPLETE=1 $words[1] ) )
-}
-compctl -K _pip_completion pip
-# pip zsh completion end
-
-
 
 # dwld and archive a set of web pages
 function dwld-and-archive-webpages() {
@@ -449,24 +489,43 @@ function dwld-and-archive-webpages() {
         wget -q -O outf${i}.html $1
         gzip outf${i}.html
     done
-   
 }
 
-
-
-# dwld webpages that can be incremented and keep the ones that contain certain info
-# TODO: unfinished
-function dl-webpg-containing-txt(){
+function dl-webpg-containing-txt(){ # TODO: unfinished
+    # dwld webpages that can be incremented and keep the ones that contain certain info
     mkcd ~/Downloads/web-dwld-data
 
     u="http://duckduckgo.com"
-    
+
     for ((nn=0; nn<100; nn++)); do
         wget -q ${u}${nn}.html
     done
-
 }
 
+function updation() {
+    #TODO: implement
+    # checks for packages needing updating as a background process
+    # uses growl to list packages needing update
+    # saves outdated packages to env variable $OUTDATED_PKGS
+    # allows one to query what is outdated e.g.:
+    #   outdated?
+    #   pip:
+    #       django
+    #       flask
+    #   npm:
+    #       node
+    #   cabal:
+    #       cabin
 
+    # pip
+
+    # gems
+
+    # cabal
+
+    # npm
+}
 
 echo "\e[1m\e[32mFinished loading functions.zsh\e[0m"
+
+# vim: set filetype=zsh foldmarker={,} foldmethod=marker:
