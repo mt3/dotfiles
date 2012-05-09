@@ -1,6 +1,7 @@
 # ZSH Aliases
 #############
 
+
 # APPLICATIONS {{{1
 #############################################################
 alias cloud9='/Applications/github_dwlds/cloud9/bin/cloud9.sh'
@@ -15,7 +16,7 @@ alias skim='/Applications/PDFApps/Skim.app/Contents/MacOS/Skim'
 alias spotoff="sudo mdutil -a -i off" # Disable Spotlight
 alias spoton="sudo mdutil -a -i on" # Enable Spotlight
 alias youtube-dl="/Applications/github_dwlds/youtube-dl/youtube-dl"
-#############################################################
+# }}}
 
 
 # GENERAL TERMINAL SHORTCUTS {{{1
@@ -67,6 +68,8 @@ alias lsd='ls -ld *(-/DN)' # list only dirs
 # alias lsd='ls -l | grep "^d"' # List only directories
 alias lss='ls --color=auto --human-readable --group-directories-first --classify'
 alias md="mkcd"
+alias modified_today='ls *(m-1)' # files modified today. or could use 'ls *(m0)'
+alias not_modified_today='ls *(^m0)' # files NOT modified today
 alias notes="ack 'TODO|FIXME|XXX|HACK'"
 # cribbed from benhoskings  http://github.com/benhoskings/dot-files/blob/master/files/.aliases/commands
 alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -nr | head -n 20"
@@ -88,22 +91,23 @@ alias trash="rm -rf"
 alias up="cd .."
 alias upd="upd >&1 > ~/.logs/updated-repos-logfiles-`date +%F`-`date +%T`.txt"
 alias zshrc='mvim ~/.zshrc && source ~/.zshrc' # opens zshrc file in textmate, then reloads it immediately (thieved from http://ozmm.org/posts/git_bash_aliases.html)
-#############################################################
+# }}}
 
 
 # VIM {{{1
 #############################################################
 alias gvim='/Applications/DevApps/MacVim.app/Contents/MacOS/Vim -g'
-alias vim='//Applications/DevApps/MacVim.app/Contents/MacOS/Vim'
+alias vi='mvim'
+alias vim='/Applications/DevApps/MacVim.app/Contents/MacOS/Vim'
 alias vimdiff='/usr/local/bin/mvim mvimdiff'
-#############################################################
+# }}}
 
 
 # SOLR {{{1
 #############################################################
 alias solrstart="sh /Applications/LucidImagination/LucidWorksEnterprise/app/bin/start.sh"
 alias solrstop="sh /Applications/LucidImagination/LucidWorksEnterprise/app/bin/stop.sh"
-#############################################################
+# }}}
 
 
 # TMUX {{{1
@@ -112,7 +116,7 @@ alias tmxls="tmux ls"
 alias tmuxls="tmux ls"
 # for tmux integration with iterm2
 alias tmux='tmux -C'
-#############################################################
+# }}}
 
 
 # TASK {{{1
@@ -123,7 +127,7 @@ alias taska="task add"
 alias taskd="task done"
 alias taskc="task completed"
 alias taskh="task ghistory"
-#############################################################
+# }}}
 
 
 # CABAL (haskell) {{{1
@@ -137,13 +141,13 @@ alias cabu="cabal install"
 #alias cabalu="cabal update" #TODO: doesn't update installed packages
 #alias cabo=" outdated" TODO
 #alias cabc="cabal clean" TODO
-#############################################################
+# }}}
 
 
 # FABRIC {{{1
 #############################################################
 alias fabl="fab --list-format=nested --list"
-#############################################################
+# }}}
 
 
 # GIT {{{1
@@ -167,7 +171,7 @@ alias gitsub="git submodule foreach 'git pull'"
 
 # GIT FLOW {{{2
 alias gf="git flow"
-#############################################################
+# }}}
 
 
 # HOMEBREW {{{1
@@ -180,7 +184,7 @@ alias bu="brew upgrade"
 alias brewu="brew update"
 alias bo="brew outdated"
 alias brewc="brew cleanup && cd /Users/mt/Library/Caches/Homebrew/ && for item in *; do rm -rf $item; done"
-#############################################################
+# }}}
 
 
 # RUBY GEMS {{{1
@@ -192,7 +196,7 @@ alias geml="gem list"
 alias gemc="gem cleanup"
 alias gems="gem search -r"
 alias gemo="gem outdated"
-#############################################################
+# }}}
 
 
 # PYTHON {{{1
@@ -215,14 +219,14 @@ alias piprecent="yolk -L 12"
 
 # stallion allows viewing of installed pip packages in yr browser
 alias stallion="python -m stallion.main"
-#############################################################
+# }}}
 
 
 # LUCENE {{{1
 #############################################################
 alias lucin="java org.apache.lucene.demo.IndexFiles"
 alias lucs="java org.apache.lucene.demo.SearchFiles"
-#############################################################
+# }}}
 
 
 # NODE and NPM {{{1
@@ -240,18 +244,17 @@ alias npmd="npm deactivate"
 alias npmc="npm cache clean"
 alias npmcl="npm cache clean"
 alias npmi="npm view"
-#############################################################
+# }}}
 
 
 # Suffix Aliases {{{1
 #############################################################
-# open all tex files with vim
-alias -s tex=mvim
+alias -s tex=mvim # open all tex files with vim
 alias -s org=mvim
 alias -s pdf=skim
-#############################################################
+# }}}
 
 
 echo "\e[1m\e[32mFinished loading aliases.zsh\e[0m"
 
-# vim: set filetype=zsh:
+# vim: set filetype=zsh foldmarker={{{,}}} foldmethod=marker:
