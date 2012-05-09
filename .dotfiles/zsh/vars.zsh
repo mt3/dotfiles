@@ -12,7 +12,7 @@ HISTSIZE=10500
 SAVEHIST=10000
 #setopt SHARE_HISTORY
 setopt EXTENDED_HISTORY
-setopt HIST_VERIFY 
+setopt HIST_VERIFY
 setopt HIST_APPEND
 setopt HIST_IGNORE_DUPS
 #setopt HIST_IGNORE_ALL_DUPS #i'm bypassing this since it messes with recent history/chronology (doesn't retain recent occurences)
@@ -145,7 +145,7 @@ export VIM_APP_DIR=/Applications/DevApps
 #export PATH=/usr/local/Cellar/ccache/3.1.4/libexec:$PATH
 
 
-export ZSH=$HOME/.dotfiles/zsh/oh-my-zsh
+export ZSH=$HOME/code_and_projects/dotfiles/.dotfiles/zsh/oh-my-zsh
 export ZSH_THEME="clean"
 
 
