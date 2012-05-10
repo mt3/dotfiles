@@ -87,7 +87,7 @@
     praise = blame
     pu = push
 	publish = !legit publish \"$@\"
-    r = remote -v
+    r = remote show origin
     ra = remote add
     rc = rebase --continue
     review = log -p --max-count=1
