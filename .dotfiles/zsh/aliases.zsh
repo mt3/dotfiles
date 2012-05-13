@@ -153,8 +153,10 @@ alias fabl="fab --list-format=nested --list"
 # GIT {{{1
 #############################################################
 alias g="git"
-alias gitc="git commit -m"
+alias gcreadme='g a README.textile && g c "Updated README." && git push'
+alias gcl="git clone"
 alias gcm="git commit -m"
+alias gitc="git commit -m"
 alias gits="git status -sb"
 alias gitp="git pull"
 alias gitu="git pull"
