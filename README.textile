@@ -19,5 +19,22 @@ ln -s ~/code_and_projects/dotfiles/.hgrc ~/.hgrc
 ln -s ~/code_and_projects/dotfiles/.pentadactylrc ~/.pentadactylrc
 ln -s ~/code_and_projects/dotfiles/.tmux.conf ~/.tmux.conf
 
+
+
+
+h2. vim
+
 ln -s ~/code_and_projects/dotfiles/.dotfiles/vim/vimrc ~/.vimrc
+
+
+
+h2. qs install
+
+ln -s ~/code_and_projects/dotfiles/quicksilver/Actions ~/Library/Application\ Support/Quicksilver/Actions
+ln -s ~/code_and_projects/dotfiles/quicksilver/Shelves ~/Library/Application\ Support/Quicksilver/Shelves
+ln -s ~/code_and_projects/dotfiles/quicksilver/Plugins ~/Library/Application\ Support/Quicksilver/Plugins
+ln -s ~/code_and_projects/dotfiles/quicksilver/Caches ~/Library/Application\ Support/Quicksilver/Caches
+ln -s ~/code_and_projects/dotfiles/quicksilver/Triggers.plist ~/Library/Application\ Support/Quicksilver/Triggers.plist
+
+
 
