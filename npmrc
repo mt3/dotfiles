@@ -1,0 +1,6 @@
+global = true
+editor = mvim
+init.author.name = mt3
+loglevel = warn
+root = ~/.node_libraries
+yes = true

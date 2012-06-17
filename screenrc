@@ -1,0 +1,53 @@
+# Make xterm scrolling work properly with screen. (touchpad scrolling)
+termcapinfo xterm-color|xterm|xterms|xs|rxvt ti@:te@
+
+# make ctrl-a work in screen (goes to beginning of line) by remapping screen's shortcut
+escape ^Zz
+
+#altscreen on
+#autodetach on
+#bell_msg ""
+#bind o focus
+#defflow off
+#defscrollback 1024
+#nonblock on
+shell zsh
+#startup_message off
+#vbell on
+#vbell_msg ""
+
+#bind P paste .
+
+# hardstatus alwayslastline "%{wk}%n%f %t | %?%-Lw%?%{wb}%n*%f %t%?(%u)%?%{wk}%?%+Lw%?"
+# termcapinfo rxvt* 'hs:ts=\E]2;:fs=\007:ds=\E]2;\007'
+#hardstatus string "%h"
+#caption always "%{= kW}%-Lw%{=b kW}%n* %t%{= kW}%+Lw"
+
+# bindkey "[1;3D" prev
+# bindkey "[1;3C" next
+# bindkey "[1;9D" prev
+# bindkey "[1;9C" next
+# bindkey "OD" prev
+# bindkey "OC" next
+
+#bindkey "^[Od" prev  # change window with ctrl-left
+#bindkey "^[Oc" next  # change window with ctrl-right
+#bindkey "^[[1;9D" prev
+#bindkey "^[[1;9C" next
+#bindkey "^[^[OD" prev
+#bindkey "^[^[OC" next
+
+# Bind F11 and F12 (NOT F1 and F2) to previous and next screen window
+# bindkey -k F1 prev
+# bindkey -k F2 next
+
+# startup_message off
+
+# Window list at the bottom.
+# hardstatus alwayslastline
+# hardstatus string "%-w%{= BW}%50>%n %t%{-}%+w%<"
+
+# From Stephen Shirley
+# Don't block command output if the terminal stops responding
+# (like if the ssh connection times out for example).
+# nonblock on
