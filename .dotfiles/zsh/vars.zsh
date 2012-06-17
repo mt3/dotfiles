@@ -83,6 +83,9 @@ export PATH=$PATH:/usr/local/share/python:/usr/local/python/site-packages
 #export PYTHONPATH=/usr/local/share/python:/usr/local/python/site-packages:/Library/Frameworks/Python.framework/Versions/2.6/bin:/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/site-packages:/usr/local/lib/python2.6/site-packages/
 export PYTHONPATH=/usr/local/share/python:/usr/local/python/site-packages:/usr/local/lib/python2.7/site-packages:/usr/local/Cellar/python/2.7.2/lib/python2.7
 
+# place fabric files on pythonpath
+export PYTHONPATH=$PYTHONPATH:/Users/mt/code_and_projects/sysadmin-and-deployment/fabfiles
+
 # override python default of 64-bit mode
 export VERSIONER_PYTHON_PREFER_32_BIT=yes
 
