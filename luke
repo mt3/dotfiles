@@ -1,0 +1,6 @@
+#Thu Aug 04 19:18:04 PDT 2011
+luke.mru_size=10
+luke.mru.0=/Users/mt/developer/software/apache-solr-3.3.0/example/solr/data/index
+luke.theme=0
+luke.fontname=sansserif.plain
+luke.fontsize=12
