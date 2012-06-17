@@ -156,10 +156,15 @@
         Bundle 'gmarik/vundle'
 
         " Colorscheme
-        " Bundle 'molokai'
-        " Bundle 'nelstrom/vim-mac-classic-theme'
-        " Bundle 'altercation/vim-colors-solarized'
-        " Bundle 'gmarik/ingretu'
+        Bundle 'sjl/badwolf'
+        Bundle 'altercation/vim-colors-solarized'
+        Bundle 'tomasr/molokai'
+        Bundle 'nelstrom/vim-mac-classic-theme'
+        Bundle 'altercation/vim-colors-solarized'
+        Bundle 'gmarik/ingretu'
+        Bundle 'nvie/vim-rst-tables'
+        Bundle 'Twinside/vim-hoogle'
+        Bundle 'Bogdanp/quicksilver.vim'
 
         " if has("gui_running")
         "   colorscheme ingretu
@@ -227,6 +232,10 @@
         " " bubble visual selection lines
         " vmap <M-j> ]egv
         " vmap <M-k> [egv
+
+        " notational velocity on vim
+        "TODO: cuases startup error if oath not set correct
+        "Bundle 'fmoralesc/vim-pad'
 
         " Bundle 'repeat.vim'
         " Bundle 'surround.vim'
@@ -306,18 +315,18 @@
         " nnoremap <leader>tr :topleft :vsplit config/routes.rb<cr>
         " nnoremap <leader>tg :topleft :vsplit Gemfile<cr>
 
+        Bundle 'hsitz/VimOrganizer'
+        " Bundle 'sickill/vim-pasta'
+
         " " Haskell {{{
             " Bundle 'Twinside/vim-syntax-haskell-cabal'
             " Bundle 'lukerandall/haskellmode-vim'
         " " }}}
 
         " " Colors {{{
-            " Bundle 'sjl/badwolf'
-            " Bundle 'altercation/vim-colors-solarized'
-            " Bundle 'tomasr/molokai'
         " }}}
 
-        " filetype plugin indent on
+        filetype plugin indent on
     " }}}
 " }}}
 
@@ -383,6 +392,13 @@
 
     let &cpo=s:cpo_save
     unlet s:cpo_save
+
+    " allow arrow keys when code completion window is up
+    "inoremap <Down> <C-R>=pumvisible() ? "\<lt>C-N>" : "\<lt>Down>"<CR>
+
+    " * and # search for next/previous of selected text when used in visual mode
+    " vnoremap * y/<C-R>"<CR>
+    " vnoremap # y?<C-R>"<CR>
 
     " TODO: document
     " if MySys() == "mac"
@@ -631,7 +647,7 @@
     set showcmd " <leader> key appears in right hand corner of vim (to the left of the cursor location) and it disappears when the timeout happens
     set hidden " buffers can be hidden (vim acts like all other editors)
     set report=0 " Always report changes
-    set wildmenu " show list instead of just completing
+    set wildmenu " Autocomplete features in the status bar. show list instead of just completing
     " set wildmode=list:longest
     set wildmode=list:longest,full	" command <Tab> completion, list matches, then longest common part, then all
     set history=200
@@ -966,7 +982,7 @@
         let expansionString = repeat(".", w - strwidth(foldSizeStr.line.foldLevelStr.foldPercentage))
         return line . expansionString . foldSizeStr . foldPercentage . foldLevelStr
     endf
-    set foldtext=FoldText()
+    " set foldtext=FoldText()
 
     " function FoldBrace()
     "   " fold a java/c block to include the function prototype
@@ -1022,7 +1038,7 @@
 
     " STAUTUSLINE settings & options
     " also see http://zfsu709.blogspot.com/2010/07/vim-statusline.html
-    " %= right-aligns anything following it
+    " %=     right-aligns anything following it
     " %f     file path
     " %y     file type between braces (if defined)
     " %([%R%M]%)   read-only, modified and modifiable flags between braces
@@ -1036,11 +1052,23 @@
     " #%n    buffer number
     " %l/%L,%c%V   linenumber, total number of lines, and column number
     " %{} TODO
+    " statusline+=%m   " Modified flag.
+    " statusline+=%r   " Readonly flag.
+    " statusline+=%w   " Preview window flag.
+    " statusline+=\    " Space.
+    " statusline+=%#redbar#                " Highlight the following as a warning.
+    " statusline+=%{SyntasticStatuslineFlag()} " Syntastic errors.
+    " statusline+=%*                           " Reset highlighting.
+    " " File format, encoding and type.  Ex: "(unix/utf-8/python)"
+    " set statusline+=(
+    " set statusline+=%{&ft}                        " Type (python).
+    " set statusline+=)
+    " set statusline+=\ (L%l\/%L,\ C%03c)   " Line and column position and counts.
     " set statusline+=\ %{HasPaste()}%F%m%r%h\ %w\ CWD:\ %r%{CurDir()}%h\ \ \ Line:\ %l/%L:%c\
     set statusline+=\ %{HasPaste()}%F%m%r%h\ %w\ \ \ %=%l/%L:%c\ \ %p%%
 
     if has("gui_running")
-        colorscheme my-macvim
+        colorscheme lightdark
         " colorscheme github
         " colorscheme cleanroom
         set guifont=Droid\ Sans\ Mono:h13.3
@@ -1112,7 +1140,7 @@
         "au FileType python map <buffer> <leader>D ?def
 
         " run a quick static syntax check every time we save a Python file
-        autocmd BufWritePost *.py call Flake8()
+        " autocmd BufWritePost *.py call Flake8()
     " }}}
 
     " Help File Settings {{{
@@ -1148,6 +1176,12 @@
 
     " Git {{{
         autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
+        autocmd FileType git,gitcommit setlocal textwidth=72
+    " }}}
+
+    " Mail {{{
+        " Insert Vim-version as X-Editor in mail headers
+        au FileType mail sil 1  | call search("^$") | sil put! ='X-Editor: Vim-' . Version()
     " }}}
 
     " C {{{
@@ -1192,9 +1226,15 @@
         endfunction
     " }}}
 
+    " reStructured Text {{{
+        au BufNewFile,BufRead *.rst set ft=rst
+        au Filetype rst setlocal wrap
+        " au FileType rst highlight Type guifg=DarkBlue
+    " }}}
+
     " Text {{{
         " autocmd BufRead,BufNewFile {*.txt,*.text} set wrap linebreak spell
-        autocmd BufRead,BufNewFile {*.txt,*.text} set wrap linebreak
+        autocmd BufRead,BufNewFile {*.txt,*.text} setlocal wrap linebreak
         autocmd BufRead,BufNewFile {*.txt,*.text} setlocal guifont=Inconsolata-dz:h13
         " auto wrap .txt files to 80 characters
         " autocmd BufRead,BufNewFile *.txt set formatoptions+=t
@@ -1210,9 +1250,10 @@
     " }}}
 
     " Textile {{{
-        autocmd BufRead,BufNewFile {*.textile} set wrap linebreak
+        " autocmd BufRead,BufNewFile {*.textile} set wrap linebreak
+        autocmd BufRead,BufNewFile {*.textile} setlocal wrap
         autocmd BufRead,BufNewFile {*.textile} setlocal guifont=Inconsolata-dz:h13
-        autocmd BufRead,BufNewFile {*.textile} setlocal hi Todo guifg=Black guibg=#e02020 gui=italic,bold "TODO: not working
+        " autocmd BufRead,BufNewFile {*.textile} setlocal hi Todo guifg=Black guibg=#e02020 gui=italic,bold "TODO: not working
     " }}}
 
     " YAML {{{
@@ -1603,4 +1644,4 @@
 " source /Users/mt/.vim/ohmyvim/ohmyvim.vim
 
 
-" vim: set ft=vim
+" vim: set ft=vim:
