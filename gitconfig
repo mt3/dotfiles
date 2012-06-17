@@ -42,14 +42,12 @@
     # cvv = !git-cv
     d = diff --word-diff
     dc = diff --cached
+    df = diff --word-diff
     diffstat = diff --stat
     ds = diff --stat
     filelog = log -u # show changes to a file
     # amend to a previous commit
-    fixup = !sh -c 'git commit --fixup $1 && \
-                  git stash && \
-                  git rebase -i $1~1 && \
-                  git stash pop' -
+    fixup = !sh -c 'git commit --fixup $1 && git stash && git rebase -i $1~1 && git stash pop' -
     # fp = format-patch --stdout
     # fetch from all remotes and reset to origin/master
     fresh = !git fetch --all && git reset --hard origin/master -
@@ -64,6 +62,7 @@
     l = log --pretty=format:\"%Cgreen%ad%Creset | %s%d [%Cblue%an%Creset]\" --ignore-all-space --ignore-space-change --graph --date=relative --graph --max-count=10 --since=\"1 month ago\" --stat
 	la = !git ll --all
 	lal = log --graph --abbrev-commit --date=relative --all
+	lall = log --graph --pretty="format:%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset" --since="1 week ago"
     last = log -1
     lg = log --oneline --decorate --ignore-all-space --ignore-space-change --date=relative --graph --max-count=10 --since=\"1 month ago\" --stat
     lgg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
@@ -121,7 +120,7 @@
     up = pull --rebase
     vimdiff = difftool -y -t mvimdiff # type "git vimdiff" to view a diff in macvim
     w = !hub browse
-    wc = whatchanged
+    wc = whatchanged -n 1
     # wip = !git add -u && git commit -m ...
     # wipc = !date >> WIP && git add WIP && git commit -m ...
     wp = whatchanged -p
@@ -222,3 +221,5 @@
 
 [mergetool]
 	keepBackup = true
+
+# vim: set ft=.gitconfig:
