@@ -17,7 +17,7 @@ setopt auto_list            # list choice on ambiguous command
 setopt auto_menu            # show menu for completion
 # setopt AUTO_PUSHD         # automatically append dirs to the push/pop list
 setopt AUTO_REMOVE_SLASH    # remove trailing directory slash
-setopt BANG_HIST		    # Allow ! for accessing history 
+setopt BANG_HIST		    # Allow ! for accessing history
 setopt cdablevars              # avoid the need for an explicit $. try to expand the expression as if it were preceded by ~
 #cdpath=(~ ~/Projects)          #TODO: what does this do?
 autoload -U colors && colors
@@ -54,16 +54,31 @@ setopt PUSHD_IGNORE_DUPS        # Don’t push multiple directories on stack
 setopt PROMPT_SUBST             # Allow for functions in the prompt. Turns on command substitution in the prompt (and parameter expansion and arithmetic expansion)
 # setopt REC_EXACT                # exact completions are good even if ambiguous
 # setopt RM_STAR_SILENT         # Don’t warn on rm *
+autoload -Uz vcs_info
+zstyle ':vcs_info:*' enable hg git bzr svn
+zstyle ':vcs_info:*+*:*' debug true
+zstyle ':vcs_info:git*:*' get-revision true
+zstyle ':vcs_info:git*:*' check-for-changes true
 #setopt vi                      # use vi bindkeys. same as 'bindkey -v'
 # autoload -U zargs             # an alternative to find, -exec, and xargs
-# setopt ZLE                    # Use zsh line editor. Set by default in interactive shells connected to a terminal
+# autoload -U zgitinit; zgitinit
+autoload zkbd
+setopt ZLE                    # Use zsh line editor. Set by default in interactive shells connected to a terminal
 # autoload -U zmv               # a command for renaming files by means of shell patterns (like 'mv'cmd)
-
+zmodload zsh/terminfo
+zmodload zsh/zleparameter
+zmodload zsh/zutil
 
 
 # remove duplicate entries from path,cdpath,manpath & fpath
 typeset -U path cdpath manpath fpath
 
+
+# load all available modules at startup
+# typeset -U m
+# m=()
+# for md ($module_path) m=($m $md/**/*(*e:'REPLY=${REPLY#$md/}'::r))
+# zmodload -i $m
 
 
 # Completions general setup and config
@@ -127,7 +142,7 @@ zstyle ':completion:*' file-sort name
 zstyle ':completion:*' squeeze-slashes true
 
 # formatting and messages
-zstyle ':completion:*' verbose yes
+zstyle ':completion:*' verbose no
 zstyle ':completion:*:descriptions' format $'%{\e[0;31m%}%d%{\e[0m%}'
 zstyle ':completion:*:messages' format $'%{\e[0;31m%}%d%{\e[0m%}'
 zstyle ':completion:*:warnings' format $'%{\e[0;31m%}No matches for: %d%{\e[0m%}'
@@ -162,6 +177,47 @@ zstyle ':completion:*:dvips:*' files '*.dvi'
 # Fall into menu selection immediately sorted by time
 # zstyle ':completion:*:*:xdvi:*' menu yes select
 # zstyle ':completion:*:*:xdvi:*' file-sort time
+
+
+function zle-line-init zle-keymap-select {
+    # Change cursor based on Vi mode and also tmux/screen state
+    # change color of cursor
+    if [ $KEYMAP = vicmd ]; then
+        if [[ $TMUX = '' ]]; then
+            echo -ne "\033]12;Red\007"
+        else
+            printf '\033Ptmux;\033\033]12;red\007\033\\'
+        fi
+    else
+        if [[ $TMUX = '' ]]; then
+            echo -ne "\033]12;Grey\007"
+        else
+            printf '\033Ptmux;\033\033]12;grey\007\033\\'
+        fi
+    fi
+
+    # change cursor to block, underline, or pipe
+    # TODO: change from not only color, but also whether the cursor is a block or a pipe
+    case $KEYMAP in
+        vicmd) print -rn -- $terminfo[cvvis];; # block cursor
+        viins) print -rn -- $terminfo[cnorm];; # less visible cursor
+    esac
+
+    RPS1="${${KEYMAP/vicmd/-- NORMAL --}/(main|viins)/-- INSERT --}"
+    RPS2=$RPS1
+
+    # for iterm
+    # ^[]50;CursorShape=N^G
+    # where N=0:Block, 1:Vertical bar, 2:Underline
+
+    zle reset-prompt
+}
+# zle-line-init () {
+#     zle -K viins
+#     echo -ne "\033]12;Grey\007"
+# }
+zle -N zle-keymap-select
+zle -N zle-line-init
 
 
 
