@@ -33,7 +33,7 @@
     hi Cursor       guibg=Black     guifg=White     gui=none    ctermbg=241
     hi iCursor      guifg=Gray      guibg=Blue
     hi Insert       guifg=Black     guibg=Blue
-    hi CursorLine   guibg=White     gui=none    term=reverse
+    hi CursorLine   guibg=White     gui=none        term=reverse
     " hi CursorLine   guifg=#0080ff     guibg=White     gui=none    term=reverse
     "hi CursorLine  guifg=#2a2a2a   guibg=#eaeaea   gui=none    term=reverse
     hi CursorColumn guibg=#333333   guifg=NONE
@@ -48,8 +48,8 @@
     hi Search       NONE term=underline guifg=Black guibg=Yellow
     hi IncSearch    NONE term=underline guifg=Black guibg=LightYellow
 
-    hi Folded 		guibg=#384048   guifg=White     gui=none ctermbg=4 ctermfg=248
-    hi FoldColumn   guifg=Blue      guibg=#f6f6f6   ctermfg=DarkBlue ctermbg=LightGrey
+    hi Folded 		guifg=#aaddff   guibg=#898989     gui=none            ctermbg=4           ctermfg=248
+    hi FoldColumn   guifg=Blue      guibg=#f6f6f6   ctermfg=DarkBlue    ctermbg=LightGrey
     "hi link FoldColumn Folded
 
     hi Title		guifg=#f6f3e8   guibg=NONE	    gui=bold ctermfg=254 cterm=bold
