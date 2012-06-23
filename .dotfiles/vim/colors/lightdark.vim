@@ -10,7 +10,7 @@
     runtime macvim.vim
 
     " Override the name of the base colorscheme with the name of this custom one
-    let g:colors_name = "my-macvim"
+    let g:colors_name = "lightdark"
 " }}}
 
 
