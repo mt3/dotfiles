@@ -38,6 +38,7 @@
     co = checkout
     compare = !hub compare
 	current-branch = "!r=$(git symbolic-ref HEAD);echo ${r##refs/heads/}"
+    currentbranch = !git branch --contains HEAD | grep '*' | tr -s ' ' | cut -d ' ' -f2
     cv = commit --verbose
     # cvv = !git-cv
     d = diff --word-diff
@@ -48,13 +49,18 @@
     filelog = log -u # show changes to a file
     # amend to a previous commit
     fixup = !sh -c 'git commit --fixup $1 && git stash && git rebase -i $1~1 && git stash pop' -
+    fo = fetch origin
+    fu = fetch upstream
     # fp = format-patch --stdout
     # fetch from all remotes and reset to origin/master
     fresh = !git fetch --all && git reset --hard origin/master -
+    gl = !git lg $(git show-ref | cut -d \" \" -f 2 | grep -v stash$)
+    gll  = log -12 --color=always --all --graph --topo-order --pretty='format:%Cgreen%h%Creset %s %C(black bold)(by %an)%Creset%C(yellow bold)%d%Creset%n'
+    glll = log     --color=always --all --graph --topo-order --pretty='format:%Cgreen%h%Creset %s %C(black bold)(by %an)%Creset%C(yellow bold)%d%Creset%n'
+    glog = !git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset' --abbrev-commit
     # grab = !git-grab
 	graft = !legit graft \"$@\"
     graph = log --oneline --graph
-    gl = !git lg $(git show-ref | cut -d " " -f 2 | grep -v stash$)
     greplog = log -U1 -G
 	harvest = !legit harvest \"$@\"
 	ignored = status --ignored
@@ -121,6 +127,11 @@
     vimdiff = difftool -y -t mvimdiff # type "git vimdiff" to view a diff in macvim
     w = !hub browse
     wc = whatchanged -n 1
+    wc6h = !git whatchanged --since=\"6 hours ago\" --format=oneline
+    wc2d = !git whatchanged --since=\"2 days ago\" --format=oneline
+    wc6d = !git whatchanged --since=\"6 days ago\" --format=oneline
+    wc1w = !git whatchanged --since=\"1 week ago\" --format=oneline
+    wc1m = !git whatchanged --since=\"1 month ago\" --format=oneline
     # wip = !git add -u && git commit -m ...
     # wipc = !date >> WIP && git add WIP && git commit -m ...
     wp = whatchanged -p
