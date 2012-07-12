@@ -1,7 +1,7 @@
-# ZSH Tab Completions 
-##################################
+# ZSH Tab Completions
+#######################
 
-# cheat completion {{{1
+# cheat completion {{{
 if [[ -x $(which cheat) ]]; then
     #completion for cheat
     if [ ! -r ~/.cheat_completion ]; then
@@ -12,6 +12,7 @@ if [[ -x $(which cheat) ]]; then
     # complete -W "$(cat ~/.cheat_completion)" cheat
 fi;
 ### end cheat zsh completion
+#}}}
 
 
 
@@ -26,7 +27,7 @@ fi;
 # typeset -U fpath
 
 echo "\e[1m\e[35mFinished loading homebrew completions\e[0m"
-### end homebrew zsh completion
+### end homebrew zsh completion }}}
 
 
 
@@ -69,7 +70,7 @@ elif compctl &>/dev/null; then
   compctl -K _npm_completion npm
 fi
 echo "\e[1m\e[35mFinished loading npm completions\e[0m"
-###-end-npm-completion-###
+###-end-npm-completion-### }}}
 
 
 # pip command completion {{{1
@@ -82,19 +83,20 @@ function _pip_completion {
                  PIP_AUTO_COMPLETE=1 $words[1] ) )
 }
 compctl -K _pip_completion pip
-# pip zsh completion end
+# pip zsh completion end }}}
 
 
 # scm_breeze completion {{{1
 [ -s "~/.scm_breeze/scm_breeze.sh" ] && . "~/.scm_breeze/scm_breeze.sh"
 echo "\e[1m\e[35mFinished loading scm_breeze completions\e[0m"
-# end scm_breeze completion
+# end scm_breeze completion }}}
 
 
 # SSH completion {{{1
 #TODO: this was in bash, implement for zsh
 # tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 # [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
+# }}}
 
 
 # Completion on Mac to be /Applications/ aware {{{1
@@ -106,16 +108,28 @@ echo "\e[1m\e[35mFinished loading scm_breeze completions\e[0m"
 #     -- open
 #     alias run='open -a'
 # fi
-### end Completion on Mac to be /Applications/ aware
+### end Completion on Mac to be /Applications/ aware }}}
 
+
+# pip zsh completion start
+function _pip_completion {
+  local words cword
+  read -Ac words
+  read -cn cword
+  reply=( $( COMP_WORDS="$words[*]" \
+             COMP_CWORD=$(( cword-1 )) \
+             PIP_AUTO_COMPLETE=1 $words[1] ) )
+}
+compctl -K _pip_completion pip
+# pip zsh completion end }}}
 
 
 # rvm completion {{{1
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 echo "\e[1m\e[35mFinished loading rvm completions\e[0m"
-### end rvm completion
+### end rvm completion }}}
 
 
 echo "\e[1m\e[32mFinished loading completions.zsh\e[0m"
 
-# vim: set filetype=zsh:
+# vim: set filetype=zsh set foldmarker={{{,}}}:
