@@ -1,4 +1,5 @@
 " TODO {{{
+    " when loading vimrc, display errors/conflicts verbosely and also prompt user to hit key to clear the errors
     " use plugins with vundle instead of pathogen. looks like a good way to combine the plugin's settings nearby its load cmd
     " when toggling comments, make sure code doesn't start w/ a space, whereas actual comments do
     " convert everything to use Vundle. see Vundle section in https://github.com/gmarik/vimfiles/blob/master/vimrc
@@ -8,7 +9,7 @@
     " always open macvim with split pane with the vim help file or whatever info pane (2/3 file, 1/3 help) <C-w> T moves current pane to its own tab. <C-w> 20 < shrinks width of the pane by 20.
     " display errors to logfile or logbuffer, mostly whenever we reload/source .vimrc
     " a line with a todo should have darkened background for the rest of the line after the todo
-    " have vim's help page open in a horizontal split pane (on right), not vertical 'splitright' instead of 'splitbelow'?
+    " have vim's help page open in a horizontal split pane (on right), not vertical 'splitright' instead of 'splitbelow'
     " get rid of string highlights in vim files while in the body of a comment such as "this"
         " (check ':set comments?' for what this ftype is using)
         " ':set comments' for c++ file is 'comments=sO:* -,mO:*  ,exO:*/,s1:/*,mb:*,ex:*/,://'. for vim files it is 'comments=sO:" -,mO:"  ,eO:"",:"'
@@ -36,7 +37,6 @@
     " delete LOAD PLUGINS once i get pathogen back up and running
     " have code pasted into vim automatically be indented and formatted properly as per context
     " auto align/format columnar settings/configurations w/ shortcut
-    " install textile syntax highlighter
     " 'map <leader>uw lowercase' or 'map gu lowercase'
     " map <leader>Uw uppercase or 'map gU lowercase'
     " save a workspace/layout, along with tmux settings (see wemux, or vim-mux, etc.)
@@ -53,18 +53,7 @@
     filetype off " need to turn off filetype for pathogen
     " To disable a plugin, add it's bundle name to the following list
     let g:pathogen_disabled = []
-    " call add(g:pathogen_disabled, 'vimpy')
-    " call add(g:pathogen_disabled, 'simplenote')
-    " call add(g:pathogen_disabled, 'tasklist')
-    " call add(g:pathogen_disabled, 'minibufexplorer')
-    " call add(g:pathogen_disabled, 'vim-django')
 
-    "source /code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/vim/bundle/vim-pathogen/autoload/pathogen.vim
-    "set runtimepath=/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/vim,$VIMRUNTIME
-
-    ""call pathogen#runtime_append_all_bundles() "TODO not used anymore? use infect()?
-    "call pathogen#infect('/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/vim/bundle')
-    "call pathogen#helptags()
     syntax on
     filetype on
     filetype plugin indent on
@@ -88,35 +77,15 @@
     helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/coveragepy/doc
     set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/coveragepy
 
-    " source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/vim-fugitive/plugin/fugitive.vim
-    " helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/vim-fugitive/doc
-    " set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/vim-fugitive
-
-    " source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/gitv/plugin/gitv.vim
-    " helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/gitv/doc
-    " set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/gitv
-
     source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/jacinto.vim/plugin/jacinto.vim
     " helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/jacinto/doc
     set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/jacinto.vim
-
-    " source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/nerdtree/plugin/NERD_tree.vim
-    " helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/nerdtree/doc
-    " set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/nerdtree
-
-    " source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/syntastic/plugin/syntastic.vim
-    " helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/syntastic/doc
-    " set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/syntastic
-
-    " source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/tagbar/plugin/tagbar.vim
-    " helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/tagbar/doc
-    " set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/tagbar
 
     source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/tcomment_vim/plugin/tcomment.vim
     helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/tcomment_vim/doc
     set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/tcomment_vim
 
-    " LOAD PLUGINS VIA VUNDLE {{{
+" LOAD PLUGINS VIA VUNDLE
         "
         filetype off
 
@@ -126,13 +95,14 @@
         Bundle 'gmarik/vundle'
         " }}}
 
-        " Colorscheme {{{
-        Bundle 'sjl/badwolf'
-        Bundle 'altercation/vim-colors-solarized'
-        Bundle 'tomasr/molokai'
-        Bundle 'nelstrom/vim-mac-classic-theme'
-        Bundle 'altercation/vim-colors-solarized'
-        Bundle 'gmarik/ingretu'
+        " Colorschemes {{{
+            Bundle 'sjl/badwolf'
+            Bundle 'altercation/vim-colors-solarized'
+            Bundle 'tomasr/molokai'
+            Bundle 'nelstrom/vim-mac-classic-theme'
+            Bundle 'altercation/vim-colors-solarized'
+            Bundle 'gmarik/ingretu'
+            Bundle 'Rykka/galaxy.vim'
         " }}}
 
         " TODO Bundle 'SuperTab'
@@ -146,6 +116,7 @@
         Bundle 'davidoc/taskpaper.vim'
         Bundle 'mileszs/ack.vim'
         Bundle 'tsaleh/vim-align'
+        Bundle 'yesmeck/tips.vim'
         " Bundle 'twe4ked/vim-peepopen'
         " Bundle 'tpope/vim-endwise'
         " Bundle 'tpope/vim-haml'
@@ -159,8 +130,11 @@
         Bundle 'scrooloose/nerdtree'
         " Bundle 'scrooloose/vim-space'
         Bundle 'scrooloose/syntastic'
-        Bundle 'msanders/snipmate.vim'
+            let g:syntastic_enable_highlighting=1
+        " Bundle 'msanders/snipmate.vim'
         Bundle 'sjl/threesome.vim'
+        Bundle 'kshenoy/vim-signature'
+        " Bundle 'zef/vim-cycle'
         " Bundle 'nelstrom/vim-textobj-rubyblock'
         " Bundle 'kana/vim-textobj-user'
         Bundle 'chrismetcalf/vim-yankring'
@@ -187,18 +161,28 @@
         Bundle 'skibyte/gdb-from-vim'
         Bundle 'mbadran/headlights'
         Bundle 'majutsushi/tagbar'
+        Bundle 'myusuf3/numbers.vim'
+        Bundle 'b4winckler/vim-objc'
         Bundle 'https://github.com/vim-scripts/vmark.vim--Visual-Bookmarking.git'
+        " Bundle 'SirVer/ultisnips'
+        Bundle 'greyblake/vim-preview'
+        " Bundle 'Rykka/mathematic.vim'
+        Bundle 'Rykka/colorv.vim'
+        Bundle 'Rykka/riv.vim'
+            let g:riv_fold_blank=1
+            let g:riv_fold_level=2
+        Bundle 'mattn/calendar-vim'
+        "TODO this is an hg repo Bundle 'hg clone ssh://hg@bitbucket.org/abudden/taghighlight'
+        " Bundle 'mattn/benchvimrc-vim'
         " Bundle 'embear/vim-longlines'
         " Bundle 'vim-scripts/utl.vim'
-        Bundle 'vim-scripts/vimwiki'
+        " Bundle 'vim-scripts/vimwiki'
         " TODO: this has an error Bundle 'vim-scripts/searchfold.vim'
 
-        Bundle 'vim-scripts/taglist.vim' " {{{
+        Bundle 'vim-scripts/taglist.vim'
             "map <F4> :TlistToggle<cr>
-
             " set location(s) of tags folders
             "set tags+=$HOME/.vim/tags/python.ctags
-
             let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
             let Tlist_WinWidth = 55
             let Tlist_Use_Right_Window=1 " show TagList window on the right
@@ -209,12 +193,9 @@
             " let Tlist_Inc_Winwidth=1            " increase window by 1 when growing
             "let Tlist_Close_On_Select = 1
             "let Tlist_File_Fold_Auto_Close = 1
-
             nmap <leader>t :TlistToggle<CR>
-
             " build tags for current directory
             " map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-
             " auto update ctags when file is written
             " function! UPDATE_TAGS()
             "     let _f_ = expand("%:p")
@@ -225,7 +206,6 @@
             "     unlet _resp
             " endfunction
             " autocmd BufWritePost *.cpp,*.h,*.c call UPDATE_TAGS()
-        " }}}
 
         Bundle 'Lokaltog/vim-powerline'
             let g:Powerline_symbols = 'fancy'
@@ -240,7 +220,11 @@
             let g:EasyMotion_leader_key='<LocalLeader>'
 
         Bundle 'mrtazz/simplenote.vim'
-            source ~/.simplenoterc
+            if filereadable("~/.simplenoterc")
+                source ~/.simplenoterc
+            endif
+            let g:SimplenoteVertical=1 " scratch buffer is opened as a vsplit rather than hsplit
+            " let g:SimplenoteFiletype=rst "TODO allow for a config of 'setlocal filetype=rst'
 
         " notational velocity on vim (nothing to do with simplenote)
         Bundle 'fmoralesc/vim-pad'
@@ -261,14 +245,13 @@
             " com! ONRRB :au! BufWritePost <buffer> :RRB
             " com! NORRB :au! BufWritePost <buffer>
 
-        Bundle 'tpope/vim-unimpaired' " {{{
+        Bundle 'tpope/vim-unimpaired'
             " bubble current line
             " nmap <M-j> ]e
             " nmap <M-k> [e
             " bubble visual selection lines
             " vmap <M-j> ]egv
             " vmap <M-k> [egv
-        " }}}
 
         " TODO Bundle 'Indent-Guides'
             " let g:indent_guides_guide_size = 1
@@ -307,9 +290,9 @@
             " nnoremap <leader>gn :vnew \| :FufFile ~/src/notes/<CR>
         " }}}
 
-        Bundle 'vim-scripts/TaskList.vim' " {{{ organizes TODO, FIXME, etc.
+        Bundle 'vim-scripts/TaskList.vim'
+            " plugin organizes TODO, FIXME, etc.
             "map <leader>td <Plug>TaskList
-        " }}}
 
         " non github repos
         "Bundle 'git://git.wincent.com/command-t.git'
@@ -318,7 +301,7 @@
         " Bundle 'gmarik/snipmate.vim'
         " Bundle 'honza/snipmate-snippets'
 
-        Bundle 'wincent/Command-T.git' " {{{
+        Bundle 'wincent/Command-T.git'
             " let g:CommandTMatchWindowAtTop=1 " show window at top
             " "burke's
             " nnoremap <leader>tv :CommandTFlush<cr>\|:CommandT app/views<cr>
@@ -329,7 +312,6 @@
             " nnoremap <leader>tp :CommandTFlush<cr>\|:CommandT public<cr>
             " nnoremap <leader>tr :topleft :vsplit config/routes.rb<cr>
             " nnoremap <leader>tg :topleft :vsplit Gemfile<cr>
-        " }}}
 
         " Python {{{
             Bundle 'sunsol/vim_python_fold_compact'
@@ -342,11 +324,10 @@
         " Haskell {{{
             " Bundle 'Twinside/vim-syntax-haskell-cabal'
             " Bundle 'lukerandall/haskellmode-vim'
-            Bundle 'bitc/lushtags'
+            " Bundle 'bitc/lushtags'
         " }}}
 
         filetype plugin indent on
-    " }}}
 " }}}
 
 " MAPPINGS {{{
@@ -354,6 +335,7 @@
     "remap left/right arrow keys for tab next/previous
     map <Left> gT
     map <Right> gt
+
     imap <D-BS> 
     imap <M-BS> 
     imap <M-Down> }
@@ -427,9 +409,13 @@
     " endif
 
     " Tab or Shift-Tab indents/unidents selected line(s)
+    vunmap <S-Tab>
     vnoremap <S-Tab> <gv
+    vunmap <Tab>
     vnoremap <Tab>	 >gv
+    nunmap <S-Tab>
     nnoremap <S-Tab> <<
+    nunmap <Tab>
     nnoremap <Tab>	 >>
     " Textmate-style indentation shortcuts
     vnoremap <D-<> <gV
@@ -454,7 +440,9 @@
     nmap <D-t> :echo "hello " &shell<CR>
 
     " map Enter key to add new line above/below and return to visual mode
+    unmap <CR>
     nmap <CR> o<ESC>0
+    unmap <S-CR>
     nmap <S-CR> O<ESC>0
 
     " TODO all help calls run in a vertical window to the right
@@ -464,9 +452,9 @@
     nnoremap <leader>v <C-w>v<C-w>l
 
     " Remap j and k to act as expected when used on long, wrapped, lines
-    " TODO: relativenumber in column becomes useless then
-    nnoremap j gj
-    nnoremap k gk
+    " TODO: relativenumber in column becomes useless if this is enabled
+    "nnoremap j gj
+    "nnoremap k gk
     " Map the arrow keys to be based on display lines, not physical lines
     map <Down> gj
     map <Up> gk
@@ -499,17 +487,13 @@
     nnoremap <C-v> v
 
     " make e go to end of line and get ready to type in insert mode if shift-e
-    nmap e $
+    " nmap e $
     nmap E $a<SPACE>
 
     " Bash like keys for the command line
     "cnoremap <C-A>      <Home>
     "cnoremap <C-E>      <End>
     "cnoremap <C-K>      <C-U>
-
-    " ,t to show tags window
-    " let Tlist_Show_Menu=1
-    " nmap <leader>t :TlistToggle<CR>
 
     " Quick alignment of text
     nmap <leader>al :left<CR>
@@ -1172,6 +1156,10 @@
         au FileType vim set foldmethod=marker
     " }}}
 
+    " Ruby {{{
+        au BufNewFile,BufRead *.rb setfiletype ruby
+    " }}}
+
     " Vim {{{
         au BufNewFile,BufRead *.vimrc,vimrc setfiletype vim
         au BufNewFile,BufRead *.vim setfiletype vim foldmethod=marker
@@ -1539,7 +1527,9 @@
     " }}}
 
     " Syntastic {{{
-        " TODO: i don't think there's any config for this plugin
+        set statusline+=%#warningmsg#
+        set statusline+=%{SyntasticStatuslineFlag()}
+        set statusline+=%*
     " }}}
 
     " Tabularize {{{
