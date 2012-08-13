@@ -141,6 +141,7 @@
         " Bundle 'michaeljsmith/vim-indent-object'
         Bundle 'msanders/snipmate.vim'
         Bundle 'mirell/vim-matchit'
+        Bundle 'timcharper/textile.vim'
         " Bundle 'matthias-guenther/hammer.vim'
         " Bundle 'ecomba/vim-ruby-refactoring'
         " Bundle 'kchmck/vim-coffee-script'
@@ -742,7 +743,7 @@
     set foldlevelstart=0 " 0 is start out with everything folded, -1 is no folding
     set foldcolumn=0 " don't have a fold column displayed beside line numbers
     set foldlevel=5 " nested levels above this number are auto-folded
-    set foldminlines=0
+    set foldminlines=2
     set foldnestmax=5 " deepest fold is 5 levels
     set foldopen=block,hor,insert,jump,mark,percent,quickfix,search,tag,undo " which commands trigger auto-unfold
 
