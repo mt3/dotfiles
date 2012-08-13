@@ -70,6 +70,8 @@
 	lal = log --graph --abbrev-commit --date=relative --all
 	lall = log --graph --pretty="format:%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset" --since="1 week ago"
     last = log -1
+    # 'leftoff' is intended to provide an overview of the state of the repo
+    leftoff = !echo \"\\n*** \t\tSTATUS LIST\" && git status list && echo \"\\n*** \t\tSTATUS\" && git status && echo \"\\n*** \t\tLOG\" && git log --pretty=oneline --abbrev-commit --max-count=10 && echo \"\\n*** \t\tBRANCHES\" && git branch -avv
     lg = log --oneline --decorate --ignore-all-space --ignore-space-change --date=relative --graph --max-count=10 --since=\"1 month ago\" --stat
     lgg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
     list = ls-files
