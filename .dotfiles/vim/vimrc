@@ -70,9 +70,17 @@
 
     set runtimepath=~/code_and_projects/dotfiles/.dotfiles/vim,$VIMRUNTIME
     set statusline=
+
+    if has('mac')
+        set macmeta
+    endif
+
+    if v:version >= 703
+        " does nothing yet
+    endif
 " }}}
 
-" LOAD PLUGINS {{{
+" LOAD PLUGINS (PATHOGEN) {{{
     "
     source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/coveragepy/ftplugin/python/coveragepy.vim
     helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/coveragepy/doc
@@ -88,7 +96,6 @@
 " }}}
 
 " LOAD PLUGINS VIA VUNDLE {{{
-    "
     filetype off
 
     " Vundle setup/config {{{
@@ -105,18 +112,70 @@
         Bundle 'altercation/vim-colors-solarized'
         Bundle 'tomasr/molokai'
         Bundle 'nelstrom/vim-mac-classic-theme'
-        Bundle 'altercation/vim-colors-solarized'
         Bundle 'gmarik/ingretu'
         Bundle 'Rykka/galaxy.vim'
-        Bundle 'nelstrom/vim-mac-classic-theme'
     " }}}
 
     " TODO Bundle 'file-line'
     " TODO Bundle 'lastpos.vim'
     " TODO Bundle 'tlib'
-
     " Bundle 'nvie/vim-rst-tables'
     Bundle 'Twinside/vim-hoogle'
+    Bundle 'ervandew/taglisttoo'
+    Bundle 'ervandew/lookup'
+    Bundle 'ervandew/eclim'
+    Bundle 'chrisbra/CheckAttach'
+    Bundle 'ciaranm/detectindent'
+    Bundle 'mbbill/VimExplorer'
+    Bundle 'mattn/webapi-vim'
+    Bundle 'troydm/pb.vim'
+    Bundle 'troydm/shellasync.vim'
+    Bundle 'sanpii/seeks.vim'
+    " Bundle 'tpope/vim-haml'
+    Bundle 'tpope/vim-repeat'
+    Bundle 'tpope/vim-eunuch'
+    "TODO error with Bundle 'tpope/vim-eunuch'
+    Bundle 'tpope/rhubarb.vim'
+    Bundle 'tsaleh/vim-align'
+    Bundle 'yesmeck/tips.vim'
+    Bundle 'suderman/source.vim'
+    Bundle 'pydave/AsyncCommand'
+    " Bundle 'scrooloose/vim-space'
+    Bundle 'kshenoy/vim-signature'
+    Bundle 'megaannum/forms'
+    Bundle 'sjl/splice.vim'
+    Bundle 'timcharper/textile.vim'
+    Bundle 'ap/vim-css-color'
+    Bundle 'AndrewRadev/switch.vim'
+    Bundle 'matthias-guenther/hammer.vim'
+    " Bundle 'kchmck/vim-coffee-script'
+    " Bundle 'zef/vim-cycle'
+    Bundle 'sickill/vim-pasta'
+    " Bundle 'rstacruz/sparkup.git', {'rtp': 'vim/'}
+    Bundle 'gh:thinca/vim-poslist.git'
+    Bundle 'int3/vim-extradite'
+    " Bundle 'thinca/vim-quickrun.git'
+    Bundle 'gregsexton/gitv'
+    " Bundle 'nelstrom/vim-textobj-rubyblock'
+    " Bundle 'gmarik/sudo-gui.vim'
+    Bundle 'skibyte/gdb-from-vim'
+    Bundle 'mbadran/headlights'
+    Bundle 'myusuf3/numbers.vim'
+    Bundle 'dahu/Chroma'
+    Bundle 'b4winckler/vim-objc'
+    Bundle 'https://github.com/vim-scripts/vmark.vim--Visual-Bookmarking.git'
+    Bundle 'greyblake/vim-preview'
+    " Bundle 'Rykka/mathematic.vim'
+    " Bundle 'Rykka/colorv.vim'
+    Bundle 'vim-pandoc/vim-pandoc'
+    Bundle 'mattn/calendar-vim'
+    "TODO this is an hg repo Bundle 'hg clone ssh://hg@bitbucket.org/abudden/taghighlight'
+    " Bundle 'embear/vim-longlines'
+    " Bundle 'vim-scripts/utl.vim'
+    Bundle 'Shougo/unite.vim'
+    Bundle 'kana/vim-wwwsearch'
+    " TODO: this has an error Bundle 'vim-scripts/searchfold.vim'
+    Bundle 'tomtom/checksyntax_vim'
 
     Bundle 'ervandew/supertab'
         let g:SuperTabMappingTabLiteral="<Tab>"
@@ -126,11 +185,6 @@
         let g:SuperTabLongestEnhanced = 1
         " let g:SuperTabMappingForward = "<C-space>"
         let g:SuperTabNoCompleteAfter = ['^', '\s', '\t']
-
-    Bundle 'ervandew/taglisttoo'
-    " Bundle 'ervandew/screen'
-    Bundle 'ervandew/lookup'
-    Bundle 'ervandew/eclim'
 
     " handle code-folding and outlining of markdown, rst, etc.
     Bundle 'vim-scripts/VOoM'
@@ -142,27 +196,16 @@
         nmap <leader>r <Plug>ActivateQS
         let g:QSMatchFn = "fuzzy"
 
-    Bundle 'davidoc/taskpaper.vim'
-    Bundle 'mbbill/VimExplorer'
-
     Bundle 'bkad/CamelCaseMotion'
         nmap <silent> W <Plug>CamelCaseMotion_w
         xmap <silent> W <Plug>CamelCaseMotion_w
         nmap <silent> B <Plug>CamelCaseMotion_b
         xmap <silent> W <Plug>CamelCaseMotion_b
 
-    Bundle 'chrisbra/CheckAttach'
-    Bundle 'ciaranm/detectindent'
-
     Bundle 'mileszs/ack.vim'
         nmap <leader>a <Esc>:Ack!<space>
         " ack shortcut
         let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-
-    Bundle 'tsaleh/vim-align'
-    Bundle 'yesmeck/tips.vim'
-    Bundle 'suderman/source.vim'
-    Bundle 'pydave/AsyncCommand'
 
     Bundle 'mnick/vim-pomodoro'
         " Duration of a pomodoro in minutes (default: 25)
@@ -174,36 +217,46 @@
         " Path to the pomodoro log file (default: /tmp/pomodoro.log)
         " let g:pomodoro_log_file = "/tmp/pomodoro.log"
 
-    Bundle 'mattn/webapi-vim'
-    Bundle 'troydm/pb.vim'
-    Bundle 'troydm/shellasync.vim'
-    Bundle 'sanpii/seeks.vim'
+    " Vim Utilities {{{
+        Bundle 'kana/vim-textobj-user'
+        Bundle 'kana/vim-textobj-entire'
+        Bundle 'michaeljsmith/vim-indent-object'
+        Bundle 'gmarik/ide-popup.vim'
+        " Bundle 'mattn/benchvimrc-vim'
+    " }}}
+
+    " Commenting {{{
+        " Bundle 'tpope/vim-commentary.git'
+            "nmap <leader>c <Plug>CommentaryLine
+            "xmap <leader>c <Plug>Commentary
+            "au FileType htmldjango setlocal commentstring={#\ %s\ #}
+
+        Bundle 'scrooloose/nerdcommenter'
+            " TODO: see T-comment if this is a duplicate
+            "nmap <leader>c<space>:NERDComToggleComment " TODO this already built-in i believe
+            nmap <leader>/ :call NERDComment(0, "invert")<cr>
+            vmap <leader>/ :call NERDComment(0, "invert")<cr>
+    " }}}
+
+    Bundle 'godlygeek/tabular'
+    " Tabularize {{{ TODO unsure if this is the same as tabular
+        " if exists(":Tabularize")
+        "     nmap <Leader>a= :Tabularize /=<CR>
+        "     vmap <Leader>a= :Tabularize /=<CR>
+        "     nmap <Leader>a: :Tabularize /:<CR>
+        "     vmap <Leader>a: :Tabularize /:<CR>
+        "     nmap <Leader>a:: :Tabularize /:\zs<CR>
+        "     vmap <Leader>a:: :Tabularize /:\zs<CR>
+        "     nmap <Leader>a, :Tabularize /,<CR>
+        "     vmap <Leader>a, :Tabularize /,<CR>
+        "     nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+        "     vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+        " endif
+     " }}}
+
     Bundle 'twe4ked/vim-peepopen'
-    " Bundle 'tpope/vim-haml'
-    Bundle 'tpope/vim-repeat'
-    Bundle 'tpope/vim-eunuch'
-
-    Bundle 'tpope/vim-surround'
-        "let g:surround_{char2nr('-')} = "<% \r %>"
-        "let g:surround_{char2nr('=')} = "<%= \r %>"
-        "let g:surround_{char2nr('8')} = "/* \r */"
-        "let g:surround_{char2nr('s')} = " \r"
-        "let g:surround_{char2nr('^')} = "/^\r$/"
-        "let g:surround_indent = 1
-
-    " Bundle 'tpope/vim-commentary.git'
-        "nmap <leader>c <Plug>CommentaryLine
-        "xmap <leader>c <Plug>Commentary
-        "au FileType htmldjango setlocal commentstring={#\ %s\ #}
-
-    "TODO there is an error with Bundle 'tpope/vim-eunuch'
-    Bundle 'tpope/rhubarb.vim'
-
-    Bundle 'scrooloose/nerdcommenter'
-        " TODO: see T-comment if this is a duplicate
-        "nmap <leader>c<space>:NERDComToggleComment " TODO this already built-in i believe
-        nmap <leader>/ :call NERDComment(0, "invert")<cr>
-        vmap <leader>/ :call NERDComment(0, "invert")<cr>
+        " Quit peepopen when vim exits
+        "let p:peepopen_quit = 1
 
     Bundle 'scrooloose/nerdtree'
         " Put focus to the NERD Tree with F3 (tricked by quickly closing it and immediately showing it again, since there is no :NERDTreeFocus command)
@@ -214,7 +267,7 @@
         nmap <leader>nt :NERDTreeToggle <CR>
         nmap <C-u> :NERDTreeToggle<CR>
         " Store the bookmarks file
-        let NERDTreeBookmarksFile=expand("/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/vim/NERDTreeBookmarks")
+        let NERDTreeBookmarksFile=expand("/code_and_projects/dotfiles/.dotfiles/vim/NERDTreeBookmarks")
         " Show the bookmarks table on startup
         let NERDTreeShowBookmarks=1
         " Set the location of bookmarks for nerdtree.
@@ -245,15 +298,12 @@
         " let g:NERDTreeWinPos = 'right'
         " let g:NERDTreeWinSize = 50
 
-    " Bundle 'scrooloose/vim-space'
-
     Bundle 'scrooloose/syntastic'
         let g:syntastic_enable_highlighting=1
-        " Automatically close syntastic error window when no errors are detected:
+        " Automatically close syntastic error window when no errors are detected
         let g:syntastic_auto_loc_list=2
-        " Mark syntastic errors:
+        " Mark syntastic errors
         let g:syntastic_enable_signs=1
-
 
     Bundle 'sjl/clam.vim'
         " nnoremap ! :Clam<space>
@@ -263,27 +313,27 @@
         " nnoremap <Leader>g :GundoToggle<CR>
         " let g:autotagVerbosityLevel=0
 
-    Bundle 'kshenoy/vim-signature'
-    Bundle 'megaannum/forms'
-    Bundle 'sjl/splice.vim'
-    " Bundle 'zef/vim-cycle'
-
     Bundle 'chrismetcalf/vim-yankring'
-        " show yankring
         "map <leader>yr :YRShow<cr>
-        "let g:yankring_history_dir = '/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/vim/tmp'
+        "let g:yankring_history_dir = '/code_and_projects/dotfiles/.dotfiles/vim/tmp'
         "nnoremap <Leader>y :YRShow<CR>
         "nmap <leader>r :YRShow<CR>
 
-    Bundle 'mirell/vim-matchit'
-    Bundle 'timcharper/textile.vim'
-    Bundle 'ap/vim-css-color'
-    Bundle 'AndrewRadev/switch.vim'
-    Bundle 'matthias-guenther/hammer.vim'
-    " Bundle 'kchmck/vim-coffee-script'
-    Bundle 'hsitz/VimOrganizer'
-    Bundle 'jceb/vim-orgmode'
-    Bundle 'sickill/vim-pasta'
+    " Quotes & Parens Completion {{{
+        Bundle 'mirell/vim-matchit'
+        Bundle 'vim-scripts/simple-pairs.git'
+
+        Bundle 'tpope/vim-surround'
+            "let g:surround_{char2nr('-')} = "<% \r %>"
+            "let g:surround_{char2nr('=')} = "<%= \r %>"
+            "let g:surround_{char2nr('8')} = "/* \r */"
+            "let g:surround_{char2nr('s')} = " \r"
+            "let g:surround_{char2nr('^')} = "/^\r$/"
+            "let g:surround_indent = 1
+
+        " intelligent quotes+parens completion
+        Bundle 'Raimondi/delimitMate'
+    " }}}
 
     " Search and Finder {{{
         " ctrlp replaces command-t, NERDTree, buffer, mru (most recent used), tagfinder...
@@ -299,106 +349,64 @@
             "   \ }
     " }}}
 
-    " intelligent quotes+parens completion
-    Bundle 'Raimondi/delimitMate'
-
-    " Bundle 'rstacruz/sparkup.git', {'rtp': 'vim/'}
-    Bundle 'gh:thinca/vim-poslist.git'
-    Bundle 'int3/vim-extradite'
-    Bundle 'gregsexton/gitv'
-    " Bundle 'thinca/vim-quickrun.git'
-
     Bundle 'github:mattn/gist-vim.git'
-        " Send visual selection to gist.github.com as a private, filetyped Gist
-        " Requires the gist command line too (brew install gist)
+        " Send visual selection to gist.github.com as private, filetyped gist (Requires gist cli 'brew install gist')
         " vnoremap <leader>G :w !gist -p -t %:e \| pbcopy<cr>
-        " Gist options - put code in clipboard
         let g:gist_clip_command = 'pbcopy'
         let g:gist_detect_filetype = 1
         let g:gist_open_browser_after_post = 1
 
-    Bundle 'kana/vim-textobj-user'
-    Bundle 'kana/vim-textobj-entire'
-    Bundle 'michaeljsmith/vim-indent-object'
-    " Bundle 'nelstrom/vim-textobj-rubyblock'
-    Bundle 'gmarik/github-search.vim'
-    Bundle 'gmarik/ide-popup.vim'
-    " Bundle 'gmarik/sudo-gui.vim'
-    Bundle 'skibyte/gdb-from-vim'
-    Bundle 'mbadran/headlights'
-
     if executable('ctags')
         Bundle 'majutsushi/tagbar'
-            let g:tagbar_width = 45
+            let g:tagbar_width = 40
             let g:tagbar_autoclose = 1
             let g:tagbar_autofocus = 1
             let g:tagbar_compact = 1
             let g:tagbar_sort = 1
             nmap <F7> :TagbarToggle<CR>
             " open tagbar on startup
-            autocmd VimEnter * nested :call tagbar#autoopen(1)
+            " autocmd VimEnter * nested :call tagbar#autoopen(1)
+
+        Bundle 'vim-scripts/taglist.vim'
+            "map <F4> :TlistToggle<cr>
+            " set location(s) of tags folders
+            "set tags+=$HOME/.vim/tags/python.ctags
+            let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
+            let Tlist_WinWidth = 55
+            let Tlist_Auto_Open = 1 " auto open taglist window on startup
+            let Tlist_Use_Right_Window=1 " show TagList window on the right
+            let Tlist_Exit_OnlyWindow=1         " quit when TagList is the last open window
+            let Tlist_GainFocus_On_ToggleOpen=1 " put focus on the TagList window when it opens
+            "let Tlist_Process_File_Always=1     " process files in the background, even when the TagList window isn't open
+            "let Tlist_Show_One_File=1           " only show tags from the current buffer, not all open buffers
+            " let Tlist_Inc_Winwidth=1            " increase window by 1 when growing
+            "let Tlist_Close_On_Select = 1
+            "let Tlist_File_Fold_Auto_Close = 1
+            nmap <leader>t :TlistToggle<CR>
+            " build tags for current directory
+            " map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+            " auto update ctags when file is written
+            " function! UPDATE_TAGS()
+            "     let _f_ = expand("%:p")
+            "     let _cmd_ = '"ctags -a -f /dvr/tags --c++-kinds=+p --fields=+iaS --extra=+q " ' . '"' . _f_ . '"'
+            "     let _resp = system(_cmd_)
+            "     unlet _cmd_
+            "     unlet _f_
+            "     unlet _resp
+            " endfunction
+            " autocmd BufWritePost *.cpp,*.h,*.c call UPDATE_TAGS()
     endif
 
-    Bundle 'leshill/vim-json'
-    Bundle 'groenewege/vim-less'
-    Bundle 'amirh/HTML-AutoCloseTag'
-    Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
-    Bundle 'myusuf3/numbers.vim'
-    Bundle 'dahu/SearchParty'
-    Bundle 'dahu/Chroma'
-    Bundle 'Raimondi/vimregextools'
-    Bundle 'b4winckler/vim-objc'
-    Bundle 'https://github.com/vim-scripts/vmark.vim--Visual-Bookmarking.git'
-    Bundle 'greyblake/vim-preview'
-    Bundle 'godlygeek/tabular'
-    " Bundle 'Rykka/mathematic.vim'
-    " Bundle 'Rykka/colorv.vim'
-    Bundle 'vim-pandoc/vim-pandoc'
+    " Web Design {{{
+        Bundle 'leshill/vim-json'
+        Bundle 'groenewege/vim-less'
+        Bundle 'amirh/HTML-AutoCloseTag'
+        Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
+    " }}}
 
     " Bundle 'Rykka/riv.vim'
     "     let g:riv_fold_blank=1
     "     let g:riv_fold_level=2
-
-    Bundle 'mattn/calendar-vim'
-    "TODO this is an hg repo Bundle 'hg clone ssh://hg@bitbucket.org/abudden/taghighlight'
-    " Bundle 'mattn/benchvimrc-vim'
-    " Bundle 'embear/vim-longlines'
-    " Bundle 'vim-scripts/utl.vim'
-    " Bundle 'vim-scripts/vimwiki'
-    Bundle 'Shougo/unite.vim'
-    Bundle 'kana/vim-wwwsearch'
-    Bundle 'vim-scripts/simple-pairs.git'
-    Bundle 'tomtom/checksyntax_vim'
-    " TODO: this has an error Bundle 'vim-scripts/searchfold.vim'
-
-    Bundle 'vim-scripts/taglist.vim'
-        "map <F4> :TlistToggle<cr>
-        " set location(s) of tags folders
-        "set tags+=$HOME/.vim/tags/python.ctags
-        let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
-        let Tlist_WinWidth = 55
-        let Tlist_Auto_Open = 1 " auto open taglist window on startup
-        let Tlist_Use_Right_Window=1 " show TagList window on the right
-        let Tlist_Exit_OnlyWindow=1         " quit when TagList is the last open window
-        let Tlist_GainFocus_On_ToggleOpen=1 " put focus on the TagList window when it opens
-        "let Tlist_Process_File_Always=1     " process files in the background, even when the TagList window isn't open
-        "let Tlist_Show_One_File=1           " only show tags from the current buffer, not all open buffers
-        " let Tlist_Inc_Winwidth=1            " increase window by 1 when growing
-        "let Tlist_Close_On_Select = 1
-        "let Tlist_File_Fold_Auto_Close = 1
-        nmap <leader>t :TlistToggle<CR>
-        " build tags for current directory
-        " map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-        " auto update ctags when file is written
-        " function! UPDATE_TAGS()
-        "     let _f_ = expand("%:p")
-        "     let _cmd_ = '"ctags -a -f /dvr/tags --c++-kinds=+p --fields=+iaS --extra=+q " ' . '"' . _f_ . '"'
-        "     let _resp = system(_cmd_)
-        "     unlet _cmd_
-        "     unlet _f_
-        "     unlet _resp
-        " endfunction
-        " autocmd BufWritePost *.cpp,*.h,*.c call UPDATE_TAGS()
 
     Bundle 'Lokaltog/vim-powerline'
         let g:Powerline_symbols = 'fancy'
@@ -417,20 +425,44 @@
         " let g:EasyMotion_leader_key = '<Leader>e'
         " let g:EasyMotion_mapping_t  = '<Leader>w'
 
-    Bundle 'mrtazz/simplenote.vim'
-        if filereadable("~/.simplenoterc")
-            source ~/.simplenoterc
-        endif
-        let g:SimplenoteVertical=1 " scratch buffer is opened as a vsplit rather than hsplit
-        " let g:SimplenoteFiletype=rst "TODO allow for a config of 'setlocal filetype=rst'
+    " Search {{{
+        Bundle 'Raimondi/vimregextools'
+        Bundle 'dahu/SearchParty'
+        Bundle 'gmarik/github-search.vim'
+            " set where you want to clone resulting github repos to. default is '~/src/:author/:project'
+            let g:github_search_path_format = '/Applications/github_dwlds:project'
+    " }}}
+
+    " Notetaking Apps {{{
+        " Bundle 'vim-scripts/vimwiki'
+        " Bundle 'hsitz/VimOrganizer'
+        " Bundle 'davidoc/taskpaper.vim'
+
+        " Bundle 'jceb/vim-orgmode'
+            "let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Date', 'Misc']
+            "let g:org_todo_keywords = ['TODO', '|', 'DONE']
+            "let g:org_debug = 1
+
+        " notational velocity on vim (nothing to do with simplenote)
+        Bundle 'fmoralesc/vim-pad'
+            let g:pad_dir='~/temp-vim-pad'
+
+        Bundle 'mt3/simplenote.vim'
+            if filereadable("~/.simplenoterc")
+                source ~/.simplenoterc
+            endif
+            let g:SimplenoteVertical=1 " scratch buffer is opened as a vsplit rather than hsplit
+            " let g:SimplenoteFiletype=rst "TODO allow for a config of 'setlocal filetype=rst'
+    " }}}
 
     Bundle 'Shougo/vimfiler'
         let g:vimfiler_as_default_explorer = 1
+        let s:is_windows = has('win32') || has('win16')
         if s:is_windows
-            " Use trashbox.
+            " Use trashbox
             let g:unite_kind_file_use_trashbox = 1
         else
-            " Like Textmate icons.
+            " Like Textmate icons
             let g:vimfiler_tree_leaf_icon = ' '
             let g:vimfiler_tree_opened_icon = '▾'
             let g:vimfiler_tree_closed_icon = '▸'
@@ -438,11 +470,7 @@
             let g:vimfiler_marked_file_icon = '*'
         endif
 
-    " notational velocity on vim (nothing to do with simplenote)
-    Bundle 'fmoralesc/vim-pad'
-        let g:pad_dir='~/temp-vim-pad'
-
-    " Git integration {{{
+    " Git {{{
         Bundle 'tpope/vim-git'
         Bundle 'tpope/vim-fugitive'
             " nnoremap <leader>W :Gwrite<CR>
@@ -458,12 +486,15 @@
         " com! NORRB :au! BufWritePost <buffer>
 
     Bundle 'tpope/vim-unimpaired'
-        " bubble current line
-        " nmap <M-j> ]e
-        " nmap <M-k> [e
         " bubble visual selection lines
-        " vmap <M-j> ]egv
-        " vmap <M-k> [egv
+        vmap <M-j> ]egv
+        vmap <M-k> [egv
+        " Bubble single lines
+        nmap <C-Up> [e
+        nmap <C-Down> ]e
+        " Bubble multiple lines
+        vmap <C-Up> [egv
+        vmap <C-Down> ]egv"
 
     " TODO Bundle 'Indent-Guides'
         " let g:indent_guides_guide_size = 1
@@ -471,6 +502,11 @@
     " TODO Bundle 'tComment'
         " nnoremap // :TComment<CR>
         " vnoremap // :TComment<CR>
+        " 'gcc' toggles comments for the current line
+        " 'gC{motion}' comments a visually selected region (choose region first)
+        " 'gCc' comment the current line even if it has a comment
+        " nunmap gcc
+        " nmap gc :TCommentMaybeInline<CR>
 
     " Bundle 'gmarik/hlmatch.vim' " {{{
         " nnoremap # :<C-u>HlmCword<CR>
@@ -483,34 +519,33 @@
         " vnoremap <leader>## :<C-u>HlmPartGrepVSel<CR>
     " }}}
 
-    " FuzzyFinder "{{{
-    " TODO Bundle 'L9'
-    " TODO Bundle 'FuzzyFinder'
-        " let g:fuf_modesDisable = []
-        " nnoremap <leader>h :FufHelp<CR>
-        " nnoremap <leader>2  :FufFileWithCurrentBufferDir<CR>
-        " nnoremap <leader>@  :FufFile<CR>
-        " nnoremap <leader>3  :FufBuffer<CR>
-        " nnoremap <leader>4  :FufDirWithCurrentBufferDir<CR>
-        " nnoremap <leader>$  :FufDir<CR>
-        " nnoremap <leader>5  :FufChangeList<CR>
-        " nnoremap <leader>6  :FufMruFile<CR>
-        " nnoremap <leader>7  :FufLine<CR>
-        " nnoremap <leader>9  :FufTaggedFile<CR>
-        " nnoremap <leader>p :FufDir ~/src/<CR>
-        " nnoremap <leader>ge :FufDir ~/.rvm/gems/<CR>
-        " nnoremap <leader>gn :vnew \| :FufFile ~/src/notes/<CR>
+    " FuzzyFinder {{{
+        " TODO Bundle 'L9'
+        " TODO Bundle 'FuzzyFinder'
+            " let g:fuf_modesDisable = []
+            " nnoremap <leader>h :FufHelp<CR>
+            " nnoremap <leader>2  :FufFileWithCurrentBufferDir<CR>
+            " nnoremap <leader>@  :FufFile<CR>
+            " nnoremap <leader>3  :FufBuffer<CR>
+            " nnoremap <leader>4  :FufDirWithCurrentBufferDir<CR>
+            " nnoremap <leader>$  :FufDir<CR>
+            " nnoremap <leader>5  :FufChangeList<CR>
+            " nnoremap <leader>6  :FufMruFile<CR>
+            " nnoremap <leader>7  :FufLine<CR>
+            " nnoremap <leader>9  :FufTaggedFile<CR>
+            " nnoremap <leader>p :FufDir ~/src/<CR>
+            " nnoremap <leader>ge :FufDir ~/.rvm/gems/<CR>
+            " nnoremap <leader>gn :vnew \| :FufFile ~/src/notes/<CR>
     " }}}
 
     Bundle 'vim-scripts/TaskList.vim'
-        " plugin organizes TODO, FIXME, etc.
+        " displays and organizes TODO, FIXME, etc. within the file
         map <leader>tl <Plug>TaskList
         let g:tlWindowPosition = 1 " 1 opens tasklist at bottom, 0 is top
         " let g:tlTokenList = ['TOKEN1', 'TOKEN2', 'TOKEN3'] " to overwrite list of tokens uncomment, default is let g:tlTokenList = ["FIXME", "TODO", "XXX"]
         let g:tlRememberPosition = 1
 
-    " Snippets & Autocompletion {{{
-        " neocomplcache looks to be the best of them
+    " Snippets & Autocompletion (neocomplcache looks to be the best of them) {{{
         Bundle 'Shougo/neocomplcache'
             " Disable AutoComplPop.
             " let g:acp_enableAtStartup = 0
@@ -604,7 +639,10 @@
         "noremap <leader>j :CommandT<cr>
         "noremap <leader>y :CommandTFlush<cr>
         "let g:CommandTMaxFiles=20000
-
+        " vertical split with CommandT
+        " nnoremap <leader>v :exec ':vnew \| CommandT'<CR>
+        " and without
+        " nnoremap <leader>V :vnew<CR>
         "if has("gui_macvim")
         "   macmenu &File.New\ Tab key=<nop>
         "   map <D-t> :CommandT<CR>
@@ -629,47 +667,51 @@
 " }}}
 
 " MAPPINGS {{{
-    " Navigation
-    "remap left/right arrow keys for tab next/previous
-    map <Left> gT
-    map <Right> gt
+    " Navigation {{{
+        "remap left/right arrow keys for tab next/previous
+        map <Left> gT
+        map <Right> gt
+        " TODO set <Cmd-S-Left/Right> to move to adjacent tabs when in insert mode as all other mac apps do
+        " imap <D-S-Left> gT
+        " imap <D-S-Right> gt
 
-    imap <D-BS> 
-    imap <M-BS> 
-    imap <M-Down> }
-    inoremap <D-Down> <C-End>
-    imap <M-Up> {
-    inoremap <D-Up> <C-Home>
-    noremap! <M-Right> <C-Right>
-    noremap! <D-Right> <End>
-    noremap! <M-Left> <C-Left>
-    noremap! <D-Left> <Home>
-    map! <D-v> *
-    "nmap gx <Plug>NetrwBrowseX
-    map <M-Down> }
-    noremap <D-Down> <C-End>
-    map <M-Up> {
-    noremap <D-Up> <C-Home>
-    noremap <M-Right> <C-Right>
-    noremap <D-Right> <End>
-    noremap <M-Left> <C-Left>
-    noremap <D-Left> <Home>
-    " Easy buffer/split pane navigation
-    noremap <C-h>  <C-w>h
-    noremap <C-j>  <C-w>j
-    noremap <C-k>  <C-w>k
-    noremap <C-l>  <C-w>l
-    map <C-k> <C-w><Up>
-    map <C-j> <C-w><Down>
-    map <C-l> <C-w><Right>
-    map <C-h> <C-w><Left>
-    " vertical window split
-    noremap <leader>v <C-w>v
-    " Begining & End of line in Normal mode
-    noremap H ^
-    noremap L g_
-    " Use ,z to "focus" the current fold.
-    nnoremap <leader>z zMzvzz
+        imap <D-BS> 
+        imap <M-BS> 
+        imap <M-Down> }
+        inoremap <D-Down> <C-End>
+        imap <M-Up> {
+        inoremap <D-Up> <C-Home>
+        noremap! <M-Right> <C-Right>
+        noremap! <D-Right> <End>
+        noremap! <M-Left> <C-Left>
+        noremap! <D-Left> <Home>
+        map! <D-v> *
+        "nmap gx <Plug>NetrwBrowseX
+        map <M-Down> }
+        noremap <D-Down> <C-End>
+        map <M-Up> {
+        noremap <D-Up> <C-Home>
+        noremap <M-Right> <C-Right>
+        noremap <D-Right> <End>
+        noremap <M-Left> <C-Left>
+        noremap <D-Left> <Home>
+        " Easy buffer/split pane navigation
+        noremap <C-h>  <C-w>h
+        noremap <C-j>  <C-w>j
+        noremap <C-k>  <C-w>k
+        noremap <C-l>  <C-w>l
+        map <C-k> <C-w><Up>
+        map <C-j> <C-w><Down>
+        map <C-l> <C-w><Right>
+        map <C-h> <C-w><Left>
+        " vertical window split
+        noremap <leader>v <C-w>v
+        " Begining & End of line in Normal mode
+        noremap H ^
+        noremap L g_
+        " Use ,z to "focus" the current fold.
+        nnoremap <leader>z zMzvzz
+    " }}}
 
     "nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
 
@@ -687,6 +729,9 @@
 
     " map delete key to delete a whole line (in normal mode only)
     nmap <BS> dd<ESC>O
+
+    " Split line(opposite to S-J joining line)
+    nnoremap <C-J> gEa<CR><ESC>ew
 
     let &cpo=s:cpo_save
     unlet s:cpo_save
@@ -741,6 +786,9 @@
     map <leader>cd :cd %:p:h<cr>
 
     map <leader>R :source ~/.vimrc<cr>
+
+    " TODO causes error/crash
+    " nnoremap <leader>hh :exec ':vnew \| help'<CR>
 
     " map Enter key to add new line above/below and return to visual mode
     unmap <CR>
@@ -821,6 +869,9 @@
     "nnoremap <CR> :nohlsearch<CR>
     "map <leader>h :noh<CR>
     " map <leader>h :set hlsearch!<CR>
+    "make <c-l> clear the highlight as well as redraw
+    " nnoremap <C-L> :nohls<CR><C-L>
+    " inoremap <C-L> <C-O>:nohls<CR>
 
     " toggle invisibles (whitespace, etc.)
     map <Leader>li :set list!<CR>
@@ -856,30 +907,30 @@
     nnoremap g, g,zz
 
     " Map Function Keys {{{2
-    " commented out the unmap commands since they raised errors due to no map assigned
-    " unmap <f1>
-    " unmap <f2>
-    " unmap <f3>
-    map <f3> <Nop>
-    map! <f3> <Nop>
-    " unmap <f4>
-    " unmap <f5>
-    "unmap <f6>
-    "unmap <f7>
-    "unmap <f8>
-    "unmap <f9>
-    "unmap <f0>
-    " toggle/untoggle folds TODO zR is open all folds and zM is close all folds (combine in one keystroke)
-    map <f1> zR<Esc>
-    map <f2> zM<Esc>
-    map <F3> :exe 'echo "yesy"'<CR>
-    "map <f3> :exe "echomsg 'yesy'"<CR>
-    map <f4> :echo "yesy"<CR>
-    " Map F5 to clear the highlighting search
-    map <f5> :set hls!<bar>set hls?<CR>
-    map <F9> :source $MYVIMRC<CR>:echoe "Vimrc Reloaded!!!"<CR>
-    "map <f >
-    " autocmd FileType python map <buffer> <F3> :call Flake8()<CR>
+        " commented out the unmap commands since they raised errors due to no map assigned
+        " unmap <f1>
+        " unmap <f2>
+        " unmap <f3>
+        map <f3> <Nop>
+        map! <f3> <Nop>
+        " unmap <f4>
+        " unmap <f5>
+        "unmap <f6>
+        "unmap <f7>
+        "unmap <f8>
+        "unmap <f9>
+        "unmap <f0>
+        " toggle/untoggle folds TODO zR is open all folds and zM is close all folds (combine in one keystroke)
+        map <f1> zR<Esc>
+        map <f2> zM<Esc>
+        map <F3> :exe 'echo "yesy"'<CR>
+        "map <f3> :exe "echomsg 'yesy'"<CR>
+        map <f4> :echo "yesy"<CR>
+        " Map F5 to clear the highlighting search
+        map <f5> :set hls!<bar>set hls?<CR>
+        map <F9> :source $MYVIMRC<CR>:echoe "Vimrc Reloaded!!!"<CR>
+        "map <f >
+        " autocmd FileType python map <buffer> <F3> :call Flake8()<CR>
     " 2}}}
 
     "py.test mappings
@@ -1083,19 +1134,18 @@
 " }}}
 
 " FUNCTIONS {{{
-    "
     " source .vimrc
     "map <silent> <Leader>s :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo'vimrc reloaded'"<CR>
     noremap <silent> <Leader>s :source ~/.vimrc<CR>:filetype detect<CR>:exe "echo'vimrc reloaded'"<CR>
+
+    " When vimrc is edited, reload it
+    "autocmd! bufwritepost vimrc source ~/.vimrc
 
     " Edit vimrc \ev
     nnoremap <silent> <Leader>ev :tabedit ~/.vimrc<CR>
     "map <leader>e :e! ~/.vim_runtime/vimrc<cr>
     " Edit gvimrc \gv
     nnoremap <silent> <Leader>gv :tabnew<CR>:e ~/.gvimrc<CR>
-
-    " When vimrc is edited, reload it
-    "autocmd! bufwritepost vimrc source ~/.vimrc
 
     " Merge consecutive empty lines and clean up trailing whitespace
     map <Leader>fm :g/^\s*$/,/\S/-j<Bar>%s/\s\+$//<CR>
@@ -1104,14 +1154,17 @@
         return "mac"
     endfunc
 
-    " TODO my function that remains unfinished
-    " func! CreateGitStatusSplit()
-    "   :vertical
-    "   :Gstatus
-    "   <C-w><C-w>
-    "   :q
-    "   <C-w>25<
-    " endfunc
+    " open help in vertical split
+    au BufWinEnter *.txt if &ft == 'help' | wincmd H | endif
+
+    func! CreateGitStatusSplit() " TODO my function that remains unfinished
+        " TODO use 'wincmd H' instead of 'vertical'
+        " :vertical
+        " :Gstatus
+        " <C-w><C-w>
+        " :q
+        " <C-w>25<
+    endfunc
 
     func! DeleteTrailingWhitespace()
         exe "normal mz"
@@ -1369,6 +1422,7 @@
     " statusline+=%r   " Readonly flag.
     " statusline+=%w   " Preview window flag.
     " statusline+=\    " Space.
+    " set statusline+=%h      "help file flag
     " statusline+=%#redbar#                " Highlight the following as a warning.
     " statusline+=%{SyntasticStatuslineFlag()} " Syntastic errors.
     " statusline+=%*                           " Reset highlighting.
@@ -1379,6 +1433,15 @@
     " set statusline+=\ (L%l\/%L,\ C%03c)   " Line and column position and counts.
     " set statusline+=\ %{HasPaste()}%F%m%r%h\ %w\ CWD:\ %r%{CurDir()}%h\ \ \ Line:\ %l/%L:%c\
     set statusline+=\ %{HasPaste()}%F%m%r%h\ %w\ \ \ %=%l/%L:%c\ \ %p%%
+
+    "display a warning if &et is wrong, or we have mixed-indenting
+    " set statusline+=%#error#
+    " set statusline+=%{StatuslineTabWarning()}
+    " set statusline+=%*
+
+    " set statusline+=%#warningmsg#
+    " set statusline+=%{SyntasticStatuslineFlag()}
+    " set statusline+=%*
 
     if has("gui_running")
         colorscheme lightdark
@@ -1652,17 +1715,6 @@
         map <Leader>n <plug>NERDTreeTabsToggle<CR>
     " }}}
 
-    " Peepopen {{{
-        " Quit peepopen when vim exits
-        "let p:peepopen_quit = 1
-    " }}}
-
-    " OrgMode {{{
-        "let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Date', 'Misc']
-        "let g:org_todo_keywords = ['TODO', '|', 'DONE']
-        "let g:org_debug = 1
-    " }}}
-
     " Python {{{
         let g:python_highlight_all = 1
         let g:python_show_sync = 1
@@ -1707,45 +1759,11 @@
         set statusline+=%*
     " }}}
 
-    " Tabularize {{{
-        " if exists(":Tabularize")
-        "     nmap <Leader>a= :Tabularize /=<CR>
-        "     vmap <Leader>a= :Tabularize /=<CR>
-        "     nmap <Leader>a: :Tabularize /:<CR>
-        "     vmap <Leader>a: :Tabularize /:<CR>
-        "     nmap <Leader>a:: :Tabularize /:\zs<CR>
-        "     vmap <Leader>a:: :Tabularize /:\zs<CR>
-        "     nmap <Leader>a, :Tabularize /,<CR>
-        "     vmap <Leader>a, :Tabularize /,<CR>
-        "     nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-        "     vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-        " endif
-     " }}}
-
-    " Tcomment {{{
-        " TODO: i don't think there's any config for this plugin
-        " toggles comments on/off
-        " 'gcc' toggles comments for the current line
-        " 'gC{motion}' comments a visually selected region (choose region first)
-        " 'gCc' comment the current line even if it has a comment
-        " nunmap gcc
-        " nmap gc :TCommentMaybeInline<CR>
-    " }}}
-
     " tslime {{{
         let g:tslime_ensure_trailing_newlines = 1
         let g:tslime_normal_mapping = '<localleader>t'
         let g:tslime_visual_mapping = '<localleader>t'
         let g:tslime_vars_mapping = '<localleader>T'
-    " }}}
-
-    " Unimpaired {{{
-        " Bubble single lines
-        nmap <C-Up> [e
-        nmap <C-Down> ]e
-        " Bubble multiple lines
-        vmap <C-Up> [egv
-        vmap <C-Down> ]egv"
     " }}}
 " }}}
 
