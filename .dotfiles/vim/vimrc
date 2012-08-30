@@ -42,7 +42,7 @@
     " auto align/format columnar settings/configurations w/ shortcut
     " 'map <leader>uw lowercase' or 'map gu lowercase'
     " map <leader>Uw uppercase or 'map gU lowercase'
-    " save a workspace/layout, along with tmux settings (see wemux, or vim-mux, etc.)
+    " see vim-sessions: save a workspace/layout, along with tmux settings (see wemux, or vim-mux, etc.)
 " }}}
 
 " MAIN STARTUP & LOADING {{{
@@ -73,9 +73,10 @@
     set runtimepath=~/code_and_projects/dotfiles/.dotfiles/vim,$VIMRUNTIME
     set statusline=
 
-    if has('mac')
-        set macmeta
-    endif
+    " if has('mac')
+    "     " Use option (alt) as meta key
+    "     set macmeta
+    " endif
 
     if v:version >= 703
         " does nothing yet
@@ -83,21 +84,15 @@
 " }}}
 
 " LOAD PLUGINS (PATHOGEN) {{{
-    "
     source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/coveragepy/ftplugin/python/coveragepy.vim
     helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/coveragepy/doc
     set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/coveragepy
 
     source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/jacinto.vim/plugin/jacinto.vim
-    " helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/jacinto/doc
     set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/jacinto.vim
-
-    source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/tcomment_vim/plugin/tcomment.vim
-    helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/tcomment_vim/doc
-    set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/tcomment_vim
 " }}}
 
-" LOAD PLUGINS VIA VUNDLE {{{
+" LOAD PLUGINS (VUNDLE) {{{
     filetype off
 
     " Vundle setup/config {{{
@@ -123,11 +118,10 @@
     " TODO Bundle 'tlib'
     " Bundle 'nvie/vim-rst-tables'
     Bundle 'Twinside/vim-hoogle'
-    Bundle 'ervandew/taglisttoo'
     Bundle 'ervandew/lookup'
-    Bundle 'ervandew/eclim'
+    " Bundle 'ervandew/eclim'
     Bundle 'chrisbra/CheckAttach'
-    Bundle 'ciaranm/detectindent'
+    "Bundle 'ciaranm/detectindent'
     Bundle 'mbbill/VimExplorer'
     Bundle 'mattn/webapi-vim'
     Bundle 'troydm/pb.vim'
@@ -136,33 +130,31 @@
     " Bundle 'tpope/vim-haml'
     Bundle 'tpope/vim-repeat'
     Bundle 'tpope/vim-eunuch'
-    "TODO error with Bundle 'tpope/vim-eunuch'
     Bundle 'tpope/rhubarb.vim'
     Bundle 'tsaleh/vim-align'
     Bundle 'yesmeck/tips.vim'
     Bundle 'suderman/source.vim'
     Bundle 'pydave/AsyncCommand'
+
     " Bundle 'scrooloose/vim-space'
-    Bundle 'kshenoy/vim-signature'
-    Bundle 'megaannum/forms'
+        " Disables space mappings in select mode to fix snipMate.
+        "let g:space_disable_select_mode=1
+
+    "Bundle 'megaannum/forms'
     Bundle 'sjl/splice.vim'
     Bundle 'timcharper/textile.vim'
-    Bundle 'ap/vim-css-color'
     Bundle 'AndrewRadev/switch.vim'
     Bundle 'matthias-guenther/hammer.vim'
-    " Bundle 'kchmck/vim-coffee-script'
     " Bundle 'zef/vim-cycle'
     Bundle 'sickill/vim-pasta'
     " Bundle 'rstacruz/sparkup.git', {'rtp': 'vim/'}
     Bundle 'gh:thinca/vim-poslist.git'
     Bundle 'int3/vim-extradite'
     " Bundle 'thinca/vim-quickrun.git'
-    Bundle 'gregsexton/gitv'
     " Bundle 'nelstrom/vim-textobj-rubyblock'
     " Bundle 'gmarik/sudo-gui.vim'
     Bundle 'skibyte/gdb-from-vim'
     Bundle 'mbadran/headlights'
-    Bundle 'myusuf3/numbers.vim'
     Bundle 'dahu/Chroma'
     Bundle 'b4winckler/vim-objc'
     Bundle 'https://github.com/vim-scripts/vmark.vim--Visual-Bookmarking.git'
@@ -170,14 +162,49 @@
     " Bundle 'Rykka/mathematic.vim'
     " Bundle 'Rykka/colorv.vim'
     Bundle 'vim-pandoc/vim-pandoc'
+    "Bundle 'Twinside/vim-cuteErrorMarker'
     Bundle 'mattn/calendar-vim'
-    "TODO this is an hg repo Bundle 'hg clone ssh://hg@bitbucket.org/abudden/taghighlight'
     " Bundle 'embear/vim-longlines'
     " Bundle 'vim-scripts/utl.vim'
     Bundle 'Shougo/unite.vim'
     Bundle 'kana/vim-wwwsearch'
     " TODO: this has an error Bundle 'vim-scripts/searchfold.vim'
-    Bundle 'tomtom/checksyntax_vim'
+    "Bundle 'tomtom/checksyntax_vim'
+
+    Bundle 'myusuf3/numbers.vim'
+        " better line numbers (alternates between relative & absolute line nos.)
+        " nnoremap <F3> :NumbersToggle<CR>
+
+    Bundle 'xolox/vim-session'
+        " If you only want to save the current tab page:
+        set sessionoptions-=tabpages
+        " If you don't want help windows to be restored:
+        set sessionoptions-=help
+        " Don't persist options and mappings because it can corrupt sessions.
+        set sessionoptions-=options
+        " Always persist Vim's window size.
+        set sessionoptions+=resize
+        let g:session_directory='~/.vim/sessions'
+        " let g:session_autoload='prompt'
+
+    " Marks {{{
+        " vim-signature is apparently better than vim-showmarks and mark-tools
+        Bundle 'kshenoy/vim-signature'
+        " Bundle 'vim-scripts/mark_tools'
+
+        " Bundle 'zakj/vim-showmarks'
+		    " let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+		    " " Don't leave on by default, use :ShowMarksOn to enable
+		    " let g:showmarks_enable = 0
+		    " " For marks a-z
+		    " highlight ShowMarksHLl gui=bold guibg=LightBlue guifg=Blue
+		    " " For marks A-Z
+		    " highlight ShowMarksHLu gui=bold guibg=LightRed guifg=DarkRed
+		    " " For all other marks
+		    " highlight ShowMarksHLo gui=bold guibg=LightYellow guifg=DarkYellow
+		    " " For multiple marks on the same line.
+		    " highlight ShowMarksHLm gui=bold guibg=LightGreen guifg=DarkGreen
+    " }}}
 
     Bundle 'ervandew/supertab'
         let g:SuperTabMappingTabLiteral="<Tab>"
@@ -188,8 +215,8 @@
         " let g:SuperTabMappingForward = "<C-space>"
         let g:SuperTabNoCompleteAfter = ['^', '\s', '\t']
 
-    " handle code-folding and outlining of markdown, rst, etc.
     Bundle 'vim-scripts/VOoM'
+        " handles code-folding and outlining of markdown, rst, etc.
         let g:voom_tree_placement = 'right'
         let g:voom_tree_width = 35
         let g:voom_default_mode = 'rest'
@@ -229,20 +256,30 @@
     " }}}
 
     " Commenting {{{
-        " Bundle 'tpope/vim-commentary.git'
-            "nmap <leader>c <Plug>CommentaryLine
-            "xmap <leader>c <Plug>Commentary
+        " TODO: see which plugin is better
+
+        Bundle 'tpope/vim-commentary'
+            " nnoremap // :TComment<CR>
+            " vnoremap // :TComment<CR>
+            " 'gcc' toggles comments for the current line
+            " 'gC{motion}' comments a visually selected region (choose region first)
+            " 'gCc' comment the current line even if it has a comment
+            " nunmap gcc
+            " nmap gc :TCommentMaybeInline<CR>
+            " nmap gcc <Plug>CommentaryLine
+            " nmap <leader>c <Plug>CommentaryLine
+            " xmap <leader>c <Plug>Commentary
             "au FileType htmldjango setlocal commentstring={#\ %s\ #}
 
         Bundle 'scrooloose/nerdcommenter'
-            " TODO: see T-comment if this is a duplicate
-            "nmap <leader>c<space>:NERDComToggleComment " TODO this already built-in i believe
-            nmap <leader>/ :call NERDComment(0, "invert")<cr>
-            vmap <leader>/ :call NERDComment(0, "invert")<cr>
+            nmap <leader>cc :NERDComToggleComment
+            xmap <leader>cc :NERDComToggleComment
+            "nmap gcc :NERDComToggleComment<CR>
+            "nmap <leader>/ :call NERDComment(0, "invert")<cr>
+            "vmap <leader>/ :call NERDComment(0, "invert")<cr>
     " }}}
 
     Bundle 'godlygeek/tabular'
-    " Tabularize {{{ TODO unsure if this is the same as tabular
         " if exists(":Tabularize")
         "     nmap <Leader>a= :Tabularize /=<CR>
         "     vmap <Leader>a= :Tabularize /=<CR>
@@ -255,51 +292,10 @@
         "     nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
         "     vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
         " endif
-     " }}}
 
-    Bundle 'twe4ked/vim-peepopen'
+    " Bundle 'twe4ked/vim-peepopen'
         " Quit peepopen when vim exits
         "let p:peepopen_quit = 1
-
-    Bundle 'scrooloose/nerdtree'
-        " Put focus to the NERD Tree with F3 (tricked by quickly closing it and immediately showing it again, since there is no :NERDTreeFocus command)
-        nmap <leader>n :NERDTreeClose<CR>:NERDTreeToggle<CR>
-        nmap <leader>m :NERDTreeClose<CR>:NERDTreeFind<CR>
-        nmap <leader>N :NERDTreeClose<CR>
-        map <leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
-        nmap <leader>nt :NERDTreeToggle <CR>
-        nmap <C-u> :NERDTreeToggle<CR>
-        " Store the bookmarks file
-        let NERDTreeBookmarksFile=expand("/code_and_projects/dotfiles/.dotfiles/vim/NERDTreeBookmarks")
-        " Show the bookmarks table on startup
-        let NERDTreeShowBookmarks=1
-        " Set the location of bookmarks for nerdtree.
-        " autocmd FileType nerdtree setlocal nolist
-        " Show hidden files, too
-        let NERDTreeShowFiles=1
-        let NERDTreeShowHidden=1
-        " Don't display these kinds of files
-        let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$']
-        " let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
-        " open a NERDTree automatically when vim starts even if no files were specified at launch
-        autocmd vimenter * if !argc() | NERDTree | endif
-        " close vim if nerdtree is last window open
-        autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-        " Quit on opening files from the tree
-        "let NERDTreeQuitOnOpen=1
-        " Highlight the selected entry in the tree
-        let NERDTreeHighlightCursorline=1
-        " Use a single click to fold/unfold directories and a double click to open files
-        let NERDTreeMouseMode=2
-        " Focus cursor in new document
-        autocmd VimEnter * wincmd p
-        " let g:NERDTreeCaseSensitiveSort = 1
-        " let g:NERDTreeDirArrows = 1
-        " let g:NERDTreeMinimalUI = 1
-        " let g:NERDTreeQuitOnOpen = 1
-        " let g:NERDTreeShowBookmarks = 1
-        " let g:NERDTreeWinPos = 'right'
-        " let g:NERDTreeWinSize = 50
 
     Bundle 'scrooloose/syntastic'
         let g:syntastic_enable_highlighting=1
@@ -323,10 +319,10 @@
         "nmap <leader>r :YRShow<CR>
 
     " Quotes & Parens Completion {{{
-        Bundle 'mirell/vim-matchit'
-        Bundle 'vim-scripts/simple-pairs.git'
+        "Bundle 'mirell/vim-matchit'
+        "Bundle 'vim-scripts/simple-pairs.git'
 
-        Bundle 'tpope/vim-surround'
+        "Bundle 'tpope/vim-surround'
             "let g:surround_{char2nr('-')} = "<% \r %>"
             "let g:surround_{char2nr('=')} = "<%= \r %>"
             "let g:surround_{char2nr('8')} = "/* \r */"
@@ -350,6 +346,12 @@
             "   \ 'file': '\.exe$\|\.so$\|\.dll$',
             "   \ 'link': 'some_bad_symbolic_links',
             "   \ }
+            " let g:ctrlp_extensions = [
+            " \ 'tag', 'buffertag', 'dir', 'rtscript',
+            " \ 'undo', 'changes', 'line', 'quickfix',
+            " \ 'bookmarkdir', 'mark', 'register'
+            " \ ]
+
     " }}}
 
     Bundle 'github:mattn/gist-vim.git'
@@ -361,48 +363,60 @@
         let g:gist_show_privates = 1 " TODO describe
         let g:github_token = $GITHUB_TOKEN
 
-    if executable('ctags')
-        Bundle 'majutsushi/tagbar'
-            let g:tagbar_width = 40
-            let g:tagbar_autoclose = 1
-            let g:tagbar_autofocus = 1
-            let g:tagbar_compact = 1
-            let g:tagbar_sort = 1
-            nmap <F7> :TagbarToggle<CR>
-            " open tagbar on startup
-            " autocmd VimEnter * nested :call tagbar#autoopen(1)
+    " Tags {{{
+        if executable('ctags')
+            " TODO find out which is best
+            set tags=~/.ctags,~/.tags,./.tags;
 
-        Bundle 'vim-scripts/taglist.vim'
-            "map <F4> :TlistToggle<cr>
-            " set location(s) of tags folders
-            "set tags+=$HOME/.vim/tags/python.ctags
-            let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
-            let Tlist_WinWidth = 55
-            let Tlist_Auto_Open = 1 " auto open taglist window on startup
-            let Tlist_Use_Right_Window=1 " show TagList window on the right
-            let Tlist_Exit_OnlyWindow=1         " quit when TagList is the last open window
-            let Tlist_GainFocus_On_ToggleOpen=1 " put focus on the TagList window when it opens
-            "let Tlist_Process_File_Always=1     " process files in the background, even when the TagList window isn't open
-            "let Tlist_Show_One_File=1           " only show tags from the current buffer, not all open buffers
-            " let Tlist_Inc_Winwidth=1            " increase window by 1 when growing
-            "let Tlist_Close_On_Select = 1
-            "let Tlist_File_Fold_Auto_Close = 1
-            nmap <leader>t :TlistToggle<CR>
-            " build tags for current directory
-            " map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-            " auto update ctags when file is written
-            " function! UPDATE_TAGS()
-            "     let _f_ = expand("%:p")
-            "     let _cmd_ = '"ctags -a -f /dvr/tags --c++-kinds=+p --fields=+iaS --extra=+q " ' . '"' . _f_ . '"'
-            "     let _resp = system(_cmd_)
-            "     unlet _cmd_
-            "     unlet _f_
-            "     unlet _resp
-            " endfunction
-            " autocmd BufWritePost *.cpp,*.h,*.c call UPDATE_TAGS()
-    endif
+            "TODO this is an hg repo Bundle 'hg clone ssh://hg@bitbucket.org/abudden/taghighlight'
+
+            Bundle 'majutsushi/tagbar'
+                let g:tagbar_width = 40
+                let g:tagbar_autoclose = 1
+                let g:tagbar_autofocus = 1
+                let g:tagbar_compact = 1
+                let g:tagbar_sort = 1
+                nmap <F7> :TagbarToggle<CR>
+                " open tagbar on startup
+                " autocmd VimEnter * nested :call tagbar#autoopen(1)
+
+            " Bundle 'vim-scripts/taglist.vim'
+                "map <F4> :TlistToggle<cr>
+                " set location(s) of tags folders
+                "set tags+=$HOME/.vim/tags/python.ctags
+                " let Tlist_Ctags_Cmd = "/usr/local/bin/ctags"
+                " let Tlist_WinWidth = 55
+                " let Tlist_Auto_Open = 0 " do not auto open taglist window on startup
+                " let Tlist_Use_Right_Window=1 " show TagList window on the right
+                " let Tlist_Exit_OnlyWindow=1         " quit when TagList is the last open window
+                " let Tlist_GainFocus_On_ToggleOpen=1 " put focus on the TagList window when it opens
+                "let Tlist_Process_File_Always=1     " process files in the background, even when the TagList window isn't open
+                "let Tlist_Show_One_File=1           " only show tags from the current buffer, not all open buffers
+                " let Tlist_Inc_Winwidth=1            " increase window by 1 when growing
+                "let Tlist_Close_On_Select = 1
+                "let Tlist_File_Fold_Auto_Close = 1
+                "nmap <leader>t :TlistToggle<CR>
+                " build tags for current directory
+                " map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+                " auto update ctags when file is written
+                " function! UPDATE_TAGS()
+                "     let _f_ = expand("%:p")
+                "     let _cmd_ = '"ctags -a -f /dvr/tags --c++-kinds=+p --fields=+iaS --extra=+q " ' . '"' . _f_ . '"'
+                "     let _resp = system(_cmd_)
+                "     unlet _cmd_
+                "     unlet _f_
+                "     unlet _resp
+                " endfunction
+                " autocmd BufWritePost *.cpp,*.h,*.c call UPDATE_TAGS()
+
+            " Bundle 'ervandew/taglisttoo'
+            " Bundle 'https://bitbucket.org:madevgeny/yate.git'
+        endif
+    " }}}
 
     " Web Design {{{
+        " Bundle 'kchmck/vim-coffee-script'
+        Bundle 'ap/vim-css-color'
         Bundle 'leshill/vim-json'
         Bundle 'groenewege/vim-less'
         Bundle 'amirh/HTML-AutoCloseTag'
@@ -410,14 +424,15 @@
     " }}}
 
     " Bundle 'Rykka/riv.vim'
+        " managing restructuredtext
         " let g:riv_fold_blank=1
         " let g:riv_fold_level=2
 
     Bundle 'Lokaltog/vim-powerline'
         let g:Powerline_symbols = 'fancy'
         let g:Powerline_cache_enabled = 1
-        " let g:Powerline_theme = 'default'
-        let g:Powerline_theme = 'skwp'
+        let g:Powerline_theme = 'default'
+        " let g:Powerline_theme = 'skwp'
         let g:Powerline_colorscheme = 'default'
         let g:Powerline_dividers_override = ['>>', '>', '<<', '<']
         " let g:Powerline_stl_path_style = 'relative'
@@ -443,6 +458,7 @@
         " Bundle 'vim-scripts/vimwiki'
         " Bundle 'hsitz/VimOrganizer'
         " Bundle 'davidoc/taskpaper.vim'
+        " Bundle 'xolox/vim-notes'
 
         " Bundle 'jceb/vim-orgmode'
             "let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Date', 'Misc']
@@ -477,6 +493,7 @@
         endif
 
     " Git {{{
+        Bundle 'gregsexton/gitv'
         Bundle 'tpope/vim-git'
         Bundle 'tpope/vim-fugitive'
             " nnoremap <leader>W :Gwrite<CR>
@@ -505,15 +522,6 @@
     " TODO Bundle 'Indent-Guides'
         " let g:indent_guides_guide_size = 1
 
-    " TODO Bundle 'tComment'
-        " nnoremap // :TComment<CR>
-        " vnoremap // :TComment<CR>
-        " 'gcc' toggles comments for the current line
-        " 'gC{motion}' comments a visually selected region (choose region first)
-        " 'gCc' comment the current line even if it has a comment
-        " nunmap gcc
-        " nmap gc :TCommentMaybeInline<CR>
-
     " Bundle 'gmarik/hlmatch.vim' " {{{
         " nnoremap # :<C-u>HlmCword<CR>
         " nnoremap <leader># :<C-u>HlmGrepCword<CR>
@@ -525,7 +533,79 @@
         " vnoremap <leader>## :<C-u>HlmPartGrepVSel<CR>
     " }}}
 
-    " FuzzyFinder {{{
+    " File & Directory Trees {{{
+        " Bundle 'wincent/Command-T.git'
+            " let g:CommandTMatchWindowAtTop=1 " show window at top
+            " "burke's
+            " nnoremap <leader>tv :CommandTFlush<cr>\|:CommandT app/views<cr>
+            " nnoremap <leader>tc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
+            " nnoremap <leader>tm :CommandTFlush<cr>\|:CommandT app/models<cr>
+            " nnoremap <leader>tl :CommandTFlush<cr>\|:CommandT lib<cr>
+            " nnoremap <leader>ta :CommandTFlush<cr>\|:CommandT app/assets<cr>
+            " nnoremap <leader>tp :CommandTFlush<cr>\|:CommandT public<cr>
+            " nnoremap <leader>tr :topleft :vsplit config/routes.rb<cr>
+            " nnoremap <leader>tg :topleft :vsplit Gemfile<cr>
+            "
+            " let g:CommandTMatchWindowReverse = 1
+            " nnoremap <Leader>f :call :CommandT<CR>
+            " nnoremap <Leader>d :call :CommandTBuffer<CR>
+            " nnoremap <Leader>F :call :CommandTFlush\|CommandT<CR>
+            "
+            " let g:CommandTSearchPath = $HOME . '/Code'
+            "let g:CommandTMaxHeight = 15
+            "set wildignore+=*.o,*.obj,.git,*.pyc,*.hg,*.svn,*.swp,*.bak,*.class
+            "noremap <leader>j :CommandT<cr>
+            "noremap <leader>y :CommandTFlush<cr>
+            "let g:CommandTMaxFiles=20000
+            " vertical split with CommandT
+            " nnoremap <leader>v :exec ':vnew \| CommandT'<CR>
+            " and without
+            " nnoremap <leader>V :vnew<CR>
+            "if has("gui_macvim")
+            "   macmenu &File.New\ Tab key=<nop>
+            "   map <D-t> :CommandT<CR>
+            "endif
+
+        Bundle 'scrooloose/nerdtree'
+            " Put focus to the NERD Tree with F3 (tricked by quickly closing it and immediately showing it again, since there is no :NERDTreeFocus command)
+            nmap <leader>n :NERDTreeClose<CR>:NERDTreeToggle<CR>
+            nmap <leader>m :NERDTreeClose<CR>:NERDTreeFind<CR>
+            nmap <leader>N :NERDTreeClose<CR>
+            map <leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
+            nmap <leader>nt :NERDTreeToggle <CR>
+            nmap <C-u> :NERDTreeToggle<CR>
+            " Store the bookmarks file
+            let NERDTreeBookmarksFile=expand("/code_and_projects/dotfiles/.dotfiles/vim/NERDTreeBookmarks")
+            " Show the bookmarks table on startup
+            let NERDTreeShowBookmarks=1
+            " Set the location of bookmarks for nerdtree
+            " autocmd FileType nerdtree setlocal nolist
+            " Show hidden files, too
+            let NERDTreeShowFiles=1
+            let NERDTreeShowHidden=1
+            " Don't display these kinds of files
+            let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$']
+            " let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+            " open a NERDTree automatically when vim starts even if no files were specified at launch
+            "autocmd vimenter * if !argc() | NERDTree | endif
+            " close vim if nerdtree is last window open
+            autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+            " Quit on opening files from the tree
+            "let NERDTreeQuitOnOpen=1
+            " Highlight the selected entry in the tree
+            let NERDTreeHighlightCursorline=1
+            " Use a single click to fold/unfold directories and a double click to open files
+            let NERDTreeMouseMode=2
+            " Focus cursor in new document
+            "autocmd VimEnter * wincmd p
+            " let g:NERDTreeCaseSensitiveSort = 1
+            " let g:NERDTreeDirArrows = 1
+            " let g:NERDTreeMinimalUI = 1
+            " let g:NERDTreeQuitOnOpen = 1
+            " let g:NERDTreeShowBookmarks = 1
+            " let g:NERDTreeWinPos = 'right'
+            " let g:NERDTreeWinSize = 50
+
         " TODO Bundle 'L9'
         " TODO Bundle 'FuzzyFinder'
             " let g:fuf_modesDisable = []
@@ -613,7 +693,7 @@
         " Bundle 'honza/snipmate-snippets'
             " let g:snips_author = 'mt3'
             " let g:snippets_dir = '~/code_and_projects/dotfiles/.dotfiles/vim/snippets'
-            "source /code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/vim/snipmate-snippets/support_functions.vim
+            "source /code_and_projects/dotfiles/.dotfiles/vim/snipmate-snippets/support_functions.vim
             "autocmd vimenter * call s:SetupSnippets()
             "function! s:SetupSnippets()
             "    "if we're in a rails env then read in the rails snippets
@@ -628,38 +708,6 @@
             "endfunction
     " }}}
 
-    Bundle 'wincent/Command-T.git'
-        " let g:CommandTMatchWindowAtTop=1 " show window at top
-        " "burke's
-        " nnoremap <leader>tv :CommandTFlush<cr>\|:CommandT app/views<cr>
-        " nnoremap <leader>tc :CommandTFlush<cr>\|:CommandT app/controllers<cr>
-        " nnoremap <leader>tm :CommandTFlush<cr>\|:CommandT app/models<cr>
-        " nnoremap <leader>tl :CommandTFlush<cr>\|:CommandT lib<cr>
-        " nnoremap <leader>ta :CommandTFlush<cr>\|:CommandT app/assets<cr>
-        " nnoremap <leader>tp :CommandTFlush<cr>\|:CommandT public<cr>
-        " nnoremap <leader>tr :topleft :vsplit config/routes.rb<cr>
-        " nnoremap <leader>tg :topleft :vsplit Gemfile<cr>
-        "
-        " let g:CommandTMatchWindowReverse = 1
-        " nnoremap <Leader>f :call :CommandT<CR>
-        " nnoremap <Leader>d :call :CommandTBuffer<CR>
-        " nnoremap <Leader>F :call :CommandTFlush\|CommandT<CR>
-        "
-        " let g:CommandTSearchPath = $HOME . '/Code'
-        "let g:CommandTMaxHeight = 15
-        "set wildignore+=*.o,*.obj,.git,*.pyc,*.hg,*.svn,*.swp,*.bak,*.class
-        "noremap <leader>j :CommandT<cr>
-        "noremap <leader>y :CommandTFlush<cr>
-        "let g:CommandTMaxFiles=20000
-        " vertical split with CommandT
-        " nnoremap <leader>v :exec ':vnew \| CommandT'<CR>
-        " and without
-        " nnoremap <leader>V :vnew<CR>
-        "if has("gui_macvim")
-        "   macmenu &File.New\ Tab key=<nop>
-        "   map <D-t> :CommandT<CR>
-        "endif
-
     " Python {{{
         " nvie/vim-flake8 supersedes pyflakes-vimand vim-pep8
         Bundle 'nvie/vim-flake8'
@@ -670,6 +718,61 @@
 
         Bundle 'sunsol/vim_python_fold_compact'
         Bundle 'Lokaltog/python-syntax'
+        Bundle 'ehamberg/vim-cute-python'
+        Bundle 'jmcantrell/vim-virtualenv'
+
+        Bundle 'klen/python-mode'
+            " allows you to use the pylint, rope, pydoc, pyflakes, pep8, mccabe libraries
+            " let g:pymode_run = 0
+            " let g:pymode_lint = 0
+            " Disable pylint checking every save
+            "let g:pymode_lint_write = 0
+            " Set key 'R' for run python code
+            "let g:pymode_run_key = 'R'
+            "let g:pymode_doc = 1
+            " Key for show python documentation
+            "let g:pymode_doc_key = 'K'
+            " let g:pymode_breakpoint = 0
+            " let g:pymode_utils = 0
+            " let g:pymode_utils_whitespaces = 0
+            " let g:pymode_syntax = 0
+            " let g:pymode_options_indent = 0
+            " let g:pymode_options_fold = 0
+            " let g:pymode_options_other = 0
+            " Load pylint code plugin
+            "let g:pymode_lint = 1
+            " Switch pylint, pyflakes, pep8, mccabe code-checkers
+            "let g:pymode_lint_checker = "pyflakes,pep8,mccabe"
+            " Skip errors and warnings
+            " E.g. "E501,W002", "E2,W" (Skip all Warnings and Errors startswith E2) and etc
+            "let g:pymode_lint_ignore = "E501"
+            " Select errors and warnings E.g. "E4,W"
+            "let g:pymode_lint_select = ""
+            " Run linter on the fly
+            "let g:pymode_lint_onfly = 0
+            " Pylint configuration file. If file not found use 'pylintrc' from python-mode plugin directory
+            "let g:pymode_lint_config = "$HOME/.pylintrc"
+            " Check code every save
+            "let g:pymode_lint_write = 1
+            " Auto open cwindow if errors be finded
+            "let g:pymode_lint_cwindow = 1
+            " Show error message if cursor placed at the error line
+            "let g:pymode_lint_message = 1
+            " Auto jump on first error
+            "let g:pymode_lint_jump = 0
+            " Hold cursor in current window when quickfix is open
+            "let g:pymode_lint_hold = 0
+            " Place error signs
+            "let g:pymode_lint_signs = 1
+            " Maximum allowed mccabe complexity
+            "let g:pymode_lint_mccabe_complexity = 8
+            " Minimal height of pylint error window
+            "let g:pymode_lint_minheight = 3
+            " Maximal height of pylint error window
+            "let g:pymode_lint_maxheight = 6
+
+        "Bundle 'tmhedberg/SimpylFold'
+            "let g:SimpylFold_docstring_preview = 1
     " }}}
 
     " Haskell {{{
@@ -677,6 +780,7 @@
         " Bundle 'lukerandall/haskellmode-vim'
         " Bundle 'bitc/lushtags'
         " Bundle 'eagletmt/ghcmod-vim'
+        " Bundle 'Twinside/vim-syntax-haskell-cabal'
     " }}}
 
     filetype plugin indent on
@@ -804,7 +908,7 @@
     map <leader>R :source ~/.vimrc<cr>
 
     " TODO causes error/crash?
-    nnoremap <leader>hh :exec ':vnew \| help'<CR>
+    "nnoremap <leader>hh :exec ':vnew \| help'<CR>
     " TODO all help calls run in a vertical window to the right
     "noremap H :execute "vertical help <cword>"
 
@@ -949,6 +1053,11 @@
         " autocmd FileType python map <buffer> <F3> :call Flake8()<CR>
     " 2}}}
 
+    " restructuredtext shortcuts {{{
+        " Underline the current line with '='
+        nmap <silent> <leader>ul :t.\|s/./-/g\|:nohls<cr>
+    " }}}
+
     "py.test mappings
     " Execute the tests
     nmap <silent><Leader>tf <Esc>:Pytest file<CR>
@@ -1021,32 +1130,40 @@
     set switchbuf=newtab "useopen,usetab " TODO: document
     set nostartofline " when off the cursor is kept in the same column (if possible) and not reset to start of line
     set showmode
-    set showcmd " <leader> key appears in right hand corner of vim (to the left of the cursor location) and it disappears when the timeout happens
+    set showcmd " <leader> key appears in right hand corner of vim & disappears after timeout
     set hidden " buffers can be hidden (vim acts like all other editors)
     set report=0 " Always report changes
     set completeopt=menuone,longest,preview
+    " set completeopt=longest,menu,menuone
+    "               |       |    |
+    "               |       |    +-- Show popup even with one match
+    "               |       +------- Use popup menu with completions
+    "               +--------------- Insert longest completion match
     set wildmenu " Autocomplete features in the status bar. show list instead of just completing
     " set wildmode=list:longest
     set wildmode=list:longest,full	" command <Tab> completion, list matches, then longest common part, then all
+    "set wildmode=longest:full,list:full
+    "            |            |
+    "            |            +-- List matches, complete first match
+    "            +--------------- Complete longest prefix, use wildmenu
     set history=200
 
     set undoreload=1000
     set undolevels=1000
     set complete=.,w,b,u,U,t,i,d  " do lots of scanning on tab completion
     set nobackup " Turn backup off since futurefolks use hg/git/etc.
-    set nowb " TODO: document
-    "set backupdir=/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/vim/tmp/vim-backup-files
+    set nowb " don't make backup before overwriting file
+    "set backupdir=/code_and_projects/dotfiles/.dotfiles/vim/tmp/vim-backup-files
     set noswapfile " this is actually more trouble than it's worth if you keep a swapfile
     " puts swap files in this temp directory rather than all over the fukcing place
-    "set directory=/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/vim/tmp/vim-swp-files
+    "set directory=/code_and_projects/dotfiles/.dotfiles/vim/tmp/vim-swp-files
 
-    "Persistent undo
-    " TODO
+    "Persistent undo TODO
     " try
     "     if MySys() == "windows"
     "         set undodir=C:\Windows\Temp
     "     else
-    "         set undodir=/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/code_and_projects/dotfiles/.dotfiles/vim/undo,~/tmp,/tmp
+    "         set undodir=/code_and_projects/dotfiles/.dotfiles/vim/undo,~/tmp,/tmp
     "     endif
     "     set undofile " keep a permanent undo file
     " catch
@@ -1057,15 +1174,21 @@
     set timeoutlen=1000 " time to press next key after <Leader> has been pressed before it clears
     set shell=/usr/local/bin/zsh
     set ffs=unix,dos,mac " Default file types
+    " Use the same symbols as TextMate for tabstops and EOLs
+    "set listchars=tab:▸\ ,eol:¬
     "set listchars=tab:▸\ ,trail:·,extends:#,nbsp:· "TODO
     " set listchars=tab:▸\ ,eol:¬,extends:❯,precedes:❮
     " set showbreak=↪
 
-    " TODO
-    "if v:version >= 700
-    "    set viminfo=!,'20,<50,s10,h
-    "endif
+    " TODO document viminfo
+    " set viminfo='1000,<1000,s100,h
+    "             |     |     |    |
+    "             |     |     |    +-- Don't restore hlsearch on startup
+    "             |     |     +------- Exclude registers greater than N Kb
+    "             |     +------------- Keep N lines for each register
+    "             +------------------- Keep marks for N files
     " set viminfo=!,'20,<50,s10,h
+    " set viminfo='100,f1,h  " save up to 100 marks, enable capital marks, don't restore hlsearch on startup
     set viminfo='100,f1  " save up to 100 marks, enable capital marks
 
     let mapleader = ","
@@ -1094,7 +1217,14 @@
     set whichwrap=b,s,h,l,<,>,[,]	" backspace and cursor keys wrap
     "set shiftround "TODO: use multiple of shiftwidth when indenting with '<' and '>'
     set linebreak    "Wrap lines at convenient points
-    set formatoptions=qrn1 " TODO
+    set formatoptions=qrn1
+    " set formatoptions+=corqn
+    "                    |||||
+    "                    ||||+-- Recognize numbered lists
+    "                    |||+--- Allow formatting of comments with 'gq'
+    "                    ||+---- Insert comment leader after <Enter>
+    "                    |+----- Insert comment leader after o/O
+    "                    +------ Auto-wrap comments
     set display=lastline " when a line is long, do not omit it in @
     set textwidth=100
     set tabstop=4
@@ -1124,11 +1254,10 @@
     set foldnestmax=5 " deepest fold is 5 levels
     set foldopen=block,hor,insert,mark,percent,quickfix,search,tag,undo " which commands trigger auto-unfold
 
-    let g:is_zsh = 1 " TODO what is this used for? stolen from tpope's .vimrc
+    "let g:is_zsh = 1 " TODO what is this used for? stolen from tpope's .vimrc
 
     "set t_ce=^V^[[K	" (CTRL-V, <Esc>, [, K) to clear to end of line
 
-    " help settings TODO: document
     set helpheight=0 " default is 20
 
     " current directory is always matching the content of the active window
@@ -1166,7 +1295,7 @@
     endfunc
 
     " open help in vertical split
-    au BufWinEnter *.txt if &ft == 'help' | wincmd H | wincmd L | endif
+    au BufWinEnter *.txt if &ft == 'help' | wincmd L | endif
 
     func! s:CreateGitStatusSplit()
         Gstatus
@@ -1175,6 +1304,23 @@
         <C-w>15<
     endfunc
     command! Gst call s:CreateGitStatusSplit()
+
+    " build ctags taglist for current working directory
+    " TODO commented out unmap since errors occured due to no map assignment
+    " unmap <F8>
+    map <F8> :!/usr/local/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
+
+    function! UpdateTags()
+        " update ctags (uses Fugitive?)
+        " https://github.com/jmcantrell/dotfiles-vim/blob/master/vimrc
+        if exists('b:git_dir')
+            let cmd = b:git_dir.'/hooks/ctags'
+            if executable(cmd)
+                call system(fnameescape(cmd).' &')
+            endif
+        endif
+    endfunction
+    autocmd BufWritePost * call UpdateTags()
 
     func! DeleteTrailingWhitespace()
         exe "normal mz"
@@ -1320,11 +1466,6 @@
         endif
     endfunction
 
-    " build ctags taglist for current working directory
-    " commented out unmap since errors occured due to no map assignment
-    " unmap <F8>
-    map <F8> :!/usr/bin/ctags -R --c++-kinds=+p --fields=+iaS --extra=+q .<CR>
-
     function! BuildAndRunStage()
         " builds and then runs stage app
         " exe '!make && stage myTest.world'
@@ -1401,13 +1542,13 @@
     set relativenumber
 
     " replace WinEnter/WinLeave autocmd's to add/remove line numbers in front of each line
-    augroup BgHighlight
-        autocmd!
-        au FocusLost * :set number
-        au FocusGained * :set relativenumber
+    " augroup BgHighlight
+        " autocmd!
+        " au FocusLost * :set number
+        " au FocusGained * :set relativenumber
         " autocmd WinEnter * set relativenumber
         " autocmd WinLeave * set norelativenumber
-    augroup END
+    " augroup END
 
     " ignore whitespace in diff mode
     set diffopt+=iwhite
@@ -1534,7 +1675,7 @@
         " autocmd BufWritePost *.py call Flake8()
     " }}}
 
-    " Help File Settings {{{
+    " Help Files {{{
         autocmd FileType help setlocal nonumber	" no line numbers when viewing help
         " autocmd FileType help highlight <buffer> Cursor guibg=Yellow "TODO seems to affect all windows
         au Filetype help nnoremap <buffer> q :bd<CR>
@@ -1545,13 +1686,14 @@
         au Filetype help setl tabstop=4
         au Filetype help setl expandtab
         au Filetype help setl formatoptions=tcroqwanl1
-        function! s:SetupHelpWindow()
-            wincmd L
-            vertical resize 80
-            nnoremap <buffer> <Space> <C-]> " Space selects subject
-            nnoremap <buffer> <BS>    <C-T> " Backspace to go back
-        endfunction
-        au BufEnter,BufWinEnter <buffer> call <SID>SetupHelpWindow()
+        " function! s:SetupHelpWindow()
+        "     wincmd L
+        "     vertical resize 80
+        "     nnoremap <buffer> <D-S-Space> <C-]> " Space selects subject
+        "     nnoremap <buffer> <BS>    <C-T> " Backspace to go back
+        " endfunction
+        " TODO function gives errors
+        "au BufEnter,BufWinEnter help <buffer> call <SID>SetupHelpWindow()
     " }}}
 
     " Pentadactyl {{{
@@ -1572,10 +1714,8 @@
         au BufNewFile,BufRead *.vimrc setfiletype vim
         au BufNewFile,BufRead vimrc setfiletype vim
         au BufNewFile,BufRead *.vim setfiletype vim
-        " Strip whitespace on save
-        autocmd BufWritePre {*.vimrc,vimrc,*.vim} :%s/\s\+$//e
         au FileType vim setlocal foldmethod=marker foldlevelstart=0
-        let g:vimsyntax_noerror = 1 "TODO
+        " let g:vimsyntax_noerror = 1 "TODO
         " au FileType vim set guifont=Helvetica:h15:i
         " au filetype vim match ErrorMsg '\%>100v.\+'
     " }}}
@@ -1638,6 +1778,7 @@
         augroup rst
             au BufNewFile,BufRead *.rst set ft=rest
             au Filetype rst setlocal wrap
+            au Filetype rst setl formatoptions = a
             " au Filetype rst set foldmethod=syntax
             " au FileType rst highlight Type guifg=DarkBlue
             " au BufNewFile,BufRead g:voom_default_mode = 'rest'
@@ -1673,7 +1814,7 @@
     " }}}
 
     " Various other settings/configs {{{
-        " Strip whitespace on save
+        " Strip whitespace on save for all files
         autocmd BufWritePre * :%s/\s\+$//e
 
         " Remove trailing whitespaces and ^M chars
@@ -1697,6 +1838,10 @@
         autocmd FileType javascript		setlocal number
         autocmd FileType php			setlocal number
     " }}}
+" }}}
+
+" SHELL ALIASES {{{
+    com! pips :exe '!pipl'<CR> " TODO not reading my zsh aliases
 " }}}
 
 " PLUGINS SETUP {{{
@@ -1741,32 +1886,6 @@
     " NERDtree-Tabs-Toggle {{{
         map <Leader>n <plug>NERDTreeTabsToggle<CR>
     " }}}
-
-    " Python-mode {{{
-        " let g:pymode_run = 0
-        " let g:pymode_lint = 0
-        " let g:pymode_breakpoint = 0
-        " let g:pymode_utils = 0
-        " let g:pymode_utils_whitespaces = 0
-        " let g:pymode_syntax = 0
-        " let g:pymode_options_indent = 0
-        " let g:pymode_options_fold = 0
-        " let g:pymode_options_other = 0
-    " }}}
-
-    " ShowMarks {{{
-		" let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-		" " Don't leave on by default, use :ShowMarksOn to enable
-		" let g:showmarks_enable = 0
-		" " For marks a-z
-		" highlight ShowMarksHLl gui=bold guibg=LightBlue guifg=Blue
-		" " For marks A-Z
-		" highlight ShowMarksHLu gui=bold guibg=LightRed guifg=DarkRed
-		" " For all other marks
-		" highlight ShowMarksHLo gui=bold guibg=LightYellow guifg=DarkYellow
-		" " For multiple marks on the same line.
-		" highlight ShowMarksHLm gui=bold guibg=LightGreen guifg=DarkGreen
-	" }}}
 
     " Slime {{{
         "let g:slime_target = "tmux" "use tmux instead of screen
