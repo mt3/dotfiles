@@ -3,9 +3,12 @@
 
 " TODO {{{
     " when loading vimrc, display errors/conflicts verbosely and also prompt user to hit key to clear the errors
+    " turn off smart double quotes in vim files
+    " on logout call PowerLineClearCache
     " instead of NERDTree, Tagbar, and Taglist, Ctrlp does what all 3 of those do (and i guess better)
     " use plugins with vundle instead of pathogen. looks like a good way to combine the plugin's settings nearby its load cmd
     " when toggling comments, make sure code doesn't start w/ a space, whereas actual comments do
+    " make font size in adjacent pane be a smaller size (for help files and Voom, etc.)
     " convert everything to use Vundle. see Vundle section in https://github.com/gmarik/vimfiles/blob/master/vimrc
     " when using 'gcc' to comment code, don't add a space between comment symbol and actual code
     " map <D-w> :q!<CR>
@@ -106,6 +109,7 @@
 
     " Colorschemes {{{
         Bundle 'sjl/badwolf'
+        Bundle 'gregsexton/Gravity'
         Bundle 'altercation/vim-colors-solarized'
         Bundle 'tomasr/molokai'
         Bundle 'nelstrom/vim-mac-classic-theme'
@@ -116,7 +120,7 @@
     " TODO Bundle 'file-line'
     " TODO Bundle 'lastpos.vim'
     " TODO Bundle 'tlib'
-    " Bundle 'nvie/vim-rst-tables'
+    Bundle 'nvie/vim-rst-tables'
     Bundle 'Twinside/vim-hoogle'
     Bundle 'ervandew/lookup'
     " Bundle 'ervandew/eclim'
@@ -159,8 +163,9 @@
     Bundle 'b4winckler/vim-objc'
     Bundle 'https://github.com/vim-scripts/vmark.vim--Visual-Bookmarking.git'
     Bundle 'greyblake/vim-preview'
-    " Bundle 'Rykka/mathematic.vim'
-    " Bundle 'Rykka/colorv.vim'
+    Bundle 'Rykka/mathematic.vim'
+    Bundle 'Rykka/colorv.vim'
+    Bundle 'Rykka/lastbuf.vim'
     Bundle 'vim-pandoc/vim-pandoc'
     "Bundle 'Twinside/vim-cuteErrorMarker'
     Bundle 'mattn/calendar-vim'
@@ -168,6 +173,7 @@
     " Bundle 'vim-scripts/utl.vim'
     Bundle 'Shougo/unite.vim'
     Bundle 'kana/vim-wwwsearch'
+    Bundle 'saltstack/salt-vim'
     " TODO: this has an error Bundle 'vim-scripts/searchfold.vim'
     "Bundle 'tomtom/checksyntax_vim'
 
@@ -189,10 +195,10 @@
 
     " Marks {{{
         " vim-signature is apparently better than vim-showmarks and mark-tools
-        Bundle 'kshenoy/vim-signature'
-        " Bundle 'vim-scripts/mark_tools'
+        "Bundle 'kshenoy/vim-signature' TODO has error at startup
+         Bundle 'vim-scripts/mark_tools'
 
-        " Bundle 'zakj/vim-showmarks'
+         Bundle 'zakj/vim-showmarks'
 		    " let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 		    " " Don't leave on by default, use :ShowMarksOn to enable
 		    " let g:showmarks_enable = 0
@@ -218,8 +224,10 @@
     Bundle 'vim-scripts/VOoM'
         " handles code-folding and outlining of markdown, rst, etc.
         let g:voom_tree_placement = 'right'
-        let g:voom_tree_width = 35
+        let g:voom_tree_width = 30
         let g:voom_default_mode = 'rest'
+        au Filetype voomtree setl norelativenumber nonumber
+        " TODO auto close voom buffer when user hits enter
 
     Bundle 'Bogdanp/quicksilver.vim'
         nmap <leader>r <Plug>ActivateQS
@@ -237,6 +245,7 @@
         " ack shortcut
         let g:ackprg="ack-grep -H --nocolor --nogroup --column"
 
+    Bundle 'gregsexton/Vomodoro'
     Bundle 'mnick/vim-pomodoro'
         " Duration of a pomodoro in minutes (default: 25)
         let g:pomodoro_time_work = 25
@@ -250,13 +259,19 @@
     " Vim Utilities {{{
         Bundle 'kana/vim-textobj-user'
         Bundle 'kana/vim-textobj-entire'
+        Bundle 'vim-scripts/bufkill.vim'
         Bundle 'michaeljsmith/vim-indent-object'
         Bundle 'gmarik/ide-popup.vim'
         " Bundle 'mattn/benchvimrc-vim'
+
+        Bundle 'nathanaelkane/vim-command-w'
+            macmenu &File.Close key=<nop>
+            nmap <D-w> :CommandW<CR>
+            imap <D-w> <Esc>:CommandW<CR>
     " }}}
 
     " Commenting {{{
-        " TODO: see which plugin is better
+        " TODO: see which plugin is better. don't need both
 
         Bundle 'tpope/vim-commentary'
             " nnoremap // :TComment<CR>
@@ -267,16 +282,23 @@
             " nunmap gcc
             " nmap gc :TCommentMaybeInline<CR>
             " nmap gcc <Plug>CommentaryLine
-            " nmap <leader>c <Plug>CommentaryLine
-            " xmap <leader>c <Plug>Commentary
-            "au FileType htmldjango setlocal commentstring={#\ %s\ #}
+            nmap <leader>c <Plug>CommentaryLine
+            xmap <leader>c <Plug>Commentary
+            augroup plugin_commentary
+                au!
+                au FileType htmldjango setlocal commentstring={#\ %s\ #}
+                "au FileType htmldjango setlocal commentstring={#\ %s\ #}
+                au FileType clojurescript setlocal commentstring=;\ %s
+                au FileType puppet setlocal commentstring=#\ %s
+                au FileType fish setlocal commentstring=#\ %s
+            augroup END
 
         Bundle 'scrooloose/nerdcommenter'
-            nmap <leader>cc :NERDComToggleComment
-            xmap <leader>cc :NERDComToggleComment
+            "nmap <leader>cc :NERDComToggleComment
+            "xmap <leader>cc :NERDComToggleComment
             "nmap gcc :NERDComToggleComment<CR>
-            "nmap <leader>/ :call NERDComment(0, "invert")<cr>
-            "vmap <leader>/ :call NERDComment(0, "invert")<cr>
+            nmap <leader>/ :call NERDComment(0, "invert")<cr>
+            vmap <leader>/ :call NERDComment(0, "invert")<cr>
     " }}}
 
     Bundle 'godlygeek/tabular'
@@ -351,6 +373,13 @@
             " \ 'undo', 'changes', 'line', 'quickfix',
             " \ 'bookmarkdir', 'mark', 'register'
             " \ ]
+            " let my_ctrlp_user_command = "" .
+                "\ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
+                "\ ctrlp_filter_greps
+            "let my_ctrlp_git_command = "" .
+                "\ "cd %s && git ls-files | " .
+                "\ ctrlp_filter_greps
+            "let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
 
     " }}}
 
@@ -423,10 +452,11 @@
         Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
     " }}}
 
-    " Bundle 'Rykka/riv.vim'
+    "Bundle 'Rykka/riv.vim'
         " managing restructuredtext
-        " let g:riv_fold_blank=1
-        " let g:riv_fold_level=2
+        "let g:riv_fold_blank=1
+        "let g:riv_fold_level=2
+        " TODO <BS> isn't working as expected due to it being imapped to '@riv#action#ins_bs()'
 
     Bundle 'Lokaltog/vim-powerline'
         let g:Powerline_symbols = 'fancy'
@@ -448,7 +478,7 @@
 
     " Search {{{
         Bundle 'Raimondi/vimregextools'
-        Bundle 'dahu/SearchParty'
+        "Bundle 'dahu/SearchParty' TODO has error at startup
         Bundle 'gmarik/github-search.vim'
             " set where you want to clone resulting github repos to. default is '~/src/:author/:project'
             let g:github_search_path_format = '/Applications/github_dwlds:project'
@@ -502,6 +532,10 @@
             " inoremap <leader>W <Esc><leader>W
             " inoremap <leader>C <Esc><leader>C
             " inoremap <leader>S <Esc><leader>S
+            " nnoremap <leader>gl :Shell git gl -18<cr>:wincmd \|<cr>
+            " 'Hub'
+            "nnoremap <leader>H :Gbrowse<cr>
+            "vnoremap <leader>H :Gbrowse<cr>
     " }}}
 
     " Bundle 'mkitt/browser-refresh.vim'
@@ -519,8 +553,8 @@
         vmap <C-Up> [egv
         vmap <C-Down> ]egv"
 
-    " TODO Bundle 'Indent-Guides'
-        " let g:indent_guides_guide_size = 1
+    Bundle 'nathanaelkane/vim-indent-guides'
+         let g:indent_guides_guide_size = 1
 
     " Bundle 'gmarik/hlmatch.vim' " {{{
         " nnoremap # :<C-u>HlmCword<CR>
@@ -564,6 +598,28 @@
             "if has("gui_macvim")
             "   macmenu &File.New\ Tab key=<nop>
             "   map <D-t> :CommandT<CR>
+            "
+            "   let macvim_skip_cmd_opt_movement = 1
+                "no   <D-Left>       <Home>
+                "no!  <D-Left>       <Home>
+                "no   <M-Left>       <C-Left>
+                "no!  <M-Left>       <C-Left>
+
+                "no   <D-Right>      <End>
+                "no!  <D-Right>      <End>
+                "no   <M-Right>      <C-Right>
+                "no!  <M-Right>      <C-Right>
+
+                "no   <D-Up>         <C-Home>
+                "ino  <D-Up>         <C-Home>
+                "imap <M-Up>         <C-o>{
+
+                "no   <D-Down>       <C-End>
+                "ino  <D-Down>       <C-End>
+                "imap <M-Down>       <C-o>}
+
+                "imap <M-BS>         <C-w>
+                "inoremap <D-BS>     <esc>my0c`y
             "endif
 
         Bundle 'scrooloose/nerdtree'
@@ -710,18 +766,18 @@
 
     " Python {{{
         " nvie/vim-flake8 supersedes pyflakes-vimand vim-pep8
-        Bundle 'nvie/vim-flake8'
+        "Bundle 'nvie/vim-flake8'
             " to ignore errors from flake8
                 " W191: Tabs for indentation
                 " E501: Too long line
             " let g:flake8_ignore="E501,W293"
 
-        Bundle 'sunsol/vim_python_fold_compact'
-        Bundle 'Lokaltog/python-syntax'
-        Bundle 'ehamberg/vim-cute-python'
-        Bundle 'jmcantrell/vim-virtualenv'
+        "Bundle 'sunsol/vim_python_fold_compact'
+        "Bundle 'Lokaltog/python-syntax'
+        "Bundle 'ehamberg/vim-cute-python'
+        "Bundle 'jmcantrell/vim-virtualenv'
 
-        Bundle 'klen/python-mode'
+        "Bundle 'klen/python-mode'
             " allows you to use the pylint, rope, pydoc, pyflakes, pep8, mccabe libraries
             " let g:pymode_run = 0
             " let g:pymode_lint = 0
@@ -872,6 +928,7 @@
     " endif
 
     " Tab or Shift-Tab indents/unidents selected line(s)
+    " TODO the following vunmaps produce stratup errors
     vunmap <S-Tab>
     vnoremap <S-Tab> <gv
     vunmap <Tab>
@@ -1696,6 +1753,10 @@
         "au BufEnter,BufWinEnter help <buffer> call <SID>SetupHelpWindow()
     " }}}
 
+    " Elasticsearch {{{
+        autocmd! BufRead,BufNewFile *.es      setfiletype elasticsearch
+    " }}}
+
     " Pentadactyl {{{
         au BufNewFile,BufRead *.pentadactylrc,pentadactylrc setfiletype vim
         au BufNewFile,BufRead *.pentadactylrc set ft=vim
@@ -1777,8 +1838,8 @@
     " reStructuredText {{{
         augroup rst
             au BufNewFile,BufRead *.rst set ft=rest
-            au Filetype rst setlocal wrap
-            au Filetype rst setl formatoptions = a
+            au Filetype rest setlocal wrap
+            "au Filetype rst setl formatoptions=a TODO error says 'a' is an unknown format option
             " au Filetype rst set foldmethod=syntax
             " au FileType rst highlight Type guifg=DarkBlue
             " au BufNewFile,BufRead g:voom_default_mode = 'rest'
@@ -1841,7 +1902,7 @@
 " }}}
 
 " SHELL ALIASES {{{
-    com! pips :exe '!pipl'<CR> " TODO not reading my zsh aliases
+    com! Pipl :exe '!pipl'<CR> " TODO not reading my zsh aliases
 " }}}
 
 " PLUGINS SETUP {{{
@@ -1902,6 +1963,10 @@
         let g:tslime_normal_mapping = '<localleader>t'
         let g:tslime_visual_mapping = '<localleader>t'
         let g:tslime_vars_mapping = '<localleader>T'
+    " }}}
+
+    " vnews (rss feed reader in vim) {{{
+        "let g:Vnews#browser_command = "your browser command here" TODO
     " }}}
 " }}}
 
