@@ -61,6 +61,16 @@ function pless() {
     pygmentize $1 | less -r
 }
 
+function ports() {
+    FAMILY=TCP
+    STATE="-sTCP:LISTEN"
+    if [[ -n $1 ]]; then
+        FAMILY=$1
+        STATE=
+    fi
+    sudo lsof -i${FAMILY} -P $STATE | tr -s " " "\t" | cut -f 1,5,8- | tail -n +2 | sort | uniq
+}
+
 function ns {
     # search notational velocity notes from command line
     # http://fidlet.com/post/885514801/one-thing-well-a-poor-mans-notational-velocity
@@ -354,6 +364,7 @@ function git(){
     # wrap git with hub
 	hub "$@"
 }
+compdef hub=git
 
 function git_diff() {
     # view git diffs in macvim
@@ -364,7 +375,7 @@ function git_diff() {
     git diff --no-ext-diff -w "$@" | mvim -R -
 }
 
-pman() {
+function pman() {
     # Open a manpage in Preview, which can be saved to PDF (stolened from adamv)
     man -t "${1}" | open -f -a /Applications/Preview.app
 }
@@ -428,8 +439,8 @@ function extract_archive() {
         print "Unknown archive type: $1"
         return 1
     fi
-    # Change in to the newly created directory, and
-    # list the directory contents, if there is one.
+
+    # cd to newly created directory and list directory contents if it exists
     current_dirs=( *(N/) )
     for i in {1..${#current_dirs}}; do
         if [[ $current_dirs[$i] != $old_dirs[$i] ]]; then
@@ -442,6 +453,19 @@ function extract_archive() {
 # alias ex=extract_archive
 # compdef '_files -g "*.gz *.tgz *.bz2 *.tbz *.zip *.rar *.tar *.lha"' extract_archive
 
+function gitdailysummary {
+    # summarize daily git commits
+    # from http://readystate4.com/2012/01/09/great-little-bash-snippet-to-summarize-your-daily-git-commits
+    NEXT=$(date +%F)
+    echo "CHANGELOG"
+    echo ----------------------
+    git log --no-merges --format="%cd" --date=short | sort -u -r | while read DATE ; do
+        echo
+        echo [$DATE]
+        GIT_PAGER=cat git log --no-merges --format=" * %s" --since=$DATE --until=$NEXT
+        NEXT=$DATE
+    done
+}
 
 function pgrep {
     #from adamv yet again
@@ -524,6 +548,7 @@ function updation() {
     # gems
     if [[ -x `which gem` ]]; then
         OUTDATED=(gem outdated)
+		# echo "\n  \e[1m\e[34m" $x "\e[0m"
     fi
 
     # cabal
@@ -533,6 +558,18 @@ function updation() {
     # notification for outdated modules
     growlnotify -m "$OUTDATED" \
                 -t "Outdated Modules"
+}
+
+function update_cloned_repo(){ #TODO finish
+    # update my clone of someone else's repo with their most recent
+    #
+    # list options from where to pull down the changes from by displaying all tracked repos
+    # list where to pull the changes into (default's to master or current branch)
+    # pull the changes
+    # fix conflicts (if necessary)
+    # push changes (if necessary)
+    git pull $REPO_TO_PULL_FROM master
+    git push origin
 }
 
 echo "\e[1m\e[32mFinished loading functions.zsh\e[0m"
