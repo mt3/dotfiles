@@ -13,7 +13,6 @@
     let g:colors_name = "lightdark"
 " }}}
 
-
 " Clear the colors for any items that you don't like {{{
     hi clear StatusLine
     hi clear StatusLineNC
@@ -25,7 +24,6 @@
     hi clear Search
     hi clear StatusLine
 " }}}
-
 
 " Set up your new & improved colors {{{
     " hi Cursor       guifg=Black     guibg=#e4e4e4   gui=none    ctermbg=241
@@ -49,7 +47,7 @@
     hi IncSearch    NONE term=underline guifg=Black guibg=LightYellow
 
     hi Folded 		guifg=#aaddff   guibg=#898989     gui=none            ctermbg=4           ctermfg=248
-    hi FoldColumn   guifg=Blue      guibg=#f6f6f6   ctermfg=DarkBlue    ctermbg=LightGrey
+    hi FoldColumn   guifg=#43c3ff   guibg=#f6f6f6   ctermfg=DarkBlue    ctermbg=LightGrey
     "hi link FoldColumn Folded
 
     hi Title		guifg=#f6f3e8   guibg=NONE	    gui=bold ctermfg=254 cterm=bold
@@ -62,7 +60,6 @@
     hi MatchParen   term=reverse    guifg=White     guibg=#cfdfff gui=bold ctermbg=LightCyan
 " }}}
 
-
 " Syntax & Keywords {{{
     hi Normal       guifg=Black         guibg=#f4f4f4   gui=none        ctermfg=253 ctermbg=234
     hi String       guifg=#7e8aa2       gui=none        ctermfg=103
@@ -72,15 +69,14 @@
 
 
     hi Constant 	guifg=#8186b1       gui=italic      ctermfg=148
-    hi Keyword		guifg=SlateBlue     gui=none        ctermfg=103
-    hi Statement 	guifg=DarkBlue      gui=none        ctermfg=103
+    hi Keyword		guifg=#43c3ff       gui=none        ctermfg=103
+    hi Statement 	guifg=SlateBlue     gui=none        ctermfg=103
     hi Identifier   guifg=#0080df
     hi PreProc      guifg=DarkCyan
     hi Type         guifg=DarkMagenta
 
     hi Todo         guifg=Black         guibg=#e02020   gui=italic,bold
 " }}}
-
 
 " Error Messages {{{
     hi SpellErrors guifg=Red gui=underline
@@ -93,7 +89,6 @@
     " TODO
     hi SpellLocal guibg=DarkCyan
 " }}}
-
 
 " Cterm Colors {{{
     "Black
@@ -115,15 +110,15 @@
     "White
 " }}}
 
-
 " Xterm Colors {{{
     "
 " }}}
 
-
 " Color Values {{{
     "coloring format is #rrggbb
     "lightblueish=#bfffff
+    "babyblue=#43c3ff
+    "fadedjeansblue=#6384bc
     "darkblueish=#204fdf
     "lightred=#c80000
 " }}}
