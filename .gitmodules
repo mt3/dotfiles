@@ -43,12 +43,6 @@
 [submodule ".dotfiles/vim/vim-indexed-search"]
 	path = .dotfiles/vim/vim-indexed-search
 	url = https://github.com/henrik/vim-indexed-search.git
-[submodule ".dotfiles/vim/bundle/javacomplete"]
-	path = .dotfiles/vim/bundle/javacomplete
-	url = git://github.com/adragomir/javacomplete.git
-[submodule ".dotfiles/vim/bundle/puppet-vim"]
-	path = .dotfiles/vim/bundle/puppet-vim
-	url = git://github.com/ghoneycutt/puppet-vim.git
 [submodule ".dotfiles/vim/bundle/vim-preview"]
 	path = .dotfiles/vim/bundle/vim-preview
 	url = git://github.com/greyblake/vim-preview.git
@@ -58,18 +52,12 @@
 [submodule ".dotfiles/vim/bundle/vim-extradite"]
 	path = .dotfiles/vim/bundle/vim-extradite
 	url = https://github.com/int3/vim-extradite.git
-[submodule ".dotfiles/vim/bundle/screen"]
-	path = .dotfiles/vim/bundle/screen
-	url = https://github.com/ervandew/screen.git
 [submodule ".dotfiles/vim/bundle/vim-easymotion"]
 	path = .dotfiles/vim/bundle/vim-easymotion
 	url = https://github.com/Lokaltog/vim-easymotion.git
 [submodule ".dotfiles/vim/bundle/vim-virtualenv"]
 	path = .dotfiles/vim/bundle/vim-virtualenv
 	url = https://github.com/jmcantrell/vim-virtualenv.git
-[submodule ".dotfiles/vim/bundle/taskpaper.vim"]
-	path = .dotfiles/vim/bundle/taskpaper.vim
-	url = git://github.com/davidoc/taskpaper.vim.git
 [submodule ".dotfiles/vim/bundle/vim-github"]
 	path = .dotfiles/vim/bundle/vim-github
 	url = git://github.com/thinca/vim-github.git
@@ -118,9 +106,6 @@
 [submodule ".dotfiles/vim/bundle/github-search.vim"]
 	path = .dotfiles/vim/bundle/github-search.vim
 	url = git://github.com/gmarik/github-search.vim.git
-[submodule ".dotfiles/vim/bundle/vundle"]
-	path = .dotfiles/vim/bundle/vundle
-	url = git://github.com/gmarik/vundle.git
 [submodule ".dotfiles/vim/bundle/tcomment_vim"]
 	path = .dotfiles/vim/bundle/tcomment_vim
 	url = git://github.com/tomtom/tcomment_vim.git
@@ -232,9 +217,6 @@
 [submodule ".dotfiles/vim/bundle/coveragepy.vim"]
 	path = .dotfiles/vim/bundle/coveragepy.vim
 	url = https://github.com/alfredodeza/coveragepy.vim.git
-[submodule ".dotfiles/vim/bundle/jacinto.vim"]
-	path = .dotfiles/vim/bundle/jacinto.vim
-	url = https://github.com/alfredodeza/jacinto.vim.git
 [submodule ".dotfiles/vim/bundle/textile"]
 	path = .dotfiles/vim/bundle/textile
 	url = https://github.com/timcharper/textile.vim.git
