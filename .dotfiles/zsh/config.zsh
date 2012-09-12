@@ -178,6 +178,8 @@ zstyle ':completion:*:dvips:*' files '*.dvi'
 # zstyle ':completion:*:*:xdvi:*' menu yes select
 # zstyle ':completion:*:*:xdvi:*' file-sort time
 
+# TODO describe
+# zstyle ':completion:*' prefix-needed true
 
 function zle-line-init zle-keymap-select {
     # Change cursor based on Vi mode and also tmux/screen state

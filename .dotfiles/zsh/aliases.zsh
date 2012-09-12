@@ -7,6 +7,7 @@ alias jek="jekyll && echo && echo BROWSE TO: http://0.0.0.0:4000 && echo && jeky
 #alias mate="mate -l1"
 alias firefox='/Applications/BrowserApps/Nightly.app/Contents/MacOS/firefox'
 alias gclient="/Applications/github_dwlds/depot_tools/gclient"
+alias gitboard='php /Applications/github_dwlds/Gitboard/gitboard.php'
 alias nightly='/Applications/BrowserApps/Nightly.app/Contents/MacOS/firefox'
 alias proxy='squid -f ~/etc/squid.conf && echo "Squid started."'
 # use my dev version of showoff
@@ -45,6 +46,7 @@ alias -g L='| less'
 alias ack='ack -a'
 alias apps="cd /Applications"
 alias appsg="cd /Applications/github_dwlds"
+alias appsl="cd /Volumes/Data/developer/large-repos"
 alias cdd='cd -' # goto last dir cd'ed from
 alias ciao='sudo shutdown -h now'
 alias clr="clear"
@@ -108,7 +110,7 @@ alias tlf='tail -f'
 alias TODOs="ack 'TODO|FIXME|XXX|HACK'"
 alias trash="rm -rf"
 alias up="cd .."
-alias upd="upd >&1 > ~/.logs/updated-repos-logfiles-`date +%F`-`date +%T`.txt"
+# alias upd="upd >&1 > ~/.logs/updated-repos-logfiles-`date +%F`-`date +%T`.txt"
 alias whats-my-ip="curl -s checkip.dyndns.org | grep -Eo '[0-9\.]+'"
 alias zshrc='mvim ~/.zshrc && source ~/.zshrc' # opens zshrc file in textmate, then reloads it immediately (thieved from http://ozmm.org/posts/git_bash_aliases.html)
 # }}}

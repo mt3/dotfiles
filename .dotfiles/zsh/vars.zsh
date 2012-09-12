@@ -22,12 +22,15 @@ setopt HIST_IGNORE_SPACE
 # red dots to be displayed while waiting for completion
 COMPLETION_WAITING_DOTS="true"
 
+# avoid completion when "zsh: correct 'vim' to '.vim' [nyae]? n"
+CORRECT_IGNORE=".*"
+#CORRECT_IGNORE=".vim"
+
 # M-b and M-f (backward-word and forward-word) doesn't jump over an entire /path/location, but moves to each word separated by a '/'
 export WORDCHARS=''
 # by default: export WORDCHARS='*?_-.[]~=/&;!#$%^(){}<>'
 # we take out the slash, period, angle brackets, dash here.
 # export WORDCHARS='*?_[]~=&;!#$%^(){}'
-
 
 
 # auto-launch ssh keypairs so i don't have to enter the damned 137.5 character pwd every time
@@ -47,7 +50,6 @@ export LSCOLORS=Exfxcxdxbxegedabagacad
 export MANPAGER='less -X'
 
 
-
 # JAVA
 # export java classpath for lucene
 export CLASSPATH=/usr/local/Cellar/lucene-3.0.2/lucene-core-3.0.2.jar:/usr/local/Cellar/lucene-3.0.2/lucene-demos-3.0.2.jar:/Volumes/Data/incoming/stanford-parser-2010-02-26/stanford-parser.jar
@@ -64,15 +66,13 @@ export PATH=$PATH:$STANFORD_PATH
 #done
 
 
-
-# NODE
+# NODE & NPM
 export NODE_PATH=/usr/local/lib/node:/usr/local/lib/node_modules
-
+export PATH=$PATH:/usr/local/share/npm/bin
 
 
 # LATEX & BIBTEX
 export PATH=$PATH:/usr/texbin
-
 
 
 # PYTHON
@@ -82,13 +82,11 @@ export PATH=$PATH:/usr/local/share/python:/usr/local/python/site-packages
 
 #export PYTHONPATH=/usr/local/share/python:/usr/local/python/site-packages:/Library/Frameworks/Python.framework/Versions/2.6/bin:/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/site-packages:/usr/local/lib/python2.6/site-packages/
 export PYTHONPATH=/usr/local/share/python:/usr/local/python/site-packages:/usr/local/lib/python2.7/site-packages:/usr/local/Cellar/python/2.7.2/lib/python2.7
-
 # place fabric files on pythonpath
 export PYTHONPATH=$PYTHONPATH:/Users/mt/code_and_projects/sysadmin-and-deployment/fabfiles
 
 # override python default of 64-bit mode
-export VERSIONER_PYTHON_PREFER_32_BIT=yes
-
+export VERSIONER_PYTHON_PREFER_32_BIT=no
 
 
 # some more customization for Lion
@@ -98,8 +96,8 @@ export VERSIONER_PYTHON_PREFER_32_BIT=yes
 #export CC=/usr/llvm-gcc-4.2/bin/llvm-gcc-4.2
 #export CC=/usr/local/Cellar/ccache/3.1.4/libexec/gcc
 #export CC=/Applications/Xcode.app/Contents/Developer/usr/bin/gcc
-#export CPP=/Developer/usr/bin/g++
 
+#export CPP=/Developer/usr/bin/g++
 #export CPP=/usr/bin/gcc
 #export CPP=/usr/llvm-gcc-4.2/bin/llvm-g++-4.2
 
@@ -108,16 +106,21 @@ export VERSIONER_PYTHON_PREFER_32_BIT=yes
 #export CXX=/usr/llvm-gcc-4.2/bin/llvm-g++-4.2
 #export CXX=/usr/bin/g++
 
+export CFLAGS="-0s -arch x86_64"
 #export CFLAGS="-Wall -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
 #export CFLAGS="-Wall -isysroot /Developers/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
-# export LDFLAGS="-arch x86_64 -syslibroot,/Developer/SDKs/MacOSX10.7.sdk"
 
+export LDFLAGS=""
+# export LDFLAGS="-arch x86_64 -syslibroot,/Developer/SDKs/MacOSX10.7.sdk"
 #export LDFLAGS="-arch x86_64 -syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk"
 #export LDFLAGS="-arch x86_64 -syslibroot,/Developers/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk"
 
 #export FFLAGS="-arch x86_64 -m64"
-# export CXXFLAGS="-Wall -isysroot /Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
+export FFLAGS="-m64"
+export FCLAGS="-m64"
 
+export CXXFLAGS="-arch x86_64 -0s -pipe"
+# export CXXFLAGS="-Wall -isysroot /Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
 #export CXXFLAGS="-Wall -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
 #export CXXFLAGS="-Wall -isysroot /Developer/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
 
@@ -164,8 +167,7 @@ export PATH=/usr/local/Cellar/gsl/1.14/lib:/usr/local/Cellar/gsl/1.14/include:$P
 #export HOMEBREW_USE_GCC=/usr/local/Cellar/ccache/3.1.4/libexec/gcc
 
 
-# TODO: is this needed anymore?...
-export MACOSX_DEPLOYMENT_TARGET=10.7
+export MACOSX_DEPLOYMENT_TARGET=10.8
 
 
 # For cydia/jailbreak apps
@@ -174,8 +176,14 @@ export THEOS=/Applications/github_dwlds/theos
 
 # STAGE env variables
 export STG=/Volumes/Data/school_and_classes/sfu_classes_and_projects/vaughan-robotics-AI/rtv-Stage-97b203d
-export DYLD_LIBRARY_PATH=$STG/lib
+# export DYLD_LIBRARY_PATH=$STG/lib
 export STAGEPATH=/usr/local/lib
+
+# vnews RSS feed reader within vim
+export VNEWS_VIM=mvim
+
+# vmail gmail within vim
+export VMAIL_VIM=mvim
 
 
 echo "\e[1m\e[32mFinished loading vars.zsh\e[0m"

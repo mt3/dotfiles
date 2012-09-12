@@ -14,8 +14,6 @@ fi;
 ### end cheat zsh completion
 #}}}
 
-
-
 # homebrew completion {{{1
 # source `brew --prefix`/Library/Contributions/brew_zsh_completion.zsh
 
@@ -29,7 +27,9 @@ fi;
 echo "\e[1m\e[35mFinished loading homebrew completions\e[0m"
 ### end homebrew zsh completion }}}
 
-
+# zsh completions {{{
+fpath=(/usr/local/share/zsh-completions $fpath)
+# }}}
 
 # npm completion {{{1
 #
@@ -72,7 +72,6 @@ fi
 echo "\e[1m\e[35mFinished loading npm completions\e[0m"
 ###-end-npm-completion-### }}}
 
-
 # pip command completion {{{1
 function _pip_completion {
     local words cword
@@ -85,19 +84,16 @@ function _pip_completion {
 compctl -K _pip_completion pip
 # pip zsh completion end }}}
 
-
 # scm_breeze completion {{{1
 [ -s "~/.scm_breeze/scm_breeze.sh" ] && . "~/.scm_breeze/scm_breeze.sh"
 echo "\e[1m\e[35mFinished loading scm_breeze completions\e[0m"
 # end scm_breeze completion }}}
-
 
 # SSH completion {{{1
 #TODO: this was in bash, implement for zsh
 # tab completion for SSH hostnames based on ~/.ssh/config, ignoring wildcards
 # [ -e "$HOME/.ssh/config" ] && complete -o "default" -o "nospace" -W "$(grep "^Host" ~/.ssh/config | grep -v "[?*]" | cut -d " " -f2)" scp sftp ssh
 # }}}
-
 
 # Completion on Mac to be /Applications/ aware {{{1
 #TODO: not exactly bloody working
@@ -109,7 +105,6 @@ echo "\e[1m\e[35mFinished loading scm_breeze completions\e[0m"
 #     alias run='open -a'
 # fi
 ### end Completion on Mac to be /Applications/ aware }}}
-
 
 # pip zsh completion start
 function _pip_completion {
@@ -123,12 +118,10 @@ function _pip_completion {
 compctl -K _pip_completion pip
 # pip zsh completion end }}}
 
-
 # rvm completion {{{1
 [[ -s "$HOME/.rvm/scripts/rvm" ]] && source "$HOME/.rvm/scripts/rvm"
 echo "\e[1m\e[35mFinished loading rvm completions\e[0m"
 ### end rvm completion }}}
-
 
 echo "\e[1m\e[32mFinished loading completions.zsh\e[0m"
 

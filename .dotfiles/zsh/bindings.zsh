@@ -3,7 +3,7 @@
 ######################
 
 #TODO: document
-# vi mode
+# vi mode (-v is 'viins', -a is 'vicmd'
 bindkey -v
 # emacs mode
 # bindkey -e
@@ -11,7 +11,7 @@ bindkey -v
 # use incremental search
 #TODO: document
 # bindkey '^[[R' history-incremental-search-backward
-bindkey "^R" history-incremental-pattern-search-backward 
+bindkey "^R" history-incremental-pattern-search-backward
 bindkey "^S" history-incremental-pattern-search-forward
 
 #TODO: document
@@ -90,7 +90,7 @@ bindkey ' ' magic-space    # history expansion on space
 # bindkey -M viins ^H backward-delete-char
 
 # vi keys when you hit escape, and emacs-ish keys when you don't
-# from zsh wiki 
+# from zsh wiki
 # bindkey -v
 # bindkey "^P" vi-up-line-or-history
 # bindkey "^N" vi-down-line-or-history
