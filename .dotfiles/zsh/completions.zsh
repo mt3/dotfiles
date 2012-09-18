@@ -72,18 +72,6 @@ fi
 echo "\e[1m\e[35mFinished loading npm completions\e[0m"
 ###-end-npm-completion-### }}}
 
-# pip command completion {{{1
-function _pip_completion {
-    local words cword
-    read -Ac words
-    read -cn cword
-    reply=( $( COMP_WORDS="$words[*]" \
-                 COMP_CWORD=$(( cword-1 )) \
-                 PIP_AUTO_COMPLETE=1 $words[1] ) )
-}
-compctl -K _pip_completion pip
-# pip zsh completion end }}}
-
 # scm_breeze completion {{{1
 [ -s "~/.scm_breeze/scm_breeze.sh" ] && . "~/.scm_breeze/scm_breeze.sh"
 echo "\e[1m\e[35mFinished loading scm_breeze completions\e[0m"
@@ -116,6 +104,8 @@ function _pip_completion {
              PIP_AUTO_COMPLETE=1 $words[1] ) )
 }
 compctl -K _pip_completion pip
+# recommended from pypi
+eval "`pip completion --zsh`"
 # pip zsh completion end }}}
 
 # rvm completion {{{1
