@@ -32,7 +32,6 @@ export WORDCHARS=''
 # we take out the slash, period, angle brackets, dash here.
 # export WORDCHARS='*?_[]~=&;!#$%^(){}'
 
-
 # auto-launch ssh keypairs so i don't have to enter the damned 137.5 character pwd every time
 export SSH_ENV="$HOME/.ssh/environment"
 export EDITOR=mvim
@@ -49,12 +48,10 @@ export LSCOLORS=Exfxcxdxbxegedabagacad
 # Don’t clear the screen after quitting a manual page
 export MANPAGER='less -X'
 
-
 # JAVA
 # export java classpath for lucene
 export CLASSPATH=/usr/local/Cellar/lucene-3.0.2/lucene-core-3.0.2.jar:/usr/local/Cellar/lucene-3.0.2/lucene-demos-3.0.2.jar:/Volumes/Data/incoming/stanford-parser-2010-02-26/stanford-parser.jar
 export JAVA_HOME=/System/Library/Java/JavaVirtualMachines/1.6.0.jdk/Contents/Home
-
 
 # add Stanford parser to path
 export STANFORD_PATH=/usr/local/Cellar/stanford-parser/1.6.2
@@ -65,29 +62,34 @@ export PATH=$PATH:$STANFORD_PATH
 #  export PATH=$PATH:$STANFORD_PATH/src/edu/stanford/nlp/$i
 #done
 
-
 # NODE & NPM
 export NODE_PATH=/usr/local/lib/node:/usr/local/lib/node_modules
 export PATH=$PATH:/usr/local/share/npm/bin
 
-
 # LATEX & BIBTEX
 export PATH=$PATH:/usr/texbin
-
 
 # PYTHON
 # place python packages on path
 #export PATH=$PATH:/usr/local/share/python:/usr/local/python/site-packages:/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/site-packages:/Library/Python/2.6/site-packages:/Library/Frameworks/Python.framework/Versions/2.6/bin
-export PATH=$PATH:/usr/local/share/python:/usr/local/python/site-packages
+export PATH=$PATH:/usr/local/share/python:/usr/local/python/site-packages:/usr/local/lib/python2.7/site-packages
 
 #export PYTHONPATH=/usr/local/share/python:/usr/local/python/site-packages:/Library/Frameworks/Python.framework/Versions/2.6/bin:/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/site-packages:/usr/local/lib/python2.6/site-packages/
 export PYTHONPATH=/usr/local/share/python:/usr/local/python/site-packages:/usr/local/lib/python2.7/site-packages:/usr/local/Cellar/python/2.7.2/lib/python2.7
 # place fabric files on pythonpath
 export PYTHONPATH=$PYTHONPATH:/Users/mt/code_and_projects/sysadmin-and-deployment/fabfiles
 
+# virtualenv
+export WORKON_HOME=$HOME/.virtualenvs
+export PROJECT_HOME=$HOME/virtualenv-devel
+export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/share/python/virtualenvwrapper.sh
+# make pip use the same directory for virtualenvs as virtualenvwrapper
+export PIP_VIRTUALENV_BASE=$WORKON_HOME
+# export PIP_RESPECT_VIRTUALENV=true
+
 # override python default of 64-bit mode
 export VERSIONER_PYTHON_PREFER_32_BIT=no
-
 
 # some more customization for Lion
 # TODO: is this needed anymore?...
@@ -126,53 +128,44 @@ export CXXFLAGS="-arch x86_64 -0s -pipe"
 
 #export CPPFLAGS="-Wall -isysroot /Developer/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
 
-
 # RUBY
 # place path to ruby gem binaries
 # TODO: do i need this if i have it in .gemrc?
 export PATH=/usr/local/Cellar/ruby/1.9.3-p194/bin:/usr/local/Cellar/ruby/1.9.2-p136/bin:/usr/local/Cellar/ruby/1.9.2-p180/bin:/usr/local/Cellar/ruby/1.9.2-p290/bin:/usr/local/lib/ruby/gems/1.9.1/cache:$PATH
 
-
 # Xcode is now stand-alone, link to their packaged binaries since they are most up-to-date
 #export PATH=/Applications/Xcode.app/Contents/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/sbin:$PATH
-
 
 # HOMEBREW
 # place homebrew as the head of PATH
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
 
-
 # MACVIM for calling 'mvim' from CLI
 export VIM_APP_DIR=/Applications/DevApps
-
 
 # XCODE
 # place ccache on head of path for faster xcode compiling
 #export PATH=/usr/local/Cellar/ccache/3.1.4/libexec:$PATH
 
-
+# ZSH
 export ZSH=$HOME/code_and_projects/dotfiles/.dotfiles/zsh/oh-my-zsh
-export ZSH_THEME="clean"
-
+# export ZSH_THEME="clean"
+export ZSH_THEME="powerline"
+export TERM="xterm-256color"
 
 # ADD gsl LIBRARY TO THE PATH
 export PATH=/usr/local/Cellar/gsl/1.14/lib:/usr/local/Cellar/gsl/1.14/include:$PATH
 
-
 # since i failed kindergarten this makes me feel good inside
 #export PATH="$PATH:/Applications/github_dwlds/git-achievements"
-
 
 # homebrew workaround for lion 10.7
 #export HOMEBREW_USE_GCC=/usr/local/Cellar/ccache/3.1.4/libexec/gcc
 
-
 export MACOSX_DEPLOYMENT_TARGET=10.8
-
 
 # For cydia/jailbreak apps
 export THEOS=/Applications/github_dwlds/theos
-
 
 # STAGE env variables
 export STG=/Volumes/Data/school_and_classes/sfu_classes_and_projects/vaughan-robotics-AI/rtv-Stage-97b203d
