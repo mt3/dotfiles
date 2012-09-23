@@ -3,6 +3,7 @@
 
 " TODO {{{
     " when loading vimrc, display errors/conflicts verbosely and also prompt user to hit key to clear the errors
+    " have Ack open in vsplit
     " turn off smart double quotes in .vim files
     " on logout call PowerLineClearCache
     " viewdir (located at ~/.vim/view) needs to be cleaned out once in a while due to odd issues/conflicts within vim
@@ -146,24 +147,28 @@
     filetype on
     filetype off
 
-    Bundle 'gmarik/vundle'
+    " Vundle {{{
         set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/vundle/
         call vundle#rc()
-        " in 'BundleList', you can perform the following:
-        "     i/I - installs/updates bundle
-        "     D - deletes bundle (be careful not to delete your local modifications)
-        "     l - opens log up. Helpful when tracking down errors
-        " alias to update plugins
-        com! BundleUpdate BundleInstall!
-        " TODO com! BundleCleanAndUpdate BundleClean BundleInstall!
-        let g:vundle_log=['~/vundle.log']
-        " red exclamation mark during 'BundleUpdate' means errors. The symbols mean:
-        "     . - entry is up to date
-        "     + - entry updated (or installed for the first time)
-        "     ! - error(s) occured
-        "     - - entry removed
-        "     > - currently active entry (along with highlighted cursor line)
-        " run ':VundleLog' right after installation finishes and view output in vundle_log
+        Bundle 'gmarik/vundle'
+            " in 'BundleList', you can perform the following:
+            "     i/I - installs/updates bundle
+            "     D - deletes bundle (be careful not to delete your local modifications)
+            "     l - opens log up. Helpful when tracking down errors
+            " alias to update plugins
+            com! BundleUpdate BundleInstall!
+            " TODO com! BundleCleanAndUpdate BundleClean BundleInstall!
+            let g:vundle_log=['~/vundle.log']
+            " red exclamation mark during 'BundleUpdate' means errors. The symbols mean:
+            "     . - entry is up to date
+            "     + - entry updated (or installed for the first time)
+            "     ! - error(s) occured
+            "     - - entry removed
+            "     > - currently active entry (along with highlighted cursor line)
+            " run ':VundleLog' right after installation finishes and view output in vundle_log
+
+        Bundle 'Rykka/localbundle.vim'
+    " }}}
 
     " Colorschemes {{{
         Bundle 'sjl/badwolf'
@@ -177,6 +182,34 @@
         Bundle 'nelstrom/vim-mac-classic-theme'
         Bundle 'gmarik/ingretu'
         Bundle 'Rykka/galaxy.vim'
+    " }}}
+
+    " Vim Utilities {{{
+        " make gvim-only colorschemes work transparently in terminal vim
+        Bundle 'godlygeek/csapprox'
+        Bundle 'tomtom/tlib_vim'
+        Bundle 'tomtom/vimtlib'
+        Bundle 'kana/vim-textobj-user'
+        Bundle 'kana/vim-textobj-entire'
+        Bundle 'vim-scripts/bufkill.vim'
+        Bundle 'michaeljsmith/vim-indent-object'
+        Bundle 'gmarik/ide-popup.vim'
+        Bundle 'h1mesuke/vim-benchmark'
+        Bundle 'MarcWeber/vim-addon-mw-utils'
+        " Bundle 'mattn/benchvimrc-vim'
+        " Vundle/pathogen alternative package manager
+        "Bundle 'MarcWeber/vim-addon-manager'
+
+        " vim config debug/sanity checker
+        Bundle 'dahu/VimLint'
+
+        " vim unittesting
+        Bundle 'mivok/vimcram'
+
+        Bundle 'nathanaelkane/vim-command-w'
+            macmenu &File.Close key=<nop>
+            nmap <D-w> :CommandW<CR>
+            imap <D-w> <Esc>:CommandW<CR>
     " }}}
 
     " TODO Bundle 'file-line'
@@ -195,6 +228,7 @@
     " Bundle 'ervandew/eclim'
     "Bundle 'ciaranm/detectindent'
     Bundle 'mbbill/VimExplorer'
+    Bundle 'mbbill/VimExplorer'
     Bundle 'mattn/webapi-vim'
     Bundle 'troydm/pb.vim'
     Bundle 'troydm/shellasync.vim'
@@ -208,14 +242,9 @@
     Bundle 'yesmeck/tips.vim'
     Bundle 'suderman/source.vim'
     Bundle 'pydave/AsyncCommand'
-
-    " Bundle 'scrooloose/vim-space'
-        " Disables space mappings in select mode to fix snipMate.
-        "let g:space_disable_select_mode=1
-
     "Bundle 'megaannum/forms'
     Bundle 'sjl/splice.vim'
-    Bundle 'timcharper/textile.vim'
+    " Bundle 'timcharper/textile.vim'
     " Bundle 'zef/vim-cycle'
     Bundle 'sickill/vim-pasta'
     " Bundle 'rstacruz/sparkup.git', {'rtp': 'vim/'}
@@ -260,6 +289,10 @@
             " let g:pandoc_bibfiles = ['/the/path/to/your/bibtex/file.bib']
     " }}}
 
+    " Bundle 'scrooloose/vim-space'
+        " Disables space mappings in select mode to fix snipMate.
+        "let g:space_disable_select_mode=1
+
     Bundle 'tsaleh/vim-align'
         " let g:Align_xstrlen = 3
         " let g:Myalign_def = {
@@ -276,28 +309,26 @@
         " let g:Foldtext_cpp_enable = 1
         " let g:Foldtext_perl_enable = 1
 
-    Bundle 'AndrewRadev/switch.vim'
+    " Bundle 'AndrewRadev/switch.vim'
         " toggle true/false, doublequotes/singlequotes, etc.
         " let g:switch_definitions =
         "     \ [
         "     \   ['foo', 'bar', 'baz']
         "     \ ]
 
-    " vim config debug/sanity checker
-    Bundle 'dahu/VimLint'
-
-    Bundle 'ironcamel/vimchat'
-        " irc/chat in vim
-        " let g:vimchat_buddylistwidth           = " width of buddy list, default is 30
-        " let g:vimchat_logpath                  = " path to store log files, default is ~/.vimchat/logs
-        " let g:vimchat_logchats                 = " (0 or 1) default is 1 -- 0 will not log,
-        " let g:vimchat_otr                      = " (0 or 1) default is 0 -- enable otr or not
-        " let g:vimchat_logotr                   = " (0 or 1) default is 1 -- log otr convos or not
-        " let g:vimchat_statusicon               = " (0 or 1) default is 1 -- use a gtk status icon?
-        " let g:vimchat_blinktimeout             = " timeout in seconds, default is -1
-        " let g:vimchat_buddylistmaxwidth        = " max width of buddy list window, default ''
-        " let g:vimchat_timestampformat          = " format of the message timestamp, default "[%H:%M]"
-        " let g:vimchat_showPresenceNotification = " notification if buddy changed status, comma-separated list of states, default ""
+    " IRC & Chat {{{
+        Bundle 'ironcamel/vimchat'
+            " let g:vimchat_buddylistwidth           = " width of buddy list, default is 30
+            " let g:vimchat_logpath                  = " path to store log files, default is ~/.vimchat/logs
+            " let g:vimchat_logchats                 = " (0 or 1) default is 1 -- 0 will not log,
+            " let g:vimchat_otr                      = " (0 or 1) default is 0 -- enable otr or not
+            " let g:vimchat_logotr                   = " (0 or 1) default is 1 -- log otr convos or not
+            " let g:vimchat_statusicon               = " (0 or 1) default is 1 -- use a gtk status icon?
+            " let g:vimchat_blinktimeout             = " timeout in seconds, default is -1
+            " let g:vimchat_buddylistmaxwidth        = " max width of buddy list window, default ''
+            " let g:vimchat_timestampformat          = " format of the message timestamp, default "[%H:%M]"
+            " let g:vimchat_showPresenceNotification = " notification if buddy changed status, comma-separated list of states, default ""
+    " }}}
 
     " searches and displays information from arbitrary sources like files, buffers, recent files or registers
     Bundle 'Shougo/unite.vim'
@@ -340,6 +371,10 @@
 		    " let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
 		    " " Don't leave on by default, use :ShowMarksOn to enable
 		    " let g:showmarks_enable = 0
+		    " to only include marks 'abcdefzxABHJio', in that order:
+            " let g:showmarks_include="abcdefzxABJio"
+            " To override this for a particular buffer with 'ABCDhj.'^':
+            " let b:showmarks_include="abcdefzxABJio"
 		    " " For marks a-z
 		    " highlight ShowMarksHLl gui=bold guibg=LightBlue guifg=Blue
 		    " " For marks A-Z
@@ -372,7 +407,7 @@
         let g:voom_default_mode = 'rest'
         let g:voom_return_key = '<Return>'
         let g:voom_tab_key = '<C-Tab>'
-        au Filetype voomtree setlocal norelativenumber nonumber
+        " au Filetype voomtree setlocal norelativenumber nonumber
         " au Filetype voomtree setlocal <buffer> guifont=Droid\ Sans\ Mono:h12
         " TODO auto close voom buffer when user hits enter
 
@@ -388,11 +423,13 @@
         xmap <silent> W <Plug>CamelCaseMotion_b
 
     Bundle 'mileszs/ack.vim'
-        nmap <leader>a <Esc>:Ack!<space>
         " let g:ackprg="ack-grep -H --nocolor --nogroup --column"
-        let g:ackprg="ack -H --nocolor --nogroup --column"
+        " let g:ackprg="ack -H --nocolor --nogroup --column"
+        " use ggreer/the_silver_searcher since it is faster than Ack
+        let g:ackprg = 'ag --nogroup --nocolor --column'
         " Command-Shift-F on MacOS
         map <D-F> :Ack<space>
+        nmap <leader>a <Esc>:Ack!<space>
 
     " Pomodoro {{{
         " Vomodoro isn't a timer, just a visualizer of completed pomodoros
@@ -409,27 +446,6 @@
             let g:pomodoro_log_file = "~/.pomodoro.log"
             set statusline=%#ErrorMsg#%{PomodoroStatus()}%#StatusLine#
             "let g:pomodoro_notification_cmd = 'zenity --notification --text="Pomodoro finished"'' TODO convert to growl notify
-    " }}}
-
-    " Vim Utilities {{{
-        Bundle 'tomtom/tlib_vim'
-        Bundle 'tomtom/vimtlib'
-        Bundle 'kana/vim-textobj-user'
-        Bundle 'kana/vim-textobj-entire'
-        Bundle 'vim-scripts/bufkill.vim'
-        Bundle 'michaeljsmith/vim-indent-object'
-        Bundle 'gmarik/ide-popup.vim'
-        Bundle 'h1mesuke/vim-benchmark'
-        Bundle 'MarcWeber/vim-addon-mw-utils'
-        " Bundle 'mattn/benchvimrc-vim'
-
-        " Vundle/pathogen alternative package manager
-        "Bundle 'MarcWeber/vim-addon-manager'
-
-        Bundle 'nathanaelkane/vim-command-w'
-            macmenu &File.Close key=<nop>
-            nmap <D-w> :CommandW<CR>
-            imap <D-w> <Esc>:CommandW<CR>
     " }}}
 
     " Commenting {{{
@@ -564,7 +580,6 @@
             " number of recently opened files for CtrlP to remember
             let g:ctrlp_mruf_max = 250
             let g:ctrlp_mruf_exclude = '/tmp/.*\|/temp/.*'
-
             " Go up the file system until '.git', or similar, is found.
             let g:ctrlp_working_path_mode = 2
             " Use '.git' as a marker, whether it's a directory or a file (submodule).
@@ -575,14 +590,6 @@
             let g:ctrlp_lazy_update = 1
             " Enable help tag, exuberant ctags, quickfix, and directory search.
             let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir']
-
-            " Map buffer search.
-            " nnoremap <Leader>b :CtrlPBuffer<CR>
-            " Map most recently used file search.
-            " nnoremap <Leader>m :CtrlPMRU<CR>
-            " Map clear cache.
-            " nnoremap <Leader>c :CtrlPClearCache<CR>
-
             " Where to put the new tab page when opening one:
             "     a - after.
             "     b - before.
@@ -590,6 +597,13 @@
             "     l - the last tab page.
             "     f - the first tab page.
             let g:ctrlp_tabpage_position = 'ac'
+
+            " Map buffer search.
+            " nnoremap <Leader>b :CtrlPBuffer<CR>
+            " Map most recently used file search.
+            " nnoremap <Leader>m :CtrlPMRU<CR>
+            " Map clear cache.
+            " nnoremap <Leader>c :CtrlPClearCache<CR>
 
             " TODO open ctrlp in vertical split
             "au BufWinEnter *.txt if &ft == 'CtrlP' | wincmd L | endif
@@ -745,12 +759,14 @@
         Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
     " }}}
 
-    " vim, iterm2, and tmux
-    Bundle 'sjl/vitality.vim'
-    " tmux
-    Bundle 'benmills/vimux'
-    Bundle 'julienr/vimux-pyutils'
-    Bundle 'erikw/tmux-powerline'
+    " tmux {{{
+        Bundle 'benmills/vimux'
+        Bundle 'julienr/vimux-pyutils'
+        Bundle 'erikw/tmux-powerline'
+
+        " vim, iterm2, and tmux
+        Bundle 'sjl/vitality.vim'
+    " }}}
 
     " Tex & Bibtex {{{
         " bibtex bindings and info: http://vim-latex.sourceforge.net/documentation/latex-suite.html#bibtex-bindings
@@ -807,25 +823,28 @@
             " let g:Tex_FormatDependency_dvipdf = 'dvi,dvipdf'
     " }}}
 
-    Bundle 'Rykka/riv.vim'
-        " restructuredtext folding/syntax
-        " fold all blank lines except one
-        let g:riv_fold_blank=1
-        " sections and lists get folded
-        let g:riv_fold_level=2
-        " no fancy <Tab>, <BS>, <CR>, and <S-Tab> in insert mode
-        let g:riv_ignored_imaps = "<Tab>,<S-Tab>,<BS>,<CR>,<S-CR>"
-        " Riv use following punctuations for titles:
-        "     = - ~ " ' ` , (HTML has 6 levels)
-        " can change it with g:riv_section_levels. Section number seperated by g:riv_fold_section_mark (default is "-")
-        let g:riv_section_levels = "#=-+^*~\"'`"
-        let g:riv_web_browser = 'firefox'
-        let project1 = { 'path': '~/notes',}
-        let project2 = { 'path': '~/Dropbox/rst',}
-        let g:riv_projects = [project1, project2]
-        let g:riv_file_link_style = 2 " sphinx style locoal file links rather than moinmoin
-        let g:riv_todo_levels = ' ,o,X'
-        let g:riv_todo_keywords = 'TODO,DONE;FIXME,FIXED;START,PROCESS,STOP'
+    " restructuredtext {{{
+        Bundle 'Rykka/riv.vim'
+            " restructuredtext folding/syntax/helpers
+            " fold all blank lines except one
+            let g:riv_fold_blank=1
+            " sections and lists get folded
+            let g:riv_fold_level=2
+            " no fancy <Tab>, <BS>, <CR>, and <S-Tab> in insert mode
+            let g:riv_ignored_imaps = "<Tab>,<S-Tab>,<BS>,<CR>,<S-CR>"
+            " Riv use following punctuations for titles:
+            "     = - ~ " ' ` , (HTML has 6 levels)
+            " can change it with g:riv_section_levels. Section number seperated by g:riv_fold_section_mark (default is "-")
+            let g:riv_section_levels = "=-+^*~\"'`"
+            let g:riv_web_browser = 'firefox'
+            let project1 = { 'path': '~/notes',}
+            let project2 = { 'path': '~/Dropbox/rst',}
+            let g:riv_projects = [project1, project2]
+            let g:riv_file_link_style = 2 " sphinx style locoal file links rather than moinmoin
+            let g:riv_todo_levels = ' ,o,X'
+            let g:riv_todo_keywords = 'TODO,DONE;FIXME,FIXED;START,PROCESS,STOP'
+            " TODO nmap <leader>t1 :RivTitle1<CR>
+    " }}}
 
     Bundle 'Lokaltog/vim-powerline'
         let g:Powerline_symbols = 'fancy'
@@ -855,7 +874,7 @@
         Bundle 'tsibley/viack'
         Bundle 'jeetsukumaran/vim-filesearch'
         Bundle 'henrik/vim-indexed-search'
-        Bundle 'dahu/SearchParty'
+        " TODO error in loading Bundle 'dahu/SearchParty'
 
         Bundle 'gmarik/github-search.vim'
             " set where you want to clone resulting github repos to. default is '~/src/:author/:project'
@@ -878,6 +897,8 @@
         " Bundle 'davidoc/taskpaper.vim'
         " Bundle 'xolox/vim-notes'
         " Bundle 'goerz/SimplenoteCLI'
+        " Bundle 'metalelf0/vimt0d0'
+        " Bundle 'aaronbieber/quicktask'
 
         " Bundle 'bencrowder/vimlist'
             "let g:vimlist_dir = "/path/to/your/lists"
@@ -942,7 +963,6 @@
             vnoremap <leader>H :Gbrowse<cr>
             autocmd BufReadPost fugitive://* set bufhidden=delete " close Fugitive buffers when leaving
     " }}}
-
 
     " Bundle 'inkarkat/open-browser.vim'
 
@@ -1095,10 +1115,11 @@
         let g:tlRememberPosition = 1
 
     " Snippets & Autocompletion (neocomplcache looks to be the best of them) {{{
+        Bundle 'Shougo/neocomplcache-snippets-complete'
         Bundle 'Shougo/neocomplcache'
             " Disable AutoComplPop.
             " let g:acp_enableAtStartup = 0
-            let g:neocomplcache_enable_at_startup = 1
+            let g:neocomplcache_enable_at_startup = 0
             let g:neocomplcache_enable_smart_case = 1
             let g:neocomplcache_enable_camel_case_completion = 1
             let g:neocomplcache_enable_underbar_completion = 1
@@ -1129,27 +1150,16 @@
             autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
             autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
             autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+            autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
             autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
             " Enable heavy omni completion.
             if !exists('g:neocomplcache_omni_patterns')
               let g:neocomplcache_omni_patterns = {}
             endif
             let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-            "autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
             let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
             let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
             let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
-
-        " Bundle 'SirVer/ultisnips'
-            " let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
-            " let g:UltiSnipsExpandTrigger = '<Tab>'
-            " let g:UltiSnipsJumpForwardTrigger = '<Tab>'
-            " let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
-            " let g:UltiSnipsExpandTrigger = '<Tab>'
-            " let g:UltiSnipsListSnippets = '<S-Tab>'
-            " let g:UltiSnipsJumpForwardTrigger = '<C-l>'
-            " let g:UltiSnipsJumpBackwardTrigger = '<C-h>'
-            " let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'snippets']
 
         " garbas & honza's repos are the main snipmate repo. msanders hasn't been updating what he started
         "   one has snipmate, the other has the snippets
@@ -1173,6 +1183,17 @@
             "    call ExtractSnips("~/.vim/snippets/html", "xhtml")
             "    call ExtractSnips("~/.vim/snippets/html", "php")
             "endfunction
+
+        " Bundle 'SirVer/ultisnips'
+            " let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
+            " let g:UltiSnipsExpandTrigger = '<Tab>'
+            " let g:UltiSnipsJumpForwardTrigger = '<Tab>'
+            " let g:UltiSnipsJumpBackwardTrigger = '<S-Tab>'
+            " let g:UltiSnipsExpandTrigger = '<Tab>'
+            " let g:UltiSnipsListSnippets = '<S-Tab>'
+            " let g:UltiSnipsJumpForwardTrigger = '<C-l>'
+            " let g:UltiSnipsJumpBackwardTrigger = '<C-h>'
+            " let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'snippets']
     " }}}
 
     " Python {{{
@@ -1273,7 +1294,7 @@
     " set encoding=utf-8 nobomb " Use UTF-8 without BOM
     set encoding=utf-8
     set fillchars=vert:\ ,fold:_  " characters to use for status line, folds and filler lines (i'm using <space>)
-    set clipboard+=unnamed " Yanks go on clipboard instead
+    " set clipboard+=unnamed " Yanks go on clipboard instead
     set scrolloff=2 " keep at least 2 lines above/below
     set sidescrolloff=3 " keep at least 3 lines left/right
     set sidescroll=1 " TODO: document
@@ -1375,7 +1396,7 @@
     "                    |+----- Insert comment leader after o/O
     "                    +------ Auto-wrap comments
     set display=lastline " when a line is long, do not omit it in @
-    set textwidth=100
+    " set textwidth=100
     set tabstop=4
     set shiftwidth=4
     set softtabstop=4 " let backspace delete the indent of spaces
@@ -2349,7 +2370,7 @@
             "au Filetype rst setl formatoptions=a TODO error says 'a' is an unknown format option
             " au Filetype rst set foldmethod=syntax foldignore=
             " au FileType rst highlight Type guifg=DarkBlue
-             au BufNewFile,BufRead g:voom_default_mode = 'rest'
+            au BufNewFile,BufRead g:voom_default_mode = 'rest'
         augroup END
     " }}}
 
