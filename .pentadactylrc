@@ -156,6 +156,9 @@
 " }}}
 
 " Options {{{
+    set timeout
+    set timeoutlen=200
+
     " tab numbers and toolbar so that cmd-L works for my ddg searches
     set guioptions=C
 
@@ -445,6 +448,14 @@
             map it -ex open https://www.instapaper.com/u/folder/443708/tobookmark
             map id -ex open https://www.instapaper.com/u/folder/1303501/dwlds
             map ip -ex open https://www.instapaper.com/u/folder/1539900/pdfs
+        " }}}
+
+        " Pocket shortcuts {{{
+            map pu -ex open http://getpocket.com/a/queue/list/
+            " map pv -ex open
+            " map pt -ex open
+            " map pd -ex open
+            " map pp -ex open
         " }}}
 
         " read pinboard links with instapepr text style http://brettterpstra.com/pinboard-links-with-instapaper-text/
