@@ -1,12 +1,14 @@
 # ZSH Variables
 ###############
 
+export OH_MY_ZSH_DEBUG="true"
 # don't put duplicate lines in history
 # & don't overwrite Midnight Commander's `ignorespace' setting
 # http://github.com/matflores/dotfiles/blob/master/bashrc
 HISTCONTROL=$HISTCONTROL${HISTCONTROL+,}ignoredups
 # ... or force ignoredups and ignorespace
-HISTCONTROL=ignoreboth
+# HISTCONTROL=ignoreboth
+HISTCONTROL=eraseboth
 #HISTFILE=~/.history
 HISTSIZE=10500
 SAVEHIST=10000
@@ -87,6 +89,8 @@ export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/share/python/virtualenvwrapper.sh
 # make pip use the same directory for virtualenvs as virtualenvwrapper
 export PIP_VIRTUALENV_BASE=$WORKON_HOME
 # export PIP_RESPECT_VIRTUALENV=true
+
+export PIP_DOWNLOAD_CACHE="$HOME/.pip/cache"
 
 # override python default of 64-bit mode
 export VERSIONER_PYTHON_PREFER_32_BIT=no
