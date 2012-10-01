@@ -215,7 +215,6 @@
     " TODO Bundle 'file-line'
     " TODO Bundle 'lastpos.vim'
     " TODO Bundle 'tlib'
-    "Bundle 'nvie/vim-rst-tables'
     Bundle 'Twinside/vim-hoogle'
     Bundle 'pmorillon/puppet-vim'
     Bundle 'vim-scripts/mathml.vim'
@@ -280,6 +279,7 @@
     " Bundle 'sickill/vim-pasta'
     Bundle 'kana/vim-wwwsearch'
     Bundle 'vim-scripts/GoogleReader.vim'
+    Bundle 'matthias-guenther/tocdown'
 
     " Pandoc {{{
         " pandoc syntax file
@@ -408,7 +408,7 @@
         let g:voom_return_key = '<Return>'
         let g:voom_tab_key = '<C-Tab>'
         " au Filetype voomtree setlocal norelativenumber nonumber
-        " au Filetype voomtree setlocal <buffer> guifont=Droid\ Sans\ Mono:h12
+        " au Filetype voomtree setlocal <buffer> guifont=Droid\ Sans\ Mono\ for\ Powerline:h13.3
         " TODO auto close voom buffer when user hits enter
 
     Bundle 'Bogdanp/quicksilver.vim'
@@ -511,14 +511,15 @@
 
         Bundle 'scrooloose/syntastic'
             let g:syntastic_enable_highlighting=1
-            " Automatically close syntastic error window when no errors are detected
-            let g:syntastic_auto_loc_list=2
-            " Mark syntastic errors
-            let g:syntastic_enable_signs=1
+            let g:syntastic_auto_loc_list=2 " automatically close syntastic error window when no errors
+            let g:syntastic_enable_signs=1 " mark syntastic errors
             let g:syntastic_quiet_warnings=0
-            "let g:syntastic_check_on_open=0		" Don't automatically do syntax check on open buffers
+            let g:syntastic_check_on_open=0		" don't automatically check syntax on open buffers
+            " let g:syntastic_python_checker = 'pyflakes'
             let g:syntastic_python_checker_args = '--ignore=E123,E128,E225,E401,E501,E702'
             let g:syntastic_stl_format='[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
+            " let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
+            let g:syntastic_disabled_filetypes = ['html', 'rst']
     " }}}
 
     Bundle 'sjl/clam.vim'
@@ -532,6 +533,8 @@
     " Yank {{{
         " Bundle 'vim-scripts/YankRing.vim'
         Bundle 'chrismetcalf/vim-yankring'
+            nnoremap <silent> <F3> :YRShow<cr>
+            inoremap <silent> <F3> <ESC>:YRShow<cr>
             "map <leader>yr :YRShow<cr>
             "let g:yankring_history_dir = '~/code_and_projects/dotfiles/.dotfiles/vim/tmp'
             "nnoremap <Leader>y :YRShow<CR>
@@ -557,6 +560,8 @@
         "Bundle 'mirell/vim-matchit'
             ":runtime macros/matchit.vim
         "Bundle 'vim-scripts/simple-pairs.git'
+        " Bundle 'roman/rainbow.git'
+        " Bundle 'vim-scripts/Rainbow-Parenthesis'
 
         "Bundle 'tpope/vim-surround'
             "let g:surround_{char2nr('-')} = "<% \r %>"
@@ -597,6 +602,36 @@
             "     l - the last tab page.
             "     f - the first tab page.
             let g:ctrlp_tabpage_position = 'ac'
+
+            " from sjl's vimrc
+            let g:ctrlp_dont_split = 'NERD_tree_2'
+            " let g:ctrlp_jump_to_buffer = 0
+            " let g:ctrlp_map = '<leader>,'
+            " let g:ctrlp_match_window_reversed = 1
+            " let g:ctrlp_split_window = 0
+            " let g:ctrlp_prompt_mappings = {
+            "     \ 'PrtSelectMove("j")': ['<c-j>', '<down>', '<s-tab>'],
+            "     \ 'PrtSelectMove("k")': ['<c-k>', '<up>', '<tab>'],
+            "     \ 'PrtHistory(-1)': ['<c-n>'],
+            "     \ 'PrtHistory(1)': ['<c-p>'],
+            "     \ 'ToggleFocus()': ['<c-tab>'],
+            "     \ }
+            " let ctrlp_filter_greps = "".
+            "     \ "egrep -iv '\\.(" .
+            "     \ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
+            "     \ ")$' | " .
+            "     \ "egrep -v '^(\\./)?(" .
+            "     \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/|docs/build/" .
+            "     \ ")'"
+            " let my_ctrlp_user_command = "" .
+            "     \ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
+            "     \ ctrlp_filter_greps
+            " let my_ctrlp_git_command = "" .
+            "     \ "cd %s && git ls-files --exclude-standard -co | " .
+            "     \ ctrlp_filter_greps
+            " let my_ctrlp_ffind_command = "ffind --semi-restricted --dir %s --type e -B -f"
+            " let g:ctrlp_user_command = ['.git/', my_ctrlp_ffind_command, my_ctrlp_ffind_command]
+            " nnoremap <leader>. :CtrlPTag<cr>
 
             " Map buffer search.
             " nnoremap <Leader>b :CtrlPBuffer<CR>
@@ -824,6 +859,7 @@
     " }}}
 
     " restructuredtext {{{
+        Bundle 'nvie/vim-rst-tables'
         Bundle 'Rykka/riv.vim'
             " restructuredtext folding/syntax/helpers
             " fold all blank lines except one
@@ -832,15 +868,18 @@
             let g:riv_fold_level=2
             " no fancy <Tab>, <BS>, <CR>, and <S-Tab> in insert mode
             let g:riv_ignored_imaps = "<Tab>,<S-Tab>,<BS>,<CR>,<S-CR>"
-            " Riv use following punctuations for titles:
-            "     = - ~ " ' ` , (HTML has 6 levels)
-            " can change it with g:riv_section_levels. Section number seperated by g:riv_fold_section_mark (default is "-")
+            " and don't override my custom mappings in normal either
+            let g:riv_ignored_nmaps = "<Tab>,<S-Tab>,<BS>,<CR>,<S-CR>"
+            " Riv uses the following punctuation for titles:     = - ~ " ' ` ,
+            "       This can be changed with g:riv_section_levels
+            "       Section number seperated by g:riv_fold_section_mark (default is "-")
+            "       HTML has 6 levels
             let g:riv_section_levels = "=-+^*~\"'`"
             let g:riv_web_browser = 'firefox'
             let project1 = { 'path': '~/notes',}
             let project2 = { 'path': '~/Dropbox/rst',}
             let g:riv_projects = [project1, project2]
-            let g:riv_file_link_style = 2 " sphinx style locoal file links rather than moinmoin
+            let g:riv_file_link_style = 2 " sphinx style local file links rather than moinmoin
             let g:riv_todo_levels = ' ,o,X'
             let g:riv_todo_keywords = 'TODO,DONE;FIXME,FIXED;START,PROCESS,STOP'
             " TODO nmap <leader>t1 :RivTitle1<CR>
@@ -1208,6 +1247,8 @@
         "Bundle 'Lokaltog/python-syntax'
         "Bundle 'ehamberg/vim-cute-python'
         Bundle 'jmcantrell/vim-virtualenv'
+        Bundle 'cwood/pip.vim'
+        " Bundle 'cwood/vim-django'
 
         "Bundle 'klen/python-mode'
             " allows you to use the pylint, rope, pydoc, pyflakes, pep8, mccabe libraries
@@ -1364,8 +1405,8 @@
     let mapleader = ","
     let g:mapleader = ","
     " unmap keymappings
-    nnoremap ,  <Nop>
-    xnoremap ,  <Nop>
+    " nnoremap ,  <Nop>
+    " xnoremap ,  <Nop>
 
     " search settings
     set ignorecase
@@ -1667,15 +1708,27 @@
     nnoremap <silent> zj o<Esc>
     nnoremap <silent> zk O<Esc>
 
+    " yank and put to/from the clipboard register
+    " map <Leader>y "*y
+    " map <Leader>p "*p
+    " toggle paste mode
+    " map <Leader>tp :set invpaste<CR>
+    " System clipboard interaction. Mostly from:
+    " https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
+    noremap <leader>y "*y
+    noremap <leader>p :set paste<CR>"*p<CR>:set nopaste<CR>
+    noremap <leader>P :set paste<CR>"*P<CR>:set nopaste<CR>
+    vnoremap <leader>y "*ygv
+
     "nmap <silent> <leader>h :set invhlsearch<CR>
     "nmap <silent> <leader>l :set invlist<CR>
     "nmap <silent> <leader>n :set invnumber<CR>
     "nmap <silent> <leader>p :set invpaste<CR>
     "nmap <silent> <leader>i :set invrelativenumber<CR>
 
-    " sane regexes
-    "nnoremap / /\v
-    "vnoremap / /\v
+    " sane regexes: I already know Python regex, why would I want to learn another?
+    nnoremap / /\v
+    vnoremap / /\v
 
     " Keep search matches in the middle of the window.
     nnoremap n nzzzv
@@ -2052,7 +2105,7 @@
 " APPEARANCE {{{1
     " Set font according to system
     "if MySys() == "mac"
-    "    set guifont=Inconsolata-dz:h13
+    "    set guifont=Inconsolata-dz\ for\ Powerline:h13
     "    set shell=/usr/local/bin/zsh
     "elseif MySys() == "windows"
     "    set gfn=Bitstream\ Vera\ Sans\ Mono:h10
@@ -2129,8 +2182,12 @@
 
     if has("gui_running")
         colorscheme lightdark
-        " colorscheme github
-        " colorscheme cleanroom
+        " Reload the colorscheme whenever we write the file
+        augroup color_lightdark_dev
+            au!
+            au BufWritePost lightdark.vim color lightdark
+        augroup END
+
         set guifont=Droid\ Sans\ Mono\ for\ Powerline:h13.3
         let s:terminal_italic=1
         " set font=Fanwood:h13
@@ -2247,13 +2304,17 @@
     " }}}
 
     " Pentadactyl {{{
-        au BufNewFile,BufRead *.pentadactylrc,pentadactylrc setfiletype pentadactyl
-        au BufNewFile,BufRead *.pentadactylrc set ft=pentadactyl
-        au BufNewFile,BufRead *.penta setfiletype pentadactyl
-        au BufNewFile,BufRead *.penta set ft=pentadactyl
-        au BufNewFile,BufRead *.pentadactylrc set foldmethod=marker foldignore=
-        au BufNewFile,BufRead *.pentadactylrc  set syntax=pentadactyl
-        au FileType vim set foldmethod=marker
+        augroup ft_pentadactyl
+            au!
+            au BufNewFile,BufRead *.pentadactylrc,pentadactylrc setfiletype pentadactyl
+            au BufNewFile,BufRead *.pentadactylrc set ft=pentadactyl
+            au BufNewFile,BufRead *.penta setfiletype pentadactyl
+            au BufNewFile,BufRead *.penta set ft=pentadactyl
+            au BufNewFile,BufRead *.pentadactylrc set foldmethod=marker foldignore=
+            au BufNewFile,BufRead *.pentadactylrc  set syntax=pentadactyl
+            au FileType pentadactyl set foldmethod=marker
+            " au BufNewFile,BufRead ~/Library/Caches/TemporaryItems/pentadactyl-*.tmp set nolist wrap linebreak columns=100 colorcolumn=0
+        augroup END
     " }}}
 
     " Ruby {{{
@@ -2288,6 +2349,7 @@
     " markdown {{{
         augroup ft_markdown
             autocmd!
+            au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=mkd
             " Use <localLeader>1/2/3/4/5/6 to add headings
             autocmd Filetype markdown nnoremap <buffer> <localLeader>1 I# <ESC>
             autocmd Filetype markdown nnoremap <buffer> <localLeader>2 I## <ESC>
@@ -2371,6 +2433,11 @@
             " au Filetype rst set foldmethod=syntax foldignore=
             " au FileType rst highlight Type guifg=DarkBlue
             au BufNewFile,BufRead g:voom_default_mode = 'rest'
+            " from sjl's vimrc
+            au Filetype rst nnoremap <buffer> <localleader>1 yypVr=:redraw<cr>
+            au Filetype rst nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
+            au Filetype rst nnoremap <buffer> <localleader>3 yypVr~:redraw<cr>
+            au Filetype rst nnoremap <buffer> <localleader>4 yypVr`:redraw<cr>
         augroup END
     " }}}
 
