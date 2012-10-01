@@ -1,4 +1,4 @@
-" These lines are suggested to be at the top of every colorscheme {{{
+" To be at the top of every colorscheme {{{
     set background=light
     highlight clear
 
@@ -6,14 +6,14 @@
         syntax reset
     endif
 
-    "Load the 'macvim' colorscheme TODO: remove this dependency
+    " Load the 'macvim' colorscheme TODO: remove this dependency
     runtime macvim.vim
 
     " Override the name of the base colorscheme with the name of this custom one
     let g:colors_name = "lightdark"
 " }}}
 
-" Clear the colors for any items that you don't like {{{
+" Clear colors for items to be changed {{{
     hi clear StatusLine
     hi clear StatusLineNC
     hi clear Comment
@@ -25,7 +25,7 @@
     hi clear StatusLine
 " }}}
 
-" Set up your new & improved colors {{{
+" Custom Colors {{{
     " hi Cursor       guifg=Black     guibg=#e4e4e4   gui=none    ctermbg=241
     " hi Cursor     guibg=#afdfff   guifg=White     gui=none    ctermbg=241
     hi Cursor       guibg=Black     guifg=White     gui=none    ctermbg=241
@@ -36,7 +36,7 @@
     "hi CursorLine  guifg=#2a2a2a   guibg=#eaeaea   gui=none    term=reverse
     hi CursorColumn guibg=#333333   guifg=NONE
     hi NonText 		guifg=#808080   guibg=#303030   gui=none ctermfg=244 ctermbg=235
-    hi LineNr 		guifg=#dadada   guibg=#000000   gui=none ctermfg=244 ctermbg=232
+    hi LineNr 		guifg=#dadada   guibg=#999999   gui=none ctermfg=244 ctermbg=232
     hi VertSplit    guifg=#a0a0a0
 
     " statuslines for windows not in current focus
@@ -46,7 +46,7 @@
     hi Search       NONE term=underline guifg=Black guibg=Yellow
     hi IncSearch    NONE term=underline guifg=Black guibg=LightYellow
 
-    hi Folded 		guifg=#aaddff   guibg=#898989     gui=none            ctermbg=4           ctermfg=248
+    hi Folded 		guifg=#5f8fff   guibg=White     gui=none            ctermbg=4           ctermfg=248
     hi FoldColumn   guifg=#43c3ff   guibg=#f6f6f6   ctermfg=DarkBlue    ctermbg=LightGrey
     "hi link FoldColumn Folded
 
@@ -61,12 +61,11 @@
 " }}}
 
 " Syntax & Keywords {{{
-    hi Normal       guifg=Black         guibg=#f4f4f4   gui=none        ctermfg=253 ctermbg=234
+    hi Normal       guifg=Black         guibg=#f4f4f4   gui=none        ctermfg=253     ctermbg=234
     hi String       guifg=#7e8aa2       gui=none        ctermfg=103
     hi NonText      guifg=#404040       ctermfg=8
     hi Comment      guifg=#b9b9b9       gui=italic      ctermfg=244     font=Fanwood:h13
     hi vimCommentString                 guifg=#b9b9b9   ctermfg=244     font=Fanwood:h13
-
 
     hi Constant 	guifg=#8186b1       gui=italic      ctermfg=148
     hi Keyword		guifg=#43c3ff       gui=none        ctermfg=103
@@ -89,6 +88,7 @@
     " TODO
     hi SpellLocal guibg=DarkCyan
 " }}}
+
 
 " Cterm Colors {{{
     "Black
@@ -115,7 +115,8 @@
 " }}}
 
 " Color Values {{{
-    "coloring format is #rrggbb
+    " coloring format is #rrggbb
+    "
     "lightblueish=#bfffff
     "babyblue=#43c3ff
     "fadedjeansblue=#6384bc
