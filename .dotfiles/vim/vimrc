@@ -157,7 +157,7 @@
             "     l - opens log up. Helpful when tracking down errors
             " alias to update plugins
             com! BundleUpdate BundleInstall!
-            " TODO com! BundleCleanAndUpdate BundleClean BundleInstall!
+            " TODO com! BundleCleanAndUpdate source vimrc BundleClean BundleInstall!
             let g:vundle_log=['~/vundle.log']
             " red exclamation mark during 'BundleUpdate' means errors. The symbols mean:
             "     . - entry is up to date
@@ -278,15 +278,20 @@
     " A better paste
     " Bundle 'sickill/vim-pasta'
     Bundle 'kana/vim-wwwsearch'
+    " Bundle 'sampsyo/autolink.vim'
     Bundle 'vim-scripts/GoogleReader.vim'
     Bundle 'matthias-guenther/tocdown'
 
     " Pandoc {{{
         " pandoc syntax file
         Bundle 'vim-scripts/pdc.vim'
-        " Bundle 'vim-pandoc/vim-pandoc-extras'
+        Bundle 'vim-pandoc/vim-pandoc-extras'
         Bundle 'vim-pandoc/vim-pandoc'
             " let g:pandoc_bibfiles = ['/the/path/to/your/bibtex/file.bib']
+            " if bibtool is installed
+            " let g:pandoc_use_bibtool = 1
+        " rewrite of vim-pandoc
+        " Bundle 'fmoralesc/vim-pantondoc'
     " }}}
 
     " Bundle 'scrooloose/vim-space'
@@ -336,7 +341,7 @@
     " Translates markup languages into HTML for previewing
     Bundle 'matthias-guenther/hammer.vim'
         " Map Leader + P to preview.
-        nmap <Leader>P :Hammer<CR>
+        nmap <leader>P :Hammer<CR>
         " Set the template.
         let g:HAMMER_TEMPLATE='typographic-light'
 
@@ -457,9 +462,9 @@
             " nnoremap // :TComment<CR>
             " vnoremap // :TComment<CR>
             " nunmap gcc
-            xmap <Leader>c <Plug>Commentary
-            nmap <Leader>c <Plug>Commentary
-            nmap <Leader>cc <Plug>CommentaryLine
+            xmap <leader>c <Plug>Commentary
+            nmap <leader>c <Plug>Commentary
+            nmap <leader>cc <Plug>CommentaryLine
             xmap gc <Plug>Commentary
             nmap gc :TCommentMaybeInline<CR>
             nmap gcc <Plug>CommentaryLine
@@ -482,24 +487,24 @@
 
     Bundle 'godlygeek/tabular'
         if exists(":Tabularize")
-            nmap <Leader>t= :Tabularize /=<CR>
-            vmap <Leader>t= :Tabularize /=<CR>
+            nmap <leader>t= :Tabularize /=<CR>
+            vmap <leader>t= :Tabularize /=<CR>
             " key => value
-            nmap <Leader>t> :Tabularize /=><CR>
-            vmap <Leader>t> :Tabularize /=><CR>
+            nmap <leader>t> :Tabularize /=><CR>
+            vmap <leader>t> :Tabularize /=><CR>
             " key: value
-            nmap <Leader>t: :Tabularize /:\zs<CR>
-            vmap <Leader>t: :Tabularize /:\zs<CR>
-            "     nmap <Leader>a= :Tabularize /=<CR>
-            "     vmap <Leader>a= :Tabularize /=<CR>
-            "     nmap <Leader>a: :Tabularize /:<CR>
-            "     vmap <Leader>a: :Tabularize /:<CR>
-            "     nmap <Leader>a:: :Tabularize /:\zs<CR>
-            "     vmap <Leader>a:: :Tabularize /:\zs<CR>
-            "     nmap <Leader>a, :Tabularize /,<CR>
-            "     vmap <Leader>a, :Tabularize /,<CR>
-            "     nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-            "     vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
+            nmap <leader>t: :Tabularize /:\zs<CR>
+            vmap <leader>t: :Tabularize /:\zs<CR>
+            "     nmap <leader>a= :Tabularize /=<CR>
+            "     vmap <leader>a= :Tabularize /=<CR>
+            "     nmap <leader>a: :Tabularize /:<CR>
+            "     vmap <leader>a: :Tabularize /:<CR>
+            "     nmap <leader>a:: :Tabularize /:\zs<CR>
+            "     vmap <leader>a:: :Tabularize /:\zs<CR>
+            "     nmap <leader>a, :Tabularize /,<CR>
+            "     vmap <leader>a, :Tabularize /,<CR>
+            "     nmap <leader>a<Bar> :Tabularize /<Bar><CR>
+            "     vmap <leader>a<Bar> :Tabularize /<Bar><CR>
         endif
 
     " Bundle 'twe4ked/vim-peepopen'
@@ -527,7 +532,7 @@
         " let g:clam_autoreturn = 1
 
     Bundle 'sjl/gundo.vim'
-        " nnoremap <Leader>g :GundoToggle<CR>
+        " nnoremap <leader>g :GundoToggle<CR>
         " let g:autotagVerbosityLevel=0
 
     " Yank {{{
@@ -537,9 +542,9 @@
             inoremap <silent> <F3> <ESC>:YRShow<cr>
             "map <leader>yr :YRShow<cr>
             "let g:yankring_history_dir = '~/code_and_projects/dotfiles/.dotfiles/vim/tmp'
-            "nnoremap <Leader>y :YRShow<CR>
+            "nnoremap <leader>y :YRShow<CR>
             "nmap <leader>r :YRShow<CR>
-            "nmap <silent> <Leader>y :YRShow<CR>		" Toggle YankRing.
+            "nmap <silent> <leader>y :YRShow<CR>		" Toggle YankRing.
             "let g:yankring_enabled = 1 			" Enable the yankring.
             "let g:yankring_max_history = 128		" Number of items to save.
             "let g:yankring_share_between_instances = 1	" Reuse the ring.
@@ -634,11 +639,11 @@
             " nnoremap <leader>. :CtrlPTag<cr>
 
             " Map buffer search.
-            " nnoremap <Leader>b :CtrlPBuffer<CR>
+            " nnoremap <leader>b :CtrlPBuffer<CR>
             " Map most recently used file search.
-            " nnoremap <Leader>m :CtrlPMRU<CR>
+            " nnoremap <leader>m :CtrlPMRU<CR>
             " Map clear cache.
-            " nnoremap <Leader>c :CtrlPClearCache<CR>
+            " nnoremap <leader>c :CtrlPClearCache<CR>
 
             " TODO open ctrlp in vertical split
             "au BufWinEnter *.txt if &ft == 'CtrlP' | wincmd L | endif
@@ -897,14 +902,14 @@
         "call Pl#Theme#InsertSegment('ws_marker', 'after', 'lineinfo')	" Indicate traling spaces in current buffer
 
     Bundle 'Lokaltog/vim-easymotion'
-        " All motions are now triggered with <Leader><Leader> by default, e.g. <Leader><Leader>t, <Leader><Leader>gE
+        " All motions are now triggered with <leader><leader> by default, e.g. <leader><leader>t, <leader><leader>gE
         " let g:EasyMotion_leader_key = '<LocalLeader>'
-        let g:EasyMotion_leader_key = '<Leader>f'
+        let g:EasyMotion_leader_key = '<leader>f'
         " TODO map 'f' to easymotion's command
         " let g:EasyMotion_mapping_f = 'f'
         let g:EasyMotion_do_shade = 1 " 1 = shade text after cursor
         " let g:EasyMotion_keys = ";,.pyfgcrl/aoeuidhtns-'qjkxbmwvz"
-        " let g:EasyMotion_mapping_t  = '<Leader>w'
+        " let g:EasyMotion_mapping_t  = '<leader>w'
 
     " Search {{{
         " awk, websearch, regex
@@ -1050,9 +1055,9 @@
             " nnoremap <leader>tg :topleft :vsplit Gemfile<cr>
             "
             " let g:CommandTMatchWindowReverse = 1
-            " nnoremap <Leader>f :call :CommandT<CR>
-            " nnoremap <Leader>d :call :CommandTBuffer<CR>
-            " nnoremap <Leader>F :call :CommandTFlush\|CommandT<CR>
+            " nnoremap <leader>f :call :CommandT<CR>
+            " nnoremap <leader>d :call :CommandTBuffer<CR>
+            " nnoremap <leader>F :call :CommandTFlush\|CommandT<CR>
             "
             " let g:CommandTSearchPath = $HOME . '/Code'
             "let g:CommandTMaxHeight = 15
@@ -1182,6 +1187,12 @@
             inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
             inoremap <expr><C-y>  neocomplcache#close_popup()
             inoremap <expr><C-e>  neocomplcache#cancel_popup()
+            " Tab/Shift-Tab to cycle completions
+            " inoremap <expr><Tab> pumvisible() ? "\<C-N>" : "\<Tab>"
+            " inoremap <expr><S-Tab> pumvisible() ? "\<C-P>" : "\<S-Tab>"
+            " CR/S-CR: close popup and save indent.
+            " inoremap <expr><CR> delimitMate#WithinEmptyPair() ? "\<C-R>=delimitMate#ExpandReturn()\<CR>" : pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+            " inoremap <expr><S-CR> pumvisible() ? neocomplcache#close_popup() "\<CR>" : "\<CR>"
             " AutoComplPop like behavior
             "let g:neocomplcache_enable_auto_select = 1
             " Enable omni completion
@@ -1203,7 +1214,6 @@
         " garbas & honza's repos are the main snipmate repo. msanders hasn't been updating what he started
         "   one has snipmate, the other has the snippets
         " Bundle 'msanders/snipmate.vim'
-        "Bundle 'gmarik/snipmate.vim'
         Bundle 'honza/snipmate.vim'
         Bundle 'rbonvall/snipmate-snippets-bib'
         Bundle 'garbas/snipmate-snippets'
@@ -1384,7 +1394,7 @@
 
     set ttyfast " we have a fast car
     set ttimeoutlen=50 " make Esc work faster
-    set timeoutlen=1000 " time to press next key after <Leader> has been pressed before it clears
+    set timeoutlen=1000 " time to press next key after <leader> has been pressed before it clears
     set ffs=unix,dos,mac " Default file types
     " Use the same symbols as TextMate for tabstops and EOLs
     "set listchars=tab:▸\ ,eol:¬
@@ -1683,7 +1693,7 @@
 
     " clear highlights
     "nnoremap <S-F3> :set hlsearch!<CR>
-    noremap <silent><Leader>h :nohls<CR>
+    noremap <silent><leader>h :nohls<CR>
     " nnoremap <cr> :nohlsearch<cr>
     nnoremap <leader>. :nohlsearch<cr>
     " Clear the search buffer when hitting return
@@ -1695,7 +1705,7 @@
     " inoremap <C-L> <C-O>:nohls<CR>
 
     " toggle invisibles (whitespace, etc.)
-    map <Leader>li :set list!<CR>
+    map <leader>li :set list!<CR>
 
     " Close the current buffer
     map <leader>bd :Bclose<cr>
@@ -1709,10 +1719,10 @@
     nnoremap <silent> zk O<Esc>
 
     " yank and put to/from the clipboard register
-    " map <Leader>y "*y
-    " map <Leader>p "*p
+    " map <leader>y "*y
+    " map <leader>p "*p
     " toggle paste mode
-    " map <Leader>tp :set invpaste<CR>
+    " map <leader>tp :set invpaste<CR>
     " System clipboard interaction. Mostly from:
     " https://github.com/henrik/dotfiles/blob/master/vim/config/mappings.vim
     noremap <leader>y "*y
@@ -1740,7 +1750,7 @@
     nnoremap g, g,zz
 
     " Faster substitute.
-    nnoremap <Leader>S :%s//<left>
+    nnoremap <leader>S :%s//<left>
 
     " Map Function Keys {{{2
         " commented out the unmap commands since they raised errors due to no map assigned
@@ -1776,13 +1786,13 @@
 
     "py.test mappings
     " Execute the tests
-    nmap <silent><Leader>tf <Esc>:Pytest file<CR>
-    nmap <silent><Leader>tc <Esc>:Pytest class<CR>
-    nmap <silent><Leader>tm <Esc>:Pytest method<CR>
+    nmap <silent><leader>tf <Esc>:Pytest file<CR>
+    nmap <silent><leader>tc <Esc>:Pytest class<CR>
+    nmap <silent><leader>tm <Esc>:Pytest method<CR>
     " cycle through test errors
-    nmap <silent><Leader>tn <Esc>:Pytest next<CR>
-    nmap <silent><Leader>tp <Esc>:Pytest previous<CR>
-    nmap <silent><Leader>te <Esc>:Pytest error<CR>
+    nmap <silent><leader>tn <Esc>:Pytest next<CR>
+    nmap <silent><leader>tp <Esc>:Pytest previous<CR>
+    nmap <silent><leader>te <Esc>:Pytest error<CR>
 
     " Creating underline/overline headings for markup languages
     " Inspired by http://sphinx.pocoo.org/rest.html#sections
@@ -1821,20 +1831,20 @@
 
 " FUNCTIONS {{{
     " source .vimrc
-    "map <silent> <Leader>s :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo'vimrc reloaded'"<CR>
-    noremap <silent> <Leader>s :source ~/.vimrc<CR>:filetype detect<CR>:exe "echo'vimrc reloaded'"<CR>
+    "map <silent> <leader>s :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo'vimrc reloaded'"<CR>
+    noremap <silent> <leader>s :source ~/.vimrc<CR>:filetype detect<CR>:exe "echo'vimrc reloaded'"<CR>
 
     " When vimrc is edited, reload it
     "autocmd! bufwritepost vimrc source ~/.vimrc
 
     " Edit vimrc \ev
-    nnoremap <silent> <Leader>ev :tabedit ~/.vimrc<CR>
+    nnoremap <silent> <leader>ev :tabedit ~/.vimrc<CR>
     "map <leader>e :e! ~/.vim_runtime/vimrc<cr>
     " Edit gvimrc \gv
-    nnoremap <silent> <Leader>gv :tabnew<CR>:e ~/.gvimrc<CR>
+    nnoremap <silent> <leader>gv :tabnew<CR>:e ~/.gvimrc<CR>
 
     " Merge consecutive empty lines and clean up trailing whitespace
-    map <Leader>fm :g/^\s*$/,/\S/-j<Bar>%s/\s\+$//<CR>
+    map <leader>fm :g/^\s*$/,/\S/-j<Bar>%s/\s\+$//<CR>
 
     func! s:MySys() " TODO what was this for?
         return "mac"
@@ -1873,7 +1883,7 @@
     	:retab!
     	:%s/\s\+$//e
     endfunction
-    nnoremap <Leader>cu	:call RetabAndStripTrailingWhitespace()<CR>
+    nnoremap <leader>cu	:call RetabAndStripTrailingWhitespace()<CR>
 
     func! DeleteTrailingWhitespace()
         exe "normal mz"
@@ -2032,7 +2042,7 @@
         else
             let line = substitute(getline(fs), '\t', repeat(' ', &tabstop), 'g')
         endif
-        let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0)
+        let w = winwidth(0) - &foldcolumn - (&number ? 8 : 0) - 2
         let foldSize = 1 + v:foldend - v:foldstart
         let foldSizeStr = " " . foldSize . " lines "
         let foldLevelStr = repeat("+--", v:foldlevel)
@@ -2043,8 +2053,7 @@
     endf
     set foldtext=CustomFoldText()
 
-    " from sjl
-    " for screenshot: https://gist.github.com/3360978
+    " (from sjl) screenshot: https://gist.github.com/3360978
     " function! MyFoldText() " {{{
         " let line = getline(v:foldstart)
 
@@ -2367,8 +2376,8 @@
             autocmd Filetype markdown nnoremap <buffer> <localLeader>e1 I*<ESC>A*<ESC>
             autocmd Filetype markdown nnoremap <buffer> <localLeader>e2 I**<ESC>A**<ESC>
             autocmd Filetype markdown nnoremap <buffer> <localLeader>e3 I***<ESC>A***<ESC>
-            " Use <Leader>P to preview markdown file in browser
-            autocmd Filetype markdown nnoremap <buffer> <Leader>P :MarkdownPreview<CR>
+            " Use <leader>P to preview markdown file in browser
+            autocmd Filetype markdown nnoremap <buffer> <leader>P :MarkdownPreview<CR>
         augroup END
     " }}}
 
@@ -2439,6 +2448,10 @@
             au Filetype rst nnoremap <buffer> <localleader>3 yypVr~:redraw<cr>
             au Filetype rst nnoremap <buffer> <localleader>4 yypVr`:redraw<cr>
         augroup END
+    " }}}
+
+    " snippets {{{
+        autocmd BufNewFile,BufRead *.snip,*.snippets set filetype=snippet
     " }}}
 
     " Text {{{
@@ -2546,7 +2559,7 @@
     " }}}
 
     " NERDtree-Tabs-Toggle {{{
-        map <Leader>n <plug>NERDTreeTabsToggle<CR>
+        map <leader>n <plug>NERDTreeTabsToggle<CR>
     " }}}
 
     " Slime {{{
@@ -2580,7 +2593,7 @@
         "    vnoremap <Tab> <Esc>gV
         "    onoremap <Tab> <Esc>
         "    inoremap <Tab> <Esc>`^
-        "    inoremap <Leader><Tab> <Tab>
+        "    inoremap <leader><Tab> <Tab>
         "endif
     " }}}
 
