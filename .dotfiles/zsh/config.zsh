@@ -13,6 +13,7 @@ autoload zmv
 setopt always_to_end          # move cursor to end after completion
 setopt append_history       # Append, don't overwrite, the history file
 setopt autocd                  # change to dirs without cd
+unsetopt correctall         # no autocorrect
 setopt auto_list            # list choice on ambiguous command
 setopt auto_menu            # show menu for completion
 # setopt AUTO_PUSHD         # automatically append dirs to the push/pop list
@@ -29,6 +30,7 @@ unsetopt COMPLETE_IN_WORD         # completion works inside words
 setopt extendedglob            # awesome pattern matching (ala Dir.glob() in Ruby)
 setopt EXTENDED_HISTORY 	   # add timestamps to history
 setopt glob_complete            # matches are generated as if a `*' was added to the end of the word, or inserted at the cursor when COMPLETE_IN_WORD is set.  This actually uses pattern matching, not globbing, so it works not only for files but for any completion, such as options, user names, etc.
+# setopt  globcomplete            # TODO which globcomplete is valid?
 # setopt HASH_CMDS              # store cmd location for speed. Note the location of each command the first time it is executed. Subsequent invocations of the same command will use the saved location, avoiding a path search
 # setopt HASH_DIRS              # store all cmd locations for speed
 setopt HIST_IGNORE_ALL_DUPS    # don't record dupes in history
@@ -41,10 +43,11 @@ setopt hist_reduce_blanks       # Remove multiple/superfluous blanks before reco
 setopt listtypes               # show filetypes in completion
 setopt LONG_LIST_JOBS           # verbose listing of jobs
 setopt MENU_COMPLETE            # cycle thru completions
-setopt nobeep                  # i hate beeps
+setopt nobeep                  # fukc beepers
 # setopt NO_BG_NICE
 # setopt no_clobber         # prevent > redirection from truncating the given file if it already exists
 setopt NOHUP			    # Don't HUP running jobs on logout and don't kill BG jobs when shell exits
+setopt nonomatch             # fix weird matching
 setopt notify                  # notify of BG job completion immediately
 # unsetopt OVERSTRIKE           # Start line editor in overstrike mode
 #setopt printexitvalue          # alert me if something's failed. show a message with the exit code when a command returns with a non-zero exit code
@@ -54,6 +57,7 @@ setopt PUSHD_IGNORE_DUPS        # Don’t push multiple directories on stack
 setopt PROMPT_SUBST             # Allow for functions in the prompt. Turns on command substitution in the prompt (and parameter expansion and arithmetic expansion)
 # setopt REC_EXACT                # exact completions are good even if ambiguous
 # setopt RM_STAR_SILENT         # Don’t warn on rm *
+setopt SHARE_HISTORY
 autoload -Uz vcs_info
 zstyle ':vcs_info:*' enable hg git bzr svn
 zstyle ':vcs_info:*+*:*' debug true
@@ -64,6 +68,7 @@ zstyle ':vcs_info:git*:*' check-for-changes true
 # autoload -U zgitinit; zgitinit
 autoload zkbd
 setopt ZLE                    # Use zsh line editor. Set by default in interactive shells connected to a terminal
+zle_highlight=(region:standout special:standout suffix:bold isearch:underline)
 # autoload -U zmv               # a command for renaming files by means of shell patterns (like 'mv'cmd)
 zmodload zsh/terminfo
 zmodload zsh/zleparameter
@@ -182,8 +187,7 @@ zstyle ':completion:*:dvips:*' files '*.dvi'
 # zstyle ':completion:*' prefix-needed true
 
 function zle-line-init zle-keymap-select {
-    # Change cursor based on Vi mode and also tmux/screen state
-    # change color of cursor
+    # Change cursor based on Vi mode and also tmux/screen state change color of cursor
     if [ $KEYMAP = vicmd ]; then
         if [[ $TMUX = '' ]]; then
             echo -ne "\033]12;Red\007"
@@ -220,7 +224,6 @@ function zle-line-init zle-keymap-select {
 # }
 zle -N zle-keymap-select
 zle -N zle-line-init
-
 
 
 echo "\e[1m\e[32mFinished loading config.zsh\e[0m"
