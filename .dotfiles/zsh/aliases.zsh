@@ -50,13 +50,16 @@ alias appsl="cd /Volumes/Data/developer/large-repos"
 alias cdd='cd -' # goto last dir cd'ed from
 alias ciao='sudo shutdown -h now'
 alias clr="clear"
+alias cls='clear' # note: ctrl-L under zsh does something similar
 alias curl="curl -O"
 alias dir_sizes='du -cks * | sort -rn |head -11' # Lists the size of all the folders within current dir (Mb)
+alias dirtree="ls -R | grep \":$\" | sed -e 's/:$//' -e 's/[^-][^\/]*\//--/g' -e 's/^/ /' -e 's/-/|/'"
 alias disks='diskutil list'
 alias dotf="ls .[a-zA-Z0-9_]*"
 alias down="cd ~/Downloads"
 alias du='du -h -d 2'
 alias du1='du -hs *(/)' # du with depth 1
+alias ducks='du -cks * | sort -rn | head -15'
 alias e="mvim"
 alias ea='mvim ~/.dotfiles/zsh/aliases.zsh && reload' # Edit aliases
 alias eco="echo"
@@ -71,6 +74,7 @@ fi
 alias gr="GREP_COLOR='1;4;34' grep --color=always --exclude='*~' --exclude='*.svn*' --exclude='*.tmp' --exclude=entries -r"
 alias help="cheat" # uses ruby gem `cheat`
 alias h="cheat" # uses ruby gem `cheat`
+alias info='info --vi-keys'
 alias k9='kill -9'
 alias ka9='killall -9'
 alias kill="kill -9"
@@ -91,11 +95,13 @@ alias md="mkcd"
 alias modified_today='ls *(m-1)' # files modified today. or could use 'ls *(m0)'
 alias not_modified_today='ls *(^m0)' # files NOT modified today
 alias notes="ack 'TODO|FIXME|XXX|HACK'"
+alias pg='ps -ef | grep '
 # cribbed from benhoskings  http://github.com/benhoskings/dot-files/blob/master/files/.aliases/commands
 alias profileme="history | awk '{print \$2}' | awk 'BEGIN{FS=\"|\"}{print \$1}' | sort | uniq -c | sort -nr | head -n 20"
 alias ps='ps aux'
 alias psg='ps aux | grep'
 alias psgrep='ps aux|grep'
+alias ps2='ps -opid,uid,cpu,time,stat,command'
 alias queen="ssh mta45@queen.fas.sfu.ca"
 # alias reload="source ~/.zshrc"
 alias reload!='. ~/.zshrc'
@@ -147,8 +153,10 @@ alias taskc="task completed"
 alias taskh="task ghistory"
 # }}}
 
-# CABAL (haskell) {{{1
+# HASKELL {{{1
 #############################################################
+alias pandoc='~/Library/Haskell/ghc-7.4.2/lib/pandoc-1.9.4.2/bin/pandoc'
+# CABAL {{{2
 alias cabs="cabal list"
 alias cabl="cabal list --installed && echo \"\n\nNOTE: You can also type \n\tcabal list --installed --simple-output\nfor a briefer message\""
 alias cabi="cabal info"
@@ -158,6 +166,7 @@ alias cabu="cabal install"
 #alias cabalu="cabal update" #TODO: doesn't update installed packages
 #alias cabo=" outdated" TODO
 #alias cabc="cabal clean" TODO
+# }}}
 # }}}
 
 # FABRIC {{{1
