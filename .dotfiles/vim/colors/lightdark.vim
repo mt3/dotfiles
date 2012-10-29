@@ -13,6 +13,46 @@
     let g:colors_name = "lightdark"
 " }}}
 
+" Color Definitions {{{
+    " from https://github.com/DAddYE/tomorrow.vim/blob/master/colors/Tomorrow.vim
+
+    " GUI Base16 Colour Definitions
+    let s:gui00 = "2b2b2b"
+    let s:gui01 = "3f3f3f"
+    let s:gui02 = "636363"
+    let s:gui03 = "909090"
+    let s:gui04 = "b0b0b0"
+    let s:gui05 = "d0d0d0"
+    let s:gui06 = "e0e0e0"
+    let s:gui07 = "f5f5f5"
+    let s:gui08 = "ac4142"
+    let s:gui09 = "d28445"
+    let s:gui0A = "f4bf75"
+    let s:gui0B = "90a959"
+    let s:gui0C = "75b5aa"
+    let s:gui0D = "6a9fb5"
+    let s:gui0E = "aa759f"
+    let s:gui0F = "8b415c"
+
+    " Terminal Base16 Colour Definitions
+    let s:cterm00 = "00"
+    let s:cterm01 = "10"
+    let s:cterm02 = "11"
+    let s:cterm03 = "12"
+    let s:cterm04 = "13"
+    let s:cterm05 = "14"
+    let s:cterm06 = "15"
+    let s:cterm07 = "07"
+    let s:cterm08 = "01"
+    let s:cterm09 = "08"
+    let s:cterm0A = "03"
+    let s:cterm0B = "02"
+    let s:cterm0C = "06"
+    let s:cterm0D = "04"
+    let s:cterm0E = "05"
+    let s:cterm0F = "09"
+" }}}
+
 " Clear colors for items to be changed {{{
     hi clear StatusLine
     hi clear StatusLineNC
