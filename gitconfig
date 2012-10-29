@@ -3,6 +3,10 @@
 	email = na@na.na
     # set email per machine in $GIT_AUTHOR_EMAIL or per repo
 
+[credential]
+    # TODO document
+    helper = osxkeychain
+
 [core]
     # autocrlf = false
     editor = mvim -f
@@ -22,31 +26,37 @@
 	upload = true
 
 [alias]
+    # Add
     a = add
     ai = add --interactive
     # add files to repo
     au = !git ls-files --other --exclude-standard -z | xargs -0 git add -Nv
-    both = diff HEAD
-	branches = !legit branches
-    browse = !hub browse
-    c = commit --verbose -m
+    # wip = !git add -u && git commit -m ...
+    # wipc = !date >> WIP && git add WIP && git commit -m ...
+
+    # Branch
     b = branch -a
     br = branch -avv
-    cat = !cat @
-    changes = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status
-    chunkyadd = add --patch # stage commits chunk by chunk
-    co = checkout
-    compare = !hub compare
+	branches = !legit branches
 	current-branch = "!r=$(git symbolic-ref HEAD);echo ${r##refs/heads/}"
     currentbranch = !git branch --contains HEAD | grep '*' | tr -s ' ' | cut -d ' ' -f2
+    in = "!b=$(git current-branch);git ll $b..origin/$b"
+
+    # Commit
+    c = commit --verbose -m
     cv = commit --verbose
     # cvv = !git-cv
+
+    # Diff
+    both = diff HEAD
     d = diff --word-diff
     dc = diff --cached
     df = diff --word-diff
     diffstat = diff --stat
     ds = diff --stat
     filelog = log -u # show changes to a file
+    staged = diff --cached
+
     # amend to a previous commit
     fixup = !sh -c 'git commit --fixup $1 && git stash && git rebase -i $1~1 && git stash pop' -
     fo = fetch origin
@@ -54,27 +64,22 @@
     # fp = format-patch --stdout
     # fetch from all remotes and reset to origin/master
     fresh = !git fetch --all && git reset --hard origin/master -
+
+    # Log
+    changes = log --pretty=format:\"%h %cr %cn %Cgreen%s%Creset\" --name-status
     gl = !git lg $(git show-ref | cut -d \" \" -f 2 | grep -v stash$)
     gll  = log -12 --color=always --all --graph --topo-order --pretty='format:%Cgreen%h%Creset %s %C(black bold)(by %an)%Creset%C(yellow bold)%d%Creset%n'
     glll = log     --color=always --all --graph --topo-order --pretty='format:%Cgreen%h%Creset %s %C(black bold)(by %an)%Creset%C(yellow bold)%d%Creset%n'
     glog = !git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset' --abbrev-commit
-    # grab = !git-grab
-	graft = !legit graft \"$@\"
     graph = log --oneline --graph
     greplog = log -U1 -G
-	harvest = !legit harvest \"$@\"
-	ignored = status --ignored
-	in = "!b=$(git current-branch);git ll $b..origin/$b"
-    l = log --pretty=format:\"%Cgreen%ad%Creset | %s%d [%Cblue%an%Creset]\" --ignore-all-space --ignore-space-change --graph --date=relative --graph --max-count=10 --since=\"1 month ago\" --stat
+    l = log --pretty=format:\"%Cgreen%ad%Creset | %s%d [%Cblue%an%Creset]\" --ignore-all-space --ignore-space-change --graph --date=relative  --max-count=10 --since=\"1 month ago\" --stat
 	la = !git ll --all
 	lal = log --graph --abbrev-commit --date=relative --all
 	lall = log --graph --pretty="format:%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset" --since="1 week ago"
     last = log -1
-    # 'leftoff' is intended to provide an overview of the state of the repo
-    leftoff = !echo \"\\n*** \t\tSTATUS LIST\" && git status list && echo \"\\n*** \t\tSTATUS\" && git status && echo \"\\n*** \t\tLOG\" && git log --pretty=oneline --abbrev-commit --max-count=10 && echo \"\\n*** \t\tBRANCHES\" && git branch -avv
     lg = log --oneline --decorate --ignore-all-space --ignore-space-change --date=relative --graph --max-count=10 --since=\"1 month ago\" --stat
     lgg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
-    list = ls-files
     ll = log --pretty=oneline --abbrev-commit --max-count=15
     llg = log --summary -n10
     lll = log --graph --decorate --pretty=format:'%C(magenta)%h%C(reset)%C(bold yellow)%d%C(reset) %s %C(green)%an %C(bold black)%cr%C(reset)' --abbrev-commit --date=relative
@@ -84,59 +89,93 @@
     lolalnp = !git --no-pager lolal
     loll = log --graph --decorate --pretty=oneline --abbrev-commit
     lolnp = !git --no-pager loll
+    oneline = log --oneline
+    review = log -p --max-count=1
+    shviz = !git shortlog -s | cut -f1 | spark
+
+	# Leftoff
+    # 'leftoff' is intended to provide an overview of the state of the repo
+    leftoff = !echo \"\\n*** \t\tSTATUS LIST\" && git status list && echo \"\\n*** \t\tSTATUS\" && git status && echo \"\\n*** \t\tLOG\" && git log --pretty=oneline --abbrev-commit --max-count=10 && echo \"\\n*** \t\tBRANCHES\" && git branch -avv
+
+    # List
+    list = ls-files
     ls = ls-files
+
+    # Merge
     mergef = merge --ff-only
     mf = merge --ff-only
-    oneline = log --oneline
-    out = "!b=$(git current-branch);git ll origin/$b..$b"
+
+    # Pull
     p = pull
     pp = !git pull --rebase && git push
+
+    out = "!b=$(git current-branch);git ll origin/$b..$b"
     praise = blame
     pu = push
 	publish = !legit publish \"$@\"
+    serve = daemon --reuseaddr --base-path=. --export-all --verbose
+    # sh = !git-sh
+	sprout = !legit sprout \"$@\"
+
+	# Remote
     r = remote show origin
     ra = remote add
+    rv = remote -v
+
+    # Rebase
     rc = rebase --continue
-    review = log -p --max-count=1
     # useful rebasing your topic branch against the newest version of master
     rom = rebase origin/master
     rs = rebase --skip
-    rv = remote -v
+
+    # Reset
+    uncommit = reset --soft HEAD^   # go back before last commit, with files in uncommitted state
+    unstage = reset HEAD  # remove files from index (tracking)
+
+	# Status
+	ignored = status --ignored
     s = status -sb
-    serve = daemon --reuseaddr --base-path=. --export-all --verbose
-    # sh = !git-sh
-    shviz = !git shortlog -s | cut -f1 | spark
-	sprout = !legit sprout \"$@\"
     st = status -sb
-    staged = diff --cached
+    statusuntracked = status -sb -u no
+    untracked = status -u
+
+    # Stash
     stash = stash
     stasha = stash apply
     stashl = stash list
     stashls = stash list
-    statusuntracked = status -sb -u no
+
+    # Submodule
     sub = submodule
     subup = submodule foreach 'git pull'
-	switch = !legit switch \"$@\"
-	sync = !legit sync \"$@\"
-    t = tag -n
-    # thanks = !git-thanks
-    # track = !git-track
-	unpublish = !legit unpublish \"$@\"
-    uncommit = reset --soft HEAD^   # go back before last commit, with files in uncommitted state
-    unstage = reset HEAD  # remove files from index (tracking)
-    untracked = status -u
-    up = pull --rebase
-    vimdiff = difftool -y -t mvimdiff # type "git vimdiff" to view a diff in macvim
-    w = !hub browse
+
+    # Whatchanged
     wc = whatchanged -n 1
     wc6h = !git whatchanged --since=\"6 hours ago\" --format=oneline
     wc2d = !git whatchanged --since=\"2 days ago\" --format=oneline
     wc6d = !git whatchanged --since=\"6 days ago\" --format=oneline
     wc1w = !git whatchanged --since=\"1 week ago\" --format=oneline
     wc1m = !git whatchanged --since=\"1 month ago\" --format=oneline
-    # wip = !git add -u && git commit -m ...
-    # wipc = !date >> WIP && git add WIP && git commit -m ...
     wp = whatchanged -p
+
+    # TODO: unsorted
+    browse = !hub browse
+    cat = !cat @
+    chunkyadd = add --patch # stage commits chunk by chunk
+    co = checkout
+    compare = !hub compare
+    # grab = !git-grab
+    graft = !legit graft \"$@\"
+    harvest = !legit harvest \"$@\"
+    switch = !legit switch \"$@\"
+    sync = !legit sync \"$@\"
+    t = tag -n
+    # thanks = !git-thanks
+    # track = !git-track
+    unpublish = !legit unpublish \"$@\"
+    up = pull --rebase
+    vimdiff = difftool -y -t mvimdiff # type "git vimdiff" to view a diff in macvim
+    w = !hub browse
 
 [apply]
     # automagically fix whitespace
@@ -214,6 +253,9 @@
     default = tracking # prevent accidental pushes to branches u ain't ready 2 push to yet
     # default = upstream
 
+#[rebase]
+    # autosquash = true
+
 # [rerere]
 # 	enabled = true
 # 	autoupdate = true
@@ -235,4 +277,28 @@
 [mergetool]
 	keepBackup = true
 
-# vim: set ft=.gitconfig:
+# read from given uri, push to writable one (http://bit.ly/g9c9Y2)
+# can do 'git clone github:lenary/guides.git' & 'git clone gist:806037'
+[url "http://github.com/"]
+    insteadOf = "gh:"
+[url "git@github.com:"]
+    pushInsteadOf = "https://github.com/"
+    pushInsteadOf = "http://github.com/"
+    pushInsteadOf = "gh:"
+
+[url "git@github.com:mt3/"]
+    pushInsteadOf = "gm:"
+[url "http://github.com/mt3/"]
+    insteadOf = "gm:"
+
+[url "https://gist.github.com/"]
+    insteadOf = "gist:"
+[url "git@gist.github.com:"]
+    pushInsteadOf = "https://gist.github.com/"
+    pushInsteadOf = "http://gist.github.com/"
+    pushInsteadOf = "gist:"
+
+[url "git@heroku.com:"]
+    insteadOf = "heroku:"
+
+# vim: set ft=.gitconfig foldmethod=indent:
