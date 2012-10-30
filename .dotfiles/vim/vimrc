@@ -6,6 +6,7 @@
     " combine 'Filetypes' section w/ Load Plugins section
     " combine 'Plugins Setup' section w/ Load Plugins section
     " when editing rst files, why is a '0' inserted at the end of the line after one presses a carriage return?
+    " pentadactyl filetypes make the buffer operate SLOWLY for some reason (operates fine when ft=vim)
     " have Ack open in vsplit
     " turn off smart double quotes in .vim files
     " on logout call PowerLineClearCache
@@ -28,7 +29,7 @@
     " always open new split-panes to the right horizontally, not below/above
     " change color of matching brackets in showmatch option
     " nmap / :h<space> (but why???)
-    " make comments a different (non-fixed width) font (helvetica? italicized?)
+    " is it possible to make comments a different (non-fixed width) font (helvetica? italicized?)
     " after i do a 'save', automatically change to visual mode
         " map <D-s> :w<CR><ESC>
     " stop infinite scroll at bottom of buffer, go 10 max
@@ -187,15 +188,21 @@
         " make gvim-only colorschemes work transparently in terminal vim
         Bundle 'godlygeek/csapprox'
         Bundle 'tomtom/tlib_vim'
-        Bundle 'tomtom/vimtlib'
+        " Bundle 'tomtom/vimtlib' TODO Error detected while processing /Users/mt/.vim/bundle/vimtlib/plugin/tinymode_tml.vim
         Bundle 'kana/vim-textobj-user'
         Bundle 'kana/vim-textobj-entire'
         Bundle 'vim-scripts/bufkill.vim'
         Bundle 'michaeljsmith/vim-indent-object'
         Bundle 'gmarik/ide-popup.vim'
+        Bundle 'kshenoy/vim-palette'
+        Bundle 'rking/vim-detailed'
+        Bundle 'trapd00r/vim-highlight-default-highlight-groups'
         Bundle 'h1mesuke/vim-benchmark'
         Bundle 'MarcWeber/vim-addon-mw-utils'
         " Bundle 'mattn/benchvimrc-vim'
+
+        Bundle 'kana/vim-vspec'
+            " unittesting vimscripts
 
         Bundle 'dahu/vimple'
             " Vimple provides VimLOO (Object Oriented VimL) objects for a few cmds
@@ -217,7 +224,7 @@
             " nnoremap <F3> :NumbersToggle<CR>
 
         Bundle 'nathanaelkane/vim-command-w'
-            macmenu &File.Close key=<nop>
+            " macmenu &File.Close key=<nop>
             nmap <D-w> :CommandW<CR>
             imap <D-w> <Esc>:CommandW<CR>
     " }}}
@@ -600,36 +607,51 @@
             " let g:vimchat_buddylistmaxwidth        = " max width of buddy list window, default ''
             " let g:vimchat_timestampformat          = " format of the message timestamp, default "[%H:%M]"
             " let g:vimchat_showPresenceNotification = " notification if buddy changed status, comma-separated list of states, default ""
+            " let g:vimchat_buddylistwidth = width of buddy list, default is 30
+            " let g:vimchat_logpath = path to store log files, default is ~/.vimchat/logs
+            " let g:vimchat_logchats = (0 or 1) default is 1 -- 0 will not log,
+            " let g:vimchat_otr = (0 or 1) default is 0 -- enable otr or not
+            " let g:vimchat_logotr = (0 or 1) default is 1 -- log otr convos or not
+            " let g:vimchat_statusicon = (0 or 1) default is 1 -- use a gtk status icon?
+            " let g:vimchat_blinktimeout = timeout in seconds, default is -1
+            " let g:vimchat_buddylistmaxwidth = max width of buddy list window, default ''
+            " let g:vimchat_timestampformat = format of the message timestamp, default "[%H:%M]"
+            " let g:vimchat_showPresenceNotification = notification if buddy changed status, comma-separated list of states, default ""
     " }}}
 
     " Marks {{{
         " vim-signature is apparently better than vim-showmarks and mark-tools
-        "Bundle 'kshenoy/vim-signature' TODO has error at startup
-        Bundle 'vim-scripts/mark_tools'
+        " Bundle 'vim-scripts/mark_tools'
         " show marks in gutter
         " Bundle 'vim-scripts/ShowMarks7'
         Bundle 'https://github.com/vim-scripts/vmark.vim--Visual-Bookmarking.git'
 
-        Bundle 'zakj/vim-showmarks'
-            " to only include marks 'abcdefzxABHJio', in that order:
-            " let g:showmarks_include="abcdefzxABJio"
-            " To override this for a particular buffer with 'ABCDhj.'^':
-            " let b:showmarks_include="abcdefzxABJio"
-            let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
-            " Don't leave on by default, use :ShowMarksOn to enable
-            " let g:showmarks_enable = 0
-            " For marks a-z
-            highlight ShowMarksHLl gui=bold guibg=LightBlue guifg=Blue
-            " For marks A-Z
-            highlight ShowMarksHLu gui=bold guibg=LightRed guifg=DarkRed
-            " For all other marks
-            highlight ShowMarksHLo gui=bold guibg=LightYellow guifg=DarkYellow
-            " For multiple marks on the same line.
-            highlight ShowMarksHLm gui=bold guibg=LightGreen guifg=DarkGreen
-            hi! link ShowMarksHLl LineNr
-            hi! link ShowMarksHLu LineNr
-            hi! link ShowMarksHLo LineNr
-            hi! link ShowMarksHLm LineNr
+        " TODO has error at startup
+        Bundle 'kshenoy/vim-signature'
+            let g:SignatureWrapJumps = 1
+            let g:SignatureMarkLeader = m
+            let g:SignatureDisableMenu = 0 " 1 hides menu
+
+        " Bundle 'zakj/vim-showmarks'
+        "     " to only include marks 'abcdefzxABHJio', in that order:
+        "     " let g:showmarks_include="abcdefzxABJio"
+        "     " To override this for a particular buffer with 'ABCDhj.'^':
+        "     " let b:showmarks_include="abcdefzxABJio"
+        "     let showmarks_include = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ"
+        "     " Don't leave on by default, use :ShowMarksOn to enable
+        "     " let g:showmarks_enable = 0
+        "     " For marks a-z
+        "     highlight ShowMarksHLl gui=bold guibg=LightBlue guifg=Blue
+        "     " For marks A-Z
+        "     highlight ShowMarksHLu gui=bold guibg=LightRed guifg=DarkRed
+        "     " For all other marks
+        "     highlight ShowMarksHLo gui=bold guibg=LightYellow guifg=DarkYellow
+        "     " For multiple marks on the same line.
+        "     highlight ShowMarksHLm gui=bold guibg=LightGreen guifg=DarkGreen
+        "     hi! link ShowMarksHLl LineNr
+        "     hi! link ShowMarksHLu LineNr
+        "     hi! link ShowMarksHLo LineNr
+        "     hi! link ShowMarksHLm LineNr
     " }}}
 
     " Motions {{{
@@ -681,16 +703,27 @@
             "let g:org_todo_keywords = ['TODO', '|', 'DONE']
             "let g:org_debug = 1
 
-        " notational velocity on vim (nothing to do with simplenote)
         Bundle 'fmoralesc/vim-pad'
+            " notational velocity on vim (nothing to do with simplenote)
+            " TODO [vim-pad] <leader>s in normal mode is already mapped.
+            " TODO [vim-pad] <leader>n in normal mode is already mapped.
             let g:pad_dir='~/temp-vim-pad'
 
-        Bundle 'mt3/simplenote.vim'
+        Bundle 'mattn/vimplenote-vim'
+            " a rewrite of simplenote.vim in vimscript
+            " TODO delete simplenote.vim and use this instead
             if filereadable(expand("~/.simplenoterc"))
                 " source ~/.simplenoterc
                 exec ":source ". $HOME . "/.simplenoterc"
             endif
-            let g:SimplenoteVertical=1 " scratch buffer is opened in vsplit
+            " let g:VimplenoteVertical=1 " scratch buffer is opened in vsplit
+
+        " Bundle 'mt3/simplenote.vim'
+        "     if filereadable(expand("~/.simplenoterc"))
+                " source ~/.simplenoterc
+                " exec ":source ". $HOME . "/.simplenoterc"
+            " endif
+            " let g:SimplenoteVertical=1 " scratch buffer is opened in vsplit
             " let g:SimplenoteFiletype=rst "TODO allow for a config of 'setlocal filetype=rst'
     " }}}
 
@@ -704,7 +737,7 @@
             let g:voom_default_mode = 'rest'
             let g:voom_return_key = '<Return>'
             let g:voom_tab_key = '<C-Tab>'
-            let g:voom_ft_modes = {'markdown': 'markdown', 'pandoc': 'markdown', 'restructuredtext': 'restructuredtext', 'rest': 'rest'}
+            " let g:voom_ft_modes = {'markdown': 'markdown', 'pandoc': 'markdown', 'restructuredtext': 'restructuredtext', 'rest': 'rest'}
             " au Filetype voomtree setlocal <buffer> guifont=Droid\ Sans\ Mono\ for\ Powerline:h13.3
             " TODO auto close voom buffer when user hits enter
     " }}}
@@ -832,27 +865,27 @@
         " Bundle 'vim-scripts/rest.vim' " old reST syntax file...
         Bundle 'nvie/vim-rst-tables'
         Bundle 'Rykka/riv.vim'
-            let g:riv_fold_blank=1 " fold all blank lines except 1. leaves a blank line between folded sections
-            let g:riv_fold_level=3 " fold_level 0: 'None' 1: 'Sections' 2: 'Sections and Lists' 3: 'Sections,Lists and Blocks'
-            let g:riv_fold_info_pos='left'
-            let g:riv_fold_auto_update=0 " don't auto-fold on write/save
-            let g:riv_ignored_imaps = "<Tab>,<S-Tab>,<BS>,<CR>,<S-CR>" " no fancy <Tab>, <BS>, <CR>, and <S-Tab> in insert mode
-            let g:riv_ignored_nmaps = "<Tab>,<S-Tab>,<BS>,<CR>,<S-CR>" " and don't override my custom mappings in normal either
+            let g:riv_fold_blank       = 1 " fold all blank lines except 1. leaves a blank line between folded sections
+            let g:riv_fold_level       = 3 " fold_level 0: 'None' 1: 'Sections' 2: 'Sections and Lists' 3: 'Sections,Lists and Blocks'
+            let g:riv_fold_info_pos    = 'left'
+            let g:riv_fold_auto_update = 0 " don't auto-fold on write/save
+            " let g:riv_ignored_imaps  = "<Tab>,<S-Tab>,<BS>,<CR>,<S-CR>" " no fancy <Tab>, <BS>, <CR>, and <S-Tab> in insert mode TODO not yet implemented
+            let g:riv_ignored_nmaps    = "<Tab>,<S-Tab>,<BS>,<CR>,<S-CR>" " and don't override my custom mappings in normal either
             " Riv uses the following punctuation for titles:     = - ~ " ' ` ,
             "       This can be changed with g:riv_section_levels
             "       Section number seperated by g:riv_fold_section_mark (default is "-")
             "       HTML has 6 levels
             " let g:riv_section_levels = '=-+^*~\"\'\`'
-            " keep list indents at same level when pressing <CR>
-            ino <buffer><expr><silent> <C-E>li riv#action#ins_enter()
-            let g:riv_web_browser = 'firefox'
-            let project1 = { 'path': '~/notes',}
-            let project2 = { 'path': '~/Dropbox/rst',}
-            let g:riv_projects = [project1, project2]
+            let g:riv_web_browser     = 'firefox'
+            let project1              = { 'path': '~/notes',}
+            let project2              = { 'path': '~/Dropbox/rst',}
+            let g:riv_projects        = [project1, project2]
             let g:riv_file_link_style = 2 " sphinx style local file links rather than moinmoin
-            let g:riv_todo_levels = ' ,o,X'
-            let g:riv_todo_keywords = 'TODO,DONE;FIXME,FIXED;START,PROCESS,STOP;ONHOLD'
+            let g:riv_todo_levels     = ' ,o,X'
+            let g:riv_todo_keywords   = 'TODO,DONE;FIXME,FIXED;START,PROCESS,STOP;ONHOLD'
             " TODO nmap <leader>t1 :RivTitle1<CR>
+			" keep list indents at same level when pressing <CR>
+			ino <buffer><expr><silent> <C-E>li riv#action#ins_enter()
     " }}}
 
     " Search {{{
@@ -1274,13 +1307,13 @@
     " Bundle 'thinca/vim-quickrun.git'
     " Bundle 'nelstrom/vim-textobj-rubyblock'
     " Bundle 'gmarik/sudo-gui.vim'
-    Bundle 'skibyte/gdb-from-vim'
+    " Bundle 'skibyte/gdb-from-vim' TODO Error: Gdblib not found, disabling GdbFromVim plugin
     "Bundle 'mbadran/headlights'
     Bundle 'dahu/Chroma'
     " Bundle 'b4winckler/vim-objc'
     " TODO this has an error Bundle 'vim-scripts/searchfold.vim'
     Bundle 'chrisbra/unicode.vim'
-    Bundle 'chrisbra/improvedft'
+    " Bundle 'chrisbra/improvedft' TODO Error detected while processing function ftimproved#Activate..<SNR>128_Map
     Bundle 'greyblake/vim-preview'
     Bundle 'Rykka/mathematic.vim'
     Bundle 'Rykka/colorv.vim'
@@ -1683,8 +1716,8 @@
     nmap <leader>wq :w!<cr>:Bclose<cr>
 
     " TODO the below isn't working
-    macm File.New\ Tab key=<nop>
-    nmap <D-t> :echo "hello " &shell<CR>
+    " macm File.New\ Tab key=<nop>
+    " nmap <D-t> :echo "hello " &shell<CR>
 
     " cd to directory of current file
     map <leader>cd :cd %:p:h<cr>
@@ -2486,8 +2519,8 @@
     " }}}
 
     " reStructuredText {{{
-        augroup rst
-            au!
+        " augroup rst
+            " au!
             au BufNewFile,BufRead *.rst setlocal ft=rst
             au BufNewFile,BufRead *.txt setlocal ft=rst
             " au FileType rst setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 formatoptions+=nqt textwidth=74
@@ -2502,7 +2535,7 @@
             au Filetype rst nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
             au Filetype rst nnoremap <buffer> <localleader>3 yypVr~:redraw<cr>
             au Filetype rst nnoremap <buffer> <localleader>4 yypVr`:redraw<cr>
-        augroup END
+        " augroup END
     " }}}
 
     " snippets {{{
