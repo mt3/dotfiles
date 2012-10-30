@@ -1,5 +1,4 @@
 # zsh Keybindings
-#
 ######################
 
 #TODO: document
@@ -30,6 +29,16 @@ bindkey "\e\e[C" vi-forward-word
 bindkey "\e\e[D" vi-backward-word
 
 bindkey ' ' magic-space    # history expansion on space
+
+#TODO: toggle ones you want
+# bindkey "^?" backward-delete-char
+# bindkey -M vicmd "^R" redo
+# bindkey -M vicmd "u" undo
+# bindkey -M vicmd "ga" what-cursor-position
+# bindkey -M viins '^p' history-beginning-search-backward
+# bindkey -M vicmd '^p' history-beginning-search-backward
+# bindkey -M viins '^n' history-beginning-search-forward
+# bindkey -M vicmd '^n' history-beginning-search-forward
 
 #TODO: toggle ones you want
 # Use 'cat -v' to obtain the keycodes
