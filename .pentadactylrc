@@ -466,6 +466,18 @@
         " from http://jots.mypopescu.com/post/9353259803/a-generalized-omnifocus-bookmarklet-with-support-for
         map <M-0> -ex open javascript:(function()%7Bvar%20w=window,d=document,selectedTxt=w.getSelection?w.getSelection():(d.getSelection)?d.getSelection():(d.selection?d.selection.createRange().text:0),pageUri=w.location.href,isGMail=w.location.host.match(/mail%5C.google%5C.com/),subject=d.title,source,url;if(isGMail)%7Bvar%20msgFrm=d.getElementById('canvas_frame'),subjectSpans;if(msgFrm)%7BsubjectSpans=msgFrm.contentDocument.getElementsByClassName('hP');if(subjectSpans)subject=subjectSpans%5B0%5D.innerText;%7D;if(!subjectSpans)%7Bsubject=d.title.substring(d.title.indexOf('-')+1,d.title.lastIndexOf('-')).replace(/%5E%20+/,'').replace(/%20+%24/,'')%7D;source='From:%20email%20subject:('+subject+')%5Cn';%7Delse%7Bsource='From:%20'%7Dif(selectedTxt)selectedTxt+='%5Cn';url='omnifocus:///add?note='+encodeURIComponent(selectedTxt+source+'<'+pageUri+'>')+'&name='+encodeURIComponent(subject);w.location.href=url%7D)();
 
+        " translate page to english
+        " javascript:var%20t=((window.getSelection&&window.getSelection())||(document.getSelection&&document.getSelection())||(document.selection&&document.selection.createRange&&document.selection.createRange().text));var%20e=(document.charset||document.characterSet);if(t!=''){location.href='http://translate.google.com/translate_t?text='+t+'&hl=en&langpair=auto|en&tbb=1&ie='+e;}else{location.href='http://translate.google.com/translate?u='+escape(location.href)+'&hl=en&langpair=auto|en&tbb=1&ie='+e;};
+
+        " site info
+        " javascript:void(window.open('http://builtwith.com/?'+location.host));
+
+        " clip to evernote
+        " javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&title='+encodeURIComponent(document.title);}})();
+
+        " save file to zotero
+        " :map -js z Zotero_Browser.scrapeThisPage()
+
     " 2}}}
 
     " open extensions/add-ons with <Cmd-e>
