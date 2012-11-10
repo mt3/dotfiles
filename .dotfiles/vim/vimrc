@@ -125,6 +125,17 @@
         " macmenu &Tools.Make key=<nop>
         " D-l
         " macmenu &Tools.List\ Errors key=<nop>
+
+        " D-t
+        " macmenu &File.New\ Tab key=<nop>
+        " " D-p
+        " macmenu &File.Print key=<nop>
+        " " D-p
+        " macmenu Edit.Find.Find\.\.\. key=<nop>
+        " " D-b
+        " macmenu &Tools.Make key=<nop>
+        " " D-l
+        " macmenu &Tools.List\ Errors key=<nop>
     endif
 
     " if has('mac')
@@ -273,6 +284,7 @@
 
     " Buffers {{{
         Bundle 'jeetsukumaran/vim-buffergator'
+        Bundle 'jeetsukumaran/vim-buffersaurus'
         " Kills a buffer without closing the split
         Bundle 'vim-scripts/bufkill.vim'
         " Resizes the current buffer to accommodate its content
@@ -317,6 +329,7 @@
 
         " ctrlp replaces command-t, NERDTree, buffer, mru (most recent used), tagfinder...
         Bundle 'kien/ctrlp.vim'
+        Bundle 'jasoncodes/ctrlp-modified.vim'
         Bundle 'sgur/ctrlp-extensions.vim'
             let g:ctrlp_map = '<c-p>'
             let g:ctrlp_cmd = 'CtrlP' " Default command used for the default mapping
@@ -625,6 +638,7 @@
         " show marks in gutter
         " Bundle 'vim-scripts/ShowMarks7'
         Bundle 'https://github.com/vim-scripts/vmark.vim--Visual-Bookmarking.git'
+        Bundle 'adinapoli/vim-markmultiple'
 
         " TODO has error at startup
         Bundle 'kshenoy/vim-signature'
@@ -781,7 +795,7 @@
             " let g:flake8_ignore="E501,W293"
 
         Bundle 'sunsol/vim_python_fold_compact'
-        Bundle 'davidhalter/jedi-vim'
+        " Bundle 'davidhalter/jedi-vim'
         "Bundle 'Lokaltog/python-syntax'
         "Bundle 'ehamberg/vim-cute-python'
         Bundle 'jmcantrell/vim-virtualenv'
@@ -1177,6 +1191,9 @@
         "Bundle 'vim-scripts/TeX-PDF'
         "Bundle 'tomtom/tbibtools_vim'
         " Bundle 'git://atp-vim.git.sourceforge.net/gitroot/atp-vim/atp-vim'
+
+        " need to have evince or okular installed
+        "Bundle 'xuhdev/vim-latex-live-preview'
 
         "Bundle 'vim-scripts/bib_autocomp.vim'
             "let g:bib_autocomp_entry_mapping = {
