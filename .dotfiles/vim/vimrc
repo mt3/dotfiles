@@ -193,6 +193,7 @@
         Bundle 'gmarik/ingretu'
         Bundle 'Rykka/galaxy.vim'
         Bundle 'mgutz/vim-colors'
+        Bundle 'pasela/edark.vim'
     " }}}
 
     " Vim Utilities {{{
@@ -1659,7 +1660,7 @@
         " Begining & End of line in Normal mode
         noremap H ^
         noremap L g_
-        " Use ,z to "focus" the current fold.
+        " ,z to focus the current fold and close all other open folds
         nnoremap <leader>z zMzvzz
     " }}}
 
@@ -1815,7 +1816,6 @@
     map <leader>c :!ctags --recurse<CR>
 
     " clear highlights
-    "nnoremap <S-F3> :set hlsearch!<CR>
     noremap <silent><leader>h :nohls<CR>
     " nnoremap <cr> :nohlsearch<cr>
     nnoremap <leader>. :nohlsearch<cr>
@@ -1826,6 +1826,11 @@
     "make <c-l> clear the highlight as well as redraw
     " nnoremap <C-L> :nohls<CR><C-L>
     " inoremap <C-L> <C-O>:nohls<CR>
+    " Highlight multiple words simultaneously in different colors {{{
+        nnoremap <silent> <leader>h1 :execute 'match InterestingWord1 /\<<c-r><c-w>\>/'<cr>
+        nnoremap <silent> <leader>h2 :execute '2match InterestingWord2 /\<<c-r><c-w>\>/'<cr>
+        nnoremap <silent> <leader>h3 :execute '3match InterestingWord3 /\<<c-r><c-w>\>/'<cr>
+    " }}}
 
     " toggle invisibles (whitespace, etc.)
     map <leader>li :set list!<CR>
