@@ -1,3 +1,7 @@
+" lightdark
+"           vim colorscheme
+"
+
 " To be at the top of every colorscheme {{{
     set background=light
     highlight clear
@@ -14,6 +18,14 @@
 " }}}
 
 " Color Definitions {{{
+	" from sjl/badwolf
+	let s:lightgravel = "998f84"
+	let s:dress       = "857f78"
+	let s:coal        = "857f78"
+	let s:orange      = "857f78"
+	let s:lime        = "857f78"
+	let s:taffy       = "857f78"
+
     " from https://github.com/DAddYE/tomorrow.vim/blob/master/colors/Tomorrow.vim
 
     " GUI Base16 Colour Definitions
@@ -52,7 +64,6 @@
     let s:cterm0E = "05"
     let s:cterm0F = "09"
 " }}}
-
 " Clear colors for items to be changed {{{
     hi clear StatusLine
     hi clear StatusLineNC
@@ -99,7 +110,6 @@
     hi PmenuSel     ctermfg=Black   ctermbg=LightCyan
     hi MatchParen   term=reverse    guifg=White     guibg=#cfdfff gui=bold ctermbg=LightCyan
 " }}}
-
 " Syntax & Keywords {{{
     hi Normal       guifg=Black         guibg=#f4f4f4   gui=none        ctermfg=253     ctermbg=234
     hi String       guifg=#7e8aa2       gui=none        ctermfg=103
@@ -115,8 +125,8 @@
     hi Type         guifg=DarkMagenta
 
     hi Todo         guifg=Black         guibg=#e02020   gui=italic,bold
+    " hi Todo         guifg=Black         guibg=#e02020   gui=italic,bold ctermbg=244     ctermfg=Black
 " }}}
-
 " Error Messages {{{
     hi SpellErrors guifg=Red gui=underline
 
@@ -129,6 +139,26 @@
     hi SpellLocal guibg=DarkCyan
 " }}}
 
+" Filetype-specific {{{
+    " Vim {{{
+        hi VimCommentTitle    guifg=#998f84         gui=bold
+        hi vimmapmod       	  guifg=#ff9eb8 		gui=none
+        hi VimMapModKey    guifg=#ff9eb8		    gui=none
+        hi VimNotation    guifg=#ff9eb8		        gui=none
+        hi VimBracket    guifg=#ff9eb8		        gui=none
+    " }}}
+    " Interesting Words {{{
+        hi InterestingWord1     guifg=Black  guibg=#ffa724
+        hi InterestingWord2     guifg=Black  guibg=#aeee00
+        hi InterestingWord3     guifg=Black  guibg=#ff2c4b
+    " }}}
+    " ShowMarks {{{
+        hi ShowMarksHLl     guifg=#0a9dff    guibg=#1c1b1a
+        hi ShowMarksHLu     guifg=#0a9dff    guibg=#1c1b1a
+        hi ShowMarksHLo     guifg=#0a9dff    guibg=#1c1b1a
+        hi ShowMarksHLm     guifg=#0a9dff    guibg=#1c1b1a
+    " }}}
+" }}}
 
 " Cterm Colors {{{
     "Black
@@ -149,11 +179,9 @@
     "Yellow, LightYellow
     "White
 " }}}
-
 " Xterm Colors {{{
     "
 " }}}
-
 " Color Values {{{
     " coloring format is #rrggbb
     "
@@ -163,6 +191,5 @@
     "darkblueish=#204fdf
     "lightred=#c80000
 " }}}
-
 
 " vim: set ft=vim:foldmethod=marker:
