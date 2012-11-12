@@ -194,6 +194,8 @@
         Bundle 'Rykka/galaxy.vim'
         Bundle 'mgutz/vim-colors'
         Bundle 'pasela/edark.vim'
+        Bundle 'DAddYE/tomorrow.vim'
+        Bundle 'jnurmine/Zenburn'
     " }}}
 
     " Vim Utilities {{{
@@ -210,6 +212,7 @@
         Bundle 'rking/vim-detailed'
         Bundle 'trapd00r/vim-highlight-default-highlight-groups'
         Bundle 'h1mesuke/vim-benchmark'
+        Bundle 'mattn/benchvimrc-vim'
         Bundle 'MarcWeber/vim-addon-mw-utils'
         " Bundle 'mattn/benchvimrc-vim'
 
@@ -691,24 +694,14 @@
         Bundle 'chrisbra/CheckAttach'
     " }}}
 
-    " Notetaking Apps {{{
-        Bundle 'vim-scripts/vimwiki'
-            " let g:vimwiki_list = [{'path': '~/.vimwiki/'}]
-            " let g:vimwiki_camel_case = 0
-            " let g:vimwiki_hl_cb_checked = 1
-            " let g:vimwiki_folding = 0
-            " let g:vimwiki_browsers = ['firefox']
-            " let g:vimwiki_CJK_length = 1
-            " let g:vimwiki_dir_link = 'index'
-            " let g:vimwiki_html_header_numbering = 2
-            " let g:vimwiki_conceallevel = 2
-
+    " Notetaking: wiki, simplenote, orgmode, etc. {{{
         " Bundle 'hsitz/VimOrganizer'
         " Bundle 'davidoc/taskpaper.vim'
         " Bundle 'xolox/vim-notes'
         " Bundle 'goerz/SimplenoteCLI'
         " Bundle 'metalelf0/vimt0d0'
         " Bundle 'aaronbieber/quicktask'
+        " Bundle 'tomtom/viki_vim'
 
         " Bundle 'bencrowder/vimlist'
             "let g:vimlist_dir = "/path/to/your/lists"
@@ -718,6 +711,76 @@
             "let g:org_todo_keywords = ['TODO', '|', 'DONE']
             "let g:org_debug = 1
 
+        Bundle 'vim-scripts/vimwiki'
+            " default path is ~/vimwiki/index.wiki
+            " let g:vimwiki_browsers = ['firefox']
+            " let g:vimwiki_camel_case = 0
+            " let g:vimwiki_CJK_length = 1
+            " let g:vimwiki_conceallevel = 2
+            let g:vimwiki_dir='~/.vimwiki'
+            " let g:vimwiki_dir_link = 'index'
+            " let g:vimwiki_folding = 0
+            " let g:vimwiki_hl_cb_checked = 1
+            " let g:vimwiki_html_header_numbering = 2
+            " 2 wikis: first wiki is in ~/my_site, second is in ~/my_docs/ and its files have .mdox extension
+            " autoexport=1 auto-generates html once file is saved
+            " let g:vimwiki_list = [{'path':'~/my_site/', 'path_html':'~/public_html/'},
+            "                     \ {'path':'~/my_docs/', 'ext':'.mdox'}]
+            let g:vimwiki_list = [{'path': '~/.vimwiki/', 'ext': '.rst', 'path_html': '~/.vimwiki/html/'}]
+            " let g:vimwiki_list = [{'path':'~/Dropbox/trunksync/notes/', 'index':'HomePageVim', 'path_html':'~/trunknotes_html', 'ext':'.markdown', 'auto_export':1}]
+            " let g:vimwiki_list = [{'path': '~/my_site/',
+            "         \ 'template_path': '~/public_html/templates/',
+            "         \ 'template_default': 'def_template',
+            "         \ 'template_ext': '.html',
+            "         \ 'css_name': 'main.css'}]
+            "     Each template could look like: >
+            "         <html>
+            "         <head>
+            "             <link rel="Stylesheet" type="text/css" href="%root_path%style.css" />
+            "             <title>%title%</title>
+            "             <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+            "         </head>
+            "         <body>
+            "             <div class="content">
+            "             %content%
+            "             </div>
+            "         </body>
+            "         </html>
+            "     where
+            "       %title% is replaced by a wiki page name or by a |vimwiki-title|
+            "       %root_path% is replaced by a count of ../ for pages buried in subdirs:
+            "         if you have wikilink [[dir1/dir2/dir3/my page in a subdir]] then
+            "         %root_path% is replaced by '../../../'.
+            "       %content% is replaced by a wiki file content.
+            "     The default template will be applied to all wiki pages unless a page specifies
+            "     a template. Consider you have wiki page named 'Maxim.wiki' and you want apply
+            "     'person.html' template to it. Just add: >
+            "      %template person
+            "     to that page.
+            " let g:vimwiki_menu = ""
+            " let g:vimwiki_timestamp_format='%Y年%m月%d日 %H:%M:%S'
+            " Create new (or open existing) diary wikifile for the date selected in Calendar = 1
+            " let g:vimwiki_use_calendar = 0
+            " let g:vimwiki_use_mouse = 1
+            " let g:vimwiki_user_htmls = "search.html,404.html"
+            " let g:vimwiki_valid_html_tags='b,i,s,u,sub,sup,kbd,br,hr,div,del,code,red,center,left,right,h4,h5,h6,pre'
+            " au FileType vimwiki set ff=unix fenc=utf8 noswapfile nobackup
+            " convert all WikiWords to HTML
+            " nmap <Leader>ii :VimwikiAll2HTML<cr>
+            "
+            " if !exists("g:vimwiki_list")
+            "     let g:vimwiki_list = [
+            "                 \{"path": "~/Wiki/Android/source/", "path_html": "~/Wiki/Android/",
+            "                 \ "html_footer": "~/Wiki/Android/footer.tpl", "html_header": "~/Wiki/Android/header.tpl",
+            "                 \ "auto_export": 1}
+            "                 \]
+            "     let g:vimwiki_auto_checkbox = 0
+            "     au FileType vimwiki set ff=unix fenc=utf8 noswapfile nobackup
+            "     "au FileType vimwiki imap <C-t> <c-r>=TriggerSnippet()<cr>
+            "     nmap <C-i><C-i> :VimwikiTabGoHome<cr>
+            "     nmap <Leader>ii :VimwikiTabGoHome<cr>
+            " endif
+
         Bundle 'fmoralesc/vim-pad'
             " notational velocity on vim (nothing to do with simplenote)
             " TODO [vim-pad] <leader>s in normal mode is already mapped.
@@ -726,17 +789,17 @@
 
         Bundle 'mattn/vimplenote-vim'
             " a rewrite of simplenote.vim in vimscript
-            " TODO delete simplenote.vim and use this instead
             if filereadable(expand("~/.simplenoterc"))
-                " source ~/.simplenoterc
+                source ~/.simplenoterc
                 exec ":source ". $HOME . "/.simplenoterc"
             endif
             " let g:VimplenoteVertical=1 " scratch buffer is opened in vsplit
 
         " Bundle 'mt3/simplenote.vim'
-        "     if filereadable(expand("~/.simplenoterc"))
-                " source ~/.simplenoterc
-                " exec ":source ". $HOME . "/.simplenoterc"
+            " TODO delete and use simplenote.vim instead
+            " if filereadable(expand("~/.simplenoterc"))
+               " source ~/.simplenoterc
+               " exec ":source ". $HOME . "/.simplenoterc"
             " endif
             " let g:SimplenoteVertical=1 " scratch buffer is opened in vsplit
             " let g:SimplenoteFiletype=rst "TODO allow for a config of 'setlocal filetype=rst'
@@ -878,6 +941,7 @@
 
     " reStructuredText {{{
         " Bundle 'vim-scripts/rest.vim' " old reST syntax file...
+        " Bundle 'vim-scripts/VST'      " old reST syntax file...
         Bundle 'nvie/vim-rst-tables'
         Bundle 'Rykka/riv.vim'
             let g:riv_fold_blank       = 1 " fold all blank lines except 1. leaves a blank line between folded sections
@@ -1076,6 +1140,8 @@
         if executable('ctags')
             " TODO find out which plugin is best... looks like Tagbar w/ rst2ctags is fine
             set tags=~/.ctags,~/.tags,./.tags;
+            let g:ctags_statusline=1
+            let g:ctags_args=1
             Bundle 'abudden/TagHighlight'
             Bundle 'malkomalko/vim-librarian.vim'
             " Bundle 'basilgor/vim-autotags'
@@ -1173,6 +1239,16 @@
                 " restructuredtext integration needs to use rst2ctags instead of ctags
                 " let Tlist_Ctags_Cmd = '/path/to/rst2ctags --taglist'
                 " let tlist_rst_settings = 'rst;s:sections;i:images'
+                "
+                " let tlist_vimwiki_settings = 'wiki;h:Headers'
+                " let tlist_confluencewiki_settings = 'confluencewiki;h:Headers'
+                " let tlist_markdown_settings = 'markdown;h:Headers'
+                " let tlist_textile_settings = 'textile;h:Headers'
+                " let tlist_html_settings = 'html;h:Headers;o:Objects(ID);c:Classes'
+                " let tlist_xhtml_settings = 'html;h:Headers;o:Objects(ID);c:Classes'
+                " let tlist_velocity_settings = 'html;h:Headers;o:Objects(ID);c:Classes'
+                " let tlist_css_settings = 'css;c:Classes;o:Objects(ID);t:Tags(Elements)'
+                " let tlist_javascript_settings = 'javascript;f:Functions;c:Classes;o:Objects'
         endif
     " }}}
 
@@ -1336,7 +1412,6 @@
     Bundle 'Rykka/mathematic.vim'
     Bundle 'Rykka/colorv.vim'
     "Bundle 'Twinside/vim-cuteErrorMarker'
-    Bundle 'mattn/calendar-vim'
     " Bundle 'embear/vim-longlines'
     " Bundle 'vim-scripts/utl.vim'
     Bundle 'pbrisbin/vim-runfile'
@@ -1347,6 +1422,17 @@
     " Bundle 'sampsyo/autolink.vim'
     " Bundle 'vim-scripts/GoogleReader.vim'
     Bundle 'matthias-guenther/tocdown'
+
+    Bundle 'mattn/calendar-vim'
+        " let g:calendar_list = [
+        "     \   {'name': 'Tasks', 'path': 'D:\My Dropbox\tasks', 'ext': 'task'},
+        "     \   {'name': 'Diary', 'path': 'D:\My Dropbox\diary', 'ext': 'diary'},
+        " \ ]
+        " let g:calendar_current_idx = 1
+        " let g:calendar_smnd = 1
+        " let g:calendar_monday = 1 " week start with monday.
+        " let g:calendar_weeknm = 1 " don't work with g:calendar_diary
+        " let g:calendar_mark = 'left-fit' " let plus(+) near the date, like +8
 
     " Bundle 'doy/vim-foldtext'
         " let g:Foldtext_enable = 1
@@ -2753,6 +2839,13 @@
     iabbrev TDO " TODO
 " }}}
 
+" VIMRC: SOURCE OTHER VIM STARTUP FILES {{{
+    " source $HOME/.vim/vimrc/keyboard.vimrc
+    " source $HOME/.vim/vimrc/file.vimrc
+    " source $HOME/.vim/vimrc/editing.vimrc
+    " source $HOME/.vim/vimrc/statusline.vimrc
+    " source $HOME/.vim/vimrc/plugins.vimrc
+" }}}
 
 " added by oh-my-vim
 " let g:ohmyvim="/Library/Frameworks/Python.framework/Versions/2.6/bin/oh-my-vim"
