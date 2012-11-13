@@ -3,6 +3,9 @@
 
 " TODO {{{
     " when loading vimrc, display errors/conflicts verbosely and also prompt user to hit key to clear the errors
+    " setup marks to not center the cursor and position, but place it at the top of the screen
+    " break up vimrc into logical files: options, statusline, vundles, etc.
+    " setup gh-pages on https://mt3.github.com/dotfiles
     " combine 'Filetypes' section w/ Load Plugins section
     " combine 'Plugins Setup' section w/ Load Plugins section
     " when editing rst files, why is a '0' inserted at the end of the line after one presses a carriage return?
@@ -794,6 +797,7 @@
                 exec ":source ". $HOME . "/.simplenoterc"
             endif
             " let g:VimplenoteVertical=1 " scratch buffer is opened in vsplit
+            " let g:VimplenoteFiletype=rst "TODO allow for a config of 'setlocal filetype=rst'
 
         " Bundle 'mt3/simplenote.vim'
             " TODO delete and use simplenote.vim instead
@@ -1014,9 +1018,10 @@
         Bundle 'tpope/vim-eunuch'
     " }}}
 
-    " Snippets & Autocompletion (neocomplcache looks to be the best of them) {{{
-        Bundle 'Shougo/neosnippet'
+    " Snippets: and Autocompletion {{{
+        " neocomplcache appears best of breed
         " Bundle 'Shougo/neocomplcache-snippets-complete' no longer maintained, use 'Shougo/neosnippet' instead
+        Bundle 'Shougo/neosnippet'
         Bundle 'Shougo/neocomplcache'
             " Disable AutoComplPop.
             " let g:acp_enableAtStartup = 0
