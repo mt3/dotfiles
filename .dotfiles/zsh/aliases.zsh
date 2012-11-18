@@ -1,4 +1,4 @@
-# ZSH Aliases #
+# ZSH Aliases
 
 # APPLICATIONS {{{1
 #############################################################
@@ -21,12 +21,8 @@ alias v='vagrant'
 
 # GENERAL TERMINAL SHORTCUTS {{{1
 #############################################################
-alias .='pwd'
-alias ..="cd .."
-alias ...="cd .. && cd .."
-alias ....="cd .. & cd .. & cd .."
-
-# Inline aliases, zsh -g aliases can be anywhere in command line
+# Inline aliases {{{
+#   zsh -g aliases can be anywhere in command line
 alias -g G='| grep -'
 alias -g L='| less'
 #this reduces a command like:
@@ -42,7 +38,18 @@ alias -g L='| less'
 # alias -g W='|wc'
 # alias -g C='|colordiff'
 # alias -g ONE="| awk '{ print \$1}'"
+# }}}
 
+# Suffix aliases {{{
+alias -s tex=mvim # open all tex files with vim
+alias -s org=mvim
+alias -s pdf=skim
+# }}}
+
+alias .='pwd'
+alias ..="cd .."
+alias ...="cd .. && cd .."
+alias ....="cd .. & cd .. & cd .."
 alias ack='ack -a'
 alias apps="cd /Applications"
 alias appsg="cd /Applications/github_dwlds"
@@ -121,57 +128,9 @@ alias whats-my-ip="curl -s checkip.dyndns.org | grep -Eo '[0-9\.]+'"
 alias zshrc='mvim ~/.zshrc && source ~/.zshrc' # opens zshrc file in textmate, then reloads it immediately (thieved from http://ozmm.org/posts/git_bash_aliases.html)
 # }}}
 
-# VIM {{{1
-#############################################################
-alias gvim='/Applications/DevApps/MacVim.app/Contents/MacOS/Vim -g'
-alias vi='mvim'
-alias vim='/Applications/DevApps/MacVim.app/Contents/MacOS/Vim'
-alias vimdiff='/usr/local/bin/mvim mvimdiff'
-# }}}
-
-# SOLR {{{1
-#############################################################
-alias solrstart="sh /Applications/LucidImagination/LucidWorksEnterprise/app/bin/start.sh"
-alias solrstop="sh /Applications/LucidImagination/LucidWorksEnterprise/app/bin/stop.sh"
-# }}}
-
-# TMUX {{{1
-#############################################################
-alias tmxls="tmux ls"
-alias tmuxls="tmux ls"
-# for tmux integration with iterm2
-alias tmux='tmux -C'
-# }}}
-
-# TASK {{{1
-#############################################################
-alias taskl="task list"
-alias tasks="task list"
-alias taska="task add"
-alias taskd="task done"
-alias taskc="task completed"
-alias taskh="task ghistory"
-# }}}
-
-# HASKELL {{{1
-#############################################################
-alias pandoc='~/Library/Haskell/ghc-7.4.2/lib/pandoc-1.9.4.2/bin/pandoc'
-# CABAL {{{2
-alias cabs="cabal list"
-alias cabl="cabal list --installed && echo \"\n\nNOTE: You can also type \n\tcabal list --installed --simple-output\nfor a briefer message\""
-alias cabi="cabal info"
-alias cabin="cabal install"
-alias cabu="cabal install"
-#alias cabunin="cabal uninstall" TODO
-#alias cabalu="cabal update" #TODO: doesn't update installed packages
-#alias cabo=" outdated" TODO
-#alias cabc="cabal clean" TODO
-# }}}
-# }}}
-
 # FABRIC {{{1
 #############################################################
-alias fabl="fab --list-format=nested --list"
+alias fabls="fab --list-format=nested --list"
 # }}}
 
 # GIT {{{1
@@ -200,6 +159,22 @@ alias gf="git flow"
 # }}}
 # }}}
 
+# HASKELL {{{1
+#############################################################
+alias pandoc='~/Library/Haskell/ghc-7.4.2/lib/pandoc-1.9.4.2/bin/pandoc'
+# CABAL {{{2
+alias cabs="cabal list"
+alias cabl="cabal list --installed && echo \"\n\nNOTE: You can also type \n\tcabal list --installed --simple-output\nfor a briefer message\""
+alias cabi="cabal info"
+alias cabin="cabal install"
+alias cabu="cabal install"
+#alias cabunin="cabal uninstall" TODO
+#alias cabalu="cabal update" #TODO: doesn't update installed packages
+#alias cabo=" outdated" TODO
+#alias cabc="cabal clean" TODO
+# }}}
+# }}}
+
 # HOMEBREW {{{1
 #############################################################
 alias bs="brew search"
@@ -212,15 +187,26 @@ alias bo="brew outdated"
 alias brewc="brew cleanup && cd /Users/mt/Library/Caches/Homebrew/ && for item in *; do rm -rf $item; done"
 # }}}
 
-# RUBY GEMS {{{1
+# LUCENE {{{1
 #############################################################
-alias gemu="gem update"
-alias gemus="gem update --system"
-alias gemin="gem install"
-alias geml="gem list"
-alias gemc="gem cleanup"
-alias gems="gem search -r"
-alias gemo="gem outdated"
+alias lucin="java org.apache.lucene.demo.IndexFiles"
+alias lucs="java org.apache.lucene.demo.SearchFiles"
+# }}}
+
+# NODE {{{1
+alias npmin="npm install"
+alias npml="npm ls installed"
+alias npmla="npm la"
+alias npmu="npm update"
+alias npmup="npm update npm"
+alias npmo="npm outdated"
+alias npmunin="npm uninstall"
+alias npms="npm search"
+alias npma="npm activate"
+alias npmd="npm deactivate"
+alias npmc="npm cache clean"
+alias npmcl="npm cache clean"
+alias npmi="npm view"
 # }}}
 
 # PYTHON {{{1
@@ -250,34 +236,45 @@ alias piprecent="yolk -L 12"
 alias stallion="python -m stallion.main"
 # }}}
 
-# LUCENE {{{1
-#############################################################
-alias lucin="java org.apache.lucene.demo.IndexFiles"
-alias lucs="java org.apache.lucene.demo.SearchFiles"
+# SOLR {{{1
+alias solrstart="sh /Applications/LucidImagination/LucidWorksEnterprise/app/bin/start.sh"
+alias solrstop="sh /Applications/LucidImagination/LucidWorksEnterprise/app/bin/stop.sh"
 # }}}
 
-# NODE & NPM {{{1
+# TMUX {{{1
 #############################################################
-alias npmin="npm install"
-alias npml="npm ls installed"
-alias npmla="npm la"
-alias npmu="npm update"
-alias npmup="npm update npm"
-alias npmo="npm outdated"
-alias npmunin="npm uninstall"
-alias npms="npm search"
-alias npma="npm activate"
-alias npmd="npm deactivate"
-alias npmc="npm cache clean"
-alias npmcl="npm cache clean"
-alias npmi="npm view"
+alias tmxls="tmux ls"
+alias tmuxls="tmux ls"
+# for tmux integration with iterm2
+alias tmux='tmux -C'
 # }}}
 
-# SUFFIX ALIASES {{{1
+# TASK {{{1
 #############################################################
-alias -s tex=mvim # open all tex files with vim
-alias -s org=mvim
-alias -s pdf=skim
+alias taskl="task list"
+alias tasks="task list"
+alias taska="task add"
+alias taskd="task done"
+alias taskc="task completed"
+alias taskh="task ghistory"
+# }}}
+
+# VIM {{{1
+alias gvim='/Applications/DevApps/MacVim.app/Contents/MacOS/Vim -g'
+alias vi='mvim'
+alias vim='/Applications/DevApps/MacVim.app/Contents/MacOS/Vim'
+alias vimdiff='/usr/local/bin/mvim mvimdiff'
+# }}}
+
+# RUBY GEMS {{{1
+#############################################################
+alias gemu="gem update"
+alias gemus="gem update --system"
+alias gemin="gem install"
+alias geml="gem list"
+alias gemc="gem cleanup"
+alias gems="gem search -r"
+alias gemo="gem outdated"
 # }}}
 
 echo "\e[1m\e[32mFinished loading aliases.zsh\e[0m"
