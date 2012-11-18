@@ -7,12 +7,11 @@
     " break up vimrc into logical files: options, statusline, vundles, etc.
     " setup gh-pages on https://mt3.github.com/dotfiles
     " combine 'Filetypes' section w/ Load Plugins section
-    " combine 'Plugins Setup' section w/ Load Plugins section
     " when editing rst files, why is a '0' inserted at the end of the line after one presses a carriage return?
     " pentadactyl filetypes make the buffer operate SLOWLY for some reason (operates fine when ft=vim)
-    " have Ack open in vsplit
-    " turn off smart double quotes in .vim files
-    " on logout call PowerLineClearCache
+    " have Ack open in vsplit, not hsplit
+    " turn off smart matching of double quotes for .vim files
+    " on logout call PowerLineClearCache, or document reason why not to do so
     " viewdir (located at ~/.vim/view) needs to be cleaned out once in a while due to odd issues/conflicts within vim
     " instead of NERDTree, Tagbar, and Taglist, Ctrlp does what all 3 of those do (and i guess better)
     " when toggling comments, make sure code doesn't start w/ a space, whereas actual comments do
@@ -27,16 +26,14 @@
         " ':set comments' for c++ file is 'comments=sO:* -,mO:*  ,exO:*/,s1:/*,mb:*,ex:*/,://'. for vim files it is 'comments=sO:" -,mO:"  ,eO:"",:"'
         " thus should be written as ':set comments=sO:" -,mO:"  ,eO:"",:"'
     " change code-folding message so that '32 lines' is a lighter color than the line number
-    " .pentadactylrc and .penta files need to be syntax-highlighted using vim (i have an attempt below, but doesn't work)
-    " document what many of the non-obvious options do
+    " .pentadactylrc and .penta files need to be syntax-highlighted using vim (attempt below, but doesn't work)
     " always open new split-panes to the right horizontally, not below/above
-    " change color of matching brackets in showmatch option
     " nmap / :h<space> (but why???)
     " is it possible to make comments a different (non-fixed width) font (helvetica? italicized?)
     " after i do a 'save', automatically change to visual mode
         " map <D-s> :w<CR><ESC>
     " stop infinite scroll at bottom of buffer, go 10 max
-    " in split panes, unfocused buffers should be dimmed
+    " in split panes, dim unfocused buffers
     " list all keybindings (':map' lists most of them). list insert and cmd bindings with ':map!'. builtin ones (not user-defined or current ones) can be seen via ':h index'. all options are displayed with':options'. all plugins and bundles that are loaded ':scriptnames'. to list all user-set options type ':set'.
     " set backspace key <BS> to something good:
         " map delete key to delete a whole line! (in normal mode only)
@@ -54,8 +51,8 @@
 
     " setup vim plugins using pathogen
     filetype off " need to turn off filetype for pathogen
-    " To disable a plugin, add it's bundle name to the following list
-    let g:pathogen_disabled = []
+    " to disable plugin, add bundle name to following TODO remove once migrated from pathogen
+    " let g:pathogen_disabled = []
 
     syntax on
     filetype on
@@ -75,7 +72,7 @@
 	au BufWinEnter * silent! loadview "make vim load view (state) (folds, cursor, etc)
 
     set shell=/usr/local/bin/zsh
-    set runtimepath=~/code_and_projects/dotfiles/.dotfiles/vim,$VIMRUNTIME
+    set runtimepath+=~/code_and_projects/dotfiles/.dotfiles/vim,$VIMRUNTIME
     set statusline=
 
 	if has("gui_macvim")
@@ -149,9 +146,27 @@
     if v:version >= 703
         " does nothing yet
     endif
+
+    " iPad {{{
+        " used for iPad's iSSH app. iOS doesn't allow use of esc key, so makes using vim difficult
+        " see http://gilesbowkett.blogspot.com/2011/03/how-to-set-up-vim-to-work-well-via-issh.html
+        "if &term == "xterm-ipad"
+        "    nnoremap <Tab> <Esc>
+        "    vnoremap <Tab> <Esc>gV
+        "    onoremap <Tab> <Esc>
+        "    inoremap <Tab> <Esc>`^
+        "    inoremap <leader><Tab> <Tab>
+        "endif
+    " }}}
+
+    " Macvim {{{
+         " Create a menu item with title "Newest Window" under the "File" menu, with key equivalent Cmd-k, which opens a new window when selected
+         ":an 10.290 File.Newest\ Window <Nop>
+         ":macm File.Newest\ Window action=newWindow: key=<D-k>
+    " }}}
 " }}}
 
-" LOAD PLUGINS (VUNDLE) {{{
+" VUNDLE PLUGINS {{{
     filetype on
     filetype off
 
@@ -561,6 +576,21 @@
             let g:NERDTreeWinPos = 'right'
             let g:NERDTreeWinSize = 40
 
+        " MinibufExplorer {{{
+            "let g:miniBufExplModSelTarget = 1
+            "let g:miniBufExplorerMoreThanOne = 0
+            "let g:miniBufExplModSelTarget = 0
+            "let g:miniBufExplUseSingleClick = 1
+            "let g:miniBufExplMapWindowNavVim = 1
+            "let g:miniBufExplVSplit = 25
+            "let g:miniBufExplSplitBelow=1
+            "map <c-w><c-t> :WMToggle<cr>
+        " }}}
+
+        " NERDtree-Tabs-Toggle {{{
+            map <leader>n <plug>NERDTreeTabsToggle<CR>
+        " }}}
+
         " TODO Bundle 'L9'
         " TODO Bundle 'FuzzyFinder'
             " let g:fuf_modesDisable = []
@@ -581,6 +611,8 @@
 
     " Git {{{
         "Bundle 'thinca/vim-github'
+        Bundle 'tpope/vim-git'
+
         Bundle 'gregsexton/gitv'
             let g:Gitv_CommitStep = 20
             let g:Gitv_WrapLines = 1 " 1 enables wrap
@@ -592,11 +624,18 @@
             "vmap <leader>gV :Gitv! --all<cr>
             " cached diff output in a vsplit
             "call Gitv_OpenGitCommand("diff --no-color --cached", 'vnew')
-        Bundle 'tpope/vim-git'
+
         Bundle 'tpope/vim-fugitive'
+            nmap <leader>g :Ggrep
+            nnoremap <silent> <leader>gs :Gstatus<CR>
+            nnoremap <silent> <leader>gd :Gdiff<CR>
+            nnoremap <silent> <leader>gc :Gcommit<CR>
+            nnoremap <silent> <leader>gb :Gblame<CR>
+            nnoremap <silent> <leader>gl :Glog<CR>
+            nnoremap <silent> <leader>gp :Git push<CR>
+            " nnoremap <leader>S :Gstatus \| 7<CR>
             " nnoremap <leader>W :Gwrite<CR>
             " nnoremap <leader>C :Gcommit -v<CR>
-             nnoremap <leader>S :Gstatus \| 7<CR>
             " inoremap <leader>W <Esc><leader>W
             " inoremap <leader>C <Esc><leader>C
             " inoremap <leader>S <Esc><leader>S
@@ -650,8 +689,26 @@
         " TODO has error at startup
         Bundle 'kshenoy/vim-signature'
             let g:SignatureWrapJumps = 1
-            let g:SignatureMarkLeader = m
+            let g:SignatureMarkLeader=m
             let g:SignatureDisableMenu = 0 " 1 hides menu
+            " show/hide all signs TODO doesn't work...
+            nmap <silent> <S-F1> :SignatureToggle <CR>
+            " m[a-zA-Z]    : Toggle mark
+            " m<Space>     : Delete all marks
+            " m,           : Place the next available mark
+            " ]`           : Jump to next mark
+            " [`           : Jump to prev mark
+            " ]'           : Jump to start of next line containing a mark
+            " ['           : Jump to start of prev line containing a mark
+            " `]           : Jump by alphabetical order to next mark
+            " `[           : Jump by alphabetical order to prev mark
+            " ']           : Jump by alphabetical order to start of next line containing a mark
+            " '[           : Jump by alphabetical order to start of prev line containing a mark
+            " m[0-9]       : Toggle the corresponding marker !@#$%^&*()
+            " m<S-[0-9]>   : Remove all markers of the same type
+            " ]=           : Jump to next line having same marker
+            " ]-           : Jump to prev line having same marker
+            " m<BackSpace> : Remove all markers
 
         " Bundle 'zakj/vim-showmarks'
         "     " to only include marks 'abcdefzxABHJio', in that order:
@@ -681,7 +738,7 @@
             " let g:EasyMotion_leader_key = '<LocalLeader>'
             let g:EasyMotion_leader_key = '<leader>f'
             " TODO map 'f' to easymotion's command
-            " let g:EasyMotion_mapping_f = 'f'
+            let g:EasyMotion_mapping_f = 'f'
             let g:EasyMotion_do_shade = 1 " 1 = shade text after cursor
             " let g:EasyMotion_keys = ";,.pyfgcrl/aoeuidhtns-'qjkxbmwvz"
             " let g:EasyMotion_mapping_t  = '<leader>w'
@@ -697,7 +754,7 @@
         Bundle 'chrisbra/CheckAttach'
     " }}}
 
-    " Notetaking: wiki, simplenote, orgmode, etc. {{{
+    " Notetaking: wiki, simplenote, orgmode {{{
         " Bundle 'hsitz/VimOrganizer'
         " Bundle 'davidoc/taskpaper.vim'
         " Bundle 'xolox/vim-notes'
@@ -784,11 +841,11 @@
             "     nmap <Leader>ii :VimwikiTabGoHome<cr>
             " endif
 
-        Bundle 'fmoralesc/vim-pad'
+        " Bundle 'fmoralesc/vim-pad'
             " notational velocity on vim (nothing to do with simplenote)
             " TODO [vim-pad] <leader>s in normal mode is already mapped.
             " TODO [vim-pad] <leader>n in normal mode is already mapped.
-            let g:pad_dir='~/temp-vim-pad'
+            " let g:pad_dir='~/temp-vim-pad'
 
         Bundle 'mattn/vimplenote-vim'
             " a rewrite of simplenote.vim in vimscript
@@ -1016,6 +1073,24 @@
 
         " Vim sugar for the UNIX shell commands
         Bundle 'tpope/vim-eunuch'
+
+        " ConqueShell {{{
+            " Enable <C-w> in insert mode
+            let g:ConqueTerm_CWInsert = 0
+            map <leader>term :ConqueTerm zsh<cr>
+            " nmap <F1> :ConqueTermSplit zsh
+            " nmap <F2> :ConqueTermVSplit zsh
+            " nmap <F3> :ConqueTermSplit ipython
+            " nmap <F4> :ConqueTermVSplit ipython
+            " nmap <F6> :execute 'ConqueTermSplit ipython '.expand('%:p')
+            " nmap <F7> :execute 'ConqueTermVSplit ipython '.expand('%:p')
+            " let g:ConqueTerm_EscKey = ''
+            " let g:ConqueTerm_FastMode = 1
+            " let g:ConqueTerm_ReadUnfocused = 1
+            " let g:ConqueTerm_InsertOnEnter = 1
+            " let g:ConqueTerm_PromptRegex = '^-->'
+            " let g:ConqueTerm_TERM = 'xterm'
+        " }}}
     " }}}
 
     " Snippets: and Autocompletion {{{
@@ -1337,8 +1412,8 @@
         Bundle 'cakebaker/scss-syntax.vim'
             au BufRead,BufNewFile *.scss set filetype=scss
 
-        " Updates your status line to show what selector you're in in sass files
         Bundle 'aaronjensen/vim-sass-status'
+            " Updates your status line to show what selector you're in in sass files
 
         " Bundle 'kchmck/vim-coffee-script'
         Bundle 'ap/vim-css-color'
@@ -1398,7 +1473,6 @@
     Bundle 'sjl/splice.vim'
     " Bundle 'timcharper/textile.vim'
     " Bundle 'zef/vim-cycle'
-    Bundle 'sickill/vim-pasta'
     " Bundle 'rstacruz/sparkup.git', {'rtp': 'vim/'}
     Bundle 'gh:thinca/vim-poslist.git'
     "Bundle 'thinca/vim-ref'
@@ -1422,13 +1496,14 @@
     Bundle 'pbrisbin/vim-runfile'
     " Renames the file in the current buffer
     Bundle 'vim-scripts/Rename2'
-    " A better paste
-    " Bundle 'sickill/vim-pasta'
     " Bundle 'sampsyo/autolink.vim'
     " Bundle 'vim-scripts/GoogleReader.vim'
     Bundle 'matthias-guenther/tocdown'
 
-    Bundle 'mattn/calendar-vim'
+    Bundle 'sickill/vim-pasta'
+        " A better paste
+
+    " Bundle 'mattn/calendar-vim'
         " let g:calendar_list = [
         "     \   {'name': 'Tasks', 'path': 'D:\My Dropbox\tasks', 'ext': 'task'},
         "     \   {'name': 'Diary', 'path': 'D:\My Dropbox\diary', 'ext': 'diary'},
@@ -1452,11 +1527,11 @@
         "     \   ['foo', 'bar', 'baz']
         "     \ ]
 
-    Bundle 'matthias-guenther/hammer.vim'
+    " Bundle 'matthias-guenther/hammer.vim'
         " Translates markup languages into HTML for previewing
         " map Leader + P to preview
-        nmap <leader>P :Hammer<CR>
-        let g:HAMMER_TEMPLATE='typographic-light' " Set the template
+        " nmap <leader>P :Hammer<CR>
+        " let g:HAMMER_TEMPLATE='typographic-light' " Set the template
 
     Bundle 'xolox/vim-session'
         " If you only want to save the current tab page:
@@ -1515,7 +1590,6 @@
         let g:QSMatchFn = "fuzzy"
         let g:QSIgnore = "\\.pyc$;\\.swp$"
 
-
     " Bundle 'twe4ked/vim-peepopen'
         " Quit peepopen when vim exits
         "let p:peepopen_quit = 1
@@ -1528,19 +1602,25 @@
         " nnoremap <leader>g :GundoToggle<CR>
         " let g:autotagVerbosityLevel=0
 
+    " Slime {{{
+        "let g:slime_target = "tmux" "use tmux instead of screen
+    " }}}
+
+    " tslime {{{
+        " let g:tslime_ensure_trailing_newlines = 1
+        " let g:tslime_normal_mapping = '<localleader>t'
+        " let g:tslime_visual_mapping = '<localleader>t'
+        " let g:tslime_vars_mapping = '<localleader>T'
+    " }}}
+
+    " vnews (rss feed reader in vim) {{{
+        "let g:Vnews#browser_command = "your browser command here" TODO
+    " }}}
+
     filetype plugin indent on
 " }}}
 
-" LOAD PLUGINS (PATHOGEN) {{{
-    source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/coveragepy/ftplugin/python/coveragepy.vim
-    helptags ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/coveragepy/doc
-    set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/coveragepy
-
-    source ~/code_and_projects/dotfiles/.dotfiles/vim/bundle/jacinto.vim/plugin/jacinto.vim
-    set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/jacinto.vim
-" }}}
-
-" OPTIONS, CONFIGURATION, AND SETTINGS {{{
+" OPTIONS, CONFIG, & SETTINGS {{{
     set noerrorbells
     set visualbell
     set t_vb=
@@ -2049,7 +2129,6 @@
 " }}}
 
 " FUNCTIONS {{{
-    " source .vimrc
     "map <silent> <leader>s :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo'vimrc reloaded'"<CR>
     noremap <silent> <leader>s :source ~/.vimrc<CR>:filetype detect<CR>:exe "echo'vimrc reloaded'"<CR>
 
@@ -2328,6 +2407,9 @@
     "   endif
     "   return -1
     " endfunction
+
+    " shell alias " TODO not reading my zsh aliases
+    " com! Pipl :exe '!pipl'<CR>
 " }}}
 
 " APPEARANCE {{{1
@@ -2438,6 +2520,19 @@
         set linespace=3
         set numberwidth=4
     endif
+
+    " Fugitive {{{
+        set statusline+=\
+        set statusline+=%#GitStatusLine#
+        set statusline+=%{fugitive#statusline()}
+        set statusline+=%*
+    " }}}
+
+    " Syntastic {{{
+        set statusline+=%#warningmsg#
+        set statusline+=%{SyntasticStatuslineFlag()}
+        set statusline+=%*
+    " }}}
 " }}}
 
 " FILETYPES & LANGUAGES {{{1
@@ -2744,101 +2839,7 @@
     " }}}
 " }}}
 
-" SHELL ALIASES {{{
-    com! Pipl :exe '!pipl'<CR> " TODO not reading my zsh aliases
-" }}}
-
-" PLUGINS SETUP {{{
-    " ConqueShell {{{
-        " Enable <C-w> in insert mode
-        let g:ConqueTerm_CWInsert = 0
-        map <leader>term :ConqueTerm zsh<cr>
-        " nmap <F1> :ConqueTermSplit zsh
-        " nmap <F2> :ConqueTermVSplit zsh
-        " nmap <F3> :ConqueTermSplit ipython
-        " nmap <F4> :ConqueTermVSplit ipython
-        " nmap <F6> :execute 'ConqueTermSplit ipython '.expand('%:p')
-        " nmap <F7> :execute 'ConqueTermVSplit ipython '.expand('%:p')
-        " let g:ConqueTerm_EscKey = ''
-        " let g:ConqueTerm_FastMode = 1
-        " let g:ConqueTerm_ReadUnfocused = 1
-        " let g:ConqueTerm_InsertOnEnter = 1
-        " let g:ConqueTerm_PromptRegex = '^-->'
-        " let g:ConqueTerm_TERM = 'xterm'
-    " }}}
-
-    " Fugitive {{{
-        set statusline+=\
-        set statusline+=%#GitStatusLine#
-        set statusline+=%{fugitive#statusline()}
-        set statusline+=%*
-        nmap <leader>g :Ggrep
-        nnoremap <silent> <leader>gs :Gstatus<CR>
-        nnoremap <silent> <leader>gd :Gdiff<CR>
-        nnoremap <silent> <leader>gc :Gcommit<CR>
-        nnoremap <silent> <leader>gb :Gblame<CR>
-        nnoremap <silent> <leader>gl :Glog<CR>
-        nnoremap <silent> <leader>gp :Git push<CR>
-    " }}}
-
-    " MinibufExplorer {{{
-        "let g:miniBufExplModSelTarget = 1
-        "let g:miniBufExplorerMoreThanOne = 0
-        "let g:miniBufExplModSelTarget = 0
-        "let g:miniBufExplUseSingleClick = 1
-        "let g:miniBufExplMapWindowNavVim = 1
-        "let g:miniBufExplVSplit = 25
-        "let g:miniBufExplSplitBelow=1
-        "map <c-w><c-t> :WMToggle<cr>
-    " }}}
-
-    " NERDtree-Tabs-Toggle {{{
-        map <leader>n <plug>NERDTreeTabsToggle<CR>
-    " }}}
-
-    " Slime {{{
-        "let g:slime_target = "tmux" "use tmux instead of screen
-    " }}}
-
-    " Syntastic {{{
-        set statusline+=%#warningmsg#
-        set statusline+=%{SyntasticStatuslineFlag()}
-        set statusline+=%*
-    " }}}
-
-    " tslime {{{
-        let g:tslime_ensure_trailing_newlines = 1
-        let g:tslime_normal_mapping = '<localleader>t'
-        let g:tslime_visual_mapping = '<localleader>t'
-        let g:tslime_vars_mapping = '<localleader>T'
-    " }}}
-
-    " vnews (rss feed reader in vim) {{{
-        "let g:Vnews#browser_command = "your browser command here" TODO
-    " }}}
-" }}}
-
-" OTHER ASSORTEDS {{{
-    " iPad {{{
-        " used for iPad's iSSH app. iOS doesn't allow use of esc key, so makes using vim difficult
-        " see http://gilesbowkett.blogspot.com/2011/03/how-to-set-up-vim-to-work-well-via-issh.html
-        "if &term == "xterm-ipad"
-        "    nnoremap <Tab> <Esc>
-        "    vnoremap <Tab> <Esc>gV
-        "    onoremap <Tab> <Esc>
-        "    inoremap <Tab> <Esc>`^
-        "    inoremap <leader><Tab> <Tab>
-        "endif
-    " }}}
-
-    " Macvim {{{
-         " Create a menu item with title "Newest Window" under the "File" menu, with key equivalent Cmd-k, which opens a new window when selected
-         ":an 10.290 File.Newest\ Window <Nop>
-         ":macm File.Newest\ Window action=newWindow: key=<D-k>
-    " }}}
-" }}}
-
-" TEXT EXPANSIONS & ABBREVIATIONS {{{
+" ABBREVIATIONS {{{
     iabbrev ggmail firstname.lastname@gmail.com
     iabbrev xdate <C-R>=strftime("%d/%m/%Y %H:%M:%S")<CR>
     iabbrev TDO " TODO
