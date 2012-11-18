@@ -25,9 +25,6 @@
 [submodule ".dotfiles/vim/bundle/Rainbow-Parenthsis-Bundle"]
 	path = .dotfiles/vim/bundle/Rainbow-Parenthsis-Bundle
 	url = git://github.com/vim-scripts/Rainbow-Parenthsis-Bundle.git
-[submodule ".dotfiles/vim/bundle/Command-T"]
-	path = .dotfiles/vim/bundle/Command-T
-	url = git://github.com/wincent/Command-T.git
 [submodule ".dotfiles/vim/bundle/snipmate-snippets"]
 	path = .dotfiles/vim/bundle/snipmate-snippets
 	url = git://github.com/scrooloose/snipmate-snippets.git
@@ -46,9 +43,6 @@
 [submodule ".dotfiles/vim/bundle/vim-preview"]
 	path = .dotfiles/vim/bundle/vim-preview
 	url = git://github.com/greyblake/vim-preview.git
-[submodule ".dotfiles/vim/bundle/vim-taglist-plus"]
-	path = .dotfiles/vim/bundle/vim-taglist-plus
-	url = https://github.com/int3/vim-taglist-plus.git
 [submodule ".dotfiles/vim/bundle/vim-extradite"]
 	path = .dotfiles/vim/bundle/vim-extradite
 	url = https://github.com/int3/vim-extradite.git
@@ -73,12 +67,6 @@
 [submodule ".dotfiles/vim/bundle/vim_django"]
 	path = .dotfiles/vim/bundle/vim_django
 	url = git://github.com/vim-scripts/vim_django.git
-[submodule ".dotfiles/vim/bundle/Cabal.vim"]
-	path = .dotfiles/vim/bundle/Cabal.vim
-	url = git://github.com/vim-scripts/Cabal.vim.git
-[submodule ".dotfiles/vim/bundle/Python-Syntax"]
-	path = .dotfiles/vim/bundle/Python-Syntax
-	url = git://github.com/vim-scripts/Python-Syntax.git
 [submodule ".dotfiles/vim/bundle/EasyGrep"]
 	path = .dotfiles/vim/bundle/EasyGrep
 	url = git://github.com/vim-scripts/EasyGrep.git
@@ -88,27 +76,9 @@
 [submodule ".dotfiles/vim/bundle/vimroom.vim"]
 	path = .dotfiles/vim/bundle/vimroom.vim
 	url = git://github.com/vim-scripts/vimroom.vim.git
-[submodule ".dotfiles/vim/bundle/vim-pep8"]
-	path = .dotfiles/vim/bundle/vim-pep8
-	url = git://github.com/jbking/vim-pep8.git
-[submodule ".dotfiles/vim/bundle/vim-pyref"]
-	path = .dotfiles/vim/bundle/vim-pyref
-	url = git://github.com/xolox/vim-pyref.git
-[submodule ".dotfiles/vim/bundle/vimpy"]
-	path = .dotfiles/vim/bundle/vimpy
-	url = git://github.com/amitdev/vimpy.git
-[submodule ".dotfiles/vim/bundle/pyflakes-vim"]
-	path = .dotfiles/vim/bundle/pyflakes-vim
-	url = git://github.com/kevinw/pyflakes-vim.git
-[submodule ".dotfiles/vim/bundle/toolkit.vim"]
-	path = .dotfiles/vim/bundle/toolkit.vim
-	url = git://github.com/gmarik/toolkit.vim.git
 [submodule ".dotfiles/vim/bundle/github-search.vim"]
 	path = .dotfiles/vim/bundle/github-search.vim
 	url = git://github.com/gmarik/github-search.vim.git
-[submodule ".dotfiles/vim/bundle/tcomment_vim"]
-	path = .dotfiles/vim/bundle/tcomment_vim
-	url = git://github.com/tomtom/tcomment_vim.git
 [submodule ".dotfiles/vim/bundle/vim-abolish"]
 	path = .dotfiles/vim/bundle/vim-abolish
 	url = git://github.com/tpope/vim-abolish.git
@@ -130,21 +100,12 @@
 [submodule ".dotfiles/vim/bundle/vim-bad-whitespace"]
 	path = .dotfiles/vim/bundle/vim-bad-whitespace
 	url = git://github.com/bitc/vim-bad-whitespace.git
-[submodule ".dotfiles/vim/bundle/taglist.vim"]
-	path = .dotfiles/vim/bundle/taglist.vim
-	url = https://github.com/vim-scripts/taglist.vim.git
-[submodule ".dotfiles/vim/bundle/tagbar"]
-	path = .dotfiles/vim/bundle/tagbar
-	url = git://github.com/majutsushi/tagbar.git
 [submodule ".dotfiles/vim/bundle/clang_complete"]
 	path = .dotfiles/vim/bundle/clang_complete
 	url = git://github.com/Rip-Rip/clang_complete.git
 [submodule ".dotfiles/vim/bundle/YankRing.vim"]
 	path = .dotfiles/vim/bundle/YankRing.vim
 	url = https://github.com/vim-scripts/YankRing.vim.git
-[submodule ".dotfiles/vim/bundle/syntastic"]
-	path = .dotfiles/vim/bundle/syntastic
-	url = git://github.com/scrooloose/syntastic.git
 [submodule ".dotfiles/vim/bundle/minibufexpl.vim"]
 	path = .dotfiles/vim/bundle/minibufexpl.vim
 	url = https://github.com/fholgado/minibufexpl.vim.git
@@ -172,18 +133,12 @@
 [submodule ".dotfiles/vim/bundle/supertab"]
 	path = .dotfiles/vim/bundle/supertab
 	url = git://github.com/ervandew/supertab.git
-[submodule ".dotfiles/vim/bundle/python-mode"]
-	path = .dotfiles/vim/bundle/python-mode
-	url = git://github.com/klen/python-mode.git
 [submodule ".dotfiles/vim/bundle/VimLite"]
 	path = .dotfiles/vim/bundle/VimLite
 	url = git://github.com/vim-scripts/VimLite.git
 [submodule ".dotfiles/vim/bundle/vim-autoclose"]
 	path = .dotfiles/vim/bundle/vim-autoclose
 	url = git://github.com/Townk/vim-autoclose.git
-[submodule ".dotfiles/vim/bundle/CSApprox"]
-	path = .dotfiles/vim/bundle/CSApprox
-	url = git://github.com/vim-scripts/CSApprox.git
 [submodule "/Users/mt/.dotfiles/vim/bundle/GitHubDashBoard"]
 	path = /Users/mt/.dotfiles/vim/bundle/GitHubDashBoard
 	url = https://github.com/lukaszkorecki/vim-GitHubDashBoard.git
@@ -196,30 +151,9 @@
 [submodule ".dotfiles/vim/bundle/vim-powerline"]
 	path = .dotfiles/vim/bundle/vim-powerline
 	url = git://github.com/Lokaltog/vim-powerline.git
-[submodule ".dotfiles/vim/bundle/Align"]
-	path = .dotfiles/vim/bundle/Align
-	url = git://github.com/vim-scripts/Align.git
-[submodule ".dotfiles/vim/bundle/clam.vim"]
-	path = .dotfiles/vim/bundle/clam.vim
-	url = git://github.com/sjl/clam.vim.git
-[submodule ".dotfiles/vim/bundle/tslime.vim"]
-	path = .dotfiles/vim/bundle/tslime.vim
-	url = git://github.com/sjl/tslime.vim.git
 [submodule ".dotfiles/vim/bundle/gitv"]
 	path = .dotfiles/vim/bundle/gitv
 	url = https://github.com/gregsexton/gitv.git
-[submodule ".dotfiles/vim/bundle/coveragepy"]
-	path = .dotfiles/vim/bundle/coveragepy
-	url = https://github.com/alfredodeza/coveragepy.vim.git
-[submodule ".dotfiles/vim/bundle/pytest.vim"]
-	path = .dotfiles/vim/bundle/pytest.vim
-	url = https://github.com/alfredodeza/pytest.vim.git
-[submodule ".dotfiles/vim/bundle/coveragepy.vim"]
-	path = .dotfiles/vim/bundle/coveragepy.vim
-	url = https://github.com/alfredodeza/coveragepy.vim.git
-[submodule ".dotfiles/vim/bundle/textile"]
-	path = .dotfiles/vim/bundle/textile
-	url = https://github.com/timcharper/textile.vim.git
 [submodule ".dotfiles/vim/bundle/vim-pasta"]
 	path = .dotfiles/vim/bundle/vim-pasta
 	url = git://github.com/sickill/vim-pasta.git
@@ -232,6 +166,3 @@
 [submodule ".dotfiles/vim/bundle/vim-session"]
 	path = .dotfiles/vim/bundle/vim-session
 	url = git://github.com/xolox/vim-session.git
-[submodule ".dotfiles/vim/bundle/vim-flake8"]
-	path = .dotfiles/vim/bundle/vim-flake8
-	url = git://github.com/nvie/vim-flake8.git
