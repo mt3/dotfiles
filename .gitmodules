@@ -1,90 +1,27 @@
-[submodule ".dotfiles/vim/bundle/nerdcommenter"]
-	path = .dotfiles/vim/bundle/nerdcommenter
-	url = git://github.com/scrooloose/nerdcommenter.git
-[submodule ".dotfiles/vim/bundle/nerdtree"]
-	path = .dotfiles/vim/bundle/nerdtree
-	url = git://github.com/scrooloose/nerdtree.git
-[submodule ".dotfiles/vim/bundle/git-vim"]
-	path = .dotfiles/vim/bundle/git-vim
-	url = git://github.com/motemen/git-vim.git
-[submodule ".dotfiles/vim/bundle/gundo"]
-	path = .dotfiles/vim/bundle/gundo
-	url = git://github.com/sjl/gundo.vim.git
-[submodule ".dotfiles/vim/bundle/vim-surround"]
-	path = .dotfiles/vim/bundle/vim-surround
-	url = git://github.com/tpope/vim-surround.git
-[submodule ".dotfiles/vim/bundle/gist-vim"]
-	path = .dotfiles/vim/bundle/gist-vim
-	url = git://github.com/mattn/gist-vim.git
-[submodule ".dotfiles/vim/bundle/ack.vim"]
-	path = .dotfiles/vim/bundle/ack.vim
-	url = git://github.com/mileszs/ack.vim.git
-[submodule ".dotfiles/vim/bundle/snipmate"]
-	path = .dotfiles/vim/bundle/snipmate
-	url = git://github.com/Phrodo00/snipmate.vim.git
-[submodule ".dotfiles/vim/bundle/Rainbow-Parenthsis-Bundle"]
-	path = .dotfiles/vim/bundle/Rainbow-Parenthsis-Bundle
-	url = git://github.com/vim-scripts/Rainbow-Parenthsis-Bundle.git
-[submodule ".dotfiles/vim/bundle/snipmate-snippets"]
-	path = .dotfiles/vim/bundle/snipmate-snippets
-	url = git://github.com/scrooloose/snipmate-snippets.git
 [submodule ".dotfiles/zsh/zshkit"]
 	path = .dotfiles/zsh/zshkit
 	url = http://github.com/mattfoster/zshkit.git
 [submodule ".dotfiles/zsh/oh-my-zsh"]
 	path = .dotfiles/zsh/oh-my-zsh
 	url = git://github.com/robbyrussell/oh-my-zsh.git
-[submodule ".dotfiles/vim/delimitMate"]
-	path = .dotfiles/vim/delimitMate
-	url = git://github.com/Raimondi/delimitMate.git
 [submodule ".dotfiles/vim/vim-indexed-search"]
 	path = .dotfiles/vim/vim-indexed-search
 	url = https://github.com/henrik/vim-indexed-search.git
 [submodule ".dotfiles/vim/bundle/vim-preview"]
 	path = .dotfiles/vim/bundle/vim-preview
 	url = git://github.com/greyblake/vim-preview.git
-[submodule ".dotfiles/vim/bundle/vim-extradite"]
-	path = .dotfiles/vim/bundle/vim-extradite
-	url = https://github.com/int3/vim-extradite.git
-[submodule ".dotfiles/vim/bundle/vim-easymotion"]
-	path = .dotfiles/vim/bundle/vim-easymotion
-	url = https://github.com/Lokaltog/vim-easymotion.git
-[submodule ".dotfiles/vim/bundle/vim-virtualenv"]
-	path = .dotfiles/vim/bundle/vim-virtualenv
-	url = https://github.com/jmcantrell/vim-virtualenv.git
-[submodule ".dotfiles/vim/bundle/vim-github"]
-	path = .dotfiles/vim/bundle/vim-github
-	url = git://github.com/thinca/vim-github.git
-[submodule ".dotfiles/vim/bundle/vim-fugitive"]
-	path = .dotfiles/vim/bundle/vim-fugitive
-	url = git://github.com/tpope/vim-fugitive.git
 [submodule ".dotfiles/vim/bundle/VimBookmarking"]
 	path = .dotfiles/vim/bundle/VimBookmarking
 	url = git://github.com/dterei/VimBookmarking.git
 [submodule ".dotfiles/vim/bundle/csv.vim"]
 	path = .dotfiles/vim/bundle/csv.vim
 	url = git://github.com/vim-scripts/csv.vim.git
-[submodule ".dotfiles/vim/bundle/vim_django"]
-	path = .dotfiles/vim/bundle/vim_django
-	url = git://github.com/vim-scripts/vim_django.git
-[submodule ".dotfiles/vim/bundle/EasyGrep"]
-	path = .dotfiles/vim/bundle/EasyGrep
-	url = git://github.com/vim-scripts/EasyGrep.git
-[submodule ".dotfiles/vim/bundle/vimshell-ssh"]
-	path = .dotfiles/vim/bundle/vimshell-ssh
-	url = git://github.com/vim-scripts/vimshell-ssh.git
 [submodule ".dotfiles/vim/bundle/vimroom.vim"]
 	path = .dotfiles/vim/bundle/vimroom.vim
 	url = git://github.com/vim-scripts/vimroom.vim.git
-[submodule ".dotfiles/vim/bundle/github-search.vim"]
-	path = .dotfiles/vim/bundle/github-search.vim
-	url = git://github.com/gmarik/github-search.vim.git
 [submodule ".dotfiles/vim/bundle/vim-abolish"]
 	path = .dotfiles/vim/bundle/vim-abolish
 	url = git://github.com/tpope/vim-abolish.git
-[submodule ".dotfiles/vim/bundle/vim-GitHubDashBoard"]
-	path = .dotfiles/vim/bundle/vim-GitHubDashBoard
-	url = git://github.com/lukaszkorecki/vim-GitHubDashBoard.git
 [submodule ".dotfiles/vim/bundle/code_complete"]
 	path = .dotfiles/vim/bundle/code_complete
 	url = git://github.com/vim-scripts/code_complete.git
@@ -106,63 +43,18 @@
 [submodule ".dotfiles/vim/bundle/YankRing.vim"]
 	path = .dotfiles/vim/bundle/YankRing.vim
 	url = https://github.com/vim-scripts/YankRing.vim.git
-[submodule ".dotfiles/vim/bundle/minibufexpl.vim"]
-	path = .dotfiles/vim/bundle/minibufexpl.vim
-	url = https://github.com/fholgado/minibufexpl.vim.git
 [submodule ".dotfiles/vim/bundle/vim-peepopen"]
 	path = .dotfiles/vim/bundle/vim-peepopen
 	url = git://github.com/shemerey/vim-peepopen.git
 [submodule ".dotfiles/vim/bundle/vim-orgmode"]
 	path = .dotfiles/vim/bundle/vim-orgmode
 	url = git://github.com/jceb/vim-orgmode.git
-[submodule ".dotfiles/vim/bundle/vim-pathogen"]
-	path = .dotfiles/vim/bundle/vim-pathogen
-	url = git://github.com/tpope/vim-pathogen.git
-[submodule ".dotfiles/vim/bundle/vim-slime"]
-	path = .dotfiles/vim/bundle/vim-slime
-	url = git://github.com/jpalardy/vim-slime.git
-[submodule ".dotfiles/vim/bundle/simplenote.vim"]
-	path = .dotfiles/vim/bundle/simplenote.vim
-	url = https://github.com/mrtazz/simplenote.vim.git
 [submodule ".dotfiles/vim/bundle/vim-pad"]
 	path = .dotfiles/vim/bundle/vim-pad
 	url = git://github.com/fmoralesc/vim-pad.git
-[submodule ".dotfiles/vim/bundle/TaskList.vim"]
-	path = .dotfiles/vim/bundle/TaskList.vim
-	url = https://github.com/vim-scripts/TaskList.vim.git
-[submodule ".dotfiles/vim/bundle/supertab"]
-	path = .dotfiles/vim/bundle/supertab
-	url = git://github.com/ervandew/supertab.git
-[submodule ".dotfiles/vim/bundle/VimLite"]
-	path = .dotfiles/vim/bundle/VimLite
-	url = git://github.com/vim-scripts/VimLite.git
 [submodule ".dotfiles/vim/bundle/vim-autoclose"]
 	path = .dotfiles/vim/bundle/vim-autoclose
 	url = git://github.com/Townk/vim-autoclose.git
-[submodule "/Users/mt/.dotfiles/vim/bundle/GitHubDashBoard"]
-	path = /Users/mt/.dotfiles/vim/bundle/GitHubDashBoard
-	url = https://github.com/lukaszkorecki/vim-GitHubDashBoard.git
-[submodule ".dotfiles/vim/bundle/vim-nerdtree-tabs"]
-	path = .dotfiles/vim/bundle/vim-nerdtree-tabs
-	url = git://github.com/jistr/vim-nerdtree-tabs.git
-[submodule ".dotfiles/vim/bundle/GitHubDashBoard"]
-	path = .dotfiles/vim/bundle/GitHubDashBoard
-	url = https://github.com/lukaszkorecki/vim-GitHubDashBoard.git
-[submodule ".dotfiles/vim/bundle/vim-powerline"]
-	path = .dotfiles/vim/bundle/vim-powerline
-	url = git://github.com/Lokaltog/vim-powerline.git
-[submodule ".dotfiles/vim/bundle/gitv"]
-	path = .dotfiles/vim/bundle/gitv
-	url = https://github.com/gregsexton/gitv.git
 [submodule ".dotfiles/vim/bundle/vim-pasta"]
 	path = .dotfiles/vim/bundle/vim-pasta
 	url = git://github.com/sickill/vim-pasta.git
-[submodule ".dotfiles/vim/bundle/utl.vim"]
-	path = .dotfiles/vim/bundle/utl.vim
-	url = https://github.com/vim-scripts/utl.vim.git
-[submodule ".dotfiles/vim/bundle/vimux"]
-	path = .dotfiles/vim/bundle/vimux
-	url = https://github.com/benmills/vimux.git
-[submodule ".dotfiles/vim/bundle/vim-session"]
-	path = .dotfiles/vim/bundle/vim-session
-	url = git://github.com/xolox/vim-session.git
