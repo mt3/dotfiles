@@ -25,6 +25,9 @@
 [achievement]
 	upload = true
 
+[advice]
+    statushints = false
+
 [alias]
     # Add
     a = add
@@ -183,6 +186,8 @@
 
 [branch]
     autosetupmerge = true
+    autosetuprebase = always
+    # *branch-name*.rebase = true
 
 [color]
     branch = auto
@@ -233,10 +238,13 @@
     format = web # view all "git help cmd" within a browser
     autocorrect = 0 # default beahaviour
 
+# [include]
+#     path = .githubconfig
+
 #[merge]
 #  tool = mvimdiff
 #  summary = true
-#
+
 #[mergetool "mvimdiff"]
 #  cmd = extMerge "$BASE" "$LOCAL" "$REMOTE" "$MERGED"
 #  trustExitCode = false
