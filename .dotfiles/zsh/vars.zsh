@@ -44,21 +44,23 @@
     export TERM="xterm-256color"
 # }}}
 
-# auto-launch ssh keypairs so i don't have to enter the damned 137.5 character pwd every time
-export SSH_ENV="$HOME/.ssh/environment"
-export EDITOR=mvim
-# if [[ "$TERM_PROGRAM" =~ iTerm|Apple_Terminal ]] && [[ -x "`which mvim`" ]]; then
-#   export BUNDLER_EDITOR='mvim'
-#   export GEM_EDITOR='mvim'
-# fi
-# export BROWSER="elinks"
-export PAGER='less -SFXi'
-export SUDO_PROMPT="Your P-to-the-Word:"
-# Tell ls to be colourful
-export CLICOLOR=1
-export LSCOLORS=Exfxcxdxbxegedabagacad
-# Don’t clear the screen after quitting a manual page
-export MANPAGER='less -X'
+# Shell Programs {{{
+    # auto-launch ssh keypairs so i don't have to enter the damned 137.5 character pwd every time
+    export SSH_ENV="$HOME/.ssh/environment"
+    export EDITOR=mvim
+    # if [[ "$TERM_PROGRAM" =~ iTerm|Apple_Terminal ]] && [[ -x "`which mvim`" ]]; then
+    #   export BUNDLER_EDITOR='mvim'
+    #   export GEM_EDITOR='mvim'
+    # fi
+    # export BROWSER="elinks"
+    export PAGER='less -SFXi'
+    export SUDO_PROMPT="Your P-to-the-Word:"
+    # Tell ls to be colourful
+    export CLICOLOR=1
+    export LSCOLORS=Exfxcxdxbxegedabagacad
+    # Don’t clear the screen after quitting a manual page
+    export MANPAGER='less -X'
+# }}}
 
 # JAVA {{{
     # export java classpath for lucene
@@ -75,12 +77,14 @@ export MANPAGER='less -X'
     #done
 # }}}
 
-# NODE & NPM
+# NODE & NPM {{{
 export NODE_PATH=/usr/local/lib/node:/usr/local/lib/node_modules
 export PATH=$PATH:/usr/local/share/npm/bin
+# }}}
 
-# LATEX & BIBTEX
+# LATEX & BIBTEX {{{
 export PATH=$PATH:/usr/texbin
+# }}}
 
 # PYTHON {{{
     # place python packages on path
@@ -109,6 +113,7 @@ export PATH=$PATH:/usr/texbin
     export VERSIONER_PYTHON_PREFER_32_BIT=no
 # }}}
 
+# GCC {{{
 # some more customization for Lion
 # TODO: is this needed anymore?...
 #export CC=/Developer/usr/bin/gcc
@@ -145,28 +150,34 @@ export CXXFLAGS="-arch x86_64 -0s -pipe"
 #export CXXFLAGS="-Wall -isysroot /Developer/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
 
 #export CPPFLAGS="-Wall -isysroot /Developer/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
+# }}}
 
-# RUBY
+# RUBY {{{
 # place path to ruby gem binaries
 # TODO: do i need this if i have it in .gemrc?
 export PATH=/usr/local/Cellar/ruby/1.9.3-p194/bin:/usr/local/Cellar/ruby/1.9.2-p136/bin:/usr/local/Cellar/ruby/1.9.2-p180/bin:/usr/local/Cellar/ruby/1.9.2-p290/bin:/usr/local/lib/ruby/gems/1.9.1/cache:$PATH
+# }}}
 
 # Xcode is now stand-alone, link to their packaged binaries since they are most up-to-date
 #export PATH=/Applications/Xcode.app/Contents/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/sbin:$PATH
 
-# HOMEBREW
+# HOMEBREW {{{
 # place homebrew as the head of PATH
 export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+# }}}
 
-# MACVIM for calling 'mvim' from CLI
+# MACVIM for calling 'mvim' from CLI {{{
 export VIM_APP_DIR=/Applications/DevApps
+# }}}
 
-# XCODE
+# XCODE {{{
 # place ccache on head of path for faster xcode compiling
 #export PATH=/usr/local/Cellar/ccache/3.1.4/libexec:$PATH
+# }}}
 
-# ADD gsl LIBRARY TO THE PATH
+# ADD gsl LIBRARY TO THE PATH {{{
 export PATH=/usr/local/Cellar/gsl/1.14/lib:/usr/local/Cellar/gsl/1.14/include:$PATH
+# }}}
 
 # since i failed kindergarten this makes me feel good inside
 #export PATH="$PATH:/Applications/github_dwlds/git-achievements"
@@ -179,10 +190,11 @@ export MACOSX_DEPLOYMENT_TARGET=10.8
 # cydia/jailbreak apps
 export THEOS=/Applications/github_dwlds/theos
 
-# STAGE env variables
+# STAGE env variables {{{
 export STG=/Volumes/Data/school_and_classes/sfu_classes_and_projects/vaughan-robotics-AI/rtv-Stage-97b203d
 # export DYLD_LIBRARY_PATH=$STG/lib
 export STAGEPATH=/usr/local/lib
+# }}}
 
 # vnews RSS feed reader within vim
 export VNEWS_VIM=mvim
@@ -192,3 +204,5 @@ export VMAIL_VIM=mvim
 
 
 echo "\e[1m\e[32mFinished loading vars.zsh\e[0m"
+
+# vim: set ft=sh foldmethod=marker foldmarker={,}:
