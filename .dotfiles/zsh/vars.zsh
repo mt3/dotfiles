@@ -97,14 +97,16 @@ export PATH=$PATH:/usr/texbin
     export PYTHONPATH=$PYTHONPATH:/Users/mt/code_and_projects/sysadmin-and-deployment/fabfiles
 
     # virtualenv
-    export WORKON_HOME=$HOME/.virtualenvs
-    export PROJECT_HOME=$HOME/virtualenv-devel
-    source /usr/local/bin/virtualenvwrapper.sh
-    export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
-    export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/share/python/virtualenvwrapper.sh
-    # make pip use the same directory for virtualenvs as virtualenvwrapper
-    export PIP_VIRTUALENV_BASE=$WORKON_HOME
-    # export PIP_RESPECT_VIRTUALENV=true
+    if [ -e /usr/local/bin/virtualenvwrapper.sh ]; then
+        export WORKON_HOME=$HOME/.virtualenvs
+        export PROJECT_HOME=$HOME/virtualenv-devel
+        source /usr/local/bin/virtualenvwrapper.sh
+        export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python
+        export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/share/python/virtualenvwrapper.sh
+        # make pip use the same directory for virtualenvs as virtualenvwrapper
+        export PIP_VIRTUALENV_BASE=$WORKON_HOME
+        # export PIP_RESPECT_VIRTUALENV=true
+    fi
 
     # pip
     export PIP_DOWNLOAD_CACHE="$HOME/.pip/cache"
