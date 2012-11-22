@@ -451,11 +451,21 @@
             map ip -ex open https://www.instapaper.com/u/folder/1539900/pdfs
         " }}}
 
+        " Pinboard shortcuts {{{
+            map piu -ex open https://pinboard.in/u:/unread
+            map pip -ex open https://pinboard.in/
+        " }}}
+
         " Pocket shortcuts {{{
-            map pu -ex open http://getpocket.com/a/queue/list/_untagged_/
-            map pv -ex open http://getpocket.com/a/queue/list/viewonweb/
-            map pb -ex open http://getpocket.com/a/queue/list/bookmark/
-            map pd -ex open http://getpocket.com/a/queue/list/dwld/
+            map pou -ex open http://getpocket.com/a/queue/list/_untagged_/
+            map pov -ex open http://getpocket.com/a/queue/list/viewonweb/
+            map pob -ex open http://getpocket.com/a/queue/list/bookmark/
+            map pod -ex open http://getpocket.com/a/queue/list/dwld/
+        " }}}
+
+        " Prismatic shortcuts {{{
+            map prh -ex open http://getprismatic.com/news/home
+            map prs -ex open http://getprismatic.com/news/saved
         " }}}
 
         " read pinboard links with instapepr text style http://brettterpstra.com/pinboard-links-with-instapaper-text/
@@ -753,19 +763,16 @@
     " 'got' opens twitter in current tab
     " 'silent qmark' stops output from being displayed on commandline
 
-    " TODO sort these alphabetically so it's easier to see what keys are available?
     silent qmark b https://bitbucket.org
-
-    silent qmark r reddit.com
-    silent qmark t twitter.com
-    silent qmark y mail.yahoo.com
-    silent qmark m http://www.sordomusic.com/db/
-    "silent qmark p getprismatic.com
-
-    silent qmark s soccernet.espn.go.com
-    silent qmark f footytube.com
     silent qmark e espn.com
+    silent qmark f footytube.com
+    silent qmark g https://github.com
+    silent qmark m http://www.sordomusic.com/db/
     silent qmark p sports.yahoo.com
+    " silent qmark r reddit.com
+    silent qmark s soccernet.espn.go.com
+    silent qmark t twitter.com
+    silent qmark y https://youtube.com
 
     "silent qmark n blog.fefe.de | reddit.com | planet.ubuntu.com | planet.kde.org | planet.debian.org | heise.de | golem.de | spiegel.de | twitter.com | hahler.de
     "qmark c https://www.google.com/calendar/
