@@ -1,7 +1,7 @@
 [user]
+    # set email per machine in $GIT_AUTHOR_EMAIL or per repo
 	name = n am
 	email = na@na.na
-    # set email per machine in $GIT_AUTHOR_EMAIL or per repo
 
 [credential]
     # TODO document
@@ -41,8 +41,12 @@
     b = branch -a
     br = branch -avv
 	branches = !legit branches
+	# branches = branch -a
 	current-branch = "!r=$(git symbolic-ref HEAD);echo ${r##refs/heads/}"
     currentbranch = !git branch --contains HEAD | grep '*' | tr -s ' ' | cut -d ' ' -f2
+    delete-local-branch = branch -D
+    delete-remote-branch = push origin --delete
+    delete-local-reference-to-remote-branch = branch -rd
     in = "!b=$(git current-branch);git ll $b..origin/$b"
 
     # Commit
@@ -59,6 +63,7 @@
     ds = diff --stat
     filelog = log -u # show changes to a file
     staged = diff --cached
+    vimdiff = difftool -y -t mvimdiff # type "git vimdiff" to view a diff in macvim
 
     # amend to a previous commit
     fixup = !sh -c 'git commit --fixup $1 && git stash && git rebase -i $1~1 && git stash pop' -
@@ -97,7 +102,7 @@
     shviz = !git shortlog -s | cut -f1 | spark
 
 	# Leftoff
-    # 'leftoff' is intended to provide an overview of the state of the repo
+    # provides overview of state of the repo (status, log, commit history, branches, remotes, etc.)
     leftoff = !echo \"\\n*** \t\tSTATUS LIST\" && git status list && echo \"\\n*** \t\tSTATUS\" && git status && echo \"\\n*** \t\tLOG\" && git log --pretty=oneline --abbrev-commit --max-count=10 && echo \"\\n*** \t\tBRANCHES\" && git branch -avv
 
     # List
@@ -111,6 +116,7 @@
     # Pull
     p = pull
     pp = !git pull --rebase && git push
+    up = pull --rebase
 
     out = "!b=$(git current-branch);git ll origin/$b..$b"
     praise = blame
@@ -123,6 +129,7 @@
 	# Remote
     r = remote show origin
     ra = remote add
+    remotes = remote -v
     rv = remote -v
 
     # Rebase
@@ -152,6 +159,10 @@
     sub = submodule
     subup = submodule foreach 'git pull'
 
+    # Tags
+    t = tag -n
+    tags = tag -l
+
     # Whatchanged
     wc = whatchanged -n 1
     wc6h = !git whatchanged --since=\"6 hours ago\" --format=oneline
@@ -170,14 +181,12 @@
     # grab = !git-grab
     graft = !legit graft \"$@\"
     harvest = !legit harvest \"$@\"
+    id = rev-parse
     switch = !legit switch \"$@\"
     sync = !legit sync \"$@\"
-    t = tag -n
     # thanks = !git-thanks
     # track = !git-track
     unpublish = !legit unpublish \"$@\"
-    up = pull --rebase
-    vimdiff = difftool -y -t mvimdiff # type "git vimdiff" to view a diff in macvim
     w = !hub browse
 
 [apply]
@@ -224,11 +233,12 @@
 #  tool = mvimdiff
 
 # [difftool]
-  # prompt = false
+    # TODO document
+    # prompt = false
 
 # [difftool "sourcetree"]
-# 	cmd = " "
-# 	path =
+    # cmd = " "
+    # path =
 
 [github]
     user = mt3
@@ -308,5 +318,8 @@
 
 [url "git@heroku.com:"]
     insteadOf = "heroku:"
+
+[web]
+    browser = open
 
 # vim: set ft=.gitconfig foldmethod=indent:
