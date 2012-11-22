@@ -71,7 +71,7 @@
     hi clear CursorLine
     hi clear CursorColumn
     hi clear Search
-    hi clear StatusLine
+    hi clear LineNr
 " }}}
 
 " Customizations: {{{
@@ -80,9 +80,12 @@
     hi Insert       guifg=Black     guibg=Blue
     hi CursorLine                   guibg=White     gui=none        term=reverse
     hi CursorColumn guifg=Black     guibg=#333333
+    hi ColorColumn  guifg=Black     guibg=#333333
     hi NonText 		guifg=#808080   guibg=#303030   gui=none        ctermfg=244     ctermbg=235
-    hi LineNr 		guifg=#282828   guibg=#aaaaaa   gui=none        ctermfg=244     ctermbg=232
+
+    hi LineNr 		guibg=#a0a3a7   guifg=#ffffff   gui=none        ctermfg=244     ctermbg=232
     hi VertSplit    guifg=#a0a0a0
+    hi SignColumn 	guifg=#ffffff   guibg=#bbbbbb   gui=none
 
     hi StatusLine 	guifg=#e3e3e5   guibg=#444444   gui=italic      ctermfg=253     ctermbg=238     cterm=italic
     " statuslines for windows not in current focus
@@ -93,13 +96,18 @@
 
     " hi Folded 		guibg=#efffff   guifg=#888888   gui=none        ctermbg=4           ctermfg=248
     " hi Folded 		guifg=#888888   guibg=#f6f9ff   gui=none        ctermbg=4           ctermfg=248
-    hi Folded 		guifg=#ffffff   guibg=#c2c8cf   gui=none        ctermbg=4           ctermfg=248
+    hi Folded 		guifg=#4099df   guibg=#fafafa   gui=none        ctermbg=4           ctermfg=248
     hi FoldColumn   guifg=#43c3ff   guibg=#f6f6f6                   ctermfg=DarkBlue    ctermbg=LightGrey
 
+    hi Directory	guifg=#f6f3e8   guibg=NONE	    gui=bold        ctermfg=254     cterm=bold
     hi Title		guifg=#f6f3e8   guibg=NONE	    gui=bold        ctermfg=254     cterm=bold
     hi Visual		guifg=Black     guibg=White     gui=none        ctermfg=254     ctermbg=4
+    hi VisualNOS	guifg=Black     guibg=White     gui=none        ctermfg=254     ctermbg=4
     hi SpecialKey	guifg=#808080   guibg=#343434   gui=none        ctermfg=244     ctermbg=236
     hi MatchParen   guifg=White     guibg=#cfdfff   gui=bold        term=reverse    ctermbg=LightCyan
+
+    " ctags
+    hi Tag   guifg=White     guibg=#cfdfff   gui=bold        term=reverse    ctermbg=LightCyan
 
     " Pmenu: pop-up menus
     hi Pmenu 		guifg=#ffffff   guibg=#444444   ctermfg=255 ctermbg=238
@@ -113,8 +121,8 @@
 " Syntax & Keywords {{{
     " 'Normal' sets default text color and default background color
     hi Normal           guifg=Black         guibg=#eeeeee   gui=none        ctermfg=253     ctermbg=234
-    hi String           guifg=#7e8aa2       gui=none        ctermfg=103
-    hi NonText          guifg=#404040       ctermfg=8
+    hi String           guifg=#7e8aa2                       gui=none        ctermfg=103
+    hi NonText          guifg=#404040                                       ctermfg=8
 
     " TODO can't set custom font for comments. not possible me thinks
     hi Comment          guifg=#bbbbbb       gui=italic      ctermfg=244     font=Fanwood:h13
@@ -139,13 +147,16 @@
     " commandline error messages
     hi ErrorMsg         guifg=#c00000       guibg=NONE
     " hi ErrorMsg       guifg=Red           guibg=NONE
+    " hi MoreMsg         guifg=#c00000       guibg=NONE
+    " hi ModeMsg         guifg=#c00000       guibg=NONE
+    " hi Question         guifg=#c00000       guibg=NONE
     " TODO
     hi WarningMsg       guifg=Red
     " TODO
     hi SpellLocal                           guibg=DarkCyan
 " }}}
 
-" Filetype-specific {{{
+" Filetypes & Plugins {{{
     " Vim {{{
         " TODO can't set custom font for comments. not possible me thinks
         hi vimCommentString   guifg=#b9b9b9                     ctermfg=244     font=Fanwood:h13
@@ -165,6 +176,9 @@
         hi ShowMarksHLu     guifg=#0a9dff    guibg=#1c1b1a
         hi ShowMarksHLo     guifg=#0a9dff    guibg=#1c1b1a
         hi ShowMarksHLm     guifg=#0a9dff    guibg=#1c1b1a
+    " }}}
+    " Ctrlp {{{
+
     " }}}
 " }}}
 
