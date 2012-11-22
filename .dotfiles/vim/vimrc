@@ -5,6 +5,9 @@
     " when loading vimrc, display errors/conflicts verbosely and also prompt user to hit key to clear the errors
     " setup marks to not center the cursor and position, but place it at the top of the screen
     " break up vimrc into logical files: options, statusline, vundles, etc.
+    " any way to save marks per buffer?
+    " when moving to a mark, can the line be moved to top of page 'zt' instead of centred?
+    " highlight in red anytime i have 'vim ts=2' (2 spaces for tabs) at end/beginning of any file
     " setup gh-pages on https://mt3.github.com/dotfiles
     " combine 'Filetypes' section w/ Load Plugins section
     " when editing rst files, why is a '0' inserted at the end of the line after one presses a carriage return?
@@ -18,7 +21,10 @@
     " make font size in adjacent pane be a smaller size (for help files and Voom, etc.)
     " map <D-w> :q!<CR>
     " smartly fold only on def, class, for loops, etc and not just on indentations
-    " always open macvim with split pane with the vim help file or whatever info pane (2/3 file, 1/3 help) <C-w> T moves current pane to its own tab. <C-w> 20 < shrinks width of the pane by 20.
+    " always open macvim with split pane with the vim help file (or whatever info pane)
+        " layout would be 2/3 file and 1/3 help
+        " <C-w> T moves current pane to its own tab
+        " <C-w> 20 < shrinks width of the pane by 20
     " display errors to logfile or logbuffer, mostly whenever we reload/source .vimrc
     " a line with a todo should have darkened background for the rest of the line after the todo
     " get rid of string highlights in vim files while in the body of a comment such as "this"
@@ -26,9 +32,9 @@
         " ':set comments' for c++ file is 'comments=sO:* -,mO:*  ,exO:*/,s1:/*,mb:*,ex:*/,://'. for vim files it is 'comments=sO:" -,mO:"  ,eO:"",:"'
         " thus should be written as ':set comments=sO:" -,mO:"  ,eO:"",:"'
     " change code-folding message so that '32 lines' is a lighter color than the line number
-    " .pentadactylrc and .penta files need to be syntax-highlighted using vim (attempt below, but doesn't work)
+    " .pentadactylrc and .penta files need to be syntax-highlighted using vim (attempted below but doesn't work)
     " always open new split-panes to the right horizontally, not below/above
-    " nmap / :h<space> (but why???)
+    " nmap / :h<space> (why?)
     " is it possible to make comments a different (non-fixed width) font (helvetica? italicized?)
     " after i do a 'save', automatically change to visual mode
         " map <D-s> :w<CR><ESC>
@@ -42,6 +48,7 @@
     " 'map <leader>uw lowercase' or 'map gu lowercase'
     " map <leader>Uw uppercase or 'map gU lowercase'
     " see vim-sessions: save a workspace/layout, along with tmux settings (see wemux, or vim-mux, etc.)
+        " as well as marks/config/folds/etc.
 " }}}
 
 " MAIN STARTUP & LOADING {{{
@@ -197,33 +204,31 @@
 
     " Colorschemes {{{
         Bundle 'sjl/badwolf'
-        Bundle 'jgallen23/Lucius'
-        Bundle 'zachwill/github.vim'
-        Bundle 'gregsexton/Gravity'
-        Bundle 'ujihisa/unite-colorscheme'
-        Bundle 'baeuml/summerfruit256.vim'
-        Bundle 'vim-scripts/ironman.vim'
-        Bundle 'vim-scripts/vylight.vim'
-        Bundle 'vim-scripts/cleanroom.vim'
-        Bundle 'altercation/vim-colors-solarized'
-        Bundle 'tomasr/molokai'
-        Bundle 'nelstrom/vim-mac-classic-theme'
-        Bundle 'gmarik/ingretu'
-        Bundle 'Rykka/galaxy.vim'
-        Bundle 'mgutz/vim-colors'
-        Bundle 'pasela/edark.vim'
-        Bundle 'DAddYE/tomorrow.vim'
-        Bundle 'jnurmine/Zenburn'
+        " Bundle 'jgallen23/Lucius'
+        " Bundle 'zachwill/github.vim'
+        " Bundle 'gregsexton/Gravity'
+        " Bundle 'ujihisa/unite-colorscheme'
+        " Bundle 'baeuml/summerfruit256.vim'
+        " Bundle 'vim-scripts/ironman.vim'
+        " Bundle 'vim-scripts/vylight.vim' TODO error in loading
+        " Bundle 'vim-scripts/cleanroom.vim' TODO error in loading
+        " Bundle 'altercation/vim-colors-solarized'
+        " Bundle 'tomasr/molokai'
+        " Bundle 'nelstrom/vim-mac-classic-theme'
+        " Bundle 'gmarik/ingretu'
+        " Bundle 'Rykka/galaxy.vim'
+        " Bundle 'mgutz/vim-colors'
+        " Bundle 'pasela/edark.vim'
+        " Bundle 'DAddYE/tomorrow.vim'
+        " Bundle 'jnurmine/Zenburn'
     " }}}
 
     " Vim Utilities {{{
-        " make gvim-only colorschemes work transparently in terminal vim
-        Bundle 'godlygeek/csapprox'
+        " TODO are all these necessary? any redundancies?
         Bundle 'tomtom/tlib_vim'
         " Bundle 'tomtom/vimtlib' TODO Error detected while processing /Users/mt/.vim/bundle/vimtlib/plugin/tinymode_tml.vim
         Bundle 'kana/vim-textobj-user'
         Bundle 'kana/vim-textobj-entire'
-        Bundle 'vim-scripts/bufkill.vim'
         Bundle 'michaeljsmith/vim-indent-object'
         Bundle 'gmarik/ide-popup.vim'
         Bundle 'kshenoy/vim-palette'
@@ -237,7 +242,10 @@
         Bundle 'kana/vim-vspec'
             " unittesting vimscripts
 
-        Bundle 'dahu/vimple'
+        Bundle 'godlygeek/csapprox'
+            " make gvim-only colorschemes work transparently in terminal vim
+
+        " Bundle 'dahu/vimple'
             " Vimple provides VimLOO (Object Oriented VimL) objects for a few cmds
 
         " Bundle 'dahu/vim-efmc'
@@ -253,7 +261,7 @@
             " vim unittesting
 
         Bundle 'myusuf3/numbers.vim'
-            " better line numbers (alternates between relative & absolute line nos.)
+            " better line numbers (toggles between relative & absolute line numbers)
             " nnoremap <F3> :NumbersToggle<CR>
 
         Bundle 'nathanaelkane/vim-command-w'
@@ -264,6 +272,8 @@
 
     " Alignment {{{
         Bundle 'tsaleh/vim-align'
+            " Visual mode alignment:
+            "     'V', then select the lines, ':Align=', this aligns on '='
             " let g:Align_xstrlen = 3
             " let g:Myalign_def = {
                 " \ 'css': ['WP0p1l:', ':\@<=', 'v \v^\s*/\*|\{|\}'],
@@ -305,6 +315,7 @@
     " }}}
 
     " Buffers {{{
+        " TODO are all these necessary? any redundancies?
         Bundle 'jeetsukumaran/vim-buffergator'
         Bundle 'jeetsukumaran/vim-buffersaurus'
         " Kills a buffer without closing the split
@@ -315,8 +326,10 @@
     " }}}
 
     " Commenting {{{
-        " tpope/vim-commentary > NERDCommenter
+        Bundle 'cometsong/CommentFrame.vim'
+
         Bundle 'tpope/vim-commentary'
+            " tpope/vim-commentary >>> NERDCommenter
             "     'gcc' toggles comments for the current line
             "     'gC{motion}' comments a visually selected region (choose region first)
             "     'gCc' comment the current line even if it has a comment
@@ -347,131 +360,132 @@
     " }}}
 
     " Directories, Files, Trees, & Finder {{{
+        " CTRLP: {{{
+            " ctrlp replaces command-t, NERDTree, buffer, mru (most recent used), tagfinder...
+            Bundle 'kien/ctrlp.vim'
+            Bundle 'jasoncodes/ctrlp-modified.vim'
+            Bundle 'sgur/ctrlp-extensions.vim'
+                let g:ctrlp_map               = '<c-p>'
+                let g:ctrlp_cmd               = 'CtrlP' " Default command used for the default mapping
+                let g:ctrlp_dotfiles          = 0 " don't ignore dotfiles/dotdirs
+                let g:ctrlp_lazy_update       = 1 " update results after typing has stopped
+                let g:ctrlp_max_height        = 20
+                let g:ctrlp_mruf_max          = 250 " number of recently opened files for CtrlP to remember
+                let g:ctrlp_mruf_exclude      = '/tmp/.*\|/temp/.*'
+                let g:ctrlp_persistent_input  = 0 " do not remember the last input
+                let g:ctrlp_root_markers      = ['.git'] " Use '.git' as a marker, whether it's a directory or a file (submodule)
+                let g:ctrlp_working_path_mode = 2 " Go up the file system until '.git' or similar is found
+                " order of items will be order they appear on statusline
+                let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix',
+                                       \ 'undo', 'changes', 'line', 'quickfix',
+                                       \ 'rtscript', 'dir', 'bookmarkdir', 'mark', 'register'
+                                       \ ] " enable help tag, exuberant ctags, quickfix, and directory search, etc.
+
+                " Where to put the new tab page when opening file:
+                "     a - after
+                "     b - before
+                "     c - the current tab page
+                "     l - the last tab page
+                "     f - the first tab page
+                let g:ctrlp_tabpage_position = 'ac'
+
+                " from sjl's vimrc TODO document all these...
+                let g:ctrlp_dont_split = 'NERD_tree_2' " TODO document
+                " let g:ctrlp_jump_to_buffer = 0
+                " let g:ctrlp_map = '<leader>,'
+                " let g:ctrlp_match_window_reversed = 1
+                " let g:ctrlp_split_window = 0
+                " let g:ctrlp_prompt_mappings = {
+                "     \ 'PrtSelectMove("j")': ['<c-j>', '<down>', '<s-tab>'],
+                "     \ 'PrtSelectMove("k")': ['<c-k>', '<up>', '<tab>'],
+                "     \ 'PrtHistory(-1)': ['<c-n>'],
+                "     \ 'PrtHistory(1)': ['<c-p>'],
+                "     \ 'ToggleFocus()': ['<c-tab>'],
+                "     \ }
+                " let ctrlp_filter_greps = "".
+                "     \ "egrep -iv '\\.(" .
+                "     \ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
+                "     \ ")$' | " .
+                "     \ "egrep -v '^(\\./)?(" .
+                "     \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/|docs/build/" .
+                "     \ ")'"
+                " let my_ctrlp_user_command = "" .
+                "     \ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
+                "     \ ctrlp_filter_greps
+                " let my_ctrlp_git_command = "" .
+                "     \ "cd %s && git ls-files --exclude-standard -co | " .
+                "     \ ctrlp_filter_greps
+                " let my_ctrlp_ffind_command = "ffind --semi-restricted --dir %s --type e -B -f"
+                " let g:ctrlp_user_command = ['.git/', my_ctrlp_ffind_command, my_ctrlp_ffind_command]
+                " nnoremap <leader>. :CtrlPTag<cr>
+
+                " Map buffer search
+                " nnoremap <leader>b :CtrlPBuffer<CR>
+                " Map most recently used file search
+                " nnoremap <leader>m :CtrlPMRU<CR>
+                " Map clear cache
+                " nnoremap <leader>c :CtrlPClearCache<CR>
+
+                " open ctrlp in vertical split
+                "au BufWinEnter *.txt if &ft == 'CtrlP' | wincmd L | endif " TODO broken...
+
+                " let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn)$'
+                " let g:ctrlp_custom_ignore = {
+                "   \ 'dir':  '\v[\/](\.git|\.hg|\.svn)$',
+                "   \ 'file': '\.exe$\|\.so$\|\.dll$',
+                "   \ 'link': 'some_bad_symbolic_links',
+                "   \ }
+
+                " let my_ctrlp_user_command = "" .
+                    "\ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
+                    "\ ctrlp_filter_greps
+                "let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
+
+                "let my_ctrlp_git_command = "" .
+                    "\ "cd %s && git ls-files | " .
+                    "\ ctrlp_filter_greps
+                "let g:loaded_ctrlp = 1         Use this to disable the plugin completely: >
+                " |ctrlp_by_filename|           Default to filename mode or not.
+                " |ctrlp_regexp|                Default to regexp mode or not.
+                " |ctrlp_match_window_bottom|   Where to show the match window.
+                " |ctrlp_match_window_reversed| Sort order in the match window.
+                " |ctrlp_max_height|            Max height of the match window.
+                " |ctrlp_switch_buffer|         Jump to an open buffer if already opened.
+                " |ctrlp_reuse_window|          Reuse special windows (help, quickfix, etc).
+                " |ctrlp_tabpage_position|      Where to put the new tab page.
+                " |ctrlp_working_path_mode|     How to set CtrlP's local working directory.
+                " |ctrlp_root_markers|          Additional, high priority root markers.
+                " |ctrlp_use_caching|           Use per-session caching or not.
+                " |ctrlp_clear_cache_on_exit|   Keep cache after exiting Vim or not.
+                " |ctrlp_cache_dir|             Location of the cache directory.
+                " |ctrlp_dotfiles|              Ignore dotfiles and dotdirs or not.
+                " |ctrlp_custom_ignore|         Hide stuff when using |globpath()|.
+                " |ctrlp_max_files|             Number of files to scan initially.
+                " |ctrlp_max_depth|             Directory depth to recurse into when scanning.
+                " |ctrlp_user_command|          Use an external scanner.
+                " |ctrlp_max_history|           Number of entries saved in the prompt history.
+                " |ctrlp_open_new_file|         How to open a file created by <c-y>.
+                " |ctrlp_open_multiple_files|   How to open files selected by <c-z>.
+                " |ctrlp_arg_map|               Intercept <c-y> and <c-o> or not.
+                " |ctrlp_follow_symlinks|       Follow symbolic links or not.
+                " |ctrlp_lazy_update|           Only update when typing has stopped.
+                " |ctrlp_default_input|         Seed the prompt with an initial string.
+                " |ctrlp_use_migemo|            Use Migemo patterns for Japanese filenames.
+                " |ctrlp_prompt_mappings|       Change the mappings in the prompt.
+                " MRU mode:
+                " |ctrlp_mruf_max|              Max MRU entries to remember.
+                " |ctrlp_mruf_exclude|          Files that shouldn't be remembered.
+                " |ctrlp_mruf_include|          Files to be remembered.
+                " |ctrlp_mruf_relative|         Show only MRU files in the working directory.
+                " |ctrlp_mruf_default_order|    Disable sorting.
+                " |ctrlp_mruf_case_sensitive|   MRU files are case sensitive or not.
+                " Advanced options:
+                " |ctrlp_open_func|             Use custom file opening functions.
+                " |ctrlp_status_func|           Change CtrlP's two statuslines.
+                " |ctrlp_buffer_func|           Call custom functions in the CtrlP buffer.
+        " }}}
+
         " Bundle 'h1mesuke/unite-outline'
-
-        " ctrlp replaces command-t, NERDTree, buffer, mru (most recent used), tagfinder...
-        Bundle 'kien/ctrlp.vim'
-        Bundle 'jasoncodes/ctrlp-modified.vim'
-        Bundle 'sgur/ctrlp-extensions.vim'
-            let g:ctrlp_map = '<c-p>'
-            let g:ctrlp_cmd = 'CtrlP' " Default command used for the default mapping
-            let g:ctrlp_max_height = 20
-            let g:ctrlp_mruf_max = 250 " number of recently opened files for CtrlP to remember
-            let g:ctrlp_mruf_exclude = '/tmp/.*\|/temp/.*'
-            let g:ctrlp_working_path_mode = 2 " Go up the file system until '.git' or similar is found
-            let g:ctrlp_root_markers = ['.git'] " Use '.git' as a marker, whether it's a directory or a file (submodule)
-            " Do not remember the last input
-            let g:ctrlp_persistent_input = 0
-            " Update results after typing has stopped
-            let g:ctrlp_lazy_update = 1
-            " Enable help tag, exuberant ctags, quickfix, and directory search
-            let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix', 'dir']
-            " Where to put the new tab page when opening one:
-            "     a - after.
-            "     b - before.
-            "     c - the current tab page.
-            "     l - the last tab page.
-            "     f - the first tab page.
-            let g:ctrlp_tabpage_position = 'ac'
-
-            " from sjl's vimrc
-            let g:ctrlp_dont_split = 'NERD_tree_2'
-            " let g:ctrlp_jump_to_buffer = 0
-            " let g:ctrlp_map = '<leader>,'
-            " let g:ctrlp_match_window_reversed = 1
-            " let g:ctrlp_split_window = 0
-            " let g:ctrlp_prompt_mappings = {
-            "     \ 'PrtSelectMove("j")': ['<c-j>', '<down>', '<s-tab>'],
-            "     \ 'PrtSelectMove("k")': ['<c-k>', '<up>', '<tab>'],
-            "     \ 'PrtHistory(-1)': ['<c-n>'],
-            "     \ 'PrtHistory(1)': ['<c-p>'],
-            "     \ 'ToggleFocus()': ['<c-tab>'],
-            "     \ }
-            " let ctrlp_filter_greps = "".
-            "     \ "egrep -iv '\\.(" .
-            "     \ "jar|class|swp|swo|log|so|o|pyc|jpe?g|png|gif|mo|po" .
-            "     \ ")$' | " .
-            "     \ "egrep -v '^(\\./)?(" .
-            "     \ "deploy/|lib/|classes/|libs/|deploy/vendor/|.git/|.hg/|.svn/|.*migrations/|docs/build/" .
-            "     \ ")'"
-            " let my_ctrlp_user_command = "" .
-            "     \ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
-            "     \ ctrlp_filter_greps
-            " let my_ctrlp_git_command = "" .
-            "     \ "cd %s && git ls-files --exclude-standard -co | " .
-            "     \ ctrlp_filter_greps
-            " let my_ctrlp_ffind_command = "ffind --semi-restricted --dir %s --type e -B -f"
-            " let g:ctrlp_user_command = ['.git/', my_ctrlp_ffind_command, my_ctrlp_ffind_command]
-            " nnoremap <leader>. :CtrlPTag<cr>
-
-            " Map buffer search.
-            " nnoremap <leader>b :CtrlPBuffer<CR>
-            " Map most recently used file search.
-            " nnoremap <leader>m :CtrlPMRU<CR>
-            " Map clear cache.
-            " nnoremap <leader>c :CtrlPClearCache<CR>
-
-            " TODO open ctrlp in vertical split
-            "au BufWinEnter *.txt if &ft == 'CtrlP' | wincmd L | endif
-
-            " let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn)$'
-            " let g:ctrlp_custom_ignore = {
-            "   \ 'dir':  '\v[\/](\.git|\.hg|\.svn)$',
-            "   \ 'file': '\.exe$\|\.so$\|\.dll$',
-            "   \ 'link': 'some_bad_symbolic_links',
-            "   \ }
-            " Optional extensions. Order of items will be order they appear on statusline
-            " let g:ctrlp_extensions = [
-            " \ 'tag', 'buffertag', 'dir', 'rtscript',
-            " \ 'undo', 'changes', 'line', 'quickfix',
-            " \ 'bookmarkdir', 'mark', 'register'
-            " \ ]
-            " let my_ctrlp_user_command = "" .
-                "\ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
-                "\ ctrlp_filter_greps
-            "let my_ctrlp_git_command = "" .
-                "\ "cd %s && git ls-files | " .
-                "\ ctrlp_filter_greps
-            "let g:ctrlp_user_command = ['.git/', my_ctrlp_git_command, my_ctrlp_user_command]
-            "let g:loaded_ctrlp = 1         Use this to disable the plugin completely: >
-            " |ctrlp_by_filename|           Default to filename mode or not.
-            " |ctrlp_regexp|                Default to regexp mode or not.
-            " |ctrlp_match_window_bottom|   Where to show the match window.
-            " |ctrlp_match_window_reversed| Sort order in the match window.
-            " |ctrlp_max_height|            Max height of the match window.
-            " |ctrlp_switch_buffer|         Jump to an open buffer if already opened.
-            " |ctrlp_reuse_window|          Reuse special windows (help, quickfix, etc).
-            " |ctrlp_tabpage_position|      Where to put the new tab page.
-            " |ctrlp_working_path_mode|     How to set CtrlP's local working directory.
-            " |ctrlp_root_markers|          Additional, high priority root markers.
-            " |ctrlp_use_caching|           Use per-session caching or not.
-            " |ctrlp_clear_cache_on_exit|   Keep cache after exiting Vim or not.
-            " |ctrlp_cache_dir|             Location of the cache directory.
-            " |ctrlp_dotfiles|              Ignore dotfiles and dotdirs or not.
-            " |ctrlp_custom_ignore|         Hide stuff when using |globpath()|.
-            " |ctrlp_max_files|             Number of files to scan initially.
-            " |ctrlp_max_depth|             Directory depth to recurse into when scanning.
-            " |ctrlp_user_command|          Use an external scanner.
-            " |ctrlp_max_history|           Number of entries saved in the prompt history.
-            " |ctrlp_open_new_file|         How to open a file created by <c-y>.
-            " |ctrlp_open_multiple_files|   How to open files selected by <c-z>.
-            " |ctrlp_arg_map|               Intercept <c-y> and <c-o> or not.
-            " |ctrlp_follow_symlinks|       Follow symbolic links or not.
-            " |ctrlp_lazy_update|           Only update when typing has stopped.
-            " |ctrlp_default_input|         Seed the prompt with an initial string.
-            " |ctrlp_use_migemo|            Use Migemo patterns for Japanese filenames.
-            " |ctrlp_prompt_mappings|       Change the mappings in the prompt.
-            " MRU mode:
-            " |ctrlp_mruf_max|              Max MRU entries to remember.
-            " |ctrlp_mruf_exclude|          Files that shouldn't be remembered.
-            " |ctrlp_mruf_include|          Files to be remembered.
-            " |ctrlp_mruf_relative|         Show only MRU files in the working directory.
-            " |ctrlp_mruf_default_order|    Disable sorting.
-            " |ctrlp_mruf_case_sensitive|   MRU files are case sensitive or not.
-            " Advanced options:
-            " |ctrlp_open_func|             Use custom file opening functions.
-            " |ctrlp_status_func|           Change CtrlP's two statuslines.
-            " |ctrlp_buffer_func|           Call custom functions in the CtrlP buffer.
 
         " Bundle 'Shougo/vimfiler'
         "     let g:vimfiler_as_default_explorer = 1
@@ -540,41 +554,43 @@
                 "inoremap <D-BS>     <esc>my0c`y
             "endif
 
-        Bundle 'scrooloose/nerdtree'
-            " Put focus to the NERD Tree with F3 (tricked by quickly closing it and immediately showing it again, since there is no :NERDTreeFocus command)
-            nmap <leader>n :NERDTreeClose<CR>:NERDTreeToggle<CR>
-            nmap <leader>m :NERDTreeClose<CR>:NERDTreeFind<CR>
-            nmap <leader>N :NERDTreeClose<CR>
-            map <leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
-            nmap <leader>nt :NERDTreeToggle <CR>
-            nmap <C-u> :NERDTreeToggle<CR>
-            " nmap <S-F7> :NERDTreeClose<CR>
-            " Store the bookmarks file
-            let NERDTreeBookmarksFile=expand("/code_and_projects/dotfiles/.dotfiles/vim/NERDTreeBookmarks")
-            let NERDTreeShowBookmarks=1 " Show the bookmarks table on startup
-            " Set the location of bookmarks for nerdtree
-            " autocmd FileType nerdtree setlocal nolist
-            let NERDTreeShowFiles=1 " Show hidden files
-            let NERDTreeShowHidden=1
-            " Don't display these kinds of files
-            let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '\.swo$', '\.swp$', '\.hg', '\.svn', '\.bzr']
-            " open a NERDTree automatically when vim starts even if no files were specified at launch
-            autocmd vimenter * if !argc() | NERDTree | endif
-            " close vim if nerdtree is last window open
-            autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-            " Quit on opening files from the tree
-            "let NERDTreeQuitOnOpen=1
-            " Focus cursor in new document TODO after opening from NERDTree?
-            "autocmd VimEnter * wincmd p
-            " Highlight the selected entry in the tree
-            let NERDTreeHighlightCursorline=1
-            " Use a single click to fold/unfold directories and a double click to open files
-            let NERDTreeMouseMode=2
-            "let g:NERDTreeCaseSensitiveSort = 1
-            "let g:NERDTreeDirArrows = 1
-            let g:NERDTreeMinimalUI = 1
-            let g:NERDTreeWinPos = 'right'
-            let g:NERDTreeWinSize = 40
+        " NerdTree {{{
+            Bundle 'scrooloose/nerdtree'
+                " Put focus to the NERD Tree with F3 (tricked by quickly closing it and immediately showing it again, since there is no :NERDTreeFocus command)
+                nmap <leader>n :NERDTreeClose<CR>:NERDTreeToggle<CR>
+                nmap <leader>m :NERDTreeClose<CR>:NERDTreeFind<CR>
+                nmap <leader>N :NERDTreeClose<CR>
+                map <leader>n :execute 'NERDTreeToggle ' . getcwd()<CR>
+                nmap <leader>nt :NERDTreeToggle <CR>
+                nmap <C-u> :NERDTreeToggle<CR>
+                " nmap <S-F7> :NERDTreeClose<CR>
+                " Store the bookmarks file
+                let NERDTreeBookmarksFile=expand("/code_and_projects/dotfiles/.dotfiles/vim/NERDTreeBookmarks")
+                let NERDTreeShowBookmarks=1 " Show the bookmarks table on startup
+                " Set the location of bookmarks for nerdtree
+                " autocmd FileType nerdtree setlocal nolist
+                let NERDTreeShowFiles=1 " Show hidden files
+                let NERDTreeShowHidden=1
+                " Don't display these kinds of files
+                let NERDTreeIgnore=['\.pyc$', '\.pyo$', '\.py\$class$', '\.obj$', '\.o$', '\.so$', '\.egg$', '^\.git$', '\.swo$', '\.swp$', '\.hg', '\.svn', '\.bzr']
+                " open a NERDTree automatically when vim starts even if no files were specified at launch
+                autocmd vimenter * if !argc() | NERDTree | endif
+                " close vim if nerdtree is last window open
+                autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+                " Quit on opening files from the tree
+                "let NERDTreeQuitOnOpen=1
+                " Focus cursor in new document TODO after opening from NERDTree?
+                "autocmd VimEnter * wincmd p
+                " Highlight the selected entry in the tree
+                let NERDTreeHighlightCursorline=1
+                " Use a single click to fold/unfold directories and a double click to open files
+                let NERDTreeMouseMode=2
+                "let g:NERDTreeCaseSensitiveSort = 1
+                "let g:NERDTreeDirArrows = 1
+                let g:NERDTreeMinimalUI = 1
+                let g:NERDTreeWinPos = 'right'
+                let g:NERDTreeWinSize = 40
+        " }}}
 
         " MinibufExplorer {{{
             "let g:miniBufExplModSelTarget = 1
@@ -679,36 +695,49 @@
     " }}}
 
     " Marks {{{
-        " vim-signature is apparently better than vim-showmarks and mark-tools
-        " Bundle 'vim-scripts/mark_tools'
-        " show marks in gutter
-        " Bundle 'vim-scripts/ShowMarks7'
-        Bundle 'https://github.com/vim-scripts/vmark.vim--Visual-Bookmarking.git'
-        Bundle 'adinapoli/vim-markmultiple'
+        " About marks:
+        "     lowercase letters are marks for local buffers
+        "     uppercase letters are marks for moving between files
+        "     d'a 	deletes from current line to line containing mark a
+        "     d`a 	delete from current cursor position to position of mark a
+        "     c'a 	change text from current line to line containing mark a
+        "     y`a 	yank text to unnamed buffer from cursor to position of mark a
+        "     `` 	jump back (to position in current buffer where jumped from)
 
-        " TODO has error at startup
         Bundle 'kshenoy/vim-signature'
-            let g:SignatureWrapJumps = 1
-            let g:SignatureMarkLeader=m
+            " vim-signature is better than vim-showmarks and mark-tools TODO does it do what both do?
+            " TODO error at startup. i think it was g:SignatureMarkLeader... now fixed???
+            " Usage:
+            "     m[a-zA-Z]    : Toggle mark
+            "     m<Space>     : Delete all marks
+            "     m,           : Place the next available mark
+            "     ]`           : Jump to next mark
+            "     [`           : Jump to prev mark
+            "     ]'           : Jump to start of next line containing a mark
+            "     ['           : Jump to start of prev line containing a mark
+            "     `]           : Jump by alphabetical order to next mark
+            "     `[           : Jump by alphabetical order to prev mark
+            "     ']           : Jump by alphabetical order to start of next line containing a mark
+            "     '[           : Jump by alphabetical order to start of prev line containing a mark
+            "     m[0-9]       : Toggle the corresponding marker !@#$%^&*()
+            "     m<S-[0-9]>   : Remove all markers of the same type
+            "     ]=           : Jump to next line having same marker
+            "     ]-           : Jump to prev line having same marker
+            "     m<BackSpace> : Remove all markers
+            let g:SignatureWrapJumps   = 1
+            let g:SignatureMarkLeader  = "m" " default is m (uses <Leader>m)
             let g:SignatureDisableMenu = 0 " 1 hides menu
-            " show/hide all signs TODO doesn't work...
-            nmap <silent> <S-F1> :SignatureToggle <CR>
-            " m[a-zA-Z]    : Toggle mark
-            " m<Space>     : Delete all marks
-            " m,           : Place the next available mark
-            " ]`           : Jump to next mark
-            " [`           : Jump to prev mark
-            " ]'           : Jump to start of next line containing a mark
-            " ['           : Jump to start of prev line containing a mark
-            " `]           : Jump by alphabetical order to next mark
-            " `[           : Jump by alphabetical order to prev mark
-            " ']           : Jump by alphabetical order to start of next line containing a mark
-            " '[           : Jump by alphabetical order to start of prev line containing a mark
-            " m[0-9]       : Toggle the corresponding marker !@#$%^&*()
-            " m<S-[0-9]>   : Remove all markers of the same type
-            " ]=           : Jump to next line having same marker
-            " ]-           : Jump to prev line having same marker
-            " m<BackSpace> : Remove all markers
+            " show/hide all signs
+            " nmap <silent> <S-F1> :SignatureToggle <CR> " TODO mapping doesn't work...
+
+        " TODO what about this? redundant?
+        Bundle 'https://github.com/vim-scripts/vmark.vim--Visual-Bookmarking.git'
+        " TODO what about this? redundant?
+        Bundle 'adinapoli/vim-markmultiple'
+        " Bundle 'vim-scripts/mark_tools'
+
+        " Bundle 'vim-scripts/ShowMarks7'
+            " show marks in gutter
 
         " Bundle 'zakj/vim-showmarks'
         "     " to only include marks 'abcdefzxABHJio', in that order:
@@ -868,22 +897,22 @@
 
     " Outlining {{{
         Bundle 'vim-scripts/VOoM'
-            " performs code-folding and outlining of markdown, rst, etc.
-            let g:voom_tree_placement = 'right'
-            let g:voom_tree_width = 40
-            let g:voom_log_placement = 'right'
-            let g:voom_log_width = 30
-            let g:voom_default_mode = 'rest'
-            let g:voom_return_key = '<Return>'
-            let g:voom_tab_key = '<C-Tab>'
-            " let g:voom_ft_modes = {'markdown': 'markdown', 'pandoc': 'markdown', 'restructuredtext': 'restructuredtext', 'rest': 'rest'}
-            " au Filetype voomtree setlocal <buffer> guifont=Droid\ Sans\ Mono\ for\ Powerline:h13.3
+            " performs code-folding and outlining of markdown, rst, etc. files
             " TODO auto close voom buffer when user hits enter
+            " TODO auto expand folds at start if they all fit within buffer window
+            let g:voom_tree_placement = 'right'
+            let g:voom_tree_width     = 40
+            let g:voom_log_placement  = 'right'
+            let g:voom_log_width      = 30
+            let g:voom_default_mode   = 'rest'
+            let g:voom_return_key     = '<C-Return>'
+            let g:voom_tab_key        = '<C-Tab>'
+            " let g:voom_ft_modes     = {'markdown': 'markdown', 'pandoc': 'markdown', 'restructuredtext': 'restructuredtext', 'rest': 'rest'}
+            " au Filetype voomtree setlocal <buffer> guifont=Droid\ Sans\ Mono\ for\ Powerline:h13.3
+            nmap <Leader>V :70Voom<CR>
     " }}}
 
     " Pandoc {{{
-        " pandoc syntax file
-        Bundle 'vim-scripts/pdc.vim'
         Bundle 'vim-pandoc/vim-pandoc-extras'
         Bundle 'vim-pandoc/vim-pandoc'
             " let g:pandoc_bibfiles = ['/the/path/to/your/bibtex/file.bib']
@@ -892,13 +921,17 @@
 
         " rewrite of vim-pandoc
         " Bundle 'fmoralesc/vim-pantondoc'
+
+        Bundle 'vim-scripts/pdc.vim'
+            " pandoc syntax file
     " }}}
 
     " Pomodoro {{{
-        " Vomodoro isn't a timer, just a visualizer of completed pomodoros
         Bundle 'gregsexton/Vomodoro'
+            " Vomodoro isn't a timer, just visualizes completed pomodoros
 
         Bundle 'mnick/vim-pomodoro'
+            " TODO document starting, pausing, and stopping pomos
             " Duration of a pomodoro in minutes (default: 25)
             let g:pomodoro_time_work = 25
             " Duration of a break in minutes (default: 5)
@@ -982,13 +1015,14 @@
     " }}}
 
     " Quotes & Parens Completion {{{
+        "Bundle 'vim-scripts/simple-pairs.git'
+        "Bundle 'roman/rainbow.git'
+        "Bundle 'vim-scripts/Rainbow-Parenthesis'
+
         "Bundle 'mirell/vim-matchit'
             ":runtime macros/matchit.vim
-        "Bundle 'vim-scripts/simple-pairs.git'
-        " Bundle 'roman/rainbow.git'
-        " Bundle 'vim-scripts/Rainbow-Parenthesis'
 
-        "Bundle 'tpope/vim-surround'
+        Bundle 'tpope/vim-surround'
             "let g:surround_{char2nr('-')} = "<% \r %>"
             "let g:surround_{char2nr('=')} = "<%= \r %>"
             "let g:surround_{char2nr('8')} = "/* \r */"
@@ -1004,6 +1038,9 @@
         " Bundle 'vim-scripts/rest.vim' " old reST syntax file...
         " Bundle 'vim-scripts/VST'      " old reST syntax file...
         Bundle 'nvie/vim-rst-tables'
+
+        Bundle 'erisian/rest_tools'
+
         Bundle 'Rykka/riv.vim'
             let g:riv_fold_blank       = 1 " fold all blank lines except 1. leaves a blank line between folded sections
             let g:riv_fold_level       = 3 " fold_level 0: 'None' 1: 'Sections' 2: 'Sections and Lists' 3: 'Sections,Lists and Blocks'
@@ -1029,19 +1066,21 @@
     " }}}
 
     " Search {{{
-        " awk, websearch, regex
+        " awk. websearch. regex.
+        " TODO remove redundant/unused modules
         Bundle 'Raimondi/vimregextools'
         Bundle 'tejr/vawk'
         Bundle 'tsibley/viack'
         Bundle 'kana/vim-wwwsearch'
         Bundle 'jeetsukumaran/vim-filesearch'
         Bundle 'henrik/vim-indexed-search'
-        " TODO error in loading Bundle 'dahu/SearchParty'
+        " Bundle 'cometsong/IndexedSearch'
+        " Bundle 'dahu/SearchParty' TODO error in loading
 
         Bundle 'Shougo/unite.vim'
             " searches and displays information from arbitrary sources like files, buffers, recent files or registers
 
-        Bundle 'dahu/vim-fanfingtastic'
+        " Bundle 'dahu/vim-fanfingtastic' TODO error in loading
             " find a char across lines
 
         Bundle 'mileszs/ack.vim'
@@ -1070,13 +1109,19 @@
 
     " Shell {{{
         " Bundle 'troydm/shellasync.vim'
+        " Bundle 'cometsong/bash-support.vim'
 
-        " Vim sugar for the UNIX shell commands
         Bundle 'tpope/vim-eunuch'
+            " Vim sugar for the UNIX shell commands
 
         " ConqueShell {{{
-            " Enable <C-w> in insert mode
-            let g:ConqueTerm_CWInsert = 0
+            " not installed via vundle. see https://code.google.com/p/conque
+            " In normal mode you can use Vim commands to browse your terminal output and scroll back through the history.
+            " Most all Vim functionality will work, such as searching, yanking or highlighting text.
+            " :ConqueTermSplit opens Conque in new horizontal buffer
+            " :ConqueTermVSplit opens Conque in new vertical buffer
+            " :ConqueTermTab opens Conque in new tab
+            let g:ConqueTerm_CWInsert = 0 " enable <C-w> in insert mode
             map <leader>term :ConqueTerm zsh<cr>
             " nmap <F1> :ConqueTermSplit zsh
             " nmap <F2> :ConqueTermVSplit zsh
@@ -1084,16 +1129,39 @@
             " nmap <F4> :ConqueTermVSplit ipython
             " nmap <F6> :execute 'ConqueTermSplit ipython '.expand('%:p')
             " nmap <F7> :execute 'ConqueTermVSplit ipython '.expand('%:p')
-            " let g:ConqueTerm_EscKey = ''
-            " let g:ConqueTerm_FastMode = 1
-            " let g:ConqueTerm_ReadUnfocused = 1
-            " let g:ConqueTerm_InsertOnEnter = 1
-            " let g:ConqueTerm_PromptRegex = '^-->'
-            " let g:ConqueTerm_TERM = 'xterm'
+            " TODO document
+            " let g:ConqueTerm_EscKey        = ''
+            " let g:ConqueTerm_PyVersion = 2
+            let g:ConqueTerm_FastMode         = 0 " 1 disables terminal colors and some unicode support
+            let g:ConqueTerm_ReadUnfocused    = 1 " 1 updates Conque buffers after you've switched to another bu   ffer
+            let g:ConqueTerm_InsertOnEnter    = 1 " start shell buffer in insert mode
+            let g:ConqueTerm_CloseOnEnd       = 0 " close and permanently delete buffer when program running inside it exits
+            let g:ConqueTerm_ExecFileKey      = '<F11>' " equiv to :ConqueTermSplit YOUR_FILE
+            let g:ConqueTerm_SendVisKey       = '<F9>' " send selected text to Conque
+            let g:ConqueTerm_SendFunctionKeys = 0 " 0 doesn't pass function keys to terminal
+            " let g:ConqueTerm_PromptRegex    = '^-->' " syntax highlight the prompt. Will generally run faste     r w/ Vim highlighting instead of terminal colors
+            " let g:ConqueTerm_TERM           = 'xterm' " tell Conque what terminal type to identify itself as
+
+            " function MyConqueStartup(term)
+            "     " set buffer syntax using the name of the program currently running
+            "     let syntax_associations = { 'ipython': 'python', 'irb': 'ruby' }
+            "     if has_key(syntax_associations, a:term.program_name)
+            "         execute 'setlocal syntax=' . syntax_associations[a:term.program_name]
+            "     else
+            "         execute 'setlocal syntax=' . a:term.program_name
+            "     endif
+            "     " shrink window height to 10 rows
+            "     resize 10
+            "     " silly example of terminal api usage
+            "     if a:term.program_name == 'bash'
+            "         call a:term.writeln('svn up ~/projects/*')
+            "     endif
+            " endfunction
+            " call conque_term#register_function('after_startup', 'MyConqueStartup')
         " }}}
     " }}}
 
-    " Snippets: and Autocompletion {{{
+    " Snippets & Autocompletion {{{
         " neocomplcache appears best of breed
         " Bundle 'Shougo/neocomplcache-snippets-complete' no longer maintained, use 'Shougo/neosnippet' instead
         Bundle 'Shougo/neosnippet'
@@ -1151,8 +1219,10 @@
         " garbas & honza's repos are the main snipmate repo. msanders hasn't been updating what he started
         "   one has snipmate, the other has the snippets
         " Bundle 'msanders/snipmate.vim'
+        " TODO error in loading
         Bundle 'honza/snipmate.vim'
         Bundle 'rbonvall/snipmate-snippets-bib'
+        " TODO error in loading
         Bundle 'garbas/snipmate-snippets'
             let g:snips_author = 'mt3'
             let g:snippets_dir = '~/code_and_projects/dotfiles/.dotfiles/vim/bundle/snipmate-snippets'
@@ -1182,7 +1252,7 @@
             " let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'snippets']
 
         " Bundle 'scrooloose/vim-space'
-            " Disables space mappings in select mode to fix snipMate.
+            " disables space mappings in select mode to fix snipMate.
             "let g:space_disable_select_mode=1
     " }}}
 
@@ -1227,6 +1297,11 @@
             " Bundle 'basilgor/vim-autotags'
             " Bundle 'ervandew/taglisttoo'
             " Bundle 'https://bitbucket.org:madevgeny/yate.git'
+
+            " Bundle 'xolox/vim-easytags'
+                " automated tag file generation and syntax highlighting of tags
+                " ':UpdateTags -R ~/.vim' will run 'ctags -R ~/.vim'
+                " let g:easytags_cmd = '/usr/local/bin/ctags'
 
             Bundle 'majutsushi/tagbar'
                 " nmap <silent> <F7> :TagbarToggle<CR>
@@ -1349,8 +1424,8 @@
         "Bundle 'tomtom/tbibtools_vim'
         " Bundle 'git://atp-vim.git.sourceforge.net/gitroot/atp-vim/atp-vim'
 
-        " need to have evince or okular installed
         "Bundle 'xuhdev/vim-latex-live-preview'
+            " need to have evince or okular installed
 
         "Bundle 'vim-scripts/bib_autocomp.vim'
             "let g:bib_autocomp_entry_mapping = {
@@ -1360,9 +1435,9 @@
         Bundle 'LaTeX-Box-Team/LaTeX-Box'
             " '\ll' command compiles .tex file into .pdf
             "let g:Tex_ViewRule_ps = 'Preview'
-            let g:Tex_ViewRule_ps = 'Skim'
-            let g:Tex_ViewRule_pdf = 'Skim'
-            let g:Tex_ViewRule_dvi = 'Skim'
+            let g:Tex_ViewRule_ps   = 'Skim'
+            let g:Tex_ViewRule_pdf  = 'Skim'
+            let g:Tex_ViewRule_dvi  = 'Skim'
             "let g:Tex_ViewRule_dvi = 'TeXniscope'
             " let g:Tex_DefaultTargetFormat = 'pdf'
             " let g:Tex_MultipleCompileFormat = 'pdf,aux'
@@ -1399,35 +1474,41 @@
             " let g:Tex_FormatDependency_dvipdf = 'dvi,dvipdf'
     " }}}
 
-    " To-Dos and Tasks {{{
+    " To-Dos {{{
         Bundle 'vim-scripts/TaskList.vim'
             " displays and organizes TODO, FIXME, etc. within the file
             map <leader>tl <Plug>TaskList
-            let g:tlWindowPosition = 1 " 1 opens tasklist at bottom, 0 is top
-            " let g:tlTokenList = ['TOKEN1', 'TOKEN2', 'TOKEN3'] " to overwrite list of tokens uncomment, default is let g:tlTokenList = ["FIXME", "TODO", "XXX"]
+            let g:tlWindowPosition   = 1 " 1 opens tasklist at bottom, 0 is top
+            " let g:tlTokenList      = ['TOKEN1', 'TOKEN2', 'TOKEN3'] " to overwrite list of tokens uncomment, default is let g:tlTokenList = ["FIXME", "TODO", "XXX"]
             let g:tlRememberPosition = 1
-    " }}}
+        " }}}
 
     " Web Design {{{
-        Bundle 'cakebaker/scss-syntax.vim'
-            au BufRead,BufNewFile *.scss set filetype=scss
+        " Bundle 'cakebaker/scss-syntax.vim'
+            " au BufRead,BufNewFile *.scss set filetype=scss
 
-        Bundle 'aaronjensen/vim-sass-status'
+        " Bundle 'aaronjensen/vim-sass-status'
             " Updates your status line to show what selector you're in in sass files
 
         " Bundle 'kchmck/vim-coffee-script'
         Bundle 'ap/vim-css-color'
         Bundle 'leshill/vim-json'
-        Bundle 'groenewege/vim-less'
-        Bundle 'amirh/HTML-AutoCloseTag'
-        Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
+        " Bundle 'groenewege/vim-less'
+        " Bundle 'amirh/HTML-AutoCloseTag'
+        " Bundle 'ChrisYip/Better-CSS-Syntax-for-Vim'
+    " }}}
+
+    " Writing {{{
+        " Bundle 'dsanson/writer.vim'
+            " map <F4> :WriterToggle<CR>
     " }}}
 
     " Yank {{{
         " Bundle 'vim-scripts/YankRing.vim'
+
         Bundle 'chrismetcalf/vim-yankring'
-            nnoremap <silent> <F3> :YRShow<cr>
-            inoremap <silent> <F3> <ESC>:YRShow<cr>
+            nnoremap <silent> <F3>       :YRShow<cr>
+            inoremap <silent> <F3> <ESC> :YRShow<cr>
             "map <leader>yr :YRShow<cr>
             "let g:yankring_history_dir = '~/code_and_projects/dotfiles/.dotfiles/vim/tmp'
             "nnoremap <leader>y :YRShow<CR>
@@ -1471,6 +1552,7 @@
     " Bundle 'pydave/AsyncCommand'
     "Bundle 'megaannum/forms'
     Bundle 'sjl/splice.vim'
+    " Bundle 'sjl/AnsiEsc.vim'
     " Bundle 'timcharper/textile.vim'
     " Bundle 'zef/vim-cycle'
     " Bundle 'rstacruz/sparkup.git', {'rtp': 'vim/'}
@@ -1494,11 +1576,12 @@
     " Bundle 'embear/vim-longlines'
     " Bundle 'vim-scripts/utl.vim'
     Bundle 'pbrisbin/vim-runfile'
-    " Renames the file in the current buffer
-    Bundle 'vim-scripts/Rename2'
     " Bundle 'sampsyo/autolink.vim'
     " Bundle 'vim-scripts/GoogleReader.vim'
     Bundle 'matthias-guenther/tocdown'
+
+    Bundle 'vim-scripts/Rename2'
+        " Renames the file in the current buffer
 
     Bundle 'sickill/vim-pasta'
         " A better paste
@@ -1545,30 +1628,31 @@
         let g:session_directory='~/.vim/sessions'
         " let g:session_autoload='prompt'
 
-    Bundle 'dahu/vim-rng'
+    " Bundle 'dahu/vim-rng'
         " random number generator
 
-    Bundle 'lukaszkorecki/vim-GitHubDashBoard'
+    " Bundle 'lukaszkorecki/vim-GitHubDashBoard'
+        " TODO document utility
 
     Bundle 'github:mattn/gist-vim.git'
         " Send visual selection to gist.github.com as private, filetyped gist (Requires gist cli 'brew install gist')
         " vnoremap <leader>G :w !gist -p -t %:e \| pbcopy<cr>
-        let g:gist_clip_command = 'pbcopy'
-        let g:gist_detect_filetype = 1
+        let g:gist_clip_command            = 'pbcopy'
+        let g:gist_detect_filetype         = 1
         let g:gist_open_browser_after_post = 1
-        let g:gist_show_privates = 1 " TODO describe
-        let g:github_token = $GITHUB_TOKEN
+        let g:gist_show_privates           = 1 " TODO describe
+        let g:github_token                 = $GITHUB_TOKEN
 
     Bundle 'ervandew/supertab'
-        let g:SuperTabMappingTabLiteral="<Tab>"
-        " let g:SuperTabDefaultCompletionType = "<C-X><C-O>"
-        let g:SuperTabDefaultCompletionType = 'context'
+        let g:SuperTabMappingTabLiteral            = "<Tab>"
+        " let g:SuperTabDefaultCompletionType      = "<C-X><C-O>"
+        let g:SuperTabDefaultCompletionType        = 'context'
         let g:SuperTabContextDefaultCompletionType = '<c-n>'
-        let g:SuperTabLongestEnhanced = 1
-        " let g:SuperTabMappingForward = "<C-space>"
-        let g:SuperTabNoCompleteAfter = ['^', '\s', '\t']
-        let g:SuperTabLongestHighlight  = 1 " preselect 1st entry
-        let g:SuperTabMidWordCompletion = 0 " TODO explain
+        let g:SuperTabLongestEnhanced              = 1
+        " let g:SuperTabMappingForward             = "<C-space>"
+        let g:SuperTabNoCompleteAfter              = ['^', '\s', '\t']
+        let g:SuperTabLongestHighlight             = 1 " preselect 1st entry
+        let g:SuperTabMidWordCompletion            = 0 " TODO explain
 
     Bundle 'tpope/vim-unimpaired'
         " bubble visual selection lines
@@ -1591,14 +1675,14 @@
         let g:QSIgnore = "\\.pyc$;\\.swp$"
 
     " Bundle 'twe4ked/vim-peepopen'
-        " Quit peepopen when vim exits
-        "let p:peepopen_quit = 1
+        "let p:peepopen_quit = 1 " quit peepopen when vim exits
 
     Bundle 'sjl/clam.vim'
         " nnoremap ! :Clam<space>
         " let g:clam_autoreturn = 1
 
     Bundle 'sjl/gundo.vim'
+        nmap <Leader>gu :GundoToggle<CR>
         " nnoremap <leader>g :GundoToggle<CR>
         " let g:autotagVerbosityLevel=0
 
@@ -1817,7 +1901,8 @@
         noremap <D-Right> <End>
         noremap <M-Left> <C-Left>
         noremap <D-Left> <Home>
-        " Easy buffer/split pane navigation
+
+        " easy buffer/split pane navigation
         noremap <C-h>  <C-w>h
         noremap <C-j>  <C-w>j
         noremap <C-k>  <C-w>k
@@ -1826,13 +1911,13 @@
         map <C-j> <C-w><Down>
         map <C-l> <C-w><Right>
         map <C-h> <C-w><Left>
+
         " vertical window split
         noremap <leader>v <C-w>v
-        " Begining & End of line in Normal mode
+
+        " beggining & end of line in Normal mode
         noremap H ^
         noremap L g_
-        " ,z to focus the current fold and close all other open folds
-        nnoremap <leader>z zMzvzz
     " }}}
 
     "nnoremap <silent> <Plug>NetrwBrowseX :call netrw#NetrwBrowseX(expand("<cWORD>"),0)
@@ -1847,13 +1932,17 @@
     nmap <D-v> "*P
     " quickly yank to end of line
     nnoremap Y  y$
-    "TODO: another version has nmap Y  y$
+    "TODO another version has nmap Y  y$
 
     " map delete key to delete a whole line (in normal mode only)
     nmap <BS> dd<ESC>O
 
-    " Split line(opposite to S-J joining line)
+    " split line (opposite to S-J joining line)
     nnoremap <C-J> gEa<CR><ESC>ew
+
+    " sort lines
+    nnoremap <leader>s vip:!sort<cr>
+    vnoremap <leader>s :!sort<cr>
 
     let &cpo=s:cpo_save
     unlet s:cpo_save
@@ -1865,7 +1954,7 @@
     " vnoremap * y/<C-R>"<CR>
     " vnoremap # y?<C-R>"<CR>
 
-    " TODO: document
+    " TODO document
     " if MySys() == "mac"
     "   nmap <D-j> <M-j>
     "   nmap <D-k> <M-k>
@@ -1874,7 +1963,7 @@
     " endif
 
     " Tab or Shift-Tab indents/unidents selected line(s)
-    " TODO the following vunmaps produce stratup errors
+    " TODO the following vunmaps produce startup errors
     "vunmap <S-Tab>
     vnoremap <S-Tab> <gv
     "vunmap <Tab>
@@ -1901,16 +1990,17 @@
     "iunmap <D-s> TODO
     imap <D-s> :w<CR><Esc>
 
-    " Fast saving and closing current buffer without closing windows displaying the buffer
+    " fast saving and closing current buffer without closing windows displaying the buffer
     nmap <leader>wq :w!<cr>:Bclose<cr>
 
-    " TODO the below isn't working
+    " TODO below isn't working...
     " macm File.New\ Tab key=<nop>
     " nmap <D-t> :echo "hello " &shell<CR>
 
     " cd to directory of current file
     map <leader>cd :cd %:p:h<cr>
 
+    " reload vimrc
     map <leader>R :source ~/.vimrc<cr>
 
     " TODO causes error/crash?
@@ -1937,87 +2027,92 @@
     nmap _ <c-w><
 
     " Remap j and k to act as expected when used on long, wrapped, lines
-    " TODO: relativenumber in column becomes useless if this is enabled
+    " TODO relativenumber in column becomes useless if enabled
     "nnoremap j gj
     "nnoremap k gk
     " Map the arrow keys to be based on display lines, not physical lines
     map <Down> gj
     map <Up> gk
-    " Move cursor together with the screen
+    " move cursor together with the screen
     noremap <D-k> j<c-e>
     noremap <D-j> k<c-y>
 
-    " Bubble single lines
+    " bubble single lines
     nmap <C-Up> ddkP
     nmap <C-Down> ddp
 
-    " Better Marks
+    " better marks
     nnoremap ' `
 
-    " Use Q for formatting instead of Ex mode TODO: explain
+    " use Q for formatting instead of Ex mode TODO explain...
     map Q gq
 
-    " Swap ; and :  Convenient. as. fukc.
+    " swap ; and :  Convenient. as. fukc.
     nnoremap ; :
     nnoremap : ;
 
     " space/shift-space scroll in normal mode
     noremap <S-Space> <C-b>
     noremap <Space> <C-f>
-    " Saves time (but i already remapped to scrolling a la web browsers below)
+    " saves time (but i already remapped to scrolling a la web browsers below)
     "nmap <Space> ;
 
-    " Swap v and <C-v>  Convenient. as. fukc.
+    " swap v and <C-v>  Convenient. as. fukc.
     nnoremap v <C-v>
     nnoremap <C-v> v
 
     " <S-e> goes to end of line and insert mode with a space
     nmap E $a<SPACE>
 
-    " Bash like keys for the command line
+    " bash-like keys for command line
     "cnoremap <C-A>      <Home>
     "cnoremap <C-E>      <End>
     "cnoremap <C-K>      <C-U>
 
-    " Quick alignment of text
+    " toggle line numbers
+    nnoremap <leader>n :setlocal number!<cr>
+
+    " quick alignment of text
     nmap <leader>al :left<CR>
     nmap <leader>ar :right<CR>
     nmap <leader>ac :center<CR>
 
     map <leader>c :!ctags --recurse<CR>
 
-    " clear highlights
-    noremap <silent><leader>h :nohls<CR>
-    " nnoremap <cr> :nohlsearch<cr>
-    nnoremap <leader>. :nohlsearch<cr>
-    " Clear the search buffer when hitting return
-    "nnoremap <CR> :nohlsearch<CR>
-    "map <leader>h :noh<CR>
-    " map <leader>h :set hlsearch!<CR>
-    "make <c-l> clear the highlight as well as redraw
-    " nnoremap <C-L> :nohls<CR><C-L>
-    " inoremap <C-L> <C-O>:nohls<CR>
-    " Highlight multiple words simultaneously in different colors {{{
-        nnoremap <silent> <leader>h1 :execute 'match InterestingWord1 /\<<c-r><c-w>\>/'<cr>
-        nnoremap <silent> <leader>h2 :execute '2match InterestingWord2 /\<<c-r><c-w>\>/'<cr>
-        nnoremap <silent> <leader>h3 :execute '3match InterestingWord3 /\<<c-r><c-w>\>/'<cr>
+    " highlighting mappings {{{
+        " clear highlights
+        noremap <silent><leader>h :nohls<CR>
+        " nnoremap <cr> :nohlsearch<cr>
+        nnoremap <leader>. :nohlsearch<cr>
+        " Clear the search buffer when hitting return
+        "nnoremap <CR> :nohlsearch<CR>
+        "map <leader>h :noh<CR>
+        " map <leader>h :set hlsearch!<CR>
+        "make <c-l> clear the highlight as well as redraw
+        " nnoremap <C-L> :nohls<CR><C-L>
+        " inoremap <C-L> <C-O>:nohls<CR>
+        " Highlight multiple words simultaneously in different colors {{{
+            nnoremap <silent> <leader>h1 :execute 'match InterestingWord1 /\<<c-r><c-w>\>/'<cr>
+            nnoremap <silent> <leader>h2 :execute '2match InterestingWord2 /\<<c-r><c-w>\>/'<cr>
+            nnoremap <silent> <leader>h3 :execute '3match InterestingWord3 /\<<c-r><c-w>\>/'<cr>
+        " }}}
     " }}}
 
     " toggle invisibles (whitespace, etc.)
     map <leader>li :set list!<CR>
 
-    " Close the current buffer
+    " close current buffer
     map <leader>bd :Bclose<cr>
 
     " hitting jj or kk will jump out of insert mode
     imap jj <Esc>
     " imap kk <Esc>
 
-    " Create Blank Newlines and stay in Normal mode
+    " create blank newlines and return to Normal mode
     nnoremap <silent> zj o<Esc>
     nnoremap <silent> zk O<Esc>
 
-    " yank and put to/from the clipboard register
+    " yank and put to/from clipboard register
     " map <leader>y "*y
     " map <leader>p "*p
     " toggle paste mode
@@ -2035,24 +2130,26 @@
     "nmap <silent> <leader>p :set invpaste<CR>
     "nmap <silent> <leader>i :set invrelativenumber<CR>
 
-    " sane regexes: I already know Python regex, why would I want to learn another?
-    nnoremap / /\v
-    vnoremap / /\v
+    " Search {{{
+        " sane regexes: I already know Python regex, why would I want to learn another?
+        nnoremap / /\v
+        vnoremap / /\v
 
-    " Keep search matches in the middle of the window.
-    nnoremap n nzzzv
-    nnoremap N Nzzzv
-    " nnoremap n nzz
-    " nnoremap N Nzz
-    " Same when jumping around
-    nnoremap g; g;zz
-    nnoremap g, g,zz
+        " keep search matches in the middle of window
+        nnoremap n nzzzv
+        nnoremap N Nzzzv
+        " nnoremap n nzz
+        " nnoremap N Nzz
+        " same when jumping around
+        nnoremap g; g;zz
+        nnoremap g, g,zz
 
-    " Faster substitute.
-    nnoremap <leader>S :%s//<left>
+        " faster substitute TODO document
+        nnoremap <leader>S :%s//<left>
+    " }}}
 
     " Map Function Keys {{{2
-        " commented out the unmap commands since they raised errors due to no map assigned
+        " TODO commented out the unmap commands since they raised errors due to no map assigned
         " unmap <f1>
         " unmap <f2>
         " unmap <f3>
@@ -2065,54 +2162,67 @@
         "unmap <f8>
         "unmap <f9>
         "unmap <f0>
-        " toggle/untoggle folds TODO zR is open all folds and zM is close all folds (combine in one keystroke)
+
+        " toggle/untoggle folds
+        "     zR opens all folds
+        "     zM closes all folds
         map <f1> zR<Esc>
         map <f2> zM<Esc>
         map <F3> :exe 'echo "yesy"'<CR>
         "map <f3> :exe "echomsg 'yesy'"<CR>
         map <f4> :echo "yesy"<CR>
-        " Map F5 to clear the highlighting search
+        " clear the highlighted search
         map <f5> :set hls!<bar>set hls?<CR>
+        set pastetoggle=<F6>
+        " map <F7>
+        " autocmd FileType python map <buffer> <F8> :call Flake8()<CR>
         map <F9> :source $MYVIMRC<CR>:echoe "Vimrc Reloaded!!!"<CR>
-        "map <f >
-        " autocmd FileType python map <buffer> <F3> :call Flake8()<CR>
+        " map <F10>
+        " map <F11>
+        " map <F12>
     " 2}}}
 
-    " restructuredtext shortcuts {{{
-        " Underline the current line with '='
+    " restructuredtext mappings {{{
+        " TODO remove redundancies/duplicates
+        " underline current line with '='
         nmap <silent> <leader>ul :t.\|s/./-/g\|:nohls<cr>
+
+        " create underline/overline headings for markup languages, inspired by http://sphinx.pocoo.org/rest.html#sections
+        nnoremap <leader>1 yyPVr=jyypVr=
+        nnoremap <leader>2 yyPVr*jyypVr*
+        nnoremap <leader>3 yypVr=
+        nnoremap <leader>4 yypVr-
+        nnoremap <leader>5 yypVr^
+        nnoremap <leader>6 yypVr"
     " }}}
 
-    "py.test mappings
-    " Execute the tests
-    nmap <silent><leader>tf <Esc>:Pytest file<CR>
-    nmap <silent><leader>tc <Esc>:Pytest class<CR>
-    nmap <silent><leader>tm <Esc>:Pytest method<CR>
-    " cycle through test errors
-    nmap <silent><leader>tn <Esc>:Pytest next<CR>
-    nmap <silent><leader>tp <Esc>:Pytest previous<CR>
-    nmap <silent><leader>te <Esc>:Pytest error<CR>
+    " py.test mappings {{{
+        " execute tests
+        nmap <silent><leader>tf <Esc>:Pytest file<CR>
+        nmap <silent><leader>tc <Esc>:Pytest class<CR>
+        nmap <silent><leader>tm <Esc>:Pytest method<CR>
 
-    " Creating underline/overline headings for markup languages
-    " Inspired by http://sphinx.pocoo.org/rest.html#sections
-    nnoremap <leader>1 yyPVr=jyypVr=
-    nnoremap <leader>2 yyPVr*jyypVr*
-    nnoremap <leader>3 yypVr=
-    nnoremap <leader>4 yypVr-
-    nnoremap <leader>5 yypVr^
-    nnoremap <leader>6 yypVr"
+        " cycle through test errors
+        nmap <silent><leader>tn <Esc>:Pytest next<CR>
+        nmap <silent><leader>tp <Esc>:Pytest previous<CR>
+        nmap <silent><leader>te <Esc>:Pytest error<CR>
+    " }}}
 
-    " Code folding options
-	" nmap <leader>f0 :set foldlevel=0<CR>
-	" nmap <leader>f1 :set foldlevel=1<CR>
-	" nmap <leader>f2 :set foldlevel=2<CR>
-	" nmap <leader>f3 :set foldlevel=3<CR>
-	" nmap <leader>f4 :set foldlevel=4<CR>
-	" nmap <leader>f5 :set foldlevel=5<CR>
-	" nmap <leader>f6 :set foldlevel=6<CR>
-	" nmap <leader>f7 :set foldlevel=7<CR>
-	" nmap <leader>f8 :set foldlevel=8<CR>
-	" nmap <leader>f9 :set foldlevel=9<CR>
+    " Folding {{{
+        " ,z to focus the current fold and close all other open folds
+        nnoremap <leader>z zMzvzz
+
+        " nmap <leader>f0 :set foldlevel=0<CR>
+        " nmap <leader>f1 :set foldlevel=1<CR>
+        " nmap <leader>f2 :set foldlevel=2<CR>
+        " nmap <leader>f3 :set foldlevel=3<CR>
+        " nmap <leader>f4 :set foldlevel=4<CR>
+        " nmap <leader>f5 :set foldlevel=5<CR>
+        " nmap <leader>f6 :set foldlevel=6<CR>
+        " nmap <leader>f7 :set foldlevel=7<CR>
+        " nmap <leader>f8 :set foldlevel=8<CR>
+        " nmap <leader>f9 :set foldlevel=9<CR>
+    " }}}
 
     " Quick editing (pinched from steve losh's .vimrc) {{{
         " nnoremap <leader>ev :vsplit $MYVIMRC<cr>
@@ -2132,17 +2242,45 @@
     "map <silent> <leader>s :source ~/.vimrc<CR>:filetype detect<CR>:exe ":echo'vimrc reloaded'"<CR>
     noremap <silent> <leader>s :source ~/.vimrc<CR>:filetype detect<CR>:exe "echo'vimrc reloaded'"<CR>
 
-    " When vimrc is edited, reload it
+    " when vimrc is edited, reload it
     "autocmd! bufwritepost vimrc source ~/.vimrc
 
-    " Edit vimrc \ev
+    " edit vimrc \ev
     nnoremap <silent> <leader>ev :tabedit ~/.vimrc<CR>
     "map <leader>e :e! ~/.vim_runtime/vimrc<cr>
     " Edit gvimrc \gv
     nnoremap <silent> <leader>gv :tabnew<CR>:e ~/.gvimrc<CR>
 
-    " Merge consecutive empty lines and clean up trailing whitespace
+    " merge consecutive empty lines and clean up trailing whitespace
     map <leader>fm :g/^\s*$/,/\S/-j<Bar>%s/\s\+$//<CR>
+
+    " 'Uppercase word' mapping     (from sjl)
+    " Allows you to press <c-u> in insert mode to convert the current word to uppercase.
+    " Handy when writing names of constants and don't want to use Capslock.
+    " To use it you type the name of the constant in lowercase. While your cursor is at
+    " the end of the word, press <c-u> to uppercase it, and then continue happily on your way:
+    "
+    "                                  cursor
+    "                                  v
+    "           max_connections_allowed|
+    "           <c-u>
+    "           MAX_CONNECTIONS_ALLOWED|
+    "                                  ^
+    "                                  cursor
+    "
+    " Works by exiting out of insert mode, recording current cursor location to z mark, using 'gUiw' to
+    " uppercase inside current word, moving back to z mark, and entering insert mode again. Note this
+    " overwrites contents of z mark. I never use it but if you do you'll probably want to use another.
+    inoremap <C-u> <esc>mzgUiw`za
+
+    " "Focus" current line (from sjl)
+    " What it does:
+    "     1. Closes all folds.
+    "     2. Opens just the folds containing the current line.
+    "     3. Move the line to a little bit (15 lines) above the center of the screen.
+    "     4. Pulse the cursor line
+    " This mapping wipes out the z mark. I use ':sus' for the times I want to background Vim.
+    nnoremap <c-z> mzzMzvzz15<c-e>`z:Pulse<cr>
 
     func! s:MySys() " TODO what was this for?
         return "mac"
@@ -2437,6 +2575,33 @@
     set modeline
     set relativenumber
 
+    " I prefer vertical splitting over horizontal
+    "       from https://github.com/alols/dotfiles
+    " let s:verticalMode=0
+    " fun! s:toggleVerticalMode()
+    "     if !s:verticalMode
+    "         set splitright
+    "         set winwidth=80
+    "         cabbrev help vert help
+    "         cabbrev sp vsp
+    "         cabbrev hsp sp
+    "         set diffopt+=vertical
+    "         let s:verticalMode=1
+    "     else
+    "         set nosplitright
+    "         set winwidth=20
+    "         unabbrev help
+    "         unabbrev sp
+    "         unabbrev hsp
+    "         set diffopt-=vertical
+    "         let s:verticalMode=0
+    "     endif
+    " endfun
+    " command! ToggleVerticalMode call s:toggleVerticalMode()
+    " if &columns > 150
+    "     ToggleVerticalMode
+    " endif
+
     " replace WinEnter/WinLeave autocmd's to add/remove line numbers in front of each line
     " augroup BgHighlight
         " autocmd!
@@ -2543,7 +2708,7 @@
         autocmd BufNewFile,BufRead *.as set filetype=actionscript
     " }}}
 
-    " comments {{{
+    " Comments {{{
         " Set comment characters for common languages
         " http://rsontech.net/2009/09/22/comments-revisited.html
         " autocmd FileType python,sh,bash,zsh,ruby,perl let StartComment="#" | let EndComment=""
@@ -2552,10 +2717,107 @@
         " autocmd FileType c,css let StartComment="/*" | let EndComment="*/"
         " autocmd FileType vim let StartComment="\"" | let EndComment=""
         " autocmd FileType ini let StartComment=";" | let EndComment=""
+        " autocmd BufNewFile,BufRead *.html setlocal commentstring=<!--%s-->
+    " }}}
+
+    " Git {{{
+        autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
+        autocmd FileType git,gitcommit setlocal textwidth=72
+        " gitcommit
+        au FileType gitcommit setl colorcolumn=72
+        au FileType gitcommit setl formatoptions+=t
+        au FileType gitcommit setl formatoptions-=l
+        au FileType gitcommit setl textwidth=72
+        au FileType gitcommit setl nolist
+        " gitcommit
+        autocmd BufNewFile,BufRead gitconfig setlocal commentstring=#%s
+    " }}}
+
+    " Help Files {{{
+        autocmd FileType help setlocal nonumber	" no line numbers when viewing help
+        " autocmd FileType help highlight <buffer> Cursor guibg=Yellow "TODO seems to affect all windows
+        au Filetype help nnoremap <buffer> q :bd<CR>
+        au Filetype help setl winfixwidth
+        au Filetype help setl colorcolumn=
+        au Filetype help setl textwidth=78
+        au Filetype help setl tabstop=4
+        au Filetype help setl expandtab
+        au Filetype help setl formatoptions=tcroqwanl1
+        " function! s:SetupHelpWindow()
+        "     wincmd L
+        "     vertical resize 80
+        "     nnoremap <buffer> <D-S-Space> <C-]> " Space selects subject
+        "     nnoremap <buffer> <BS>    <C-T> " Backspace to go back
+        " endfunction
+        " TODO function gives errors
+        "au BufEnter,BufWinEnter help <buffer> call <SID>SetupHelpWindow()
+    " }}}
+
+    " Elasticsearch {{{
+        autocmd! BufRead,BufNewFile *.es      setfiletype elasticsearch
+    " }}}
+
+    " Pentadactyl {{{
+        augroup ft_pentadactyl
+            au!
+            au BufNewFile,BufRead *.pentadactylrc,pentadactylrc setfiletype pentadactyl
+            au BufNewFile,BufRead *.pentadactylrc set ft=pentadactyl
+            au BufNewFile,BufRead *.penta setfiletype pentadactyl
+            au BufNewFile,BufRead *.penta set ft=pentadactyl
+            au BufNewFile,BufRead *.pentadactylrc set foldmethod=marker foldignore=
+            au BufNewFile,BufRead *.pentadactylrc  set syntax=pentadactyl
+            au FileType pentadactyl set foldmethod=marker
+            " au BufNewFile,BufRead ~/Library/Caches/TemporaryItems/pentadactyl-*.tmp set nolist wrap linebreak columns=100 colorcolumn=0
+            autocmd BufNewFile,BufRead *.pentadactylrc setlocal commentstring="%s
+        augroup END
+    " }}}
+
+    " Ruby {{{
+        au BufNewFile,BufRead *.rb setfiletype ruby
+    " }}}
+
+    " RSS {{{
+        autocmd BufNewFile,BufRead *.rss setfiletype xml " treat .rss files as XML
+    " }}}
+
+    " Mail {{{
+        " Insert Vim-version as X-Editor in mail headers
+        au FileType mail sil 1  | call search("^$") | sil put! ='X-Editor: Vim-' . Version()
+    " }}}
+
+    " Markdown {{{
+        augroup ft_markdown
+            autocmd!
+            au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=mkd
+            " Use <localLeader>1/2/3/4/5/6 to add headings
+            autocmd Filetype markdown nnoremap <buffer> <localLeader>1 I# <ESC>
+            autocmd Filetype markdown nnoremap <buffer> <localLeader>2 I## <ESC>
+            autocmd Filetype markdown nnoremap <buffer> <localLeader>3 I### <ESC>
+            autocmd Filetype markdown nnoremap <buffer> <localLeader>4 I#### <ESC>
+            autocmd Filetype markdown nnoremap <buffer> <localLeader>5 I##### <ESC>
+            autocmd Filetype markdown nnoremap <buffer> <localLeader>6 I###### <ESC>
+            " Use <LocalLeader>b to add blockquotes in normal and visual mode
+            autocmd Filetype markdown nnoremap <buffer> <localLeader>b I> <ESC>
+            autocmd Filetype markdown vnoremap <buffer> <localLeader>b :s/^/> /<CR>
+            " Use <localLeader>ul and <localLeader>ol to add list symbols in visual mode
+            autocmd Filetype markdown vnoremap <buffer> <localLeader>ul :s/^/* /<CR>
+            autocmd Filetype markdown vnoremap <buffer> <LocalLeader>ol :s/^/\=(line(".")-line("'<")+1).'. '/<CR>
+            " Use <localLeader>e1/2/3 to add emphasis symbols
+            autocmd Filetype markdown nnoremap <buffer> <localLeader>e1 I*<ESC>A*<ESC>
+            autocmd Filetype markdown nnoremap <buffer> <localLeader>e2 I**<ESC>A**<ESC>
+            autocmd Filetype markdown nnoremap <buffer> <localLeader>e3 I***<ESC>A***<ESC>
+            " Use <leader>P to preview markdown file in browser
+            autocmd Filetype markdown nnoremap <buffer> <leader>P :MarkdownPreview<CR>
+        augroup END
     " }}}
 
     " nginx {{{
         autocmd BufNewFile,BufRead */etc/nginx/* setlocal ft=nginx
+    " }}}
+
+    " PBS {{{
+        " qsub and pbs cluster scripts
+        au BufNewFile,BufRead *.pbs setfiletype zsh
     " }}}
 
     " Python {{{
@@ -2610,99 +2872,6 @@
         " autocmd BufWritePost *.py call Flake8()
     " }}}
 
-    " Help Files {{{
-        autocmd FileType help setlocal nonumber	" no line numbers when viewing help
-        " autocmd FileType help highlight <buffer> Cursor guibg=Yellow "TODO seems to affect all windows
-        au Filetype help nnoremap <buffer> q :bd<CR>
-        au Filetype help setl winfixwidth
-        au Filetype help setl colorcolumn=
-        au Filetype help setl textwidth=65
-        au Filetype help setl tabstop=4
-        au Filetype help setl expandtab
-        au Filetype help setl formatoptions=tcroqwanl1
-        " function! s:SetupHelpWindow()
-        "     wincmd L
-        "     vertical resize 80
-        "     nnoremap <buffer> <D-S-Space> <C-]> " Space selects subject
-        "     nnoremap <buffer> <BS>    <C-T> " Backspace to go back
-        " endfunction
-        " TODO function gives errors
-        "au BufEnter,BufWinEnter help <buffer> call <SID>SetupHelpWindow()
-    " }}}
-
-    " Elasticsearch {{{
-        autocmd! BufRead,BufNewFile *.es      setfiletype elasticsearch
-    " }}}
-
-    " Pentadactyl {{{
-        augroup ft_pentadactyl
-            au!
-            au BufNewFile,BufRead *.pentadactylrc,pentadactylrc setfiletype pentadactyl
-            au BufNewFile,BufRead *.pentadactylrc set ft=pentadactyl
-            au BufNewFile,BufRead *.penta setfiletype pentadactyl
-            au BufNewFile,BufRead *.penta set ft=pentadactyl
-            au BufNewFile,BufRead *.pentadactylrc set foldmethod=marker foldignore=
-            au BufNewFile,BufRead *.pentadactylrc  set syntax=pentadactyl
-            au FileType pentadactyl set foldmethod=marker
-            " au BufNewFile,BufRead ~/Library/Caches/TemporaryItems/pentadactyl-*.tmp set nolist wrap linebreak columns=100 colorcolumn=0
-        augroup END
-    " }}}
-
-    " Ruby {{{
-        au BufNewFile,BufRead *.rb setfiletype ruby
-    " }}}
-
-    " RSS {{{
-        autocmd BufNewFile,BufRead *.rss setfiletype xml " treat .rss files as XML
-    " }}}
-
-    " markdown {{{
-        augroup ft_markdown
-            autocmd!
-            au BufRead,BufNewFile *.{md,mdown,mkd,mkdn,markdown,mdwn}   set filetype=mkd
-            " Use <localLeader>1/2/3/4/5/6 to add headings
-            autocmd Filetype markdown nnoremap <buffer> <localLeader>1 I# <ESC>
-            autocmd Filetype markdown nnoremap <buffer> <localLeader>2 I## <ESC>
-            autocmd Filetype markdown nnoremap <buffer> <localLeader>3 I### <ESC>
-            autocmd Filetype markdown nnoremap <buffer> <localLeader>4 I#### <ESC>
-            autocmd Filetype markdown nnoremap <buffer> <localLeader>5 I##### <ESC>
-            autocmd Filetype markdown nnoremap <buffer> <localLeader>6 I###### <ESC>
-            " Use <LocalLeader>b to add blockquotes in normal and visual mode
-            autocmd Filetype markdown nnoremap <buffer> <localLeader>b I> <ESC>
-            autocmd Filetype markdown vnoremap <buffer> <localLeader>b :s/^/> /<CR>
-            " Use <localLeader>ul and <localLeader>ol to add list symbols in visual mode
-            autocmd Filetype markdown vnoremap <buffer> <localLeader>ul :s/^/* /<CR>
-            autocmd Filetype markdown vnoremap <buffer> <LocalLeader>ol :s/^/\=(line(".")-line("'<")+1).'. '/<CR>
-            " Use <localLeader>e1/2/3 to add emphasis symbols
-            autocmd Filetype markdown nnoremap <buffer> <localLeader>e1 I*<ESC>A*<ESC>
-            autocmd Filetype markdown nnoremap <buffer> <localLeader>e2 I**<ESC>A**<ESC>
-            autocmd Filetype markdown nnoremap <buffer> <localLeader>e3 I***<ESC>A***<ESC>
-            " Use <leader>P to preview markdown file in browser
-            autocmd Filetype markdown nnoremap <buffer> <leader>P :MarkdownPreview<CR>
-        augroup END
-    " }}}
-
-    " Git {{{
-        autocmd FileType git,gitcommit setlocal foldmethod=syntax foldlevel=1
-        autocmd FileType git,gitcommit setlocal textwidth=72
-        " gitcommit
-        au FileType gitcommit setl colorcolumn=72
-        au FileType gitcommit setl formatoptions+=t
-        au FileType gitcommit setl formatoptions-=l
-        au FileType gitcommit setl textwidth=72
-        au FileType gitcommit setl nolist
-    " }}}
-
-    " Mail {{{
-        " Insert Vim-version as X-Editor in mail headers
-        au FileType mail sil 1  | call search("^$") | sil put! ='X-Editor: Vim-' . Version()
-    " }}}
-
-    " PBS {{{
-        " qsub and pbs cluster scripts
-        au BufNewFile,BufRead *.pbs setfiletype zsh
-    " }}}
-
     " Javascript {{{
         au FileType javascript call JavaScriptFold()
         au FileType javascript setl fen
@@ -2731,7 +2900,7 @@
             " au!
             au BufNewFile,BufRead *.rst setlocal ft=rst
             au BufNewFile,BufRead *.txt setlocal ft=rst
-            " au FileType rst setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 formatoptions+=nqt textwidth=74
+            " au FileType rst setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 formatoptions+=nqt textwidth=80
             au Filetype rst setlocal wrap
             "au Filetype rst setl formatoptions=a TODO error says 'a' is an unknown format option
             " au Filetype rst set foldmethod=syntax foldignore=
@@ -2763,6 +2932,9 @@
         "TODO not working
         " autocmd BufRead,BufNewFile {*.txt,*.text} setlocal hi Todo guifg=Black guibg=#e02020 gui=italic,bold
 
+        "TODO not working
+        " autocmd BufRead,BufNewFile {*.txt,*.text} setlocal guifont=Futura:h13
+
         " identify txt files with no extensions
         autocmd BufRead README,INSTALL setlocal filetype=txt
     " }}}
@@ -2774,7 +2946,7 @@
         " autocmd BufRead,BufNewFile {*.textile} setlocal hi Todo guifg=Black guibg=#e02020 gui=italic,bold "TODO: not working
         augroup textile_files "{{{
             au!
-            autocmd filetype textile set tw=78 wrap
+            autocmd filetype textile set textwidth=78 wrap
             " Render YAML front matter inside Textile documents as comments
             autocmd filetype textile syntax region frontmatter start=/\%^---$/ end=/^---$/
             autocmd filetype textile highlight link frontmatter Comment
