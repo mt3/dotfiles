@@ -16,6 +16,7 @@
     " turn off smart matching of double quotes for .vim files
     " on logout call PowerLineClearCache, or document reason why not to do so
     " viewdir (located at ~/.vim/view) needs to be cleaned out once in a while due to odd issues/conflicts within vim
+    " create snippet for .rst files for url links e.g., `sitename <webpage.com>`_
     " instead of NERDTree, Tagbar, and Taglist, Ctrlp does what all 3 of those do (and i guess better)
     " when toggling comments, make sure code doesn't start w/ a space, whereas actual comments do
     " make font size in adjacent pane be a smaller size (for help files and Voom, etc.)
@@ -178,24 +179,28 @@
     filetype off
 
     " Vundle {{{
+        " in 'BundleList' you can execute the following:
+        "     i/I - installs/updates bundle
+        "     D - deletes bundle (be careful not to delete your local modifications)
+        "     l - opens log up. Helpful when tracking down errors
+        " :BundleList - list configured bundles
+        " :BundleInstall(!) - install(update) bundles
+        " :BundleSearch(!) foo - search(or refresh cache first) for foo
+        " :BundleClean(!) - confirm(or auto-approve) removal of unused bundles
+        " red exclamation mark during 'BundleUpdate' means errors. The symbols mean:
+        "     . - entry is up to date
+        "     + - entry updated (or installed for the first time)
+        "     ! - error(s) occured
+        "     - - entry removed
+        "     > - currently active entry (along with highlighted cursor line)
+        " run ':VundleLog' right after installation finishes and view output in vundle_log
         set rtp+=~/code_and_projects/dotfiles/.dotfiles/vim/bundle/vundle/
         call vundle#rc()
         Bundle 'gmarik/vundle'
-            " in 'BundleList', you can perform the following:
-            "     i/I - installs/updates bundle
-            "     D - deletes bundle (be careful not to delete your local modifications)
-            "     l - opens log up. Helpful when tracking down errors
             " alias to update plugins
             com! BundleUpdate BundleInstall!
             " TODO com! BundleCleanAndUpdate source vimrc BundleClean BundleInstall!
             let g:vundle_log=['~/vundle.log']
-            " red exclamation mark during 'BundleUpdate' means errors. The symbols mean:
-            "     . - entry is up to date
-            "     + - entry updated (or installed for the first time)
-            "     ! - error(s) occured
-            "     - - entry removed
-            "     > - currently active entry (along with highlighted cursor line)
-            " run ':VundleLog' right after installation finishes and view output in vundle_log
 
         Bundle 'Rykka/localbundle.vim'
             " greatly increases the loading and working speed with many bundles
@@ -225,19 +230,22 @@
 
     " Vim Utilities {{{
         " TODO are all these necessary? any redundancies?
-        Bundle 'tomtom/tlib_vim'
-        " Bundle 'tomtom/vimtlib' TODO Error detected while processing /Users/mt/.vim/bundle/vimtlib/plugin/tinymode_tml.vim
         Bundle 'kana/vim-textobj-user'
         Bundle 'kana/vim-textobj-entire'
         Bundle 'michaeljsmith/vim-indent-object'
         Bundle 'gmarik/ide-popup.vim'
         Bundle 'kshenoy/vim-palette'
+        " Bundle 'tomtom/vimtlib' TODO Error detected while processing /Users/mt/.vim/bundle/vimtlib/plugin/tinymode_tml.vim
         Bundle 'rking/vim-detailed'
         Bundle 'trapd00r/vim-highlight-default-highlight-groups'
         Bundle 'h1mesuke/vim-benchmark'
         Bundle 'mattn/benchvimrc-vim'
+
+        Bundle 'tomtom/tlib_vim'
+            " necessary for snipmate
+
         Bundle 'MarcWeber/vim-addon-mw-utils'
-        " Bundle 'mattn/benchvimrc-vim'
+            " necessary for snipmate
 
         Bundle 'kana/vim-vspec'
             " unittesting vimscripts
@@ -282,6 +290,12 @@
                 " \ 'commalist': ['WP0p1l', ',\@<=', 'g ,'],
                 " \ 'define': ['WP0p1l:', ' \d\@=', 'g ^#define\s'],
                 " \ }
+            noremap <Leader>a<Space> :Align<Space>
+            noremap <Leader>a. :Align \.<CR>
+            noremap <Leader>a<C-l> :Align =><CR>
+            nnoremap <leader>Al :left<cr>
+            nnoremap <leader>Ac :center<cr>
+            nnoremap <leader>Ar :right<cr>
 
         Bundle 'godlygeek/tabular'
             if exists(":Tabularize")
@@ -365,6 +379,17 @@
             Bundle 'kien/ctrlp.vim'
             Bundle 'jasoncodes/ctrlp-modified.vim'
             Bundle 'sgur/ctrlp-extensions.vim'
+                " :CtrlPBuffer or :CtrlPMRU to invoke CtrlP in find buffer or find MRU file mode
+                " :CtrlPMixed to search in Files, Buffers and MRU files at the same time
+                " :help ctrlp-commands and :help ctrlp-extensions
+                " Once CtrlP is open:
+                "     Press <F5> to purge the cache for the current directory to get new files, remove deleted files and apply new ignore options.
+                "     Press <c-f> and <c-b> to cycle between modes.
+                "     Press <c-d> to switch to filename only search instead of full path.
+                "     Press <c-r> to switch to regexp mode.
+                "     Use <c-n>, <c-p> to select the next/previous string in the prompt's history.
+                "     Use <c-y> to create a new file and its parent directories.
+                "     Use <c-z> to mark/unmark multiple files and <c-o> to open them.
                 let g:ctrlp_map               = '<c-p>'
                 let g:ctrlp_cmd               = 'CtrlP' " Default command used for the default mapping
                 let g:ctrlp_dotfiles          = 0 " don't ignore dotfiles/dotdirs
@@ -429,6 +454,25 @@
                 " open ctrlp in vertical split
                 "au BufWinEnter *.txt if &ft == 'CtrlP' | wincmd L | endif " TODO broken...
 
+                " let g:ctrlp_match_window_bottom = 0
+                " let g:ctrlp_match_window_reversed = 0
+                " let g:ctrlp_max_height = 30
+                " let g:ctrlp_switch_buffer = 'et'
+                " let g:ctrlp_working_path_mode = 0
+                " let g:ctrlp_cache_dir = expand('~/.vimtmp/ctrlp')
+                " let g:ctrlp_clear_cache_on_exit = 0
+                " let g:ctrlp_user_command = ['.git', 'git ls-files %s -co --exclude-standard']
+                " let g:ctrlp_max_history = 0
+                " let g:ctrlp_open_new_file = 'r'
+                " let g:ctrlp_prompt_mappings = {
+                "     \ 'PrtSelectMove("j")': ['<C-j>', '<C-n>'],
+                "     \ 'PrtSelectMove("k")': ['<C-k>', '<C-p>'],
+                "     \ 'PrtHistory(-1)': ['<Up>'],
+                "     \ 'PrtHistory(1)': ['<Down>'],
+                "     \ 'PrtClearCache()': ['<4-r>'],
+                "     \ 'PrtDeleteEnt()': ['<4-R>'],
+                " \ }
+
                 " let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn)$'
                 " let g:ctrlp_custom_ignore = {
                 "   \ 'dir':  '\v[\/](\.git|\.hg|\.svn)$',
@@ -436,6 +480,8 @@
                 "   \ 'link': 'some_bad_symbolic_links',
                 "   \ }
 
+                " Use a custom file listing command
+                " let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
                 " let my_ctrlp_user_command = "" .
                     "\ "find %s '(' -type f -or -type l ')' -maxdepth 15 -not -path '*/\\.*/*' | " .
                     "\ ctrlp_filter_greps
@@ -736,6 +782,8 @@
         Bundle 'adinapoli/vim-markmultiple'
         " Bundle 'vim-scripts/mark_tools'
 
+        " Bundle 'tomtom/quickfixsigns_vim'
+
         " Bundle 'vim-scripts/ShowMarks7'
             " show marks in gutter
 
@@ -791,6 +839,7 @@
         " Bundle 'metalelf0/vimt0d0'
         " Bundle 'aaronbieber/quicktask'
         " Bundle 'tomtom/viki_vim'
+        " Bundle 'tomtom/vikitasks_vim'
 
         " Bundle 'bencrowder/vimlist'
             "let g:vimlist_dir = "/path/to/your/lists"
@@ -856,6 +905,13 @@
             " au FileType vimwiki set ff=unix fenc=utf8 noswapfile nobackup
             " convert all WikiWords to HTML
             " nmap <Leader>ii :VimwikiAll2HTML<cr>
+            "
+            " fix mapping of <Tab>, <CR>, and <BS> to not interfere with .rst files in normal mode
+            nmap <Leader>wn <Plug>VimwikiNextLink
+            nmap <Leader>wp <Plug>VimwikiPrevLink
+            nmap <Leader>wb <Plug>VimwikiGoBackLink
+            nmap <Leader>wf <Plug>VimwikiFollowLink
+            nmap <Leader>we <Plug>VimwikiSplitLink
             "
             " if !exists("g:vimwiki_list")
             "     let g:vimwiki_list = [
@@ -1017,7 +1073,20 @@
     " Quotes & Parens Completion {{{
         "Bundle 'vim-scripts/simple-pairs.git'
         "Bundle 'roman/rainbow.git'
+
         "Bundle 'vim-scripts/Rainbow-Parenthesis'
+            " :RainbowParenthesesToggle       " Toggle it on/off
+            " :RainbowParenthesesLoadRound    " (), the default when toggling
+            " :RainbowParenthesesLoadSquare   " []
+            " :RainbowParenthesesLoadBraces   " {}
+            " :RainbowParenthesesLoadChevrons " <>
+            " let g:rbpt_max            = 16 TODO document
+            " let g:rbpt_loadcmd_toggle = 0  TODO document
+            " always on
+            " au VimEnter * RainbowParenthesesToggle
+            " au Syntax * RainbowParenthesesLoadRound
+            " au Syntax * RainbowParenthesesLoadSquare
+            " au Syntax * RainbowParenthesesLoadBraces
 
         "Bundle 'mirell/vim-matchit'
             ":runtime macros/matchit.vim
@@ -1031,38 +1100,59 @@
             "let g:surround_indent = 1
 
         Bundle 'Raimondi/delimitMate'
-            " intelligent quotes+parens completion
+            " intelligent quotes+parens completion, if you type '(', it'll fill in ')'
+            " TODO document and toggle below options
+            " let g:delimitMate_excluded_regions = ''
+            " let g:delimitMate_expand_space = 1
+            " let g:delimitMate_balance_matchpairs = 1
     " }}}
 
     " reStructuredText {{{
         " Bundle 'vim-scripts/rest.vim' " old reST syntax file...
         " Bundle 'vim-scripts/VST'      " old reST syntax file...
         Bundle 'nvie/vim-rst-tables'
-
         Bundle 'erisian/rest_tools'
 
         Bundle 'Rykka/riv.vim'
-            let g:riv_fold_blank       = 1 " fold all blank lines except 1. leaves a blank line between folded sections
-            let g:riv_fold_level       = 3 " fold_level 0: 'None' 1: 'Sections' 2: 'Sections and Lists' 3: 'Sections,Lists and Blocks'
-            let g:riv_fold_info_pos    = 'left'
+            let g:riv_auto_fold_force = 1 " Reducing fold level for editing large files
+            let g:riv_auto_format_table = 1 " Auto formating table when leave Insert Mode
+            let g:riv_file_link_style = 2 " sphinx style local file links rather than moinmoin
             let g:riv_fold_auto_update = 0 " don't auto-fold on write/save
+            let g:riv_fold_blank       = 1 " fold all blank lines except 1. leaves a blank line between folded sections
+            let g:riv_fold_info_pos    = 'left'
+            let g:riv_fold_level       = 3 " fold_level 0: 'None' 1: 'Sections' 2: 'Sections and Lists' 3: 'Sections,Lists and Blocks'
+            let g:riv_fold_section_mark = '.' " Mark to seperate the section numbers: '1.1', '1.1.1'
             " let g:riv_ignored_imaps  = "<Tab>,<S-Tab>,<BS>,<CR>,<S-CR>" " no fancy <Tab>, <BS>, <CR>, and <S-Tab> in insert mode TODO not yet implemented
             let g:riv_ignored_nmaps    = "<Tab>,<S-Tab>,<BS>,<CR>,<S-CR>" " and don't override my custom mappings in normal either
             " Riv uses the following punctuation for titles:     = - ~ " ' ` ,
             "       This can be changed with g:riv_section_levels
             "       Section number seperated by g:riv_fold_section_mark (default is "-")
             "       HTML has 6 levels
-            " let g:riv_section_levels = '=-+^*~\"\'\`'
-            let g:riv_web_browser     = 'firefox'
-            let project1              = { 'path': '~/notes',}
-            let project2              = { 'path': '~/Dropbox/rst',}
-            let g:riv_projects        = [project1, project2]
-            let g:riv_file_link_style = 2 " sphinx style local file links rather than moinmoin
+            "       Use '' to escape ' in literal-quote 'xxx'
+            " TODO let g:riv_section_levels = '=-+^*~\"\'\`'
+            " let project1              = { 'path': '~/notes',}
+            " let project2              = { 'path': '~/Dropbox/rst',}
+            " let g:riv_projects        = [project1, project2]
+            " riv.vim default project settings:
+            " g:riv_projects = [  'path'               : '~/Documents/Riv'
+                                " 'build_path'         : '_build'
+                                " 'scratch_path'       : 'Scratch'
+                                " 'source_suffix'      : `g:riv_source_suffix`_
+                                " 'master_doc'         : `g:riv_master_doc`_
+                             " ]
+            let g:riv_source_suffix = '.rst'
             let g:riv_todo_levels     = ' ,o,X'
             let g:riv_todo_keywords   = 'TODO,DONE;FIXME,FIXED;START,PROCESS,STOP;ONHOLD'
-            " TODO nmap <leader>t1 :RivTitle1<CR>
+            let g:riv_web_browser     = 'firefox'
 			" keep list indents at same level when pressing <CR>
 			ino <buffer><expr><silent> <C-E>li riv#action#ins_enter()
+			" map <C-E>wi    :RivIndex<CR>
+            " TODO nmap <leader>t1 :RivTitle1<CR>
+            " for users who want different behavior with <Tab>
+                " For snipmate user:
+                " let g:riv_i_tab_pum_next = 0
+                " quote cmd with '"', special key must contain '\'
+                " let g:riv_i_tab_user_cmd = "\<c-g>u\<c-r>=snipMate#TriggerSnippet()\<cr>"
     " }}}
 
     " Search {{{
@@ -1162,83 +1252,102 @@
     " }}}
 
     " Snippets & Autocompletion {{{
-        " neocomplcache appears best of breed
-        " Bundle 'Shougo/neocomplcache-snippets-complete' no longer maintained, use 'Shougo/neosnippet' instead
-        Bundle 'Shougo/neosnippet'
-        Bundle 'Shougo/neocomplcache'
-            " Disable AutoComplPop.
-            " let g:acp_enableAtStartup = 0
-            let g:neocomplcache_enable_at_startup = 0
-            let g:neocomplcache_enable_smart_case = 1
-            let g:neocomplcache_enable_camel_case_completion = 1
-            let g:neocomplcache_enable_underbar_completion = 1
-            " Set minimum syntax keyword length.
-            let g:neocomplcache_min_syntax_length = 3
-            " let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
-            " let g:neocomplcache_snippets_dir = $HOME . '/snippets'
-            " Plugin key-mappings.
-            imap <C-k>     <Plug>(neocomplcache_snippets_expand)
-            smap <C-k>     <Plug>(neocomplcache_snippets_expand)
-            inoremap <expr><C-g>     neocomplcache#undo_completion()
-            inoremap <expr><C-l>     neocomplcache#complete_common_string()
-            " SuperTab like snippets behavior.
-            "imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
-            " <CR>: close popup and save indent.
-            inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
-            " <TAB>: completion.
-            inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
-            " <C-h>, <BS>: close popup and delete backword char.
-            inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
-            inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-            inoremap <expr><C-y>  neocomplcache#close_popup()
-            inoremap <expr><C-e>  neocomplcache#cancel_popup()
-            " Tab/Shift-Tab to cycle completions
-            " inoremap <expr><Tab> pumvisible() ? "\<C-N>" : "\<Tab>"
-            " inoremap <expr><S-Tab> pumvisible() ? "\<C-P>" : "\<S-Tab>"
-            " CR/S-CR: close popup and save indent.
-            " inoremap <expr><CR> delimitMate#WithinEmptyPair() ? "\<C-R>=delimitMate#ExpandReturn()\<CR>" : pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-            " inoremap <expr><S-CR> pumvisible() ? neocomplcache#close_popup() "\<CR>" : "\<CR>"
-            " AutoComplPop like behavior
-            "let g:neocomplcache_enable_auto_select = 1
-            " Enable omni completion
-            autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-            autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-            autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-            autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-            autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-            autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-            " Enable heavy omni completion.
-            if !exists('g:neocomplcache_omni_patterns')
-              let g:neocomplcache_omni_patterns = {}
-            endif
-            let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
-            let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-            let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
-            let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+        " TODO neocomplcache appears best of breed? what about snipmate?
+        " Bundle 'tomtom/tskeleton_vim'
 
-        " garbas & honza's repos are the main snipmate repo. msanders hasn't been updating what he started
-        "   one has snipmate, the other has the snippets
-        " Bundle 'msanders/snipmate.vim'
-        " TODO error in loading
-        Bundle 'honza/snipmate.vim'
-        Bundle 'rbonvall/snipmate-snippets-bib'
-        " TODO error in loading
-        Bundle 'garbas/snipmate-snippets'
-            let g:snips_author = 'mt3'
-            let g:snippets_dir = '~/code_and_projects/dotfiles/.dotfiles/vim/bundle/snipmate-snippets'
-            "source ~/code_and_projects/dotfiles/.dotfiles/vim/snipmate-snippets/support_functions.vim
-            "autocmd vimenter * call s:SetupSnippets()
-            "function! s:SetupSnippets()
-            "    "if we're in a rails env then read in the rails snippets
-            "    if filereadable("./config/environment.rb")
-            "        call ExtractSnips("~/.vim/snippets/ruby-rails", "ruby")
-            "        call ExtractSnips("~/.vim/snippets/eruby-rails", "eruby")
-            "    endif
-            "
-            "    call ExtractSnips("~/.vim/snippets/html", "eruby")
-            "    call ExtractSnips("~/.vim/snippets/html", "xhtml")
-            "    call ExtractSnips("~/.vim/snippets/html", "php")
-            "endfunction
+        " neocomplcache {{{
+            " 'Shougo/neocomplcache-snippets-complete' no longer maintained, use 'Shougo/neosnippet'
+            Bundle 'Shougo/neosnippet'
+                " uses installed snippets for neocomplcache's autocompletion
+                " imap <C-k> <Plug>(neosnippet_expand_or_jump)
+                " smap <C-k> <Plug>(neosnippet_expand_or_jump)
+                " SuperTab like snippets behavior
+                " imap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+                " smap <expr><TAB> neosnippet#expandable() ? "\<Plug>(neosnippet_expand_or_jump)" : "\<TAB>"
+                " let g:neosnippet#snippets_directory='~/.vim/bundle/snipmate-snippets/snippets'
+
+            Bundle 'Shougo/neocomplcache'
+                " autocompletion module
+                " let g:acp_enableAtStartup = 0 " disable AutoComplPopup
+                let g:neocomplcache_enable_at_startup = 0
+                let g:neocomplcache_enable_smart_case = 1
+                let g:neocomplcache_enable_camel_case_completion = 1
+                let g:neocomplcache_enable_underbar_completion = 1
+                let g:neocomplcache_min_syntax_length = 3 " set minimum syntax keyword length.
+                " let g:neocomplcache_lock_buffer_name_pattern = '\*ku\*'
+                " let g:neocomplcache_snippets_dir = $HOME . '/snippets'
+                imap <C-k>     <Plug>(neocomplcache_snippets_expand)
+                smap <C-k>     <Plug>(neocomplcache_snippets_expand)
+                inoremap <expr><C-g>     neocomplcache#undo_completion()
+                inoremap <expr><C-l>     neocomplcache#complete_common_string()
+                " SuperTab like snippets behavior
+                "imap <expr><TAB> neocomplcache#sources#snippets_complete#expandable() ? "\<Plug>(neocomplcache_snippets_expand)" : pumvisible() ? "\<C-n>" : "\<TAB>"
+                " <CR>: close popup and save indent
+                inoremap <expr><CR>  neocomplcache#smart_close_popup() . "\<CR>"
+                " <TAB>: completion
+                inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+                " <C-h>, <BS>: close popup and delete backword char
+                inoremap <expr><C-h> neocomplcache#smart_close_popup()."\<C-h>"
+                inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
+                inoremap <expr><C-y>  neocomplcache#close_popup()
+                inoremap <expr><C-e>  neocomplcache#cancel_popup()
+                " Tab/Shift-Tab to cycle completions
+                " inoremap <expr><Tab> pumvisible() ? "\<C-N>" : "\<Tab>"
+                " inoremap <expr><S-Tab> pumvisible() ? "\<C-P>" : "\<S-Tab>"
+                " CR/S-CR: close popup and save indent.
+                " inoremap <expr><CR> delimitMate#WithinEmptyPair() ? "\<C-R>=delimitMate#ExpandReturn()\<CR>" : pumvisible() ? neocomplcache#close_popup() : "\<CR>"
+                " inoremap <expr><S-CR> pumvisible() ? neocomplcache#close_popup() "\<CR>" : "\<CR>"
+                " AutoComplPop like behavior
+                "let g:neocomplcache_enable_auto_select = 1
+                " Enable omni completion
+                autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+                autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
+                autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
+                autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
+                autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
+                autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
+                " Enable heavy omni completion.
+                if !exists('g:neocomplcache_omni_patterns')
+                    let g:neocomplcache_omni_patterns = {}
+                endif
+                let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\w*\|\h\w*::'
+                let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
+                let g:neocomplcache_omni_patterns.c = '\%(\.\|->\)\h\w*'
+                let g:neocomplcache_omni_patterns.cpp = '\h\w*\%(\.\|->\)\h\w*\|\h\w*::'
+        " }}}
+
+        " snipmate {{{
+            " garbas & honza's repos are the main snipmate repo.
+            "     'msanders/snipmate' hasn't been updating what he started
+            "     one has snipmate, the other has the snippets
+            Bundle 'honza/snipmate-snippets'
+            Bundle 'garbas/vim-snipmate'
+                " set author name to automatically add it into snippets:
+                "   snippet nameofsnippet
+                "           `g:snips_author`
+                let g:snips_author = 'mt3'
+                " let g:snippets_dir = '~/code_and_projects/dotfiles/.dotfiles/vim/bundle/snipmate-snippets'
+                let g:snips_trigger_key = '<c-space>'
+                " let g:snips_trigger_key_backwards = '<c-s-0>'
+                "source ~/code_and_projects/dotfiles/.dotfiles/vim/snipmate-snippets/support_functions.vim
+                "autocmd vimenter * call s:SetupSnippets()
+                "function! s:SetupSnippets()
+                "    "if we're in a rails env then read in the rails snippets
+                "    if filereadable("./config/environment.rb")
+                "        call ExtractSnips("~/.vim/snippets/ruby-rails", "ruby")
+                "        call ExtractSnips("~/.vim/snippets/eruby-rails", "eruby")
+                "    endif
+                "
+                "    call ExtractSnips("~/.vim/snippets/html", "eruby")
+                "    call ExtractSnips("~/.vim/snippets/html", "xhtml")
+                "    call ExtractSnips("~/.vim/snippets/html", "php")
+                "endfunction
+
+            Bundle 'vim-scripts/SnippetComplete'
+
+            Bundle 'rbonvall/snipmate-snippets-bib'
+                " snippets for bibtex
+        " }}}
 
         " Bundle 'SirVer/ultisnips'
             " let g:UltiSnipsSnippetsDir = '~/.vim/UltiSnips'
@@ -1250,10 +1359,28 @@
             " let g:UltiSnipsJumpForwardTrigger = '<C-l>'
             " let g:UltiSnipsJumpBackwardTrigger = '<C-h>'
             " let g:UltiSnipsSnippetDirectories = ['UltiSnips', 'snippets']
+            " let g:UltiSnipsEditSplit = 'vertical'
+            " let g:UltiSnipsSnippetsDir = '~/.vim/bundle/ultisnips/UltiSnips'
+            " let g:UltiSnipsListSnippets = '<4-f>'
+            " let g:UltiSnipsExpandTrigger = '<Tab>'
+            " let g:UltiSnipsJumpForwardTrigger = '<Tab>'
+            " let g:UltiSnipsJumpBackwardTrigger = '<S-tab>'
+            " let g:UltiSnipsRemoveSelectModeMappings = 0
 
         " Bundle 'scrooloose/vim-space'
             " disables space mappings in select mode to fix snipMate.
             "let g:space_disable_select_mode=1
+
+        " Bundle 'ervandew/supertab'
+        "     let g:SuperTabMappingTabLiteral            = "<Tab>"
+        "     " let g:SuperTabDefaultCompletionType      = "<C-X><C-O>"
+        "     let g:SuperTabDefaultCompletionType        = 'context'
+        "     let g:SuperTabContextDefaultCompletionType = '<c-n>'
+        "     let g:SuperTabLongestEnhanced              = 1
+        "     " let g:SuperTabMappingForward             = "<C-space>"
+        "     let g:SuperTabNoCompleteAfter              = ['^', '\s', '\t']
+        "     let g:SuperTabLongestHighlight             = 1 " preselect 1st entry
+        "     let g:SuperTabMidWordCompletion            = 0 " TODO explain
     " }}}
 
     " Statusline {{{
@@ -1597,6 +1724,9 @@
         " let g:calendar_weeknm = 1 " don't work with g:calendar_diary
         " let g:calendar_mark = 'left-fit' " let plus(+) near the date, like +8
 
+    " Bundle 'tomtom/rcom_vim'
+        " evaluate R code via screen/tmux/etc.
+
     " Bundle 'doy/vim-foldtext'
         " let g:Foldtext_enable = 1
         " let g:Foldtext_tex_enable = 1
@@ -1642,17 +1772,6 @@
         let g:gist_open_browser_after_post = 1
         let g:gist_show_privates           = 1 " TODO describe
         let g:github_token                 = $GITHUB_TOKEN
-
-    Bundle 'ervandew/supertab'
-        let g:SuperTabMappingTabLiteral            = "<Tab>"
-        " let g:SuperTabDefaultCompletionType      = "<C-X><C-O>"
-        let g:SuperTabDefaultCompletionType        = 'context'
-        let g:SuperTabContextDefaultCompletionType = '<c-n>'
-        let g:SuperTabLongestEnhanced              = 1
-        " let g:SuperTabMappingForward             = "<C-space>"
-        let g:SuperTabNoCompleteAfter              = ['^', '\s', '\t']
-        let g:SuperTabLongestHighlight             = 1 " preselect 1st entry
-        let g:SuperTabMidWordCompletion            = 0 " TODO explain
 
     Bundle 'tpope/vim-unimpaired'
         " bubble visual selection lines
