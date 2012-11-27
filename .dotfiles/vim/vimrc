@@ -6,6 +6,9 @@
     " setup marks to not center the cursor and position, but place it at the top of the screen
     " break up vimrc into logical files: options, statusline, vundles, etc.
     " any way to save marks per buffer?
+    " set in colorscheme for EasyMotion plugin:
+        " hi EasyMotionTarget ctermbg=none ctermfg=green
+        " hi EasyMotionShade  ctermbg=none ctermfg=blue
     " when moving to a mark, can the line be moved to top of page 'zt' instead of centred?
     " highlight in red anytime i have 'vim ts=2' (2 spaces for tabs) at end/beginning of any file
     " setup gh-pages on https://mt3.github.com/dotfiles
@@ -240,6 +243,7 @@
         Bundle 'trapd00r/vim-highlight-default-highlight-groups'
         Bundle 'h1mesuke/vim-benchmark'
         Bundle 'mattn/benchvimrc-vim'
+        Bundle 'tpope/vim-scriptease'
 
         Bundle 'tomtom/tlib_vim'
             " necessary for snipmate
@@ -671,6 +675,10 @@
             " nnoremap <leader>gn :vnew \| :FufFile ~/src/notes/<CR>
     " }}}
 
+    " Folding {{{
+        Bundle 'kshenoy/vim-origami'
+    " }}}
+
     " Git {{{
         "Bundle 'thinca/vim-github'
         Bundle 'tpope/vim-git'
@@ -809,16 +817,25 @@
         "     hi! link ShowMarksHLm LineNr
     " }}}
 
+    " Mercurial {{{
+        Bundle 'phleet/vim-mercenary'
+            " Hg wrapper inspired by Fugitive
+    " }}}
+
     " Motions {{{
         Bundle 'Lokaltog/vim-easymotion'
             " All motions are now triggered with <leader><leader> by default, e.g. <leader><leader>t, <leader><leader>gE
-            " let g:EasyMotion_leader_key = '<LocalLeader>'
+            " NOTE: bug with CSApprox https://github.com/Lokaltog/vim-easymotion/issues/55
             let g:EasyMotion_leader_key = '<leader>f'
-            " TODO map 'f' to easymotion's command
-            let g:EasyMotion_mapping_f = 'f'
-            let g:EasyMotion_do_shade = 1 " 1 = shade text after cursor
+            let g:EasyMotion_mapping_f = 'f' " map 'f' to easymotion's command
+            let g:EasyMotion_do_shade = 1 " 1 = shade text after/before cursor for fwd/backward searches
             " let g:EasyMotion_keys = ";,.pyfgcrl/aoeuidhtns-'qjkxbmwvz"
+            " let g:EasyMotion_mapping_f = '_f'
+            " let g:EasyMotion_mapping_T = '<C-T>'
             " let g:EasyMotion_mapping_t  = '<leader>w'
+            " let g:EasyMotion_do_shade = 1 " 0 disables default mappings
+            hi link EasyMotionTarget ErrorMsg
+            hi link EasyMotionShade  Comment
 
         Bundle 'bkad/CamelCaseMotion'
             nmap <silent> W <Plug>CamelCaseMotion_w
@@ -1016,6 +1033,16 @@
         Bundle 'cwood/pip.vim'
         " Bundle 'cwood/vim-django'
 
+        Bundle 'alfredodeza/khuno.vim'
+            " pep8/flake static code analysis
+            let g:khuno_ignore="E501,W293"
+            " change the max line length for PEP8
+            let g:khuno_max_line_length=99
+            set statusline=%#ErrorMsg#                   " set the highlight to error
+            set statusline+=%{khuno#Status('FUU')}%*     " are there any errors? FUU!
+            set statusline+=%*                           " switch back to normal status color
+
+
         "Bundle 'klen/python-mode'
             " allows you to use the pylint, rope, pydoc, pyflakes, pep8, mccabe libraries
             " let g:pymode_run = 0
@@ -1092,6 +1119,9 @@
             ":runtime macros/matchit.vim
 
         Bundle 'tpope/vim-surround'
+            " usage: place cursor inside double-quoted text and type cs"' to convert to single-quotes
+            " to surround a word with <em>...</em>: ysiw<em>
+            " remove the delimiters entirely ds"
             "let g:surround_{char2nr('-')} = "<% \r %>"
             "let g:surround_{char2nr('=')} = "<%= \r %>"
             "let g:surround_{char2nr('8')} = "/* \r */"
@@ -1101,10 +1131,15 @@
 
         Bundle 'Raimondi/delimitMate'
             " intelligent quotes+parens completion, if you type '(', it'll fill in ')'
-            " TODO document and toggle below options
+            " TODO document and toggle the below options
             " let g:delimitMate_excluded_regions = ''
             " let g:delimitMate_expand_space = 1
             " let g:delimitMate_balance_matchpairs = 1
+            " let g:delimitMate_expand_cr=1
+            " let g:delimitMate_smart_quotes = 1
+            " if has("autocmd")
+            "     autocmd FileType python let b:delimitMate_nesting_quotes = ['"']
+            " endif
     " }}}
 
     " reStructuredText {{{
@@ -1269,7 +1304,7 @@
             Bundle 'Shougo/neocomplcache'
                 " autocompletion module
                 " let g:acp_enableAtStartup = 0 " disable AutoComplPopup
-                let g:neocomplcache_enable_at_startup = 0
+                let g:neocomplcache_enable_at_startup = 0 " not used at startup
                 let g:neocomplcache_enable_smart_case = 1
                 let g:neocomplcache_enable_camel_case_completion = 1
                 let g:neocomplcache_enable_underbar_completion = 1
