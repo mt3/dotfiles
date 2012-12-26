@@ -1,6 +1,7 @@
 " TODO {{{
     " is there any diff between double-quotes and single-quotes for strings?
     " add status bar icon whether i've bookmarked/saved the current page already
+    " ':extupdate Pentadactyl' to update Pentadactyl manually
     " 'map ,s :rehash' this reloads .pentadactylrc
     " 'map -builtin g gn' remap 'go to in new tab'
     " focus cursor in 'save in pinboard' on tags entry
@@ -52,13 +53,13 @@
         "   Do nothing. This pseudo-key is useful for disabling a specific builtin mapping.
         "   For example, :map <C-n> <Nop> will prevent <C-n> from doing anything.
         "
-        " <Leader>
+        " ,
         "    An arbitrary and meaningless key that some people seem attached to.
         "    The \ key will, by default, emit this pseudo-key so that it can be used at the start of other mappings.
         "    Note, however, that there is nothing special about it and any key can be mapped to emit any other arbitrary pseudo-key in the same way.
-        "        :map , <Leader>
+        "        :map , ,
         "        :map ; <AwesomestLeaderEver>
-        "        :map <Leader>k -js doStuff()
+        "        :map ,k -js doStuff()
     " }}}
     "
     " LIST COMMANDS & KEYBINDINGS {{{
@@ -124,8 +125,8 @@
 
     cd ~
 
-    map , <Leader>
-    "nmap , <Leader>
+    map , ,
+    "nmap , ,
     "map -builtin -modes hints , \
 " }}}
 
@@ -169,7 +170,7 @@
     "   bookmark      Bookmarks
     "   history       History
     "   suggestion    Search engine suggestions
-    set complete=lbhfs
+    set complete=lbhf
 
     " 15 is most verbose, 0 is off, 1 is default
     set verbose=2
@@ -187,9 +188,9 @@
     " set strictfocus=www.google.com:despotic,twitter.com:despotic
 
     " limit number of items displayed on commandline at once
-    set maxitems=20
+    set maxitems=13
     " limit number of (error) messages stored in history (default is 100)
-    set messages=100
+    set messages=10
     " number of lines to scroll with <C-d>/<C-u> (0 means it scrolls half the window at a time)
     set scroll=0
     " Pause the message list window when more than one screen of listings is displayed
@@ -205,7 +206,7 @@
     " set urlseparator="\|"
 
     " Maximum number of Ex commands and find patterns to store in the command-line history
-    set history=10000
+    set history=100
 
     " Show pattern matches as you type
     set incfind
@@ -237,13 +238,13 @@
     " hide close buttons
     set! browser.tabs.closeButtons=2
     " set the number of location bar results to be displayed
-    set! browser.urlbar.maxRichResults=15
+    set! browser.urlbar.maxRichResults=12
     " open tab in the background
     set! browser.tabs.loadDivertedInBackground=true
     " don't show download-manager
     set! browser.download.manager.showWhenStarting=false
     " tab undo limit
-    set! browser.sessionstore.max_tabs_undo=30
+    set! browser.sessionstore.max_tabs_undo=20
     " was originally 2000
     set! security.dialog_enable_delay=0
 
@@ -321,14 +322,14 @@
     "nmap : ;
 
     " list commands
-    "map -builtin <silent> -group="listings" <Leader>lc :listcommands<CR>
-    map -builtin <silent> <Leader>lc :listcommands<CR>
+    "map -builtin <silent> -group="listings" ,lc :listcommands<CR>
+    map -builtin <silent> ,lc :listcommands<CR>
     " list keybindings/mappings
-    "map -builtin <silent> -group="listings" <Leader>ll :listkeys<CR>
-    map -builtin <silent> <Leader>ll :listkeys<CR>
+    "map -builtin <silent> -group="listings" ,ll :listkeys<CR>
+    map -builtin <silent> ,ll :listkeys<CR>
     " list options
-    "map -builtin <silent> -group="listings" <Leader>lo :listoptions<CR>
-    map -builtin <silent> <Leader>lo :listoptions<CR>
+    "map -builtin <silent> -group="listings" ,lo :listoptions<CR>
+    map -builtin <silent> ,lo :listoptions<CR>
 
     "nnoremap <silent> y :<C-u>js util.copyToClipboard(buffer.URL)<CR>
 
@@ -338,18 +339,18 @@
     "nnoremap -urls '\.(jpg|png|gif)$' zo zO
 
     " (t) tumblr
-    "nnoremap <Leader>tr :<C-u>tombloo ReBlog<Space>-<Space>Tumblr
-    "nnoremap <Leader>tt :<C-u>tombloo<Space>
+    "nnoremap ,tr :<C-u>tombloo ReBlog<Space>-<Space>Tumblr
+    "nnoremap ,tt :<C-u>tombloo<Space>
 
-    "nnoremap <Leader>h :<C-u>hsearch<Space>
-    "nnoremap <Leader>H :<C-u>hcopy<Space>
-    "nnoremap <Leader>s :<C-u>viewSBMComments<Space>-format=id,comment<CR>
-    "nnoremap <Leader>g :<C-u>gmail<Space>
-    "nnoremap <Leader>G :<C-u>gtrans<Space>
-    "nnoremap <Leader>a :<C-u>applaunch<Space>
-    "nnoremap <Leader>p :<C-u>pino<Space>
-    "" nnoremap <Leader>w :<C-u>googlesidewiki<CR>
-    "nnoremap <Leader>R :<C-u>js<Space>Readability.enableREADABILITY({target: {id: 'readability-statusbar-icon'}})<CR>
+    "nnoremap ,h :<C-u>hsearch<Space>
+    "nnoremap ,H :<C-u>hcopy<Space>
+    "nnoremap ,s :<C-u>viewSBMComments<Space>-format=id,comment<CR>
+    "nnoremap ,g :<C-u>gmail<Space>
+    "nnoremap ,G :<C-u>gtrans<Space>
+    "nnoremap ,a :<C-u>applaunch<Space>
+    "nnoremap ,p :<C-u>pino<Space>
+    "" nnoremap ,w :<C-u>googlesidewiki<CR>
+    "nnoremap ,R :<C-u>js<Space>Readability.enableREADABILITY({target: {id: 'readability-statusbar-icon'}})<CR>
 
     "nnoremap <A-t> :<C-u>aso ~/vimperator/default/plugin/temp.js<CR>
 
@@ -394,35 +395,35 @@
     map -builtin k 10k
 
     " source the config file
-    map <Leader>s :so<Space> ~/.pentadactylrc<CR>
+    map ,s :so<Space> ~/.pentadactylrc<CR>
 
     " private mode
-    nmap -builtin <Leader>p :set private!<CR>
+    nmap -builtin ,p :set private!<CR>
 
     " M-x enters command mode (emacs key-binding)
     "noremap <A-x> :
 
     " a toggle for search highlight
-    "map <silent> <leader>h :set hlsearch!<CR>
+    "map <silent> ,h :set hlsearch!<CR>
 
     " bring back/hide portions of the GUI
-    "noremap <silent> <leader>g :set guioptions+=mBT<CR>
-    "noremap <silent> <leader>G :set guioptions-=mBT<CR>
-    nmap -builtin <silent> <leader>a :toolbartoggle Add-ons Bar<CR>
-    nmap -builtin <silent> b         :toolbartoggle Bookmarks Toolbar<CR>
-    nmap -builtin <silent> <leader>t :toolbartoggle Navigation Toolbar<CR>
-    nmap -builtin <silent> <leader>p :sidebar Bookmarks<CR>
-    nmap -builtin <silent> <leader>d :sidebar Downloads<CR>
-    "noremap <silent> <leader>y :set showtabline=2<CR>
-    "noremap <silent> <leader>u :set showtabline=0<CR>
-    nmap -builtin <silent> <leader>s :emenu View.Status Bar<CR>
-    "noremap <silent> <leader>p :emenu Edit.Preferences<CR>
+    "noremap <silent> ,g :set guioptions+=mBT<CR>
+    "noremap <silent> ,G :set guioptions-=mBT<CR>
+    nmap -builtin <silent> ,a :toolbartoggle Add-ons Bar<CR>
+    nmap -builtin <silent> b  :toolbartoggle Bookmarks Toolbar<CR>
+    nmap -builtin <silent> ,t :toolbartoggle Navigation Toolbar<CR>
+    nmap -builtin <silent> ,p :sidebar Bookmarks<CR>
+    nmap -builtin <silent> ,d :sidebar Downloads<CR>
+    "noremap <silent> ,y :set showtabline=2<CR>
+    "noremap <silent> ,u :set showtabline=0<CR>
+    nmap -builtin <silent> ,s :emenu View.Status Bar<CR>
+    "noremap <silent> ,p :emenu Edit.Preferences<CR>
 
     " Yank page title and URL with <c-y> TODO change this to 'Y' instead of <C-Y>
     map -modes=n,v <C-y> -ex :y buffer.title + "\n" + buffer.URL
 
     " use the readability bookmarklet on the current page
-    "noremap <silent> <leader>r :open javascript:(function(){readStyle='style-ebook';readSize='size-medium';readMargin='margin-x-narrow';_readability_script=document.createElement('SCRIPT');_readability_script.type='text/javascript';_readability_script.src='http://lab.arc90.com/experiments/readability/js/readability.js?x='+(Math.random());document.getElementsByTagName('head')[0].appendChild(_readability_script);_readability_css=document.createElement('LINK');_readability_css.rel='stylesheet';_readability_css.href='http://lab.arc90.com/experiments/readability/css/readability.css';_readability_css.type='text/css';_readability_css.media='all';document.getElementsByTagName('head')[0].appendChild(_readability_css);_readability_print_css=document.createElement('LINK');_readability_print_css.rel='stylesheet';_readability_print_css.href='http://lab.arc90.com/experiments/readability/css/readability-print.css';_readability_print_css.media='print';_readability_print_css.type='text/css';document.getElementsByTagName('head')[0].appendChild(_readability_print_css);})();<CR>
+    "noremap <silent> ,r :open javascript:(function(){readStyle='style-ebook';readSize='size-medium';readMargin='margin-x-narrow';_readability_script=document.createElement('SCRIPT');_readability_script.type='text/javascript';_readability_script.src='http://lab.arc90.com/experiments/readability/js/readability.js?x='+(Math.random());document.getElementsByTagName('head')[0].appendChild(_readability_script);_readability_css=document.createElement('LINK');_readability_css.rel='stylesheet';_readability_css.href='http://lab.arc90.com/experiments/readability/css/readability.css';_readability_css.type='text/css';_readability_css.media='all';document.getElementsByTagName('head')[0].appendChild(_readability_css);_readability_print_css=document.createElement('LINK');_readability_print_css.rel='stylesheet';_readability_print_css.href='http://lab.arc90.com/experiments/readability/css/readability-print.css';_readability_print_css.media='print';_readability_print_css.type='text/css';document.getElementsByTagName('head')[0].appendChild(_readability_print_css);})();<CR>
 
     " KEYBOARD BROWSER SHORTCUTS {{{2
         " Bookmarklets (<cmd-0...9> shortcuts) {{{
@@ -911,7 +912,7 @@
 
      ""quich access to firefox dialogs {{{
         " shortcut to firefox dialogs
-        "map <Leader>d :dialog<space>
+        "map ,d :dialog<space>
         " show download dialog
         "noremap <A-d> :dialog downloads<CR>
     " }}}
@@ -985,15 +986,15 @@
     " noremap C :copy title<CR>
     "
     " " plugin: blinkelement.js
-    " noremap <Leader>b :bl content.document.getElement
-    " noremap <Leader>e :bl buffer.evaluateXPath('
+    " noremap ,b :bl content.document.getElement
+    " noremap ,e :bl buffer.evaluateXPath('
     "
     " " plugin: noscript.js
-    " noremap <Leader>s :noscript toggletemp<CR>
-    " noremap <Leader>S :noscript toggleperm<CR>
+    " noremap ,s :noscript toggletemp<CR>
+    " noremap ,S :noscript toggleperm<CR>
     "
     " " plugin: ldrize_cooperation.js
-    " noremap <Leader>l :toggleldrizecooperation<CR>
+    " noremap ,l :toggleldrizecooperation<CR>
     "
     " " plugin: multi_requester.js
     " noremap E :mr<Space>alc<Space>
@@ -1147,19 +1148,19 @@
     " EOM
 
     "" fullscreen
-    "nmap -builtin <Leader>F :set fullscreen!<CR>
+    "nmap -builtin ,F :set fullscreen!<CR>
     """ display download
-    "nmap -builtin <Leader>d :downloads<CR>
+    "nmap -builtin ,d :downloads<CR>
     """ about:config
-    "nmap -builtin <Leader>c :tabopen about:config<CR>
+    "nmap -builtin ,c :tabopen about:config<CR>
     """ auto add -tags option when adding bookmark
     "nmap -builtin a a<Space>-tags<Space>
 
     """ tabgroup
     "if config.OS.isMacOSX
-    "nmap -builtin <Leader>e <S-M-e>
+    "nmap -builtin ,e <S-M-e>
     "else
-    "nmap -builtin <Leader>e <S-C-e>
+    "nmap -builtin ,e <S-C-e>
     "end
 
     """ focus on main frame
