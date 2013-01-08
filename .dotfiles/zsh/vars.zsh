@@ -155,9 +155,10 @@ export CXXFLAGS="-arch x86_64 -0s -pipe"
 # }}}
 
 # RUBY {{{
-# place path to ruby gem binaries
-# TODO: do i need this if i have it in .gemrc?
-export PATH=/usr/local/Cellar/ruby/1.9.3-p194/bin:/usr/local/Cellar/ruby/1.9.2-p136/bin:/usr/local/Cellar/ruby/1.9.2-p180/bin:/usr/local/Cellar/ruby/1.9.2-p290/bin:/usr/local/lib/ruby/gems/1.9.1/cache:$PATH
+# path to ruby gem binaries
+# TODO: do i need this if i have it in .gemrc? looks like it...
+# export PATH=/usr/local/Cellar/ruby/1.9.3-p327/bin:/usr/local/Cellar/ruby/1.9.3-p194/bin:/usr/local/Cellar/ruby/1.9.2-p136/bin:/usr/local/Cellar/ruby/1.9.2-p180/bin:/usr/local/Cellar/ruby/1.9.2-p290/bin:/usr/local/lib/ruby/gems/1.9.1/cache:$PATH
+export PATH=/usr/local/Cellar/ruby/1.9.3-p327/bin:$PATH
 # }}}
 
 # Xcode is now stand-alone, link to their packaged binaries since they are most up-to-date
