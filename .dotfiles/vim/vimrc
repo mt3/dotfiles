@@ -5,7 +5,8 @@
     " when loading vimrc, display errors/conflicts verbosely and also prompt user to hit key to clear the errors
     " setup marks to not center the cursor and position, but place it at the top of the screen
     " break up vimrc into logical files: options, statusline, vundles, etc.
-    " any way to save marks per buffer?
+    " can marks automatically move/reposition whenever lines have been added/deleted?
+    " any way to save marks per buffer? sessions?
     " set in colorscheme for EasyMotion plugin:
         " hi EasyMotionTarget ctermbg=none ctermfg=green
         " hi EasyMotionShade  ctermbg=none ctermfg=blue
@@ -245,6 +246,41 @@
         Bundle 'mattn/benchvimrc-vim'
         Bundle 'tpope/vim-scriptease'
 
+        Bundle 'tpope/vim-rsi'
+            " Readline mappings are provided in insert mode and command line mode. Normal mode is deliberately omitted.
+            " Important Vim key bindings (like insert mode's C-n and C-p completion) are not overridden.
+            " Meta key bindings are provided in a way that works in the terminal without the perils of remapping escape.
+            " C-d, C-e, and C-f are mapped such that they perform the Readline behavior in the middle of the line and the Vim behavior at the end. (Think about it.)
+
+        Bundle 'vim-scripts/utl.vim'
+            " enables links between your notes, other local files and remote resources like web pages
+            " Universal Text Linking:
+            " if $DISPLAY != "" || has('gui_running')
+            "     let g:utl_cfg_hdl_scm_http = "silent !x-www-browser '%u' &"
+            "     let g:utl_cfg_hdl_scm_mailto = "silent !x-terminal-emulator -e mutt '%u'"
+            "     for pdfviewer in ['evince', 'okular', 'kpdf', 'acroread']
+            "         " slower implementation but also detect executeables in other locations
+            "         "let pdfviewer = substitute(system('which '.pdfviewer), '\n.*', '', '')
+            "         let pdfviewer = '/usr/bin/'.pdfviewer
+            "         if filereadable(pdfviewer)
+            "             let g:utl_cfg_hdl_mt_application_pdf = 'silent !'.pdfviewer.' "%p"'
+            "             break
+            "         endif
+            "     endfor
+            "     else
+            "         let g:utl_cfg_hdl_scm_http = "silent !www-browser '%u' &"
+            "         let g:utl_cfg_hdl_scm_mailto = "silent !mutt '%u'"
+            "         let g:utl_cfg_hdl_mt_application_pdf = 'new|set buftype=nofile|.!pdftotext "%p" -'
+            " endif
+
+            " Shortcut to run the Utl command
+            " open link
+            " nnoremap gl :silent! IP utl<CR>:Utl<CR>
+            " vnoremap gl :silent! IP utl<CR>:Utl o v<CR>
+            " copy/yank link
+            " nnoremap gyl :silent! IP utl<CR>:Utl cl<CR>
+            " vnoremap gyl :silent! IP utl<CR>:Utl cl v<CR>
+
         Bundle 'tomtom/tlib_vim'
             " necessary for snipmate
 
@@ -301,7 +337,23 @@
             nnoremap <leader>Ac :center<cr>
             nnoremap <leader>Ar :right<cr>
 
+        Bundle 'Stormherz/tablify'
+            " b:loaded_tablify - set to 1 to disable loading of the plugin
+            " b:tablify_headerDelimiter - default value is #, symbol that separates header cells in text
+            " b:tablify_delimiter - default value is |, symbol that separated value cells in text
+            " b:tablify_vertDelimiter - default value is |, vertical delimiter symbol for filling up table rows
+            " b:tablify_horDelimiter - default value is -, horizontal delimiter symbol for filling up table rows
+            " b:tablify_horHeaderDelimiter - default value is ~, horizontal delimiter symbol for filling up tabls header rows
+            " b:tablify_divideDelimiter - default value is +, symbol at the row/column intersection
+            " b:tablify_noInnerRows - default value is 0, you can set value to 1 to disable inner delimiter rows
+            " b:tablify_cellLeftPadding - default value is 1, number of spaces used for left cell padding
+            " b:tablify_cellRightPadding - default value is 1, number of spaces used for right cell padding
+
         Bundle 'godlygeek/tabular'
+            " if exists(":Tabularize") != 2
+            "     command -range -nargs=+ Tabularize :delc Tabularize|silent! exec "IP tabular"|<line1>,<line2>Tabularize <args>
+            " endif
+            " vnoremap <leader>t :Tabularize /
             if exists(":Tabularize")
                 nmap <leader>t= :Tabularize /=<CR>
                 vmap <leader>t= :Tabularize /=<CR>
@@ -333,14 +385,6 @@
     " }}}
 
     " Buffers {{{
-        " TODO are all these necessary? any redundancies?
-        Bundle 'jeetsukumaran/vim-buffergator'
-        Bundle 'jeetsukumaran/vim-buffersaurus'
-        " Kills a buffer without closing the split
-        Bundle 'vim-scripts/bufkill.vim'
-        " Resizes the current buffer to accommodate its content
-        " Bundle 'roman/golden-ratio'
-        Bundle 'Rykka/lastbuf.vim'
     " }}}
 
     " Commenting {{{
@@ -377,11 +421,12 @@
             " vmap <leader>/ :call NERDComment(0, "invert")<cr>
     " }}}
 
-    " Directories, Files, Trees, & Finder {{{
+    " Directories, Files, Trees, Buffers, & Finder {{{
         " CTRLP: {{{
             " ctrlp replaces command-t, NERDTree, buffer, mru (most recent used), tagfinder...
             Bundle 'kien/ctrlp.vim'
             Bundle 'jasoncodes/ctrlp-modified.vim'
+            Bundle 'tacahiroy/ctrlp-funky'
             Bundle 'sgur/ctrlp-extensions.vim'
                 " :CtrlPBuffer or :CtrlPMRU to invoke CtrlP in find buffer or find MRU file mode
                 " :CtrlPMixed to search in Files, Buffers and MRU files at the same time
@@ -396,20 +441,26 @@
                 "     Use <c-z> to mark/unmark multiple files and <c-o> to open them.
                 let g:ctrlp_map               = '<c-p>'
                 let g:ctrlp_cmd               = 'CtrlP' " Default command used for the default mapping
-                let g:ctrlp_dotfiles          = 0 " don't ignore dotfiles/dotdirs
+                " let g:ctrlp_clear_cache_on_exit = 0
+                let g:ctrlp_show_hidden       = 0 " don't ignore dotfiles/dotdirs
                 let g:ctrlp_lazy_update       = 1 " update results after typing has stopped
-                let g:ctrlp_max_height        = 20
+                let g:ctrlp_max_height        = 30
                 let g:ctrlp_mruf_max          = 250 " number of recently opened files for CtrlP to remember
                 let g:ctrlp_mruf_exclude      = '/tmp/.*\|/temp/.*'
                 let g:ctrlp_persistent_input  = 0 " do not remember the last input
                 let g:ctrlp_root_markers      = ['.git'] " Use '.git' as a marker, whether it's a directory or a file (submodule)
-                let g:ctrlp_working_path_mode = 2 " Go up the file system until '.git' or similar is found
+                " Go up the file system until '.git' or similar is found
+                    " 'c' - the directory of the current file.
+                    " 'r' - the nearest ancestor that contains one of these directories or files: .git .hg .svn .bzr _darcs
+                    " 'a' - like c, but only if the current working directory outside of CtrlP is not a direct ancestor of the directory of the current file.
+                    " 0 or '' (empty string) - disable this feature.
+                    " Define additional root markers with the g:ctrlp_root_markers option
+                let g:ctrlp_working_path_mode = 'ra'
                 " order of items will be order they appear on statusline
                 let g:ctrlp_extensions = ['tag', 'buffertag', 'quickfix',
                                        \ 'undo', 'changes', 'line', 'quickfix',
-                                       \ 'rtscript', 'dir', 'bookmarkdir', 'mark', 'register'
+                                       \ 'rtscript', 'dir', 'bookmarkdir', 'mark', 'register', 'funky'
                                        \ ] " enable help tag, exuberant ctags, quickfix, and directory search, etc.
-
                 " Where to put the new tab page when opening file:
                 "     a - after
                 "     b - before
@@ -417,8 +468,13 @@
                 "     l - the last tab page
                 "     f - the first tab page
                 let g:ctrlp_tabpage_position = 'ac'
+                let g:ctrlp_custom_ignore = {
+                    \ 'dir':  '\v[\/](\.git|\.hg|\.svn)$',
+                    \ 'file': '\.exe$\|\.so$\|\.dll$',
+                    \ 'link': 'some_bad_symbolic_links',
+                    \ }
 
-                " from sjl's vimrc TODO document all these...
+                " from sjl's vimrc TODO document these
                 let g:ctrlp_dont_split = 'NERD_tree_2' " TODO document
                 " let g:ctrlp_jump_to_buffer = 0
                 " let g:ctrlp_map = '<leader>,'
@@ -460,11 +516,9 @@
 
                 " let g:ctrlp_match_window_bottom = 0
                 " let g:ctrlp_match_window_reversed = 0
-                " let g:ctrlp_max_height = 30
                 " let g:ctrlp_switch_buffer = 'et'
                 " let g:ctrlp_working_path_mode = 0
                 " let g:ctrlp_cache_dir = expand('~/.vimtmp/ctrlp')
-                " let g:ctrlp_clear_cache_on_exit = 0
                 " let g:ctrlp_user_command = ['.git', 'git ls-files %s -co --exclude-standard']
                 " let g:ctrlp_max_history = 0
                 " let g:ctrlp_open_new_file = 'r'
@@ -476,13 +530,6 @@
                 "     \ 'PrtClearCache()': ['<4-r>'],
                 "     \ 'PrtDeleteEnt()': ['<4-R>'],
                 " \ }
-
-                " let g:ctrlp_custom_ignore = '\v[\/](\.git|\.hg|\.svn)$'
-                " let g:ctrlp_custom_ignore = {
-                "   \ 'dir':  '\v[\/](\.git|\.hg|\.svn)$',
-                "   \ 'file': '\.exe$\|\.so$\|\.dll$',
-                "   \ 'link': 'some_bad_symbolic_links',
-                "   \ }
 
                 " Use a custom file listing command
                 " let g:ctrlp_user_command = 'find %s -type f'        " MacOSX/Linux
@@ -673,6 +720,16 @@
             " nnoremap <leader>p :FufDir ~/src/<CR>
             " nnoremap <leader>ge :FufDir ~/.rvm/gems/<CR>
             " nnoremap <leader>gn :vnew \| :FufFile ~/src/notes/<CR>
+
+        " TODO are all these buffer plugins necessary? any redundancies?
+        " Bundle 'jeetsukumaran/vim-buffergator'
+        " Bundle 'jeetsukumaran/vim-buffersaurus'
+        " Bundle 'Rykka/lastbuf.vim'
+        " Bundle 'roman/golden-ratio'
+            " Resizes the current buffer to accommodate its content
+        " Bundle 'vim-scripts/bufkill.vim'
+            " Kills a buffer without closing the split
+
     " }}}
 
     " Folding {{{
@@ -722,6 +779,9 @@
         " Bundle 'bitc/lushtags'
         " Bundle 'eagletmt/ghcmod-vim'
         " Bundle 'Twinside/vim-syntax-haskell-cabal'
+
+        " Bundle 'Twinside/vim-haskellConceal'
+            " replaces haskell keywords with unicode symbols where possible
     " }}}
 
     " IRC & Chat {{{
@@ -792,8 +852,20 @@
 
         " Bundle 'tomtom/quickfixsigns_vim'
 
+        " Bundle 'nelstrom/vim-qargs'
+
         " Bundle 'vim-scripts/ShowMarks7'
             " show marks in gutter
+
+        Bundle 'AndrewRadev/simple_bookmarks.vim'
+            " persistent marks with better naming
+            " Usage:
+            "   ':Bookmark {name}'
+            "   ':GotoBookmark {name}'
+            "   ':CopenBookmarks' Shows all bookmarks in the quickfix window
+            let g:simple_bookmarks_filename = '~/.vim_bookmarks'
+            let g:simple_bookmarks_auto_close = 1
+            let g:simple_bookmarks_new_tab = 1 " open bookmarks in a new tab instead of standard quickfix window
 
         " Bundle 'zakj/vim-showmarks'
         "     " to only include marks 'abcdefzxABHJio', in that order:
@@ -854,7 +926,6 @@
         " Bundle 'xolox/vim-notes'
         " Bundle 'goerz/SimplenoteCLI'
         " Bundle 'metalelf0/vimt0d0'
-        " Bundle 'aaronbieber/quicktask'
         " Bundle 'tomtom/viki_vim'
         " Bundle 'tomtom/vikitasks_vim'
 
@@ -862,9 +933,15 @@
             "let g:vimlist_dir = "/path/to/your/lists"
 
         " Bundle 'jceb/vim-orgmode'
-            "let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Date', 'Misc']
-            "let g:org_todo_keywords = ['TODO', '|', 'DONE']
-            "let g:org_debug = 1
+            " let g:org_plugins = ['ShowHide', '|', 'Navigator', 'EditStructure', '|', 'Todo', 'Date', 'Misc']
+            " let g:org_todo_keywords = ['TODO', '|', 'DONE']
+            " let g:org_debug = 1
+            " let g:org_todo_keywords = [['TODO(t)', 'WAITING(w)', '|', 'DONE(d)'],
+            "       \ ['IMPLEMENTATION(i)', 'DRAFT(r)', 'REOPEN(o)', 'QA(q)', '|', 'VERIFIED(v)']]
+            " let g:org_todo_keyword_faces = [['TODO', [':foreground red', ':background NONE', ':decoration bold']],
+            "       \ ['WAITING', [':foreground darkyellow', ':background NONE', ':decoration bold']],
+            "       \ ['DONE', [':foreground darkgreen', ':background NONE', ':decoration bold']],
+            "       \ ['QA', [':foreground darkyellow', ':background NONE', ':decoration bold']]]
 
         Bundle 'vim-scripts/vimwiki'
             " default path is ~/vimwiki/index.wiki
@@ -969,6 +1046,8 @@
     " }}}
 
     " Outlining {{{
+        " Bundle 'vimoutliner/vimoutliner'
+
         Bundle 'vim-scripts/VOoM'
             " performs code-folding and outlining of markdown, rst, etc. files
             " TODO auto close voom buffer when user hits enter
@@ -992,8 +1071,8 @@
             " if bibtool is installed
             " let g:pandoc_use_bibtool = 1
 
-        " rewrite of vim-pandoc
         " Bundle 'fmoralesc/vim-pantondoc'
+            " rewrite of vim-pandoc
 
         Bundle 'vim-scripts/pdc.vim'
             " pandoc syntax file
@@ -1026,12 +1105,33 @@
             " let g:flake8_ignore="E501,W293"
 
         Bundle 'sunsol/vim_python_fold_compact'
-        " Bundle 'davidhalter/jedi-vim'
         "Bundle 'Lokaltog/python-syntax'
-        "Bundle 'ehamberg/vim-cute-python'
         Bundle 'jmcantrell/vim-virtualenv'
         Bundle 'cwood/pip.vim'
         " Bundle 'cwood/vim-django'
+
+        " Bundle 'davidhalter/jedi-vim'
+            " The goto is by default on <leader g>. If you want to change that:
+            " let g:jedi#goto_command = "<leader>g"
+            " get_definition is by default on <leader d>. If you want to change that:
+            " let g:jedi#get_definition_command = "<leader>d"
+            " Showing the pydoc is by default on K If you want to change that:
+            " let g:jedi#pydoc = "K"
+            " If you are a person who likes to use VIM-buffers not tabs, you might want to put that in your .vimrc:
+            " let g:jedi#use_tabs_not_buffers = 0
+            " Jedi automatically starts the completion, if you type a dot, e.g. str., if you don't want this:
+            " let g:jedi#popup_on_dot = 0
+            " There's some support for refactoring:
+            " let g:jedi#rename_command = "<leader>r"
+            " And you can list all names that are related (have the same origin):
+            " let g:jedi#related_names_command = "<leader>n"
+            " If you want to change the default autocompletion command:
+            " let g:jedi#autocompletion_command = "<C-Space>"
+            " By default you get a window that displays the function definition you're currently in. If you don't want that:
+            " let g:jedi#show_function_definition = "0"
+
+        Bundle 'ehamberg/vim-cute-python'
+            " replaces python keywords w/ symbols where possible
 
         Bundle 'alfredodeza/khuno.vim'
             " pep8/flake static code analysis
@@ -1041,7 +1141,6 @@
             set statusline=%#ErrorMsg#                   " set the highlight to error
             set statusline+=%{khuno#Status('FUU')}%*     " are there any errors? FUU!
             set statusline+=%*                           " switch back to normal status color
-
 
         "Bundle 'klen/python-mode'
             " allows you to use the pylint, rope, pydoc, pyflakes, pep8, mccabe libraries
@@ -1101,6 +1200,18 @@
         "Bundle 'vim-scripts/simple-pairs.git'
         "Bundle 'roman/rainbow.git'
 
+        Bundle 'gorkunov/smartpairs.vim'
+            " Key for running smartpairs in all modes (select/delete/change/yank) "default is 'v'
+            let g:smartpairs_key = 'v'
+            " Key for running smartpairs in the selection mode (extend current selection to the next pair) "default is 'v'
+            let g:smartpairs_nextpairs_key = 'v'
+            " Key for running smartpairs in the selection mode for extending selection with IN-mod (like vi") "default is 'z'
+            let g:smartpairs_nextpairs_key_i = 'z'
+            " Key for running smartpairs in the selection mode for extending selection with ABOVE-mod (like va") "default is 'Z'
+            let g:smartpairs_nextpairs_key_a = 'Z'
+            " Smartpairs looks only 20 lines before cursor position:
+            let g:smartpairs_maxdepth = 20
+
         "Bundle 'vim-scripts/Rainbow-Parenthesis'
             " :RainbowParenthesesToggle       " Toggle it on/off
             " :RainbowParenthesesLoadRound    " (), the default when toggling
@@ -1119,9 +1230,13 @@
             ":runtime macros/matchit.vim
 
         Bundle 'tpope/vim-surround'
-            " usage: place cursor inside double-quoted text and type cs"' to convert to single-quotes
-            " to surround a word with <em>...</em>: ysiw<em>
-            " remove the delimiters entirely ds"
+            " usage:
+            "   to convert to single-quotes place cursor inside double-quoted text:
+            "       cs"'
+            "   to surround a word with <em>...</em>:
+            "       ysiw<em>
+            "   remove the delimiters entirely:
+            "       ds"
             "let g:surround_{char2nr('-')} = "<% \r %>"
             "let g:surround_{char2nr('=')} = "<%= \r %>"
             "let g:surround_{char2nr('8')} = "/* \r */"
@@ -1148,7 +1263,33 @@
         Bundle 'nvie/vim-rst-tables'
         Bundle 'erisian/rest_tools'
 
-        Bundle 'Rykka/riv.vim'
+        " Bundle 'khorser/vim-rst-ftplugin' {{{
+            " The plugin overrides and enriches Vim standard navigation keys:
+            "     ]] - go forward to the start of the next sibling section
+            "     <N>]] - search for the start of the next section which is N levels above the current section
+            "     [[ - go backward to the start of the section. If the cursor is already at the start, go upwards to the next sibling section.
+            "     <N>[[ - go up to the start of the parent section level N (in other words, 2[[ will navigate to the grandparent of the current section)
+            "     ][ - search forward to the end of the current section or, if the cursors is there already, its prior sibling
+            "     <N>][ - same as ][ but go to the end of the parent section which is N levels above the current section.
+            "     [] - search backward to the end of the previous sibling
+            "     <N>[] - same as [] but look for the parent N levels above
+            " <LocalLeader>O
+            " <LocalLeader>o - add a sibling above/below current section
+            " <LocalLeader>A
+            " <LocalLeader>a - add a first/last child for the current section. If the plugin has not seen any adornments of this level, it invents one on its own.
+            " <LocalLeader><
+            " <LocalLeader>> - promote/demote current section making it one level higher or lower
+            " g:rsttitle_marks
+            " g:rstfolding_alltitles
+            " g:rstfolding_rxtitle
+            " g:rstfolding_rxprintable
+            " g:rstfolding_rxempty
+            " g:rstfolding_rxtext
+            " g:rstnav_rx
+            " g:rstsearch_order - the list of methods used to follow links. Valid entries are 'syntax', 'heuristics', 'user'. In the latter case you need to define function g:RstUserSearch.
+	" }}}
+
+        Bundle 'Rykka/riv.vim' " {{{
             let g:riv_auto_fold_force = 1 " Reducing fold level for editing large files
             let g:riv_auto_format_table = 1 " Auto formating table when leave Insert Mode
             let g:riv_file_link_style = 2 " sphinx style local file links rather than moinmoin
@@ -1175,7 +1316,7 @@
                                 " 'source_suffix'      : `g:riv_source_suffix`_
                                 " 'master_doc'         : `g:riv_master_doc`_
                              " ]
-            let g:riv_source_suffix = '.rst'
+            let g:riv_source_suffix   = '.rst'
             let g:riv_todo_levels     = ' ,o,X'
             let g:riv_todo_keywords   = 'TODO,DONE;FIXME,FIXED;START,PROCESS,STOP;ONHOLD'
             let g:riv_web_browser     = 'firefox'
@@ -1188,6 +1329,7 @@
                 " let g:riv_i_tab_pum_next = 0
                 " quote cmd with '"', special key must contain '\'
                 " let g:riv_i_tab_user_cmd = "\<c-g>u\<c-r>=snipMate#TriggerSnippet()\<cr>"
+	    " }}}
     " }}}
 
     " Search {{{
@@ -1419,6 +1561,7 @@
     " }}}
 
     " Statusline {{{
+        " python from powerline.ext.vim import source_plugin; source_plugin() TODO this is the new powerline
         Bundle 'Lokaltog/vim-powerline'
             let g:Powerline_symbols = 'fancy'
             let g:Powerline_cache_enabled = 1 " TODO what does this do?
@@ -1436,16 +1579,24 @@
 
         Bundle 'scrooloose/syntastic'
             " let g:syntastic_auto_jump=0 " TODO
-            let g:syntastic_enable_highlighting=1
-            let g:syntastic_auto_loc_list=2 " automatically close syntastic error window when no errors
-            let g:syntastic_enable_signs=1 " mark syntastic errors
-            let g:syntastic_quiet_warnings=0
-            let g:syntastic_check_on_open=0		" don't automatically check syntax on open buffers
+            let g:syntastic_enable_balloons     = 0
+            let g:syntastic_enable_highlighting = 1
+            let g:syntastic_auto_loc_list       = 2 " automatically close syntastic error window when no errors
+            let g:syntastic_enable_signs        = 1 " mark syntastic errors
+            let g:syntastic_quiet_warnings      = 0
+            let g:syntastic_check_on_open       = 0		" don't automatically check syntax on open buffers
             " let g:syntastic_python_checker = 'pyflakes'
             let g:syntastic_python_checker_args = '--ignore=E123,E128,E225,E401,E501,E702'
-            let g:syntastic_stl_format='[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
+            let g:syntastic_stl_format          = '[%E{Err: %fe #%e}%B{, }%W{Warn: %fw #%w}]'
             " let g:syntastic_stl_format = '[%E{%e Errors}%B{, }%W{%w Warnings}]'
             let g:syntastic_disabled_filetypes = ['html', 'rst']
+            let g:syntastic_error_symbol       = '✗'
+            let g:syntastic_warning_symbol     = '⚠'
+            " let g:syntastic_mode_map = {
+            "     \ 'mode': 'passive',
+            "     \ 'active_filetypes': [],
+            "     \ 'passive_filetypes': []
+            " }
     " }}}
 
     " Tags {{{
@@ -1469,6 +1620,11 @@
                 " nmap <silent> <F7> :TagbarToggle<CR>
                 nmap <silent> <F9> :TagbarOpenAutoClose<CR>
                 nmap <silent> <S-F9> :TagbarToggle<CR>
+                " if exists(":TagbarOpen") != 2
+                "     command -nargs=0 TagbarOpen :delc TagbarOpen|delc TagbarToggle|silent! exec ":IP tagbar"|TagbarOpen
+                "     command -nargs=0 TagbarToggle :delc TagbarOpen|delc TagbarToggle|silent! exec ":IP tagbar"|TagbarToggle
+                " endif
+                " nnoremap <leader>t :TagbarToggle<CR>
                 " open tagbar on startup
                 " autocmd VimEnter * nested :call tagbar#autoopen(1)
                 let g:tagbar_autoclose   = 1		" Close tagbar when jumping to a tag.
@@ -1574,6 +1730,9 @@
         Bundle 'julienr/vimux-pyutils'
         Bundle 'erikw/tmux-powerline'
 
+        Bundle 'zaiste/tmux.vim'
+            " tmux syntax file
+
         " vim, iterm2, and tmux
         Bundle 'sjl/vitality.vim'
     " }}}
@@ -1637,13 +1796,23 @@
     " }}}
 
     " To-Dos {{{
-        Bundle 'vim-scripts/TaskList.vim'
+        " Bundle 'aaronbieber/quicktask'
+            " let g:quicktask_autosave = 1
+            " let g:quicktask_snip_path = '~/Dropbox/snips'
+            " let g:quicktask_snip_win_maximize = 1
+            " let g:quicktask_snip_default_filetype = "rest"
+
+        " Bundle 'lukaszkorecki/workflowish'
+
+        " Bundle 'vim-scripts/TaskList.vim'
+        Bundle 'fisadev/FixedTaskList.vim'
             " displays and organizes TODO, FIXME, etc. within the file
             map <leader>tl <Plug>TaskList
+            " TODO open tasklist in vsplit
             let g:tlWindowPosition   = 1 " 1 opens tasklist at bottom, 0 is top
             " let g:tlTokenList      = ['TOKEN1', 'TOKEN2', 'TOKEN3'] " to overwrite list of tokens uncomment, default is let g:tlTokenList = ["FIXME", "TODO", "XXX"]
             let g:tlRememberPosition = 1
-        " }}}
+    " }}}
 
     " Web Design {{{
         " Bundle 'cakebaker/scss-syntax.vim'
@@ -1667,6 +1836,16 @@
 
     " Yank {{{
         " Bundle 'vim-scripts/YankRing.vim'
+        " Bundle 'ciaranm/detectindent'
+
+        Bundle 'tpope/vim-sleuth'
+            " automatically adjusts 'shiftwidth' and 'expandtab' heuristically based on the current file, or, in the case the current file is new, blank, or otherwise insufficient, by looking at other files of the same type in the current and parent directories. In lieu of adjusting 'softtabstop', 'smarttab' is enabled.
+            " Compare to DetectIndent. I wrote this because I wanted something fully automatic. My goal is that by installing this plugin, you can remove all indenting related configuration from your vimrc.
+
+        " TODO use this instead of chrismetcalf/vim-yankring
+        " Bundle 'maxbrunsfeld/vim-yankstack'
+            " lightweight implementation of emacs's kill-ring and a simpler alternative to chrismetcalf/vim-yankring
+            " let g:yankstack_map_keys = 0 " load yankstack without the default key mappings
 
         Bundle 'chrismetcalf/vim-yankring'
             nnoremap <silent> <F3>       :YRShow<cr>
@@ -1700,7 +1879,6 @@
     Bundle 'vim-scripts/mathml.vim'
     Bundle 'ervandew/lookup'
     " Bundle 'ervandew/eclim'
-    "Bundle 'ciaranm/detectindent'
     " Bundle 'mbbill/VimExplorer'
     Bundle 'mattn/webapi-vim'
     " Bundle 'troydm/pb.vim'
@@ -1736,7 +1914,6 @@
     Bundle 'Rykka/colorv.vim'
     "Bundle 'Twinside/vim-cuteErrorMarker'
     " Bundle 'embear/vim-longlines'
-    " Bundle 'vim-scripts/utl.vim'
     Bundle 'pbrisbin/vim-runfile'
     " Bundle 'sampsyo/autolink.vim'
     " Bundle 'vim-scripts/GoogleReader.vim'
@@ -1747,6 +1924,11 @@
 
     Bundle 'sickill/vim-pasta'
         " A better paste
+        let g:pasta_disabled_filetypes = ['python', 'coffee', 'yaml']
+        let g:pasta_enabled_filetypes = ['ruby', 'javascript', 'css', 'sh']
+        " if you don't want pasta to override default 'p' and 'P'
+        let g:pasta_paste_before_mapping = ',P'
+        let g:pasta_paste_after_mapping = ',p'
 
     " Bundle 'mattn/calendar-vim'
         " let g:calendar_list = [
@@ -2499,6 +2681,15 @@
         e!
     endfunction
 
+    " key mapping for ddg search TODO finish
+    " function! Google()
+    "     call inputsave()
+    "     let searchterm = input('Google: ')
+    "     call inputrestore()
+    "     return searchterm
+    " endfunction
+    " map © <ESC>:! /usr/bin/open -a "/Applications/Google Chrome.app"'https://google.com/search?q=<C-R>=Google()<CR>'<CR><CR>
+
     " Remove duplicates from a list (stolen from pathogen.vim by the one and only Tim Pope)
     function! s:removeduplicates(list) abort
         let i = 0
@@ -2897,6 +3088,8 @@
         au Filetype help setl tabstop=4
         au Filetype help setl expandtab
         au Filetype help setl formatoptions=tcroqwanl1
+        " open help in vertical split
+        au BufWinEnter *.txt,*.txt.gz if &ft == 'help' | wincmd L | endif
         " function! s:SetupHelpWindow()
         "     wincmd L
         "     vertical resize 80
