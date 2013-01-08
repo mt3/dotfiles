@@ -1,2 +1,3 @@
-fabfile = /Users/mt/code_and_projects/sysadmin-and-deployment/fabfiles/fabfile.py
+fabfile = ~/code_and_projects/sysadmin-and-deployment/fabfiles/fabfile.py
+user = mta45
 
