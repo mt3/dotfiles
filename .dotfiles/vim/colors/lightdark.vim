@@ -87,7 +87,7 @@
     hi VertSplit    guifg=#a0a0a0
     hi SignColumn 	guifg=#ffffff   guibg=#bbbbbb   gui=none
 
-    hi StatusLine 	guifg=#e3e3e5   guibg=#444444   gui=italic      ctermfg=253     ctermbg=238     cterm=italic
+    hi StatusLine 	guifg=#e3e3e5   guibg=#444444   gui=none      ctermfg=253     ctermbg=238     cterm=none
     " statuslines for windows not in current focus
     hi StatusLineNC guifg=Black     guibg=#444444   gui=none        ctermfg=246     ctermbg=238
 
@@ -107,11 +107,11 @@
     hi MatchParen   guifg=White     guibg=#cfdfff   gui=bold        term=reverse    ctermbg=LightCyan
 
     " ctags
-    hi Tag   guifg=White     guibg=#cfdfff   gui=bold        term=reverse    ctermbg=LightCyan
+    hi Tag          guifg=White     guibg=#cfdfff   gui=bold        term=reverse    ctermbg=LightCyan
 
     " Pmenu: pop-up menus
     hi Pmenu 		guifg=#ffffff   guibg=#444444   ctermfg=255 ctermbg=238
-    hi PmenuSel     ctermfg=Black   ctermbg=Cyan
+    hi PmenuSel                                     ctermfg=Black   ctermbg=Cyan
 
     " hi DiffAdd
     " hi DiffChange
@@ -125,24 +125,25 @@
     hi NonText          guifg=#404040                                       ctermfg=8
 
     " TODO can't set custom font for comments. not possible me thinks
-    hi Comment          guifg=#bbbbbb       gui=italic      ctermfg=244     font=Fanwood:h13
+    hi Comment          guifg=#bbbbbb       gui=none      ctermfg=244     font=Fanwood:h13
     hi Constant 	    guifg=#a186b1       gui=bold        ctermfg=148
     hi Delimiter        guifg=#999999       gui=none
     hi Identifier       guifg=#0080df
     hi Ignore           guifg=bg            gui=none
     hi Keyword		    guifg=#43c3ff       gui=none        ctermfg=103
     hi PreProc          guifg=DarkCyan
-    hi SpecialComment   guifg=#b2b2b2       gui=italic      ctermfg=244
+    hi SpecialComment   guifg=#b2b2b2       gui=none      ctermfg=244
     hi Statement 	    guifg=SlateBlue     gui=bold        ctermfg=103
     hi Structure        guifg=#9DEEF2       gui=none
     hi Type             guifg=#6384bc
     hi Typedef          guifg=DarkMagenta
 
-    hi Todo             guifg=Black         guibg=#d82020   gui=italic,bold     term=standout
-    " hi Todo         guifg=Black         guibg=#e02020   gui=italic,bold ctermbg=244     ctermfg=Black
+    hi Todo             guifg=Black         guibg=#d82020   gui=none,bold     term=standout
+    " hi Todo         guifg=Black         guibg=#e02020   gui=none,bold ctermbg=244     ctermfg=Black
 " }}}
 " Error Messages {{{
-    hi SpellErrors      guifg=Red                           gui=underline
+    " hi SpellErrors      guifg=Red                           gui=underline
+    hi SpellErrors      guifg=Red                           gui=none
 
     " commandline error messages
     hi ErrorMsg         guifg=#c00000       guibg=NONE
