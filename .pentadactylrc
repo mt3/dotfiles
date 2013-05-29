@@ -125,7 +125,8 @@
 
     cd ~
 
-    map , ,
+    "map , ,
+    set mapleader=","
     "nmap , ,
     "map -builtin -modes hints , \
 " }}}
@@ -141,7 +142,7 @@
     set runtimepath=~/.pentadactyl
 
     " kill the beeping crap
-    set visualbell
+    set novisualbell
     hi Bell display: none;
 
     cd ~/Downloads
@@ -158,7 +159,7 @@
 
 " Options {{{
     set timeout
-    set timeoutlen=1000
+    set timeoutlen=10
 
     " tab numbers and toolbar so that cmd-L works for my ddg searches
     set guioptions=C
@@ -170,10 +171,12 @@
     "   bookmark      Bookmarks
     "   history       History
     "   suggestion    Search engine suggestions
-    set complete=lbhf
+    " set complete=lbhf TODO delete this old-style charlist. uses stringlist in future
+    " bottleneck in cmd line completion is when i include history as an option
+    set complete=location,search,bookmark,file
 
     " 15 is most verbose, 0 is off, 1 is default
-    set verbose=2
+    set verbose=5
     " always/never show tab bar
     set showtabline=always
     map -ex <A-t> :set showtabline!=always,never
@@ -188,7 +191,7 @@
     " set strictfocus=www.google.com:despotic,twitter.com:despotic
 
     " limit number of items displayed on commandline at once
-    set maxitems=13
+    set maxitems=10
     " limit number of (error) messages stored in history (default is 100)
     set messages=10
     " number of lines to scroll with <C-d>/<C-u> (0 means it scrolls half the window at a time)
@@ -205,7 +208,7 @@
     "   open google Linux | wikipedia Arch Linux | imdb Serenity
     " set urlseparator="\|"
 
-    " Maximum number of Ex commands and find patterns to store in the command-line history
+    " maximum number of Ex commands and find patterns to store in the command-line history
     set history=100
 
     " Show pattern matches as you type
@@ -216,6 +219,7 @@
     set hintkeys='q2wsa13zedxc4rfv5tgb6yhn7ujm890poilk'
     " do not require <CR> when in hints mode
     set followhints=0
+    set hinttimeout=0
 
     " Override ignorecase if pattern has uppercase chars
     set wildcase=.?:smart
@@ -388,6 +392,9 @@
     " flip the page refresh around as well
     map -builtin r R
     map -builtin R r
+    " top/bottom of page
+    map -builtin <M-up> gg
+    map -builtin <M-down> G
     " Go to home page with C-c h
     "map <C-c>h gh
     " less granular movement
@@ -416,7 +423,7 @@
     nmap -builtin <silent> ,d :sidebar Downloads<CR>
     "noremap <silent> ,y :set showtabline=2<CR>
     "noremap <silent> ,u :set showtabline=0<CR>
-    nmap -builtin <silent> ,s :emenu View.Status Bar<CR>
+    " nmap -builtin <silent> ,s :emenu View.Status Bar<CR>
     "noremap <silent> ,p :emenu Edit.Preferences<CR>
 
     " Yank page title and URL with <c-y> TODO change this to 'Y' instead of <C-Y>
@@ -429,11 +436,13 @@
         " Bookmarklets (<cmd-0...9> shortcuts) {{{
             " pinboard bookmarklet
             map <M-1> -ex open javascript:if(document.getSelection){s=document.getSelection();}else{s='';};document.location='https://pinboard.in/add?next=same&url='+encodeURIComponent(location.href)+'&description='+encodeURIComponent(s)+'&title='+encodeURIComponent(document.title)
+            " map <M-1> -ex open javascript:q=location.href;if(document.getSelection){d=document.getSelection();}else{d='';};p=document.title;void(open('http://pinboard.in/add?url='+encodeURIComponent(q)+'&description='+encodeURIComponent(d)+'&title='+encodeURIComponent(p),'Pinboard',%20'toolbar=no,width=700,height=350'))
             " map <M-1> -ex open javascript:if(document.getSelection){s=document.getSelection();}else{s='';};document.location='https://pinboard.in/add?next=same&url='+encodeURIComponent(location.href)+'&description='+encodeURIComponent(s)+'&title='+encodeURIComponent(document.title)
             " map <M-1> -ex open javascript:if(document.getSelection){d=document.getSelection();}else{d='';};p=document.title;void(open('https://pinboard.in/add?url='+encodeURIComponent(q)+'&description='+encodeURIComponent(d)+'&title='+encodeURIComponent(p),'Pinboard','toolbar=no,width=700,height=350'))
             map <M-2> -ex open http://pinboard.in/u:mt3_666
             map <M-3> -ex open http://scholar.google.ca/scholar?q=
             " instapaper bookmarklet
+            map <M-6> -ex open javascript:function%20iprl5(){var%20d=document,z=d.createElement('scr'+'ipt'),b=d.body,l=d.location;try{if(!b)throw(0);d.title='(Saving...)%20'+d.title;z.setAttribute('src',l.protocol+'//www.instapaper.com/j/WsSoRZGjTo8a?u='+encodeURIComponent(l.href)+'&t='+(new%20Date().getTime()));b.appendChild(z);}catch(e){alert('Please%20wait%20until%20the%20page%20has%20loaded.');}}iprl5();void(0)
             map <M-6> -ex open javascript:function%20iprl5(){var%20d=document,z=d.createElement('scr'+'ipt'),b=d.body,l=d.location;try{if(!b)throw(0);d.title='(Saving...)%20'+d.title;z.setAttribute('src',l.protocol+'//www.instapaper.com/j/WsSoRZGjTo8a?u='+encodeURIComponent(l.href)+'&t='+(new%20Date().getTime()));b.appendChild(z);}catch(e){alert('Please%20wait%20until%20the%20page%20has%20loaded.');}}iprl5();void(0)
             map <M-7> -ex open javascript:(function(){ISRIL_H='f833';PKT_D='getpocket.com';ISRIL_SCRIPT=document.createElement('SCRIPT');ISRIL_SCRIPT.type='text/javascript';ISRIL_SCRIPT.src='http://'+PKT_D+'/b/r.js';document.getElementsByTagName('head')[0].appendChild(ISRIL_SCRIPT)})();
             " tumblr bookmarklet
@@ -712,12 +721,13 @@
 " }}}
 
 " Highlight/Style {{{
-    "colorscheme darkness3
-    colorscheme myzenburn
+    colorscheme darkness3
+    " colorscheme myzenburn
 
-    highlight StatusLine font-size: 11px; font-family:"Inconsolata-dz", monospace; font-weight: normal; color: #FFF; background: #222;
-    highlight CmdLine font-size: 11px; font-weight: normal; font-family:"Inconsolata-dz", monospace; padding: 0 0; color: #FFF; background: #222;
-    highlight Hint foreground-color: #4DF; background-color: #DDD;
+    highlight StatusLine font-size: 10px; font-family:"Inconsolata-dz", monospace; font-weight: normal; color: #222; background: #FFF;
+    highlight CmdLine font-size: 10px; font-weight: normal; font-family:"Inconsolata-dz", monospace; padding: 0 0; color: #222; background: #FFF;
+    " highlight Hint foreground-color: #4DF; background-color: #DDD;
+    highlight Hint foreground-color: #2B91A4; background-color: #FC3;
     highlight HintImage foreground-color: #4DF; background-color: #DDD;
     "highlight Hint font-size: 12px; background: #71badc !important; width: 30px !important; border: 1px solid #71badc; border-radius: 3px; font-weight: bold; color: black; font-family: sans; line-height:1em; text-align: center;
     "highlight HintActive background: #878787 !important;
@@ -1338,3 +1348,4 @@
 " }}}
 
 " vim: set ft=vim
+" vim: set ft=pentadactyl.vim:
