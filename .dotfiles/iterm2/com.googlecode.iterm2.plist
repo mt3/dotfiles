@@ -886,13 +886,15 @@
 	<key>MinimumContrast</key>
 	<real>0.0</real>
 	<key>NSFontPanelAttributes</key>
-	<string>1, 0</string>
+	<string>1, 5</string>
 	<key>NSNavLastRootDirectory</key>
 	<string>~/code_and_projects/dotfiles</string>
 	<key>NSQuotedKeystrokeBinding</key>
 	<string></string>
 	<key>NSRepeatCountBinding</key>
 	<string></string>
+	<key>NSScrollAnimationEnabled</key>
+	<false/>
 	<key>NSTableView Columns BookmarksView5</key>
 	<array>
 		<data>
@@ -968,7 +970,7 @@
 	<key>NSWindow Frame UKCrashReporter</key>
 	<string>99 294 592 584 0 0 1440 878 </string>
 	<key>NSWindow Frame iTerm Window 0</key>
-	<string>183 4 970 874 0 0 1440 878 </string>
+	<string>0 4 850 874 0 0 1440 878 </string>
 	<key>NeverWarnAboutShortLivedSessions_7348BFBE-0E0D-47DD-8791-8F05381B3135</key>
 	<true/>
 	<key>New Bookmarks</key>
@@ -1031,9 +1033,9 @@
 				<key>Blue Component</key>
 				<real>0.71040725708007812</real>
 				<key>Green Component</key>
-				<real>0.2350191920995712</real>
+				<real>0.23501919209957123</real>
 				<key>Red Component</key>
-				<real>0.23600171506404879</real>
+				<real>0.23600171506404877</real>
 			</dict>
 			<key>Ansi 13 Color</key>
 			<dict>
@@ -1051,7 +1053,7 @@
 				<key>Green Component</key>
 				<real>0.66063350439071655</real>
 				<key>Red Component</key>
-				<real>0.22021116316318509</real>
+				<real>0.22021116316318512</real>
 			</dict>
 			<key>Ansi 15 Color</key>
 			<dict>
@@ -1149,6 +1151,8 @@
 			</dict>
 			<key>Background Image Location</key>
 			<string></string>
+			<key>Blend</key>
+			<real>0.30000001192092896</real>
 			<key>Blink Allowed</key>
 			<false/>
 			<key>Blinking Cursor</key>
@@ -1219,6 +1223,8 @@
 			</dict>
 			<key>Guid</key>
 			<string>7348BFBE-0E0D-47DD-8791-8F05381B3135</string>
+			<key>Hide After Opening</key>
+			<false/>
 			<key>Horizontal Spacing</key>
 			<real>1</real>
 			<key>Idle Code</key>
@@ -1298,11 +1304,11 @@
 			<key>Name</key>
 			<string>Default</string>
 			<key>Non Ascii Font</key>
-			<string>Menlo-Regular 11</string>
+			<string>Menlo-Regular 10</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>Inconsolata-dz 13</string>
+			<string>Inconsolata-dzForPowerline 12</string>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
@@ -1462,9 +1468,9 @@
 			<key>Use Bold Font</key>
 			<false/>
 			<key>Use Bright Bold</key>
-			<false/>
+			<true/>
 			<key>Vertical Spacing</key>
-			<real>1.001689195632935</real>
+			<real>1.0388644933700562</real>
 			<key>Visual Bell</key>
 			<false/>
 			<key>Window Type</key>
@@ -5040,9 +5046,9 @@
 				<key>Blue Component</key>
 				<real>0.71040725708007812</real>
 				<key>Green Component</key>
-				<real>0.2350191920995712</real>
+				<real>0.23501919209957123</real>
 				<key>Red Component</key>
-				<real>0.23600171506404879</real>
+				<real>0.23600171506404877</real>
 			</dict>
 			<key>Ansi 13 Color</key>
 			<dict>
@@ -5060,7 +5066,7 @@
 				<key>Green Component</key>
 				<real>0.66063350439071655</real>
 				<key>Red Component</key>
-				<real>0.22021116316318509</real>
+				<real>0.22021116316318512</real>
 			</dict>
 			<key>Ansi 15 Color</key>
 			<dict>
@@ -5158,6 +5164,8 @@
 			</dict>
 			<key>Background Image Location</key>
 			<string></string>
+			<key>Blend</key>
+			<real>0.30000001192092896</real>
 			<key>Blink Allowed</key>
 			<false/>
 			<key>Blinking Cursor</key>
@@ -5176,7 +5184,7 @@
 				<real>1</real>
 			</dict>
 			<key>Bonjour Service Address</key>
-			<string>142.58.173.120</string>
+			<string>192.168.1.201</string>
 			<key>Character Encoding</key>
 			<integer>4</integer>
 			<key>Close Sessions On End</key>
@@ -5184,7 +5192,7 @@
 			<key>Columns</key>
 			<integer>120</integer>
 			<key>Command</key>
-			<string>ssh 142.58.173.120</string>
+			<string>ssh 192.168.1.201</string>
 			<key>Cursor Color</key>
 			<dict>
 				<key>Blue Component</key>
@@ -5231,7 +5239,9 @@
 				<real>0.0</real>
 			</dict>
 			<key>Guid</key>
-			<string>FC76991C-C47A-46D2-93D4-46283D5CF5DA</string>
+			<string>A837B772-DC80-4BF1-B0AF-359D51EB85C0</string>
+			<key>Hide After Opening</key>
+			<false/>
 			<key>Horizontal Spacing</key>
 			<real>1</real>
 			<key>Idle Code</key>
@@ -5311,11 +5321,11 @@
 			<key>Name</key>
 			<string>macbookpro</string>
 			<key>Non Ascii Font</key>
-			<string>Menlo-Regular 11</string>
+			<string>Menlo-Regular 10</string>
 			<key>Non-ASCII Anti Aliased</key>
 			<true/>
 			<key>Normal Font</key>
-			<string>Inconsolata-dz 13</string>
+			<string>Menlo-RegularForPowerline 12</string>
 			<key>Option Key Sends</key>
 			<integer>2</integer>
 			<key>Prompt Before Closing 2</key>
@@ -5475,9 +5485,9 @@
 			<key>Use Bold Font</key>
 			<false/>
 			<key>Use Bright Bold</key>
-			<false/>
+			<true/>
 			<key>Vertical Spacing</key>
-			<real>1.001689195632935</real>
+			<real>1.0388644933700562</real>
 			<key>Visual Bell</key>
 			<false/>
 			<key>Window Type</key>
@@ -5558,7 +5568,7 @@
 	<key>SUHasLaunchedBefore</key>
 	<integer>1</integer>
 	<key>SULastCheckTime</key>
-	<date>2012-10-18T15:56:00Z</date>
+	<date>2012-11-22T05:56:43Z</date>
 	<key>SUSkippedVersion</key>
 	<string>1.0.0.20111020</string>
 	<key>SavePasteHistory</key>
@@ -9285,6 +9295,6 @@
 	<key>findRegex_iTerm</key>
 	<false/>
 	<key>iTerm Version</key>
-	<string>1.0.0.20120203</string>
+	<string>unknown</string>
 </dict>
 </plist>
