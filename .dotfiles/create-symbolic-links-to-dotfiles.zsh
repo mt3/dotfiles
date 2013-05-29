@@ -21,6 +21,10 @@ ln -s ~/.dotfiles/screenrc ~/.screenrc
 
 ln -s ~/.dotfiles/muttrc ~/.muttrc
 
+ln -s ~/.dotfiles/pentadactylrc ~/.pentadactylrc
+
+ln -s ~/.dotfiles/pythonrc.py ~/.pythonrc.py
+
 ln -s ~/.dotfiles/mozconfig ~/.mozconfig
 
 ln -s ~/.dotfiles/gemrc ~/.gemrc
