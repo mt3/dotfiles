@@ -1,8 +1,8 @@
---- 
+---
 :backtrace: false
 :benchmark: false
 :bulk_threshold: 1000
-:sources: 
+:sources:
 - http://rubygems.org
 - http://gemcutter.org
 :update_sources: true
@@ -14,3 +14,5 @@ gempath:
 - /usr/local/Cellar/ruby/1.9.2-p136/lib/ruby/gems/1.9.1
 - /usr/local/lib/ruby/gems/1.9.1
 - /usr/local/Cellar/ruby/1.9.2-p290/bin/
+- /usr/local/Cellar/ruby/1.9.3-p327/bin/
+- /usr/local/Cellar/ruby/1.9.3-p374/bin/
