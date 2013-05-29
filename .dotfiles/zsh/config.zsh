@@ -1,13 +1,10 @@
 #TODO: 'autoload zmv' needs to be first?
 autoload zmv
 
-#########################
 # ZSH Config
 #
 # Set options with setopt
 # unset with unsetopt
-#
-#########################
 
 # autoload -U age
 setopt always_to_end          # move cursor to end after completion
@@ -20,7 +17,7 @@ setopt auto_menu            # show menu for completion
 setopt AUTO_REMOVE_SLASH    # remove trailing directory slash
 setopt BANG_HIST		    # Allow ! for accessing history
 setopt cdablevars              # avoid the need for an explicit $. try to expand the expression as if it were preceded by ~
-#cdpath=(~ ~/Projects)          #TODO: what does this do?
+#cdpath=(~ ~/Projects)          #TODO: document
 autoload -U colors && colors
 autoload -Uz compinit && compinit # Load new completion system
 unsetopt COMPLETE_IN_WORD         # completion works inside words
@@ -29,6 +26,7 @@ unsetopt COMPLETE_IN_WORD         # completion works inside words
 #setopt emacs                   # use emacs bindkeys. same as 'bindkey -e'
 setopt extendedglob            # awesome pattern matching (ala Dir.glob() in Ruby)
 setopt EXTENDED_HISTORY 	   # add timestamps to history
+# unsetopt flowcontrol          # TODO document
 setopt glob_complete            # matches are generated as if a `*' was added to the end of the word, or inserted at the cursor when COMPLETE_IN_WORD is set.  This actually uses pattern matching, not globbing, so it works not only for files but for any completion, such as options, user names, etc.
 # setopt  globcomplete            # TODO which globcomplete is valid?
 # setopt HASH_CMDS              # store cmd location for speed. Note the location of each command the first time it is executed. Subsequent invocations of the same command will use the saved location, avoiding a path search
@@ -70,6 +68,7 @@ autoload zkbd
 setopt ZLE                    # Use zsh line editor. Set by default in interactive shells connected to a terminal
 zle_highlight=(region:standout special:standout suffix:bold isearch:underline)
 # autoload -U zmv               # a command for renaming files by means of shell patterns (like 'mv'cmd)
+# zmodload -i zsh/complist
 zmodload zsh/terminfo
 zmodload zsh/zleparameter
 zmodload zsh/zutil
@@ -86,8 +85,10 @@ typeset -U path cdpath manpath fpath
 # zmodload -i $m
 
 
-# Completions general setup and config
-# see http://zshwiki.org/home/examples/compsys/general
+#############
+#
+# COMPLETIONS
+#   http://zshwiki.org/home/examples/compsys/general
 
 # complete as much u can ..
 # zstyle ':completion:*' completer _complete _list _oldlist _expand _ignored _match _correct _approximate _prefix
@@ -183,7 +184,7 @@ zstyle ':completion:*:dvips:*' files '*.dvi'
 # zstyle ':completion:*:*:xdvi:*' menu yes select
 # zstyle ':completion:*:*:xdvi:*' file-sort time
 
-# TODO describe
+# TODO document
 # zstyle ':completion:*' prefix-needed true
 
 function zle-line-init zle-keymap-select {
@@ -227,3 +228,5 @@ zle -N zle-line-init
 
 
 echo "\e[1m\e[32mFinished loading config.zsh\e[0m"
+
+# vim: set ft=sh foldmethod=marker foldmarker={,}:
