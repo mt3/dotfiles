@@ -12,6 +12,10 @@ bindkey -v
 # bindkey '^[[R' history-incremental-search-backward
 bindkey "^R" history-incremental-pattern-search-backward
 bindkey "^S" history-incremental-pattern-search-forward
+# bindkey '^R' history-incremental-search-backward
+# bindkey '^S' history-incremental-search-forward
+bindkey '^P' history-search-backward
+bindkey '^N' history-search-forward
 
 #TODO: document
 # bindkey '^[[3~'  delete-char
@@ -93,13 +97,11 @@ bindkey ' ' magic-space    # history expansion on space
 # bindkey "^H" backward-kill-word # control + backspace
 # bindkey "^[[3^" kill-word # control + delete
 
-# enable backspace
-# http://docs.cs.byu.edu/index.php/ZSH
+# enable backspace http://docs.cs.byu.edu/index.php/ZSH
 # bindkey -M viins ^? backward-delete-char
 # bindkey -M viins ^H backward-delete-char
 
-# vi keys when you hit escape, and emacs-ish keys when you don't
-# from zsh wiki
+# vi keys when you hit escape, and emacs-ish keys when you don't (from zsh wiki)
 # bindkey -v
 # bindkey "^P" vi-up-line-or-history
 # bindkey "^N" vi-down-line-or-history
@@ -109,7 +111,6 @@ bindkey ' ' magic-space    # history expansion on space
 # bindkey '^[[3~' delete-char            # Del
 # bindkey '^[[5~' vi-backward-blank-word # Page Up
 # bindkey '^[[6~' vi-forward-blank-word  # Page Down
-
 
 
 echo "\e[1m\e[32mFinished loading bindings.zsh\e[0m"
