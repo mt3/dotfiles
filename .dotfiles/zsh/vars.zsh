@@ -78,8 +78,8 @@
 # }}}
 
 # NODE & NPM {{{
-export NODE_PATH=/usr/local/lib/node:/usr/local/lib/node_modules
-export PATH=$PATH:/usr/local/share/npm/bin
+    export NODE_PATH=/usr/local/lib/node:/usr/local/lib/node_modules
+    export PATH=$PATH:/usr/local/share/npm/bin
 # }}}
 
 # LATEX & BIBTEX {{{
@@ -89,12 +89,17 @@ export PATH=$PATH:/usr/texbin
 # PYTHON {{{
     # place python packages on path
     #export PATH=$PATH:/usr/local/share/python:/usr/local/python/site-packages:/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/site-packages:/Library/Python/2.6/site-packages:/Library/Frameworks/Python.framework/Versions/2.6/bin
-    export PATH=$PATH:/usr/local/share/python:/usr/local/python/site-packages:/usr/local/lib/python2.7/site-packages
+    export PATH=$PATH:/usr/local/share/python
 
     #export PYTHONPATH=/usr/local/share/python:/usr/local/python/site-packages:/Library/Frameworks/Python.framework/Versions/2.6/bin:/Library/Frameworks/Python.framework/Versions/2.6/lib/python2.6/site-packages:/usr/local/lib/python2.6/site-packages/
-    export PYTHONPATH=/usr/local/share/python:/usr/local/python/site-packages:/usr/local/lib/python2.7/site-packages:/usr/local/Cellar/python/2.7.2/lib/python2.7
+    # export PYTHONPATH=/usr/local/share/python:/usr/local/python/site-packages:/usr/local/lib/python2.7/site-packages:/usr/local/Cellar/python/2.7.2/lib/python2.7
+    # export PYTHONPATH=/usr/local/python/site-packages:/usr/local/share/python:/usr/local/Cellar/python/2.7.5/bin:/usr/local/lib/python2.7/site-packages:/usr/local/Cellar/python/2.7.5/lib/python2.7:/usr/local/Cellar/python/2.7.5/Frameworks/Python.framework/Versions/2.7/lib/python2.7/site-packages
+    export PYTHONPATH=/usr/local/share/python:/usr/local/Cellar/python/2.7.5/bin
+
     # place fabric files on pythonpath
-    export PYTHONPATH=$PYTHONPATH:/Users/mt/code_and_projects/sysadmin-and-deployment/fabfiles
+    export PYTHONPATH=$PYTHONPATH:~/code_and_projects/sysadmin-and-deployment/fabfiles
+
+    export PYTHONSTARTUP=~/.pythonrc.py
 
     # virtualenv
     if [ -e /usr/local/bin/virtualenvwrapper.sh ]; then
@@ -116,57 +121,60 @@ export PATH=$PATH:/usr/texbin
 # }}}
 
 # GCC {{{
-# some more customization for Lion
-# TODO: is this needed anymore?...
-#export CC=/Developer/usr/bin/gcc
+    # some more customization for Lion
+    # TODO: is this needed anymore?...
+    #export CC=/Developer/usr/bin/gcc
 
-#export CC=/usr/llvm-gcc-4.2/bin/llvm-gcc-4.2
-#export CC=/usr/local/Cellar/ccache/3.1.4/libexec/gcc
-#export CC=/Applications/Xcode.app/Contents/Developer/usr/bin/gcc
+    #export CC=/usr/llvm-gcc-4.2/bin/llvm-gcc-4.2
+    #export CC=/usr/local/Cellar/ccache/3.1.4/libexec/gcc
+    #export CC=/Applications/Xcode.app/Contents/Developer/usr/bin/gcc
 
-#export CPP=/Developer/usr/bin/g++
-#export CPP=/usr/bin/gcc
-#export CPP=/usr/llvm-gcc-4.2/bin/llvm-g++-4.2
+    #export CPP=/Developer/usr/bin/g++
+    #export CPP=/usr/bin/gcc
+    #export CPP=/usr/llvm-gcc-4.2/bin/llvm-g++-4.2
 
-#export CXXCPP=/usr/llvm-gcc-4.2/bin/llvm-gcc-4.2
+    #export CXXCPP=/usr/llvm-gcc-4.2/bin/llvm-gcc-4.2
 
-#export CXX=/usr/llvm-gcc-4.2/bin/llvm-g++-4.2
-#export CXX=/usr/bin/g++
+    #export CXX=/usr/llvm-gcc-4.2/bin/llvm-g++-4.2
+    #export CXX=/usr/bin/g++
 
-export CFLAGS="-0s -arch x86_64"
-#export CFLAGS="-Wall -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
-#export CFLAGS="-Wall -isysroot /Developers/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
+    export CFLAGS="-0s -arch x86_64"
+    #export CFLAGS="-Wall -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
+    #export CFLAGS="-Wall -isysroot /Developers/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
 
-export LDFLAGS=""
-# export LDFLAGS="-arch x86_64 -syslibroot,/Developer/SDKs/MacOSX10.7.sdk"
-#export LDFLAGS="-arch x86_64 -syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk"
-#export LDFLAGS="-arch x86_64 -syslibroot,/Developers/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk"
+    export LDFLAGS=""
+    # export LDFLAGS="-arch x86_64 -syslibroot,/Developer/SDKs/MacOSX10.7.sdk"
+    #export LDFLAGS="-arch x86_64 -syslibroot,/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk"
+    #export LDFLAGS="-arch x86_64 -syslibroot,/Developers/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk"
 
-#export FFLAGS="-arch x86_64 -m64"
-export FFLAGS="-m64"
-export FCLAGS="-m64"
+    #export FFLAGS="-arch x86_64 -m64"
+    export FFLAGS="-m64"
+    export FCLAGS="-m64"
 
-export CXXFLAGS="-arch x86_64 -0s -pipe"
-# export CXXFLAGS="-Wall -isysroot /Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
-#export CXXFLAGS="-Wall -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
-#export CXXFLAGS="-Wall -isysroot /Developer/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
+    export CXXFLAGS="-arch x86_64 -0s -pipe"
+    # export CXXFLAGS="-Wall -isysroot /Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
+    #export CXXFLAGS="-Wall -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
+    #export CXXFLAGS="-Wall -isysroot /Developer/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
 
-#export CPPFLAGS="-Wall -isysroot /Developer/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
+    #export CPPFLAGS="-Wall -isysroot /Developer/Applications/Xcode.app/Contents/Developer/Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.7.sdk -arch x86_64"
 # }}}
 
 # RUBY {{{
 # path to ruby gem binaries
 # TODO: do i need this if i have it in .gemrc? looks like it...
 # export PATH=/usr/local/Cellar/ruby/1.9.3-p327/bin:/usr/local/Cellar/ruby/1.9.3-p194/bin:/usr/local/Cellar/ruby/1.9.2-p136/bin:/usr/local/Cellar/ruby/1.9.2-p180/bin:/usr/local/Cellar/ruby/1.9.2-p290/bin:/usr/local/lib/ruby/gems/1.9.1/cache:$PATH
-export PATH=/usr/local/Cellar/ruby/1.9.3-p327/bin:$PATH
+export PATH=/usr/local/Cellar/ruby/1.9.3-p374/bin:$PATH
+
+# from homebrew: gem installed binaries will be placed into:
+#   /usr/local/opt/ruby/bin
 # }}}
 
-# Xcode is now stand-alone, link to their packaged binaries since they are most up-to-date
-#export PATH=/Applications/Xcode.app/Contents/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/sbin:$PATH
-
 # HOMEBREW {{{
-# place homebrew as the head of PATH
-export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+    # place homebrew as the head of PATH
+    export PATH=/usr/local/bin:/usr/local/sbin:$PATH
+
+    # homebrew workaround for lion 10.7
+    #export HOMEBREW_USE_GCC=/usr/local/Cellar/ccache/3.1.4/libexec/gcc
 # }}}
 
 # MACVIM for calling 'mvim' from CLI {{{
@@ -174,8 +182,11 @@ export VIM_APP_DIR=/Applications/DevApps
 # }}}
 
 # XCODE {{{
-# place ccache on head of path for faster xcode compiling
-#export PATH=/usr/local/Cellar/ccache/3.1.4/libexec:$PATH
+    # place ccache on head of path for faster xcode compiling
+    #export PATH=/usr/local/Cellar/ccache/3.1.4/libexec:$PATH
+
+    # Xcode is now stand-alone, link to their packaged binaries since they are most up-to-date
+    #export PATH=/Applications/Xcode.app/Contents/Developer/usr/bin:/Applications/Xcode.app/Contents/Developer/usr/sbin:$PATH
 # }}}
 
 # ADD gsl LIBRARY TO THE PATH {{{
@@ -184,9 +195,6 @@ export PATH=/usr/local/Cellar/gsl/1.14/lib:/usr/local/Cellar/gsl/1.14/include:$P
 
 # since i failed kindergarten this makes me feel good inside
 #export PATH="$PATH:/Applications/github_dwlds/git-achievements"
-
-# homebrew workaround for lion 10.7
-#export HOMEBREW_USE_GCC=/usr/local/Cellar/ccache/3.1.4/libexec/gcc
 
 export MACOSX_DEPLOYMENT_TARGET=10.8
 
