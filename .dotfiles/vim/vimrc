@@ -254,6 +254,15 @@
         Bundle 'trapd00r/vim-highlight-default-highlight-groups'
         Bundle 'h1mesuke/vim-benchmark'
         Bundle 'mattn/benchvimrc-vim'
+        Bundle 'xolox/vim-misc.git'
+        Bundle 'dahu/VimLocalMacros'
+
+        " Collaborative Editing for Vim
+        " Bundle 'FredKSchott/CoVim'
+
+        Bundle 'mhinz/vim-startify'
+            " fancy start screen for Vim
+
 
         Bundle 'tpope/vim-scriptease'
             " A Vim plugin for Vim plugins
@@ -343,6 +352,8 @@
     " }}}
 
     " Alignment {{{
+        " Bundle 'Yggdroot/indentLine'
+
         Bundle 'tsaleh/vim-align'
             " Visual mode alignment:
             "     'V', then select the lines, ':Align=', this aligns on '='
@@ -429,9 +440,6 @@
         " Bundle 'mkitt/browser-refresh.vim'
             " com! ONRRB :au! BufWritePost <buffer> :RRB
             " com! NORRB :au! BufWritePost <buffer>
-    " }}}
-
-    " Buffers {{{
     " }}}
 
     " Commenting {{{
@@ -739,14 +747,15 @@
         " }}}
 
         " MinibufExplorer {{{
-            "let g:miniBufExplModSelTarget = 1
-            "let g:miniBufExplorerMoreThanOne = 0
-            "let g:miniBufExplModSelTarget = 0
-            "let g:miniBufExplUseSingleClick = 1
-            "let g:miniBufExplMapWindowNavVim = 1
-            "let g:miniBufExplVSplit = 25
-            "let g:miniBufExplSplitBelow=1
-            "map <c-w><c-t> :WMToggle<cr>
+            " Bundle 'techlivezheng/vim-plugin-minibufexpl'
+                "let g:miniBufExplModSelTarget = 1
+                "let g:miniBufExplorerMoreThanOne = 0
+                "let g:miniBufExplModSelTarget = 0
+                "let g:miniBufExplUseSingleClick = 1
+                "let g:miniBufExplMapWindowNavVim = 1
+                "let g:miniBufExplVSplit = 25
+                "let g:miniBufExplSplitBelow=1
+                "map <c-w><c-t> :WMToggle<cr>
         " }}}
 
         " NERDtree-Tabs-Toggle {{{
@@ -782,7 +791,19 @@
     " }}}
 
     " Folding {{{
-        Bundle 'kshenoy/vim-origami'
+        " Bundle 'kshenoy/vim-origami'
+            " Usage:
+            "       <leader>zax  Align all folds of level 'x'
+            "       <leader>zox  Insert a start foldmarker of level 'x' at the end of line
+            "       <leader>zcx  Insert an end  foldmarker of level 'x' at the end of line
+            "       <leader>zOx  Insert a start foldmarker of level 'x' enclosed in comments at the end of line
+            "       <leader>zCx  Insert an end  foldmarker of level 'x' enclosed in comments at the end of line
+            "       <leader>ze   Delete a foldmarker present on the line
+            "       <leader>zaa  Align all the folds
+            "       <leader>zoo  Insert an unnumbered open foldmarker
+            "       <leader>zcc  Insert an unnumbered close foldmarker
+            "       <leader>zOO  Insert a commented unnumbered open foldmarker
+            "       <leader>zCC  Insert a commented unnumbered close foldmarker
 
         " Bundle 'doy/vim-foldtext'
             " let g:Foldtext_enable = 1
@@ -795,7 +816,56 @@
         "Bundle 'thinca/vim-github'
         Bundle 'tpope/vim-git'
 
-        Bundle 'airblade/vim-gitgutter'
+        Bundle 'junegunn/vim-github-dashboard'
+            " Usage:
+            "   User dashboard: :GHD! matz
+            "   User activity: :GHA! matz
+            "   Repository activity: :GHA! mruby/mruby
+            " Dashboard window position
+            " - Options: tab, top, bottom, above, below, left, right
+            " - Default: tab
+            " let g:github_dashboard['position'] = 'top'
+            " Disable Emoji output
+            " - Default: only enable on terminal Vim on Mac
+            " let g:github_dashboard['emoji'] = 0
+            " Customize emoji (see http://www.emoji-cheat-sheet.com/)
+            " let g:github_dashboard['emoji_map'] = {
+            " \   'user_dashboard': 'blush',
+            " \   'user_activity':  'smile',
+            " \   'repo_activity':  'laughing',
+            " \   'ForkEvent':      'fork_and_knife'
+            " \ }
+            " Command to open link URLs
+            " - Default: auto-detect
+            " let g:github_dashboard['open_command'] = 'open'
+            " API timeout in seconds
+            " - Default: 10, 20
+            " let g:github_dashboard['api_open_timeout'] = 10
+            " let g:github_dashboard['api_read_timeout'] = 20
+
+        Bundle 'mhinz/vim-signify'
+            " puts hg/git signs in gutter
+            let g:signify_vcs_list = [ 'git', 'hg' ]
+            " let g:signify_difftool = 'gnudiff'
+            " let g:signify_mapping_next_hunk = '<leader>gj'
+            " let g:signify_mapping_prev_hunk = '<leader>gk'
+            " let g:signify_mapping_toggle_highlight = '<leader>gh'
+            " let g:signify_mapping_toggle           = '<leader>gt'
+            " let g:signify_skip_filetype = { 'vim': 1, 'c': 1 }
+            " let g:signify_skip_filename = { '/home/user/.vimrc': 1 }
+            " let g:signify_sign_overwrite = 1
+            " let g:signify_update_on_bufenter = 1
+            " let g:signify_update_on_focusgained = 0
+            let g:signify_line_highlight = 1
+            let g:signify_sign_add               = '+'
+            let g:signify_sign_change            = '!'
+            let g:signify_sign_delete            = '_'
+            " let g:signify_sign_delete_first_line = '‾'
+            " let g:signify_cursorhold_normal = 1
+            " let g:signify_cursorhold_insert = 1
+
+        " vim-signify supercedes this
+        " Bundle 'airblade/vim-gitgutter'
             " turn on with :GitGutterEnable
             " turn off with :GitGutterDisable
             " turn on with :GitGutterLineHighlightsEnable
@@ -804,10 +874,10 @@
             " jump between [count] hunks:
             "     jump to next hunk: :[count]GitGutterNextHunk [count]
             "     jump to previous hunk: :[count]GitGutterPrevHunk [count]
-            let g:gitgutter_enabled = 1 " turn on by default
+            " let g:gitgutter_enabled = 1 " turn on by default
             " nmap <silent> ]h :<C-U>execute v:count1 . "GitGutterNextHunk"<CR>
             " nmap <silent> [h :<C-U>execute v:count1 . "GitGutterPrevHunk"<CR>
-            let g:gitgutter_highlight_lines = 0 " 1 turns on line highlighting
+            " let g:gitgutter_highlight_lines = 0 " 1 turns on line highlighting
 
         Bundle 'gregsexton/gitv'
             let g:Gitv_CommitStep = 20
@@ -924,6 +994,27 @@
         " Bundle 'vim-scripts/ShowMarks7'
             " show marks in gutter
 
+        Bundle 'MattesGroeger/vim-bookmarks'
+            highlight BookmarkSign ctermbg=NONE ctermfg=160
+            highlight BookmarkLine ctermbg=194 ctermfg=NONE
+            let g:bookmark_sign = '♥'
+            let g:bookmark_highlight_lines = 1
+
+        Bundle 'jeetsukumaran/vim-markology'
+            " nmap <silent> ;0 <Plug>MarkologyEnable
+            " nmap <silent> ;1 <Plug>MarkologyDisable
+            " nmap <silent> ;! <Plug>MarkologyToggle
+            " nmap <silent> ;, <Plug>MarkologyPlaceMarkToggle
+            " nmap <silent> ;+ <Plug>MarkologyPlaceMark
+            " nmap <silent> ;- <Plug>MarkologyClearMark
+            " nmap <silent> ;_ <Plug>MarkologyClearAll
+            " nmap <silent> ;] <Plug>MarkologyNextLocalMarkPos
+            " nmap <silent> ;[ <Plug>MarkologyPrevLocalMarkPos
+            " nmap <silent> ;} <Plug>MarkologyNextLocalMarkByAlpha
+            " nmap <silent> ;{ <Plug>MarkologyPrevLocalMarkByAlpha
+            " nmap <silent> ;? <Plug>MarkologyLocationList
+            " nmap <silent> ;~ <Plug>MarkologyQuickFix
+
         Bundle 'AndrewRadev/simple_bookmarks.vim'
             " persistent marks with better naming. Usage:
             "   ':Bookmark {name}'
@@ -961,6 +1052,9 @@
     " }}}
 
     " Motions {{{
+        Bundle 'joeytwiddle/sexy_scroller.vim'
+            " smoth animation of the cursor and the page whenever they move
+
         Bundle 'goldfeld/vim-seek'
             " motion strictly within the current line
 
@@ -1122,7 +1216,7 @@
             " TODO auto close voom buffer when user hits enter
             " TODO auto expand folds at start if they all fit within buffer window
             let g:voom_tree_placement = 'right'
-            let g:voom_tree_width     = 40
+            let g:voom_tree_width     = 50
             let g:voom_log_placement  = 'right'
             let g:voom_log_width      = 30
             let g:voom_default_mode   = 'rest'
@@ -1130,17 +1224,19 @@
             let g:voom_tab_key        = '<C-Tab>'
             " let g:voom_ft_modes     = {'markdown': 'markdown', 'pandoc': 'markdown', 'restructuredtext': 'restructuredtext', 'rest': 'rest'}
             " au Filetype voomtree setlocal <buffer> guifont=Droid\ Sans\ Mono\ for\ Powerline:h13.3
-            autocmd FileType voomtree setlocal nonumber	" no line numbers
+            autocmd FileType voomtree setlocal number	" nonumber: no line numbers
             nmap <Leader>V :70Voom<CR>
     " }}}
 
     " Pandoc {{{
         Bundle 'vim-pandoc/vim-markdownfootnotes'
+        Bundle 'dsanson/bibdesk-pandoc-export-templates'
         Bundle 'vim-pandoc/vim-pandoc-extras'
         Bundle 'vim-pandoc/vim-pandoc'
             " let g:pandoc_bibfiles = ['/the/path/to/your/bibtex/file.bib']
             " if bibtool is installed
             " let g:pandoc_use_bibtool = 1
+            " au BufNewFile,BufRead *.txt   set filetype=pandoc
 
         " Bundle 'fmoralesc/vim-pantondoc'
             " rewrite of vim-pandoc. Not ready for primetime yet
@@ -1148,7 +1244,7 @@
         Bundle 'vim-scripts/pdc.vim'
             " pandoc syntax file
 
-        Bundle 'nakamuray/pandocFile-vim'
+        " Bundle 'nakamuray/pandocFile-vim'
             " converts various markup formats at read/write time using pandoc
             " autocmd BufReadCmd,FileReadCmd *.textile call pandocFile#Read(expand("<amatch>"), "textile", "rst")
             " autocmd BufWriteCmd,FileWriteCmd *.textile call pandocFile#Write(expand("<amatch>"), "rst", "textile")
@@ -1293,6 +1389,7 @@
     " Quotes & Parens Completion {{{
         "Bundle 'vim-scripts/simple-pairs.git'
         "Bundle 'roman/rainbow.git'
+        "Bundle 'amdt/vim-niji.git'
 
         Bundle 'gorkunov/smartpairs.vim'
             " Key for running smartpairs in all modes (select/delete/change/yank) "default is 'v'
@@ -1356,8 +1453,18 @@
         " Bundle 'vim-scripts/VST'      " old reST syntax file...
         Bundle 'nvie/vim-rst-tables'
 
+        Bundle 'itspriddle/vim-marked'
+            " preview vim file in Marked.app
+            "   :MarkedOpen[!] Open the current Markdown buffer in Marked.app.
+               " Call with a bang to prevent Marked.app from stealing
+               " focus from Vim.
+            " :MarkedQuit    Close the current Markdown buffer in Marked.app.
+               " Quit Marked.app if no other documents are open.
+
         Bundle 'erisian/rest_tools'
-            " tools to aid in writing reStructuredText. functionality relies on filetype being rest rather than rst
+            " tools to aid in writing reStructuredText
+            "   functionality relies on filetype being .rest rather than .rst
+            " let g:restfts_conceal_level = 2
 
         " Bundle 'vim-scripts/yars'
             " Yet Another reStructuredText Syntax
@@ -1389,47 +1496,47 @@
             " g:rstsearch_order - the list of methods used to follow links. Valid entries are 'syntax', 'heuristics', 'user'. In the latter case you need to define function g:RstUserSearch.
 	" }}}
 
-        Bundle 'Rykka/riv.vim' " {{{
-            let g:riv_auto_fold_force = 1 " Reducing fold level for editing large files
-            let g:riv_auto_format_table = 1 " Auto formating table when leave Insert Mode
-            let g:riv_file_link_style = 2 " sphinx style local file links rather than moinmoin
-            let g:riv_fold_auto_update = 0 " don't auto-fold on write/save
-            let g:riv_fold_blank       = 1 " fold all blank lines except 1. leaves a blank line between folded sections
-            let g:riv_fold_info_pos    = 'left'
-            let g:riv_fold_level       = 3 " fold_level 0: 'None' 1: 'Sections' 2: 'Sections and Lists' 3: 'Sections,Lists and Blocks'
-            let g:riv_fold_section_mark = '.' " Mark to seperate the section numbers: '1.1', '1.1.1'
-            " let g:riv_ignored_imaps  = "<Tab>,<S-Tab>,<BS>,<CR>,<S-CR>" " no fancy <Tab>, <BS>, <CR>, and <S-Tab> in insert mode TODO not yet implemented
-            let g:riv_ignored_nmaps    = "<Tab>,<S-Tab>,<BS>,<CR>,<S-CR>" " and don't override my custom mappings in normal either
-            " Riv uses the following punctuation for titles:     = - ~ " ' ` ,
-            "       This can be changed with g:riv_section_levels
-            "       Section number seperated by g:riv_fold_section_mark (default is "-")
-            "       HTML has 6 levels
-            "       Use '' to escape ' in literal-quote 'xxx'
-            " TODO let g:riv_section_levels = '=-+^*~\"\'\`'
-            " let project1              = { 'path': '~/notes',}
-            " let project2              = { 'path': '~/Dropbox/rst',}
-            " let g:riv_projects        = [project1, project2]
-            " riv.vim default project settings:
-            " g:riv_projects = [  'path'               : '~/Documents/Riv'
-                                " 'build_path'         : '_build'
-                                " 'scratch_path'       : 'Scratch'
-                                " 'source_suffix'      : `g:riv_source_suffix`_
-                                " 'master_doc'         : `g:riv_master_doc`_
-                             " ]
-            let g:riv_source_suffix   = '.rst'
-            let g:riv_todo_levels     = ' ,o,X'
-            let g:riv_todo_keywords   = 'TODO,DONE;FIXME,FIXED;START,PROCESS,STOP;ONHOLD'
-            let g:riv_web_browser     = 'firefox'
-			" keep list indents at same level when pressing <CR>
-			ino <buffer><expr><silent> <C-E>li riv#action#ins_enter()
-			" map <C-E>wi    :RivIndex<CR>
-            " TODO nmap <leader>t1 :RivTitle1<CR>
-            " for users who want different behavior with <Tab>
-                " For snipmate user:
-                " let g:riv_i_tab_pum_next = 0
-                " quote cmd with '"', special key must contain '\'
-                " let g:riv_i_tab_user_cmd = "\<c-g>u\<c-r>=snipMate#TriggerSnippet()\<cr>"
-	    " }}}
+        " Bundle 'Rykka/riv.vim' " {{{
+        "     let g:riv_auto_fold_force = 1 " Reducing fold level for editing large files
+        "     let g:riv_auto_format_table = 1 " Auto formating table when leave Insert Mode
+        "     let g:riv_file_link_style = 2 " sphinx style local file links rather than moinmoin
+        "     let g:riv_fold_auto_update = 0 " don't auto-fold on write/save
+        "     let g:riv_fold_blank       = 1 " fold all blank lines except 1. leaves a blank line between folded sections
+        "     let g:riv_fold_info_pos    = 'left'
+        "     let g:riv_fold_level       = 3 " fold_level 0: 'None' 1: 'Sections' 2: 'Sections and Lists' 3: 'Sections,Lists and Blocks'
+        "     let g:riv_fold_section_mark = '.' " Mark to seperate the section numbers: '1.1', '1.1.1'
+        "     " let g:riv_ignored_imaps  = "<Tab>,<S-Tab>,<BS>,<CR>,<S-CR>" " no fancy <Tab>, <BS>, <CR>, and <S-Tab> in insert mode TODO not yet implemented
+        "     let g:riv_ignored_nmaps    = "<Tab>,<S-Tab>,<BS>,<CR>,<S-CR>" " and don't override my custom mappings in normal either
+        "     " Riv uses the following punctuation for titles:     = - ~ " ' ` ,
+        "     "       This can be changed with g:riv_section_levels
+        "     "       Section number seperated by g:riv_fold_section_mark (default is "-")
+        "     "       HTML has 6 levels
+        "     "       Use '' to escape ' in literal-quote 'xxx'
+        "     " TODO let g:riv_section_levels = '=-+^*~\"\'\`'
+        "     " let project1              = { 'path': '~/notes',}
+        "     " let project2              = { 'path': '~/Dropbox/rst',}
+        "     " let g:riv_projects        = [project1, project2]
+        "     " riv.vim default project settings:
+        "     " g:riv_projects = [  'path'               : '~/Documents/Riv'
+        "                         " 'build_path'         : '_build'
+        "                         " 'scratch_path'       : 'Scratch'
+        "                         " 'source_suffix'      : `g:riv_source_suffix`_
+        "                         " 'master_doc'         : `g:riv_master_doc`_
+        "                      " ]
+        "     let g:riv_source_suffix   = '.rst'
+        "     let g:riv_todo_levels     = ' ,o,X'
+        "     let g:riv_todo_keywords   = 'TODO,DONE;FIXME,FIXED;START,PROCESS,STOP;ONHOLD'
+        "     let g:riv_web_browser     = 'firefox'
+			" " keep list indents at same level when pressing <CR>
+			" ino <buffer><expr><silent> <C-E>li riv#action#ins_enter()
+			" " map <C-E>wi    :RivIndex<CR>
+        "     " TODO nmap <leader>t1 :RivTitle1<CR>
+        "     " for users who want different behavior with <Tab>
+        "         " For snipmate user:
+        "         " let g:riv_i_tab_pum_next = 0
+        "         " quote cmd with '"', special key must contain '\'
+        "         " let g:riv_i_tab_user_cmd = "\<c-g>u\<c-r>=snipMate#TriggerSnippet()\<cr>"
+	    " " }}}
     " }}}
 
     " Search {{{
@@ -1614,7 +1721,7 @@
                 " let g:snips_trigger_key = '<tab>'
                 let g:snips_trigger_key = '<D-space>'
                 " do not add tabs if there is no match:
-                let g:snipMate['no_match_completion_feedkeys_chars'] = ""
+                " let g:snipMate['no_match_completion_feedkeys_chars'] = ""
                 " let g:snips_trigger_key_backwards = '<c-s-0>'
                 "source ~/code_and_projects/dotfiles/.dotfiles/vim/snipmate-snippets/support_functions.vim
                 "autocmd vimenter * call s:SetupSnippets()
@@ -1721,7 +1828,8 @@
             let g:syntastic_enable_highlighting = 1
             let g:syntastic_auto_loc_list       = 2 " automatically close syntastic error window when no errors
             let g:syntastic_enable_signs        = 1 " mark syntastic errors
-            let g:syntastic_quiet_warnings      = 0
+            " let g:syntastic_quiet_warnings      = 0
+            " let g:syntastic_quiet_messages      = = {'level': 'warnings'}
             let g:syntastic_check_on_open       = 0		" don't automatically check syntax on open buffers
             " let g:syntastic_python_checker = 'pyflakes'
             " Error codes http://pypi.python.org/pypi/flake8
@@ -1874,6 +1982,7 @@
         Bundle 'benmills/vimux'
         Bundle 'julienr/vimux-pyutils'
         Bundle 'erikw/tmux-powerline'
+        Bundle 'tpope/vim-tbone'
 
         Bundle 'zaiste/tmux.vim'
             " tmux syntax file
@@ -1945,6 +2054,8 @@
     " }}}
 
     " To-Dos {{{
+        " Bundle 'vim-scripts/GrepTasks'
+
         " Bundle 'aaronbieber/quicktask'
             " let g:quicktask_autosave = 1
             " let g:quicktask_snip_path = '~/Dropbox/snips'
@@ -1995,6 +2106,11 @@
         " Bundle 'maxbrunsfeld/vim-yankstack'
             " lightweight implementation of emacs's kill-ring and a simpler alternative to chrismetcalf/vim-yankring
             " let g:yankstack_map_keys = 0 " load yankstack without the default key mappings
+
+        Bundle 'matze/vim-move'
+            " <A-k>   Move current line/selection up
+            " <A-j>   Move current line/selection down
+            " let g:move_key_modifier = 'C' " would then get <A-k>
 
         Bundle 'chrismetcalf/vim-yankring'
             nnoremap <silent> <F3>       :YRShow<cr>
@@ -2075,6 +2191,9 @@
     " Bundle 'sampsyo/autolink.vim'
     " Bundle 'vim-scripts/GoogleReader.vim'
     Bundle 'matthias-guenther/tocdown'
+
+    Bundle 'sotte/presenting.vim'
+        " presentations in vim using markdown or rst
 
     Bundle 'itspriddle/vim-marked'
         " open current buffer in Marked.app
@@ -3052,6 +3171,16 @@
 
     " shell alias " TODO not reading my zsh aliases
     " com! Pipl :exe '!pipl'<CR>
+
+    " macro to run on tex files
+    " function! AddCitations()
+    "     normal 03wdei^R=2012-^R"^M^[0j
+    " endfunction
+    " nnoremap <leader>k :call AddCitations()<CR>
+    " function! AddTexHeaderAndFooter()
+    "     normal 03wdei^R=2012-^R"^M^[0j
+    " endfunction
+    " nnoremap <leader>l :call AddTexHeaderAndFooter()<CR>
 " }}}
 
 " APPEARANCE {{{1
@@ -3209,6 +3338,8 @@
         set linespace=3
         set numberwidth=4
     endif
+
+    hi Todo guifg=#d70000 guibg=#121212 gui=bold
 
     " Fugitive {{{
         set statusline+=\
@@ -3429,6 +3560,8 @@
             au!
             au BufNewFile,BufRead *.rst setlocal ft=rst
             au BufNewFile,BufRead *.txt setlocal ft=rst
+            au BufNewFile,BufRead *.rst   set filetype=rst
+            au BufNewFile,BufRead *.txt   set filetype=rst
             " au FileType rst setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4 formatoptions+=nqt textwidth=80
             au FileType rst setlocal expandtab shiftwidth=4 tabstop=4 softtabstop=4
             au Filetype rst setlocal wrap
@@ -3443,8 +3576,17 @@
             au Filetype rst nnoremap <buffer> <localleader>2 yypVr-:redraw<cr>
             au Filetype rst nnoremap <buffer> <localleader>3 yypVr~:redraw<cr>
             au Filetype rst nnoremap <buffer> <localleader>4 yypVr`:redraw<cr>
+
+            autocmd WinEnter,VimEnter *.rst :silent! call matchadd('Todo', 'TODO', -1)
+            " augroup HiglightTODO
+            "     " highlight all TODOs whether in a comment or in code
+            "     autocmd!
+            "     autocmd WinEnter,VimEnter * :silent! call matchadd('Todo', 'TODO', -1)
+            " augroup END
         augroup END
 
+        " au FileType rst highlight Todo guifg=White guibg=#d82020 gui=bold
+        " au FileType rest highlight Todo guifg=White guibg=#d82020 gui=bold
         " au FileType rst highlight rstTodo guifg=Black guibg=#d82020 gui=italic,bold term=standout
         " au FileType rst highlight rstSections guifg=Black guibg=#d82020 gui=italic,bold term=standout
         " hi def link rstSections                     Title
