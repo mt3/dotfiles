@@ -23,7 +23,7 @@
     whitespace = space-before-tab, trailing-space
 
 [achievement]
-	upload = true
+    upload = true
 
 [advice]
     statushints = false
@@ -40,9 +40,9 @@
     # Branch
     b = branch -a
     br = branch -avv
-	branches = !legit branches
-	# branches = branch -a
-	current-branch = "!r=$(git symbolic-ref HEAD);echo ${r##refs/heads/}"
+    branches = !legit branches
+    # branches = branch -a
+    current-branch = "!r=$(git symbolic-ref HEAD);echo ${r##refs/heads/}"
     currentbranch = !git branch --contains HEAD | grep '*' | tr -s ' ' | cut -d ' ' -f2
     delete-local-branch = branch -D
     delete-remote-branch = push origin --delete
@@ -81,16 +81,16 @@
     glog = !git log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)%Creset' --abbrev-commit
     graph = log --oneline --graph
     greplog = log -U1 -G
-    l = log --pretty=format:\"%Cgreen%ad%Creset | %s%d [%Cblue%an%Creset]\" --ignore-all-space --ignore-space-change --graph --date=relative  --max-count=10 --since=\"1 month ago\" --stat
-	la = !git ll --all
-	lal = log --graph --abbrev-commit --date=relative --all
-	lall = log --graph --pretty="format:%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset" --since="1 week ago"
+    l = log --graph --decorate --pretty=format:'%C(magenta)%h%C(reset)%C(bold yellow)%d%C(reset) %s %C(green)%an %C(bold black)%cr%C(reset)' --abbrev-commit --date=relative --max-count=25
+    la = !git ll --all
+    lal = log --graph --abbrev-commit --date=relative --all
+    lall = log --graph --pretty="format:%C(yellow)%h%Cblue%d%Creset %s %C(white) %an, %ar%Creset" --since="1 week ago"
     last = log -1
     lg = log --oneline --decorate --ignore-all-space --ignore-space-change --date=relative --graph --max-count=10 --since=\"1 month ago\" --stat
     lgg = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
     ll = log --pretty=oneline --abbrev-commit --max-count=15
     llg = log --summary -n10
-    lll = log --graph --decorate --pretty=format:'%C(magenta)%h%C(reset)%C(bold yellow)%d%C(reset) %s %C(green)%an %C(bold black)%cr%C(reset)' --abbrev-commit --date=relative
+    lll = log --pretty=format:\"%Cgreen%ad%Creset | %s%d [%Cblue%an%Creset]\" --ignore-all-space --ignore-space-change --graph --date=relative  --max-count=10 --since=\"1 month ago\" --stat
     lol = log --graph --decorate --pretty=oneline --abbrev-commit --date=relative --graph --max-count=50 --since=\"1 month ago\"
     lola = log --graph --decorate --pretty=oneline --abbrev-commit --all
     lolal = log --graph --decorate --pretty=oneline --abbrev-commit --all
@@ -101,7 +101,7 @@
     review = log -p --max-count=1
     shviz = !git shortlog -s | cut -f1 | spark
 
-	# Leftoff
+    # Leftoff
     # provides overview of state of the repo (status, log, commit history, branches, remotes, etc.)
     leftoff = !echo \"\\n*** \t\tSTATUS LIST\" && git status list && echo \"\\n*** \t\tSTATUS\" && git status && echo \"\\n*** \t\tLOG\" && git log --pretty=oneline --abbrev-commit --max-count=10 && echo \"\\n*** \t\tBRANCHES\" && git branch -avv
 
@@ -124,9 +124,9 @@
 	publish = !legit publish \"$@\"
     serve = daemon --reuseaddr --base-path=. --export-all --verbose
     # sh = !git-sh
-	sprout = !legit sprout \"$@\"
+    sprout = !legit sprout \"$@\"
 
-	# Remote
+    # Remote
     r = remote show origin
     ra = remote add
     remotes = remote -v
@@ -142,8 +142,8 @@
     uncommit = reset --soft HEAD^   # go back before last commit, with files in uncommitted state
     unstage = reset HEAD  # remove files from index (tracking)
 
-	# Status
-	ignored = status --ignored
+    # Status
+    ignored = status --ignored
     s = status -sb
     st = status -sb
     statusuntracked = status -sb -u no
